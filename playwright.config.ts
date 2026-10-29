@@ -1,0 +1,30 @@
+import { defineConfig, devices } from "@playwright/test";
+
+export default defineConfig({
+  testDir: "./tests",
+  fullyParallel: false,
+  timeout: 60_000,
+  forbidOnly: Boolean(process.env.CI),
+  retries: process.env.CI ? 1 : 0,
+  workers: 1,
+  reporter: [["list"], ["html", { open: "never" }]],
+  use: {
+    baseURL: "http://127.0.0.1:5173/fun-fishing/",
+    trace: "retain-on-failure",
+    screenshot: "only-on-failure",
+    locale: "ja-JP",
+    timezoneId: "Asia/Tokyo",
+    colorScheme: "light",
+    reducedMotion: "reduce",
+  },
+  projects: [
+    { name: "desktop-chromium", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    { name: "mobile-chromium", testIgnore: "**/responsive.spec.ts", use: { ...devices["Pixel 7"], viewport: { width: 390, height: 844 } } },
+  ],
+  webServer: {
+    command: "npm run dev -- --host 127.0.0.1 --port 5173 --strictPort",
+    url: "http://127.0.0.1:5173/fun-fishing/",
+    reuseExistingServer: !process.env.CI,
+    timeout: 30_000,
+  },
+});
