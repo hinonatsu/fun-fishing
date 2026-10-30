@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { categories, defaultSelection, products } from './catalog';
+import { currentAmazonPrice } from './amazon-prices';
 import { createDefaultBuild as createEmptyBuild, decodeBuild, encodeBuild, evaluateCompatibility, getFish, isSupported, safeExternalUrl } from './domain';
 // A fully populated fixture for the existing compatibility and v1 migration cases.
 function createDefaultBuild(input?: Parameters<typeof createEmptyBuild>[0]) {
@@ -39,8 +40,8 @@ describe('curated scenario',()=>{
     expect(categories).toHaveLength(8);
     for (const c of categories) expect(products.find(p=>p.id===defaultSelection[c.id])?.category).toBe(c.id);
   });
-  it('keeps all unknown prices null instead of zero',()=>{
-    expect(products.every(p=>p.price===null&&p.offer.price===null)).toBe(true);
+  it('keeps unknown prices null and uses only fresh Amazon prices',()=>{
+    expect(products.every(p=>p.price===currentAmazonPrice(p.amazonPrice)&&p.offer.price===p.price)).toBe(true);
   });
   it('supports October Tokyo Bay pier fishing',()=>{
     expect(isSupported(conditions)).toBe(true);

@@ -1,0 +1,78 @@
+name: Update Amazon prices every morning
+
+on:
+  schedule:
+    # 07:17 Asia/Tokyo (22:17 UTC on the preceding day).
+    - cron: '17 22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: amazon-price-update
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      ref: ${{ steps.commit.outputs.ref }}
+      failed: ${{ steps.scrape.outputs.failed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/fishing-hero
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Fetch all catalog prices
+        id: scrape
+        # Publish successful prices and failure states before surfacing partial failures.
+        run: npm run prices:update -- --allow-partial
+      - name: Validate updated data and application
+        run: npm test && npm run build
+      - name: Save snapshot
+        id: commit
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/amazon-prices.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: update daily Amazon prices'
+            git pull --rebase origin codex/fishing-hero
+            git push origin HEAD:codex/fishing-hero
+          fi
+          echo "ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Keep collection report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: amazon-price-report
+          path: artifacts/amazon-prices/
+          retention-days: 30
+
+  deploy:
+    needs: scrape
+    # GITHUB_TOKEN commits do not trigger a push workflow: deploy explicitly.
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ref: ${{ needs.scrape.outputs.ref }}
+
+  report-failures:
+    needs: [scrape, deploy]
+    if: ${{ always() && needs.scrape.result == 'success' && needs.scrape.outputs.failed != '0' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report incomplete price collection
+        run: |
+          echo 'Some Amazon prices could not be collected. Inspect the collection summary and amazon-price-report artifact.'
+          exit 1

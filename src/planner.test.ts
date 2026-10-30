@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { categories, defaultSelection } from './catalog';
+import { describe, expect, it, vi } from 'vitest';
+import { categories, defaultSelection, products } from './catalog';
+vi.mock('./data/amazon-prices.json', () => ({ default: { schemaVersion:1,updatedAt:null,products:{} } }));
 import { questions } from './diagnosis';
 import { createDefaultBuild, decodeBuild, encodeBuild, type FishingBuild } from './domain';
 import { answeredRequired, canComplete, candidateStatus, candidatesFor, chosenCount, chooseIncludedLine, chooseOwned, chooseProduct, compatibilityForBuild, nextQuestion, priceComparison, rankedFish, recommendedProduct, resolveScreen } from './planner';
@@ -98,6 +99,25 @@ describe('compatibility and included equipment',()=>{
 });
 
 describe('honest price comparison',()=>{
+  it('uses daily prices in totals, prefers manual prices and excludes expired or failed quotes',()=>{
+    const rod = products.find(p=>p.id === 'rod-3-300')!;
+    const previous = rod.amazonPrice;
+    const now = Date.now();
+    const clock = vi.spyOn(Date,'now').mockReturnValue(now);
+    try {
+      rod.amazonPrice = {asin:'B06Y5DCTZD',currency:'JPY',price:1234,fetchedAt:new Date(now).toISOString(),attemptedAt:new Date(now).toISOString(),status:'ok',error:null};
+      const build = chooseProduct(ready(),'rod',rod.id);
+      expect(priceComparison(build)).toMatchObject({selectedTotal:1234,referenceTotal:1234,productDifference:0});
+      build.prices[rod.id] = 500;
+      expect(priceComparison(build).selectedTotal).toBe(500);
+      delete build.prices[rod.id];
+      rod.amazonPrice.status = 'blocked';
+      expect(priceComparison(build).selectedTotal).toBeNull();
+      rod.amazonPrice.status = 'ok';
+      clock.mockReturnValue(now + 37 * 60 * 60 * 1000);
+      expect(priceComparison(build).selectedTotal).toBeNull();
+    } finally { rod.amazonPrice = previous; clock.mockRestore(); }
+  });
   it('does not treat missing prices as zero or manufacture a saving',()=>{
     const build = complete();
     build.prices['rod-3-300'] = 10000;

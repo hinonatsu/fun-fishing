@@ -1,6 +1,7 @@
 import { categories, defaultSelection, products, type CategoryId, type Product } from './catalog';
 import { questions, requiredQuestions } from './diagnosis';
 import { evaluateCompatibility, getFish, isSupported, type FishingBuild } from './domain';
+import { productPrice } from './pricing';
 
 export function answeredRequired(build: FishingBuild) {
   return requiredQuestions.filter(q => !!build.answers[q.id]).length;
@@ -51,12 +52,12 @@ export function recommendedProduct(build: FishingBuild, category: CategoryId) {
   const eligible = candidatesFor(build, category).filter(p => !p.generic || build.answers.water === 'tap');
   if (category === 'bucket' && build.answers.water === 'tap' && build.answers.priority === 'cost') {
     // A lower price must be observed, never inferred from a product being generic.
-    const quoted = eligible.filter(p => build.prices[p.id] !== undefined).sort((a,b) => build.prices[a.id] - build.prices[b.id]);
+    const quoted = eligible.filter(p => productPrice(build,p) !== null).sort((a,b) => productPrice(build,a)! - productPrice(build,b)!);
     if (quoted.length) return quoted[0];
   }
   if (category === 'reel' && (build.answers.experience === 'first' || build.answers.cleanup === 'simple')) return eligible.find(p => !!p.technical.includedLine) || eligible[0];
   if (build.answers.priority === 'cost') {
-    const quoted = eligible.filter(p => build.prices[p.id] !== undefined && candidateStatus(build, p) !== 'check').sort((a,b) => build.prices[a.id] - build.prices[b.id]);
+    const quoted = eligible.filter(p => productPrice(build,p) !== null && candidateStatus(build, p) !== 'check').sort((a,b) => productPrice(build,a)! - productPrice(build,b)!);
     if (quoted.length) return quoted[0];
   }
   return eligible.find(p => p.id === defaultSelection[category]) || eligible[0];
@@ -78,7 +79,7 @@ export function priceComparison(build: FishingBuild) {
     if (build.owned.includes(c.id) || build.included.includes(c.id)) return [];
     const product = products.find(p => p.id === build.selection[c.id]);
     const reference = products.find(p => p.id === defaultSelection[c.id]);
-    return product && reference ? [{ category: c.id, product, reference, selected: build.prices[product.id] ?? null, baseline: build.prices[reference.id] ?? null, comparable: !product.generic || build.answers.water === 'tap' }] : [];
+    return product && reference ? [{ category: c.id, product, reference, selected: productPrice(build,product), baseline: productPrice(build,reference), comparable: !product.generic || build.answers.water === 'tap' }] : [];
   });
   const knownCount = rows.filter(r => r.selected !== null).length;
   const selectedTotal = rows.length && knownCount === rows.length ? rows.reduce((sum,r) => sum + r.selected!,0) : null;

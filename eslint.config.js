@@ -15,4 +15,5 @@ export default tseslint.config(
     },
   },
   { files: ["*.config.*"], languageOptions: { globals: { process: "readonly" } } },
+  { files: ["scripts/*.mjs"], languageOptions: { globals: { process: "readonly", console: "readonly", URL: "readonly", document: "readonly", getComputedStyle: "readonly" } } },
 );

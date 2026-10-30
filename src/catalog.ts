@@ -1,4 +1,7 @@
-/** Curated sample data. See docs/DATA_SOURCES.md; no live price or stock feed. */
+import amazonAsins from './data/amazon-products.json' with { type: 'json' };
+import { amazonPriceRecord, currentAmazonPrice, type AmazonPriceRecord } from './amazon-prices';
+
+/** Curated specifications with a daily Amazon price snapshot. See docs/AMAZON_PRICES.md. */
 export type CategoryId = 'rod' | 'reel' | 'line' | 'rig' | 'basket' | 'bait' | 'bucket' | 'safety';
 export type VerificationStatus = 'verified' | 'partial';
 export interface Area { id: string; name: string; region: string; supported: boolean }
@@ -13,12 +16,12 @@ export interface ProductSpecification {
   lineLength?: number; spoolLength?: number; basketWeight?: number; basketWeightG?: number;
   rigMainSize?: number; rigBranchSize?: number; hookSize?: number; includedLine?: string;
 }
-export interface RetailOffer { retailer: string; url: string; price: null; linkStatus: 'content-confirmed'; checkedAt: string }
+export interface RetailOffer { retailer: string; url: string; price: number | null; linkStatus: 'content-confirmed'; checkedAt: string }
 export interface VerificationRecord { checkedAt: string; status: VerificationStatus; sourceUrl: string; note: string }
 export interface Product {
   id: string; category: CategoryId; name: string; brand: string; summary: string; reason: string;
   specs: string[]; sourceUrl: string; purchaseUrl?: string; verification: VerificationStatus;
-  price: null; generic?: boolean; localOnly?: boolean; technical: ProductSpecification;
+  price: number | null; amazonPrice: AmazonPriceRecord | null; generic?: boolean; localOnly?: boolean; technical: ProductSpecification;
   offer: RetailOffer; record: VerificationRecord; jan: string;
 }
 export interface AlternativeProduct { productId: string; replacesId: string; conditions: string[]; limits: string[] }
@@ -62,27 +65,19 @@ const source = {
   rig: 'https://www.hayabusa.co.jp/hayabusa/products/HS201/',
 };
 /** Individual ASINs were checked in the Amazon browser UI, including selected variants. */
-const amazonAsins: Record<string, string> = {
-  'rod-3-300': 'B06Y5DCTZD', 'rod-2-300': 'B06Y57LTNK',
-  'reel-cf2500': 'B01N7UIMFF', 'reel-2500': 'B01MTAC6LF',
-  'line-3': 'B0BTH65BMH', 'line-2': 'B0BTH41SBX',
-  'rig-6': 'B00BTNM0E6', 'rig-8': 'B00BTNM1KY',
-  'bait-amihime': 'B0711KFYX7', 'bucket-daiwa': 'B0CH3D5B2R',
-  'safety-tokarau': 'B08T5LXFCG',
-  'basket-riseway-6': 'B07HFTBWBN', 'basket-riseway-10': 'B07HFSRS9P',
-  'bucket-risu-8': 'B002P9A77U',
-};
 export function amazonLinkLabel(product: Product): string {
   return product.offer.retailer === 'Amazon.co.jp' ? 'Amazonで価格を確認' : '購入先で確認';
 }
-function product(data: Omit<Product, 'price' | 'verification' | 'record' | 'offer'> & { verification?: VerificationStatus; note?: string }): Product {
+function product(data: Omit<Product, 'price' | 'amazonPrice' | 'verification' | 'record' | 'offer'> & { verification?: VerificationStatus; note?: string }): Product {
   const { note = 'メーカー公式の型番・仕様を確認。価格・在庫はAmazonのリンク先で確認してください。', verification = 'verified', ...rest } = data;
-  const asin = amazonAsins[data.id];
+  const asin = (amazonAsins as Record<string, string>)[data.id];
   if (!asin) throw new Error(`Amazon ASIN is required for ${data.id}`);
   const purchaseUrl = `https://www.amazon.co.jp/dp/${asin}?th=1&psc=1`;
   const linkStatus = 'content-confirmed';
-  return { ...rest, purchaseUrl, verification, price: null,
-    offer: { retailer: 'Amazon.co.jp', url: purchaseUrl, price: null, linkStatus, checkedAt: VERIFIED_AT },
+  const amazonPrice = amazonPriceRecord(data.id, asin);
+  const price = currentAmazonPrice(amazonPrice);
+  return { ...rest, purchaseUrl, verification, price, amazonPrice,
+    offer: { retailer: 'Amazon.co.jp', url: purchaseUrl, price, linkStatus, checkedAt: VERIFIED_AT },
     record: { checkedAt: VERIFIED_AT, status: verification, sourceUrl: data.sourceUrl, note },
   };
 }

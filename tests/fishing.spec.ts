@@ -88,6 +88,7 @@ test('using included line is explicit and changing the reel requires a new line 
 });
 
 test('manual purchase prices and shipping compute savings without inventing unknown prices',async({page})=>{
+  await page.route('**/src/data/amazon-prices.json*', route=>route.fulfill({contentType:'application/javascript',body:'export default {schemaVersion:1,updatedAt:null,products:{}};'}));
   const build = completedBuild(); build.selection.bucket = 'bucket-risu-8'; build.answers = {...build.answers,water:'tap'};
   for (const p of products) build.prices[p.id] = 1000;
   delete build.prices['bucket-risu-8'];
