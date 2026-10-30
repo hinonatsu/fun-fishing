@@ -12,11 +12,12 @@ export async function configureAmazonDelivery(page) {
     await page.locator('#GLUXZipUpdateInput_0').fill('100');
     await page.locator('#GLUXZipUpdateInput_1').fill('0001');
     await page.locator('#GLUXZipUpdate').click({ timeout: 5000 });
-    await page.waitForFunction(() => document.querySelector('#nav-global-location-popover-link')?.textContent?.replace(/[\s-]/g, '').includes('1000001'), null, { timeout: 8000 });
     const close = page.locator('#GLUXConfirmClose');
     if (await close.isVisible()) await close.click({ timeout: 5000 });
+    await page.waitForFunction(() => document.querySelector('#nav-global-location-popover-link')?.textContent?.replace(/[\s-]/g, '').includes('1000001'), null, { timeout: 8000 });
     return matches(await header.innerText());
-  } catch {
+  } catch (error) {
+    console.warn(`Delivery configuration failed: ${error.message.split('\n')[0]}`);
     const close = page.locator('#GLUXConfirmClose');
     if (await close.isVisible().catch(() => false)) await close.click({ timeout: 1000 }).catch(() => {});
     return false;

@@ -5,6 +5,11 @@ on:
     # 07:17 Asia/Tokyo (22:17 UTC on the preceding day).
     - cron: '17 22 * * *'
   workflow_dispatch:
+    inputs:
+      diagnose:
+        description: Inspect delivery settings without changing prices or deploying
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -33,13 +38,44 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      - name: Diagnose anonymous delivery settings
+        if: ${{ inputs.diagnose }}
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import { chromium } from '@playwright/test';
+          import { configureAmazonDelivery } from './scripts/amazon-delivery.mjs';
+          import { mkdir, writeFile } from 'node:fs/promises';
+          const browser = await chromium.launch({headless:true});
+          try {
+            const context = await browser.newContext({locale:'ja-JP',timezoneId:'Asia/Tokyo'});
+            await context.route('**/*', route => ['image','media','font'].includes(route.request().resourceType()) ? route.abort() : route.continue());
+            const page = await context.newPage();
+            await page.goto('https://www.amazon.co.jp/dp/B0711KFYX7?th=1&psc=1', {waitUntil:'domcontentloaded',timeout:35000});
+            const before = await page.locator('#nav-global-location-popover-link').allTextContents();
+            const configured = await configureAmazonDelivery(page);
+            const details = await page.evaluate(() => ({
+              title:document.title,
+              location:document.querySelector('#nav-global-location-popover-link')?.textContent,
+              dialogs:[...document.querySelectorAll('[role="dialog"], [id^="a-popover-content"]')].map(n=>n.textContent.trim().slice(0,3000)),
+              inputs:[...document.querySelectorAll('[id^="GLUX"]')].map(n=>({id:n.id,tag:n.tagName,text:n.textContent.trim().slice(0,200),visible:!!n.getClientRects().length})),
+            }));
+            const report = {before,configured,...details};
+            console.log(JSON.stringify(report,null,2));
+            await mkdir('artifacts/amazon-prices',{recursive:true});
+            await writeFile('artifacts/amazon-prices/delivery-diagnostic.json',JSON.stringify(report,null,2));
+          } finally { await browser.close(); }
+          JS
       - name: Fetch all catalog prices
+        if: ${{ !inputs.diagnose }}
         id: scrape
         # Publish successful prices and failure states before surfacing partial failures.
         run: npm run prices:update -- --allow-partial
       - name: Validate updated data and application
+        if: ${{ !inputs.diagnose }}
         run: npm test && npm run build
       - name: Save snapshot
+        if: ${{ !inputs.diagnose }}
         id: commit
         shell: bash
         run: |
@@ -62,6 +98,7 @@ jobs:
 
   deploy:
     needs: scrape
+    if: ${{ !inputs.diagnose }}
     # GITHUB_TOKEN commits do not trigger a push workflow: deploy explicitly.
     uses: ./.github/workflows/deploy.yml
     with:
@@ -69,7 +106,7 @@ jobs:
 
   report-failures:
     needs: [scrape, deploy]
-    if: ${{ always() && needs.scrape.result == 'success' && needs.scrape.outputs.failed != '0' }}
+    if: ${{ !inputs.diagnose && always() && needs.scrape.result == 'success' && needs.scrape.outputs.failed != '0' }}
     runs-on: ubuntu-latest
     steps:
       - name: Report incomplete price collection
