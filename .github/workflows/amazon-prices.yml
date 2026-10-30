@@ -18,7 +18,7 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     outputs:
       ref: ${{ steps.commit.outputs.ref }}
       failed: ${{ steps.scrape.outputs.failed }}

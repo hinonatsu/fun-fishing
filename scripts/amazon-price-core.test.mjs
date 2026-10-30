@@ -66,7 +66,7 @@ test('failed attempts preserve previous price and its original timestamp; sold-o
   assert.equal(mergePrice(asin, { status: 'unavailable', price: null, error: null }, previous, now).price, null);
 });
 
-test('visits every catalog product once, continues after failures and prunes removed products', async () => {
+test('visits every product, retries failures only after the full pass and prunes removed products', async () => {
   const visited = [];
   const waits = [];
   const snapshot = await collectPrices({
@@ -74,11 +74,25 @@ test('visits every catalog product once, continues after failures and prunes rem
     wait: async ms => { waits.push(ms); },
     scrape: async value => { visited.push(value); if (value === asin) throw new Error('timeout'); return { status: 'ok', price: 1500, error: null }; },
   });
-  assert.deepEqual(visited, Object.values(targets));
-  assert.equal(visited.length, 14);
-  assert.equal(waits.length, 13);
+  assert.deepEqual(visited.slice(0,14), Object.values(targets));
+  assert.deepEqual(visited.slice(14), [asin]);
+  assert.equal(waits.length, 14);
+  assert.equal(waits.at(-1), 60_000);
   assert.ok(waits.every(ms => ms >= 5000));
   assert.equal(snapshot.products['rod-3-300'].status, 'error');
   assert.equal(Object.keys(snapshot.products).length, 14);
   assert.equal(snapshot.updatedAt, now);
+});
+
+test('a temporary access restriction can recover on the single deferred attempt', async () => {
+  let attempts = 0;
+  const delays = [];
+  const snapshot = await collectPrices({
+    targets: {rod:asin}, now:()=>now, wait:async ms=>{delays.push(ms);},
+    scrape:async()=>++attempts === 1 ? {status:'blocked',price:null,error:'temporary access restriction'} : {status:'ok',price:1234,error:null},
+  });
+  assert.equal(attempts,2);
+  assert.deepEqual(delays,[60_000]);
+  assert.equal(snapshot.products.rod.status,'ok');
+  assert.equal(snapshot.products.rod.price,1234);
 });

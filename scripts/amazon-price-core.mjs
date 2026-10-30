@@ -70,7 +70,7 @@ export function mergePrice(asin, result, previous, attemptedAt) {
   };
 }
 
-export async function collectPrices({ targets, previous, scrape, wait, now = () => new Date().toISOString(), intervalMs = 5000 }) {
+export async function collectPrices({ targets, previous, scrape, wait, now = () => new Date().toISOString(), intervalMs = 5000, retryDelayMs = 60_000 }) {
   const products = {};
   let index = 0;
   for (const [id, asin] of Object.entries(targets)) {
@@ -79,6 +79,18 @@ export async function collectPrices({ targets, previous, scrape, wait, now = () 
     try { result = await scrape(asin); }
     catch { result = { status: 'error', price: null, error: 'Navigation or page extraction failed after retry' }; }
     products[id] = mergePrice(asin, result, previous?.products?.[id], now());
+  }
+  // A cold anonymous session may receive a temporary challenge. Make one later,
+  // ordinary attempt after the full first pass; never solve or bypass a challenge.
+  const failed = Object.entries(products).filter(([, row]) => ['blocked', 'error'].includes(row.status));
+  if (failed.length) await wait(retryDelayMs);
+  for (let i = 0; i < failed.length; i++) {
+    if (i) await wait(intervalMs);
+    const [id, row] = failed[i];
+    let result;
+    try { result = await scrape(row.asin); }
+    catch { result = { status: 'error', price: null, error: 'Navigation or page extraction failed after deferred retry' }; }
+    products[id] = mergePrice(row.asin, result, row, now());
   }
   return { schemaVersion: 1, updatedAt: now(), products };
 }

@@ -30,11 +30,17 @@ try {
         const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35_000 });
         const status = response?.status() ?? 0;
         if (![403, 429, 503].includes(status)) {
-          await page.waitForFunction(() => !!document.querySelector('#corePriceDisplay_desktop_feature_div .a-price, #corePrice_feature_div .a-price, #price_inside_buybox, #availability, #captchacharacters'), null, { timeout: 8000 }).catch(() => {});
+          await page.waitForFunction(() => {
+            const price = document.querySelector('#corePriceDisplay_desktop_feature_div .a-price:not(.a-text-price), #corePrice_feature_div .a-price:not(.a-text-price), #apex_desktop .priceToPay, #price_inside_buybox, #priceblock_ourprice, #priceblock_dealprice');
+            const availability = document.querySelector('#availability')?.textContent ?? '';
+            return !!price || !!document.querySelector('#captchacharacters, form[action*="validateCaptcha"]')
+              || /現在お取り扱いできません|一時的に在庫切れ|Currently unavailable|Temporarily out of stock/i.test(availability);
+          }, null, { timeout: 8000 }).catch(() => {});
         }
         const data = await page.evaluate(readAmazonPage);
         const result = classifyAmazonPage(data, asin, page.url(), status);
         console.log(`${asin}: ${result.status}${result.price === null ? '' : ` JPY ${result.price}`}`);
+        if (result.status === 'error') console.log(JSON.stringify({ asin, ...data, url: page.url(), httpStatus: status }));
         return result;
       } catch (error) {
         if (attempt) throw error;
