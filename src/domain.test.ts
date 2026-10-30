@@ -4,6 +4,31 @@ import { createDefaultBuild, decodeBuild, encodeBuild, evaluateCompatibility, ge
 const conditions = { month:10,area:'tokyo-bay',field:'pier' };
 const pack = (value:unknown) => btoa(JSON.stringify(value)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 
+describe('Amazon replacement products', () => {
+  for (const [category, oldId, newId] of [['basket','basket-6','basket-riseway-6'],['basket','basket-10','basket-riseway-10'],['bucket','bucket-generic','bucket-risu-8']] as const) {
+    it(`migrates ${oldId} without marking a different product prepared`, () => {
+      const original = createDefaultBuild({month:10,area:'tokyo-bay',field:'pier'});
+      original.selection[category] = oldId;
+      original.checked = ['rod', category];
+      const restored = decodeBuild(encodeBuild(original))!;
+      expect(restored.selection[category]).toBe(newId);
+      expect(restored.checked).toEqual(['rod']);
+      expect(restored.replacedCategories).toEqual([category]);
+      expect(decodeBuild(encodeBuild(restored))?.replacedCategories).toBeUndefined();
+    });
+  }
+  it('does not reuse the old baskets mass and keeps total load unverified', () => {
+    expect(products.find(p=>p.id===defaultSelection.basket)?.technical.basketWeightG).toBeUndefined();
+    const results=evaluateCompatibility(defaultSelection);
+    expect(results.find(r=>r.id==='rod-basket')?.status).toBe('recommended');
+    expect(results.find(r=>r.id==='total-load')?.status).toBe('check');
+    const mismatch=evaluateCompatibility({...defaultSelection,rod:'rod-2-300',basket:'basket-riseway-10'}).find(r=>r.id==='rod-basket')!;
+    expect(mismatch.status).toBe('avoid');
+    expect(mismatch.reason).not.toContain('undefined');
+    expect(mismatch.reason).not.toContain('37.5');
+  });
+});
+
 describe('curated scenario',()=>{
   it('contains all eight slots with product identities matched to categories',()=>{
     expect(categories).toHaveLength(8);
@@ -39,7 +64,7 @@ describe('compatibility rules',()=>{
     expect(result.some(r=>r.status==='avoid')).toBe(false);
   });
   it('explains a basket above rod maximum without discarding selected items',()=>{
-    const selection={...defaultSelection,rod:'rod-2-300',basket:'basket-10'};
+    const selection={...defaultSelection,rod:'rod-2-300',basket:'basket-riseway-10'};
     const before={...selection};
     const result=evaluateCompatibility(selection);
     expect(result.find(r=>r.id==='rod-basket')).toMatchObject({status:'avoid',categoryIds:['rod','basket']});
@@ -60,12 +85,12 @@ describe('compatibility rules',()=>{
     expect(evaluateCompatibility({...defaultSelection,rod:'rod-2-300',rig:'rig-8'}).find(r=>r.id==='rod-rig')?.status).toBe('recommended');
   });
   it('limits generic bucket substitution to ground-level use',()=>{
-    const bucket=evaluateCompatibility({...defaultSelection,bucket:'bucket-generic'}).find(r=>r.id==='bucket-use');
+    const bucket=evaluateCompatibility({...defaultSelection,bucket:'bucket-risu-8'}).find(r=>r.id==='bucket-use');
     expect(bucket?.status).toBe('check');
     expect(bucket?.reason).toContain('海に下ろす水くみ用途には使わない');
   });
   it('does not evaluate an owned rod using the catalog rod specification',()=>{
-    const result=evaluateCompatibility({...defaultSelection,rod:'rod-2-300',basket:'basket-10'},['rod']);
+    const result=evaluateCompatibility({...defaultSelection,rod:'rod-2-300',basket:'basket-riseway-10'},['rod']);
     expect(result.find(r=>r.id==='owned-rod')?.status).toBe('check');
     expect(result.find(r=>r.id==='rod-basket')).toBeUndefined();
     expect(result.find(r=>r.id==='rod-reel')).toBeUndefined();

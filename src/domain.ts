@@ -1,17 +1,17 @@
-import { areas, categories, defaultSelection, fishSpecies, fishingFields, methods, products, type CategoryId, type Product } from './catalog';
+import { areas, categories, defaultSelection, fishSpecies, fishingFields, methods, products, replacedProductIds, type CategoryId, type Product } from './catalog';
 export type { CategoryId } from './catalog';
 
 export interface FishingConditions { month: number; area: string; field: string }
 export interface FishingBuild {
   conditions: FishingConditions; fishId: string; methodId: string;
-  selection: Record<CategoryId,string>; checked: CategoryId[]; owned: CategoryId[];
+  selection: Record<CategoryId,string>; checked: CategoryId[]; owned: CategoryId[]; replacedCategories?: CategoryId[];
 }
 export type CompatibilityStatus = 'recommended' | 'check' | 'avoid';
 export interface CompatibilityResult { id: string; status: CompatibilityStatus; title: string; reason: string; categoryIds: CategoryId[] }
 export interface CompatibilityRule { id: string; title: string; categoryIds: CategoryId[]; sourceUrls: string[] }
 
 export const compatibilityRules: CompatibilityRule[] = [
-  { id:'rod-basket',title:'竿とカゴの公称オモリ負荷',categoryIds:['rod','basket'],sourceUrls:['https://www.daiwa.com/jp/product/2023/05/09/09/55/eu19urm','https://jp.daisonet.com/products/4550480770390','https://jp.daisonet.com/products/4550480770369'] },
+  { id:'rod-basket',title:'竿とカゴの公称オモリ負荷',categoryIds:['rod','basket'],sourceUrls:['https://www.daiwa.com/jp/product/2023/05/09/09/55/eu19urm','https://www.amazon.co.jp/dp/B07HFTBWBN','https://www.amazon.co.jp/dp/B07HFSRS9P'] },
   { id:'reel-line',title:'リールの糸巻量',categoryIds:['reel','line'],sourceUrls:['https://www.daiwa.com/jp/product/m4f0cz4','https://www.daiwa.com/jp/product/2023/05/09/08/09/uzkh2vp'] },
   { id:'line-rig',title:'道糸と仕掛けの太さ',categoryIds:['line','rig'],sourceUrls:['https://www.hayabusa.co.jp/hayabusa/products/HS201/','https://www.honda.co.jp/fishing/enjoy/season/season-201707/tool/'] },
 ];
@@ -68,11 +68,11 @@ export function evaluateCompatibility(selection: Record<CategoryId,string>, owne
     const rod = selected.rod!.technical;
     const basket = selected.basket!.technical;
     if (rod.rodMaxWeight === undefined || rod.rodMinWeight === undefined || basket.basketWeight === undefined) add('rod-basket','check','オモリ負荷の情報が不足','竿のオモリ負荷とカゴの重量を、購入前に確認してください。',['rod','basket']);
-    else if (basket.basketWeight > rod.rodMaxWeight) add('rod-basket','avoid','カゴが竿の上限を超えています',`カゴ${basket.basketWeight}号（約${basket.basketWeightG}g）は、竿の上限${rod.rodMaxWeight}号を超えます。6号カゴと3号竿の基本構成へ戻すなど、組み合わせを見直してください。`,['rod','basket']);
+    else if (basket.basketWeight > rod.rodMaxWeight) add('rod-basket','avoid','カゴが竿の上限を超えています',`カゴ${basket.basketWeight}号${basket.basketWeightG === undefined ? "（総重量は未確認）" : `（約${basket.basketWeightG}g）`}は、竿の上限${rod.rodMaxWeight}号を超えます。6号カゴと3号竿の基本構成へ戻すなど、組み合わせを見直してください。`,['rod','basket']);
     else if (basket.basketWeight === rod.rodMaxWeight) add('rod-basket','check','カゴだけで竿の負荷上限です',`カゴ${basket.basketWeight}号が竿の上限${rod.rodMaxWeight}号です。エサの重さが加わるため、そのまま推奨できません。基本の3号竿・6号カゴを検討してください。`,['rod','basket']);
     else if (basket.basketWeight < rod.rodMinWeight) add('rod-basket','check','カゴが竿の負荷目安より軽め','メーカーの記載範囲外です。操作性や釣り場の流れも含めて販売店へ相談してください。',['rod','basket']);
-    else add('rod-basket','recommended','公称のカゴ重量は竿の範囲内',`カゴ${basket.basketWeight}号は、竿のオモリ負荷${rod.rodMinWeight}〜${rod.rodMaxWeight}号の範囲内です。これはカゴ単体の比較で、総重量の適合を保証しません。`,['rod','basket']);
-    add('total-load','check','エサを入れた総重量を確認','カゴに入れるエサと仕掛けの重さは未計測です。総重量が竿の負荷上限を超えないか確認し、この構成は足元に下ろして使ってください。',['rod','basket','bait']);
+    else add('rod-basket','recommended','公称のオモリ号数は竿の範囲内',`カゴ${basket.basketWeight}号は、竿のオモリ負荷${rod.rodMinWeight}〜${rod.rodMaxWeight}号の範囲内です。これは公称号数の比較で、本体を含む実際の総重量の適合を保証しません。`,['rod','basket']);
+    add('total-load','check','エサを入れた総重量を確認','カゴ本体・エサ・仕掛けを合わせた重さは未計測です。総重量が竿の負荷上限を超えないか確認し、この構成は足元に下ろして使ってください。',['rod','basket','bait']);
   }
   if (available('line','rig')) {
     const line = selected.line!.technical.lineSize;
@@ -106,7 +106,7 @@ export function safeExternalUrl(value: string): string | null {
   } catch { return null; }
 }
 export function encodeBuild(build: FishingBuild): string {
-  const bytes = new TextEncoder().encode(JSON.stringify({v:1,...build}));
+  const bytes = new TextEncoder().encode(JSON.stringify({v:1,conditions:build.conditions,fishId:build.fishId,methodId:build.methodId,selection:build.selection,checked:build.checked,owned:build.owned}));
   let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte);
   return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
@@ -124,8 +124,10 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     if (isSupported(conditions) && !getFish(conditions).some(f=>f.id===value.fishId)) return null;
     if (!methods.some(m => m.supported && m.id === value.methodId)) return null;
     const selection = {} as Record<CategoryId,string>;
+    const replacedCategories: CategoryId[] = [];
     for (const id of categoryIds) {
-      const chosen = value.selection[id];
+      let chosen = value.selection[id];
+      if (typeof chosen === 'string' && Object.hasOwn(replacedProductIds, chosen)) { chosen = replacedProductIds[chosen]; replacedCategories.push(id); }
       if (typeof chosen !== 'string' || (chosen !== '' && byId.get(chosen)?.category !== id)) return null;
       selection[id] = chosen;
     }
@@ -133,6 +135,6 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     const checked = list(value.checked);
     const owned = list(value.owned ?? []);
     if (!checked || !owned) return null;
-    return { conditions,fishId:value.fishId,methodId:value.methodId as string,selection,checked:checked.filter(id=>!!selection[id]||owned.includes(id)),owned };
+    return { conditions,fishId:value.fishId,methodId:value.methodId as string,selection,checked:checked.filter(id=>(!!selection[id]||owned.includes(id))&&!replacedCategories.includes(id)),owned,...(replacedCategories.length ? {replacedCategories} : {}) };
   } catch { return null; }
 }

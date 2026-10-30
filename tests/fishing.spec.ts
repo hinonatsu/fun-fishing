@@ -2,6 +2,7 @@ import { test as base, expect, type Page, type TestInfo } from "@playwright/test
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
 import { createDefaultBuild, encodeBuild } from "../src/domain";
+import { amazonLinkLabel, categories, products } from "../src/catalog";
 
 const test = base.extend<{ browserErrors: string[] }>({
   browserErrors: [async ({ page }, use) => {
@@ -129,13 +130,35 @@ test("fish and method choice, full recommended build and list", async ({ page },
     expect(link.target).toBe("_blank");
     expect(link.rel).toContain("noopener");
   }
-  const firstPurchase = page.getByRole("link", { name: /購入先で見る/ }).first();
+  const firstPurchase = page.getByRole("link", { name: /Amazonで価格を確認/ }).first();
   const intendedUrl = await firstPurchase.getAttribute("href");
   const popupPromise = page.waitForEvent("popup");
   await firstPurchase.click();
   const popup = await popupPromise;
   await expect(popup).toHaveURL(intendedUrl!);
   await popup.close();
+});
+
+test("all candidates and the complete list offer only Amazon purchase destinations", async ({ page }) => {
+  await builder(page);
+  for (const category of categories) {
+    await page.getByRole("button", { name: `${category.label}を変更`, exact: true }).click();
+    const candidates = products.filter(p => p.category === category.id);
+    const links = page.getByRole("dialog").getByRole("link", { name: /^Amazonで/ });
+    await expect(links).toHaveCount(candidates.length);
+    for (let i = 0; i < candidates.length; i++) {
+      await expect(links.nth(i)).toHaveAttribute("href", candidates[i].purchaseUrl!);
+      await expect(links.nth(i)).toContainText(amazonLinkLabel(candidates[i]));
+    }
+    await page.getByRole("dialog").getByRole("button", { name: "閉じる", exact: true }).click();
+  }
+  await page.getByRole("button", { name: "このセットで準備する", exact: true }).click();
+  const links = page.getByRole("main").getByRole("link", { name: /^Amazonで/ });
+  await expect(links).toHaveCount(8);
+  const destinations = await links.evaluateAll(nodes => nodes.map(n => (n as HTMLAnchorElement).href));
+  expect(destinations.every(url => new URL(url).hostname === "www.amazon.co.jp")).toBe(true);
+  await expect(page.getByRole("article").filter({ hasText: "アミ姫" }).getByRole("link", { name: /^Amazonで価格/ })).toBeVisible();
+  await expect(page.getByRole("article").filter({ hasText: "BSJ-201ARS" }).getByRole("link", { name: /^Amazonで価格/ })).toBeVisible();
 });
 
 test("storage restrictions provide a share-based fallback", async ({ page }) => {
@@ -149,6 +172,21 @@ test("storage restrictions provide a share-based fallback", async ({ page }) => 
   await page.getByRole("button", { name: "このセットで準備する", exact: true }).click();
   await page.getByRole("button", { name: "構成URLを共有", exact: true }).first().click();
   await expect(page.getByLabel("構成URL", { exact: true })).toHaveValue(/\?build=.+#list$/);
+});
+
+test("old DAISO shared lists migrate without keeping the replacements marked ready", async ({ page }) => {
+  const old = createDefaultBuild({ month: 10, area: "tokyo-bay", field: "pier" });
+  old.selection.basket = "basket-6";
+  old.selection.bucket = "bucket-generic";
+  old.checked = ["rod", "basket", "bucket"];
+  await page.goto(`./?build=${encodeBuild(old)}#list`);
+  await expect(page.getByRole("status")).toContainText("カゴ・バケツの候補を更新しました");
+  await expect(page.getByRole("checkbox", { name: "ロッドを準備済みにする", exact: true })).toBeChecked();
+  await expect(page.getByRole("checkbox", { name: "サビキカゴを準備済みにする", exact: true })).not.toBeChecked();
+  await expect(page.getByRole("checkbox", { name: "バケツを準備済みにする", exact: true })).not.toBeChecked();
+  await expect(page.getByRole("heading", { name: "アクティブバケツ ホワイト 8L", exact: true })).toBeVisible();
+  const links = page.getByRole("main").getByRole("link", { name: /^Amazonで/ });
+  await expect(links).toHaveCount(8);
 });
 
 test("a failed hero image has a fallback and does not block preparing a list", async ({ page }) => {
@@ -214,7 +252,7 @@ test("changing rod and basket recalculates incompatibility without discarding ch
   await expect(rodSlot).toContainText("リバティクラブ 小継 磯 2-300");
   await shot(page, info, "07-product-changed");
   await page.getByRole("button", { name: "サビキカゴを変更", exact: true }).click();
-  await page.getByRole("button", { name: "サビキカゴ（ワンタッチ式）10号を選ぶ", exact: true }).click();
+  await page.getByRole("button", { name: "UPK-001 3Pプラカゴ サビキ L-10号を選ぶ", exact: true }).click();
   await expect(page.getByText("非推奨の組み合わせを変更してください。", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "このセットで準備する", exact: true })).toBeDisabled();
   await expect(rodSlot).toContainText("リバティクラブ 小継 磯 2-300");
@@ -260,9 +298,9 @@ test("generic bucket comparison explains restricted use and updates selection", 
   await expect(page.getByRole("table", { name: "用途と条件を比較して選びましょう", exact: true })).toBeVisible();
   await expect(page.getByRole("dialog")).toContainText("海への投下や水汲みには使わない");
   await noHorizontalOverflow(page);
-  await page.getByRole("button", { name: "バケツ（アルファベット）10Lを選ぶ", exact: true }).click();
+  await page.getByRole("button", { name: "アクティブバケツ ホワイト 8Lを選ぶ", exact: true }).click();
   const bucketSlot = page.getByRole("article").filter({ has: page.getByRole("button", { name: "バケツを変更", exact: true }) });
-  await expect(bucketSlot).toContainText("バケツ（アルファベット）10L");
+  await expect(bucketSlot).toContainText("アクティブバケツ ホワイト 8L");
   await expect(bucketSlot).toContainText("要確認");
 });
 
