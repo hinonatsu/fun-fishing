@@ -3,6 +3,7 @@ import { readFile, mkdir, rename, writeFile, appendFile } from 'node:fs/promises
 import { fileURLToPath } from 'node:url';
 import { setTimeout as wait } from 'node:timers/promises';
 import { classifyAmazonPage, collectPrices, readAmazonPage } from './amazon-price-core.mjs';
+import { configureAmazonDelivery, DELIVERY_POSTAL_CODE } from './amazon-delivery.mjs';
 
 const root = new URL('../', import.meta.url);
 const targetPath = new URL('src/data/amazon-products.json', root);
@@ -23,12 +24,21 @@ try {
   // Prices only: avoid downloading images, media and fonts. No login or CAPTCHA bypass.
   await context.route('**/*', route => ['image', 'media', 'font'].includes(route.request().resourceType()) ? route.abort() : route.continue());
   const page = await context.newPage();
+  let deliveryConfigured = false;
   const scrape = async asin => {
     const url = `https://www.amazon.co.jp/dp/${asin}?th=1&psc=1`;
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
-        const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35_000 });
-        const status = response?.status() ?? 0;
+        let response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35_000 });
+        let status = response?.status() ?? 0;
+        if (!deliveryConfigured && status === 200 && !(await page.evaluate(readAmazonPage)).blocked) {
+          deliveryConfigured = await configureAmazonDelivery(page);
+          if (deliveryConfigured) {
+            console.log(`Representative Tokyo delivery area configured: ${DELIVERY_POSTAL_CODE}`);
+            response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35_000 });
+            status = response?.status() ?? 0;
+          }
+        }
         if (![403, 429, 503].includes(status)) {
           await page.waitForFunction(() => {
             const price = document.querySelector('#corePriceDisplay_desktop_feature_div .a-price:not(.a-text-price), #corePrice_feature_div .a-price:not(.a-text-price), #apex_desktop .priceToPay, #price_inside_buybox, #priceblock_ourprice, #priceblock_dealprice');
@@ -38,7 +48,9 @@ try {
           }, null, { timeout: 8000 }).catch(() => {});
         }
         const data = await page.evaluate(readAmazonPage);
-        const result = classifyAmazonPage(data, asin, page.url(), status);
+        const result = !deliveryConfigured && !data.blocked && status === 200
+          ? { status:'error',price:null,error:'Could not confirm the representative Tokyo delivery area' }
+          : classifyAmazonPage(data, asin, page.url(), status);
         console.log(`${asin}: ${result.status}${result.price === null ? '' : ` JPY ${result.price}`}`);
         if (result.status === 'error') console.log(JSON.stringify({ asin, ...data, url: page.url(), httpStatus: status }));
         return result;
@@ -48,14 +60,14 @@ try {
       }
     }
   };
-  snapshot = await collectPrices({ targets, previous, scrape, wait });
+  snapshot = { ...await collectPrices({ targets, previous, scrape, wait }), deliveryPostalCode: DELIVERY_POSTAL_CODE };
 } finally {
   await browser.close();
 }
 
 await mkdir(reportDir, { recursive: true });
 const report = {
-  updatedAt: snapshot.updatedAt, total: Object.keys(targets).length,
+  updatedAt: snapshot.updatedAt, deliveryPostalCode: DELIVERY_POSTAL_CODE, total: Object.keys(targets).length,
   ok: Object.values(snapshot.products).filter(p => p.status === 'ok').length,
   unavailable: Object.values(snapshot.products).filter(p => p.status === 'unavailable').length,
   failed: Object.values(snapshot.products).filter(p => ['blocked', 'error'].includes(p.status)).length,

@@ -28,7 +28,7 @@ function PriceSummary({ build }: { build: FishingBuild }) {
     {comparison.rows.length > 0 && <p className="small muted">価格確認済み：{comparison.knownCount} / {comparison.rows.length}点</p>}
     {comparison.selectedPayment !== null && <p className="payment-total">今回の送料込み支払額 <strong>{yen(comparison.selectedPayment)}</strong></p>}
     {Number.isFinite(budget) && budget > 0 && <p className={comparison.selectedTotal !== null && comparison.selectedTotal > budget ? 'text-danger small' : 'small muted'}>予算目安：{yen(budget)}{comparison.selectedTotal !== null && comparison.selectedTotal > budget ? ' · 商品代が予算を超えています' : ''}</p>}
-    <p className="small muted">Amazonの毎朝の取得価格を使い、手入力があれば優先します。購入単位の税込価格です。{build.shipping.selected === null || build.shipping.reference === null ? '送料は未確定です。' : '送料は入力した条件で比較します。'}取得失敗・36時間を超えた価格・未選択・所持品・付属品は集計しません。購入時に価格をご確認ください。</p>
+    <p className="small muted">Amazonの毎朝の取得価格を使い、手入力があれば優先します。購入単位の税込価格です。自動取得の配送先は東京の代表地点（100-0001）です。{build.shipping.selected === null || build.shipping.reference === null ? '送料は未確定です。' : '送料は入力した条件で比較します。'}取得失敗・36時間を超えた価格・未選択・所持品・付属品は集計しません。購入時に価格をご確認ください。</p>
   </section>;
 }
 

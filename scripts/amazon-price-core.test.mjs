@@ -3,6 +3,7 @@ import { after, before, test } from 'node:test';
 import { chromium } from '@playwright/test';
 import targets from '../src/data/amazon-products.json' with { type: 'json' };
 import { classifyAmazonPage, collectPrices, mergePrice, parseYen, readAmazonPage } from './amazon-price-core.mjs';
+import { configureAmazonDelivery } from './amazon-delivery.mjs';
 
 const asin = 'B06Y5DCTZD';
 const url = `https://www.amazon.co.jp/dp/${asin}?th=1&psc=1`;
@@ -10,6 +11,21 @@ const now = '2026-10-30T22:17:00.000Z';
 let browser;
 before(async () => { browser = await chromium.launch({ headless: true }); });
 after(async () => { await browser?.close(); });
+
+test('configures a representative Japan delivery area and confirms the saved location', async () => {
+  const page = await browser.newPage();
+  try {
+    await page.setContent(`<button id="nav-global-location-popover-link" onclick="document.getElementById('shipping').hidden=false">Deliver to US</button>
+      <div id="shipping" hidden><input id="GLUXZipUpdateInput_0"><input id="GLUXZipUpdateInput_1">
+      <button id="GLUXZipUpdate" onclick="document.getElementById('nav-global-location-popover-link').textContent='お届け先: 東京 100-0001'">保存</button>
+      <button id="GLUXConfirmClose" onclick="document.getElementById('shipping').hidden=true">完了</button></div>`);
+    assert.equal(await configureAmazonDelivery(page),true);
+    assert.equal(await page.locator('#GLUXZipUpdateInput_0').inputValue(),'100');
+    assert.equal(await page.locator('#GLUXZipUpdateInput_1').inputValue(),'0001');
+    assert.equal(await page.locator('#shipping').isVisible(),false);
+    assert.equal(await configureAmazonDelivery(page),true);
+  } finally { await page.close(); }
+});
 
 test('JPY amounts reject ranges, USD, fractional yen, points and ambiguous text', () => {
   for (const value of ['￥1,234', '¥1234', '１，２３４円', '￥1,234.00']) assert.equal(parseYen(value), 1234);
