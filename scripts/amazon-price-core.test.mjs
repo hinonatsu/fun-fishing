@@ -17,8 +17,8 @@ test('configures a representative Japan delivery area and confirms the saved loc
   try {
     await page.setContent(`<button id="nav-global-location-popover-link" onclick="document.getElementById('shipping').hidden=false">Deliver to US</button>
       <div id="shipping" hidden><input id="GLUXZipUpdateInput_0"><input id="GLUXZipUpdateInput_1">
-      <button id="GLUXZipUpdate" onclick="document.getElementById('nav-global-location-popover-link').textContent='お届け先: 東京 100-0001'">保存</button>
-      <button id="GLUXConfirmClose" onclick="document.getElementById('shipping').hidden=true">完了</button></div>`);
+      <button id="GLUXZipUpdate">保存</button>
+      <button id="GLUXConfirmClose" onclick="document.getElementById('nav-global-location-popover-link').textContent='お届け先: 東京 100-0001';document.getElementById('shipping').hidden=true">完了</button></div>`);
     assert.equal(await configureAmazonDelivery(page),true);
     assert.equal(await page.locator('#GLUXZipUpdateInput_0').inputValue(),'100');
     assert.equal(await page.locator('#GLUXZipUpdateInput_1').inputValue(),'0001');
