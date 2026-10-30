@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Fish, Waves, X } from 'lucide-react';
-import { categories, type CategoryId } from './catalog';
+import { type CategoryId } from './catalog';
 import { requiredQuestions } from './diagnosis';
 import { createDefaultBuild, decodeBuild, encodeBuild, getFish, isSupported, type FishingBuild } from './domain';
 import { chosenCount, resolveScreen } from './planner';
 import { SearchPage } from './SearchPage';
 import { ConditionsPage } from './FlowPages';
 import { DiagnosisPage, DiscoverPage, MethodPage } from './DiscoverPage';
-import { BuilderPage, ChecklistPage, CheckoutPage, PricePage, ReviewPage, SavePage, ShippingPage } from './EquipmentPages';
+import { BuilderPage, EquipmentListPage, ChecklistPage, CheckoutPage, PricePage, ReviewPage, SavePage, ShippingPage } from './EquipmentPages';
 import { Modal } from './ui';
 
 const storageKey = 'fun-fishing-build-v1';
 const stages = ['釣行条件','あなたの好み','魚と釣り方','道具選び','完成・準備'];
 function stageFor(screen: string) {
-  return screen === 'search' || screen.startsWith('conditions/') ? 0 : screen.startsWith('diagnosis/') ? 1 : screen === 'discover' || screen === 'method' ? 2 : screen.startsWith('builder/') ? 3 : 4;
+  return screen === 'search' || screen.startsWith('conditions/') ? 0 : screen.startsWith('diagnosis/') ? 1 : screen === 'discover' || screen === 'method' ? 2 : screen === 'builder' || screen.startsWith('builder/') ? 3 : 4;
 }
 function initialize() {
   const params = new URLSearchParams(location.search);
@@ -104,8 +104,7 @@ export default function App() {
     navigate(missing ? `diagnosis/${missing.id}` : 'diagnosis/ready',next);
   }
   function selectGear(next: FishingBuild) {
-    const index = categories.findIndex(c=>c.id === screen.split('/')[1]);
-    navigate(chosenCount(build) === categories.length || index === categories.length-1 ? 'review' : `builder/${categories[index+1].id}`,next);
+    navigate('builder',next);
   }
   function reset() {
     planId.current = crypto.randomUUID();
@@ -131,8 +130,9 @@ export default function App() {
       {screen.startsWith('diagnosis/') && <DiagnosisPage key={screen} build={build} questionId={segment} onAnswer={answer} onNavigate={navigate} />}
       {screen === 'discover' && <DiscoverPage build={build} onSelect={id=>navigate('method',{...build,fishId:id,methodId:build.fishId === id ? build.methodId : ''})} onBack={()=>navigate(isSupported(build.conditions) ? 'diagnosis/ready' : 'conditions/field')} onSample={sample} />}
       {screen === 'method' && <MethodPage build={build} onSelect={id=>navigate('builder',{...build,methodId:id})} onBack={()=>navigate('discover')} />}
-      {screen.startsWith('builder/') && <BuilderPage key={screen} build={build} category={category} onSelect={selectGear} onBack={()=>navigate(categories.findIndex(c=>c.id === category) === 0 ? 'method' : `builder/${categories[categories.findIndex(c=>c.id === category)-1].id}`)} />}
-      {screen === 'review' && <ReviewPage build={build} onNavigate={navigate} onBack={()=>navigate('builder/safety')} />}
+      {screen === 'builder' && <EquipmentListPage build={build} onNavigate={navigate} onBack={()=>navigate('method')} />}
+      {screen.startsWith('builder/') && <BuilderPage key={screen} build={build} category={category} onSelect={selectGear} onBack={()=>navigate('builder')} />}
+      {screen === 'review' && <ReviewPage build={build} onNavigate={navigate} onBack={()=>navigate('builder')} />}
       {screen.startsWith('prices/') && <PricePage key={screen} build={build} category={category} onSave={next=>navigate('review',next)} onBack={()=>navigate('review')} />}
       {screen === 'shipping' && <ShippingPage build={build} onSave={next=>navigate('review',next)} onBack={()=>navigate('review')} />}
       {screen === 'checkout' && <CheckoutPage onNavigate={navigate} onBack={()=>navigate('review')} />}

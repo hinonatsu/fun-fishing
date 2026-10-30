@@ -111,15 +111,7 @@ export function resolveScreen(requested: string, build: FishingBuild): string {
   if (!getFish(build.conditions).some(f => f.id === build.fishId)) return 'discover';
   if (screen === 'method') return screen;
   if (build.methodId !== 'sabiki') return 'method';
-  if (screen === 'builder') return `builder/${firstUnchosen(build) || 'rod'}`;
-  if (screen.startsWith('builder/')) {
-    const index = categories.findIndex(c => c.id === screen.split('/')[1]);
-    const missing = categories.slice(0,index).find(c => !hasChoice(build,c.id));
-    return missing ? `builder/${missing.id}` : screen;
-  }
-  if (!canComplete(build)) {
-    const conflict = compatibilityForBuild(build).find(r => r.status === 'avoid');
-    return `builder/${firstUnchosen(build) || conflict?.categoryIds[0] || 'rod'}`;
-  }
+  if (screen === 'builder' || screen.startsWith('builder/')) return screen;
+  if (!canComplete(build)) return 'builder';
   return screen;
 }

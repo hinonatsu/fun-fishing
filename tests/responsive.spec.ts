@@ -10,7 +10,7 @@ for (const size of [{width:360,height:800},{width:390,height:844},{width:768,hei
     await capture('home');
     await page.getByRole('button',{name:'釣りのプランをつくる',exact:true}).click(); await capture('month');
     const build = completedBuild();
-    for (const screen of ['diagnosis/goal','diagnosis/ready','discover','method','builder/rod','builder/bucket','review','prices/bucket','checkout','save','list']) {
+    for (const screen of ['diagnosis/goal','diagnosis/ready','discover','method','builder','builder/rod','builder/bucket','review','prices/bucket','checkout','save','list']) {
       await page.goto(`./?build=${encodeBuild(build)}#${screen}`);
       await capture(screen.replace('/','-'));
     }

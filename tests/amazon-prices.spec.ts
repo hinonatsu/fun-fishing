@@ -8,7 +8,11 @@ test('daily prices appear in the review, manual overrides and shopping checklist
   const snapshot = { schemaVersion:1,updatedAt:timestamp,products:Object.fromEntries(Object.entries(targets).map(([id,asin])=>[id,{asin,currency:'JPY',price:1000,fetchedAt:timestamp,attemptedAt:timestamp,status:'ok',error:null}])) };
   await page.route('**/src/data/amazon-prices.json*', route=>route.fulfill({contentType:'application/javascript',body:`export default ${JSON.stringify(snapshot)};`}));
   const build = completedBuild();
-  await page.goto(`./?build=${encodeBuild(build)}#review`);
+  await page.goto(`./?build=${encodeBuild(build)}#builder`);
+  await expect(page.getByRole('row').filter({hasText:'リバティクラブ 小継 磯 3-300'})).toContainText('1,000円（Amazon・');
+  await expect(page.getByLabel('価格の比較')).toContainText('8,000円');
+  await noOverflow(page);
+  await page.getByRole('button',{name:'この構成を確認する',exact:true}).click();
   await expect(page.getByLabel('価格の比較')).toContainText('8,000円');
   const rod = page.getByRole('article').filter({has:page.getByRole('heading',{name:'リバティクラブ 小継 磯 3-300',exact:true})});
   await expect(rod).toContainText('1,000円（Amazon・');

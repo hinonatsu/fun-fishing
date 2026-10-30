@@ -49,9 +49,14 @@ test('all optional questions can be answered and results are always reachable',a
 
 test('every gear slot requires an explicit choice and recommendations do not preselect',async({page},info)=>{
   await builder(page);
+  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品',exact:true}).getByRole('row')).toHaveCount(9);
+  await expect(page.getByRole('button',{name:'この構成を確認する',exact:true})).toBeDisabled();
+  await page.screenshot({path:info.outputPath('overview-empty.png'),fullPage:true,scale:'css'});
   expect(decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!))?.selection.rod).toBe('');
   for (let i=0;i<categories.length;i++) {
     const c = categories[i];
+    await expect(page).toHaveURL(/#builder$/);
+    await page.getByRole('button',{name:`${c.label}の商品を選ぶ`,exact:true}).click();
     await expect(page.getByRole('heading',{level:1})).toHaveText(`${c.label}を選ぼう。`);
     const stored = decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!))!;
     expect(Object.values(stored.selection).filter(Boolean)).toHaveLength(i);
@@ -60,6 +65,9 @@ test('every gear slot requires an explicit choice and recommendations do not pre
     if (i === 0) await page.screenshot({path:info.outputPath('gear.png'),fullPage:true});
     await recommended.getByRole('button',{name:/^この商品を選ぶ：/}).click();
   }
+  await expect(page).toHaveURL(/#builder$/);
+  await page.screenshot({path:info.outputPath('overview-complete.png'),fullPage:true,scale:'css'});
+  await page.getByRole('button',{name:'この構成を確認する',exact:true}).click();
   await expect(page).toHaveURL(/#review$/);
   await expect(page.getByRole('heading',{level:1})).toHaveText('自分で選んだ、あなたの一式。');
   await page.screenshot({path:info.outputPath('review.png'),fullPage:true});
@@ -70,8 +78,9 @@ test('changing a previous choice preserves later selections and recomputes avail
   await complete(page);
   await page.getByRole('button',{name:'ロッドを選び直す',exact:true}).click();
   await page.getByRole('button',{name:'この商品を選ぶ：リバティクラブ 小継 磯 2-300',exact:true}).click();
-  await expect(page).toHaveURL(/#review$/);
-  await page.getByRole('button',{name:'サビキカゴを選び直す',exact:true}).click();
+  await expect(page).toHaveURL(/#builder$/);
+  await expect(page.getByRole('row').filter({hasText:'リバティクラブ 小継 磯 2-300'})).toContainText('選択済み');
+  await page.getByRole('button',{name:'サビキカゴを変更する',exact:true}).click();
   await expect(page.getByRole('button',{name:'この商品を選ぶ：UPK-001 3Pプラカゴ サビキ L-10号',exact:true})).toHaveCount(0);
   await expect(page.getByRole('button',{name:'この商品を選ぶ：UPK-001 3Pプラカゴ サビキ S-6号',exact:true})).toBeVisible();
 });
@@ -80,10 +89,13 @@ test('using included line is explicit and changing the reel requires a new line 
   const build = completedBuild(); build.selection.reel = 'reel-2500';
   await page.goto(`./?build=${encodeBuild(build)}#builder/line`);
   await page.getByRole('button',{name:'リール付属の糸を使う',exact:true}).click();
-  await expect(page).toHaveURL(/#review$/);
-  await expect(page.getByRole('article').filter({hasText:'リール付属のナイロン3号150m'})).toContainText('追加購入なし');
-  await page.getByRole('button',{name:'リールを選び直す',exact:true}).click();
+  await expect(page).toHaveURL(/#builder$/);
+  await expect(page.getByRole('row').filter({hasText:'リール付属のナイロン3号150m'})).toContainText('追加購入なし');
+  await page.getByRole('button',{name:'リールを変更する',exact:true}).click();
   await page.getByRole('button',{name:'この商品を選ぶ：17 ワールドスピン CF2500',exact:true}).click();
+  await expect(page).toHaveURL(/#builder$/);
+  await expect(page.getByRole('button',{name:'この構成を確認する',exact:true})).toBeDisabled();
+  await page.getByRole('button',{name:'メインラインの商品を選ぶ',exact:true}).click();
   await expect(page).toHaveURL(/#builder\/line$/);
 });
 
@@ -112,9 +124,14 @@ test('manual purchase prices and shipping compute savings without inventing unkn
 
 test('owned gear is an explicit decision and excluded from purchase links',async({page})=>{
   await builder(page);
+  await page.getByRole('button',{name:'ロッドの商品を選ぶ',exact:true}).click();
   await page.getByText('持っている道具を使いたい',{exact:true}).click();
   await page.getByRole('button',{name:'ロッドは手持ちの道具を使う',exact:true}).click();
-  for (let i=1;i<categories.length;i++) await page.getByRole('article').filter({hasText:'あなたにおすすめ'}).getByRole('button',{name:/^この商品を選ぶ：/}).click();
+  for (const c of categories.slice(1)) {
+    await page.getByRole('button',{name:`${c.label}の商品を選ぶ`,exact:true}).click();
+    await page.getByRole('article').filter({hasText:'あなたにおすすめ'}).getByRole('button',{name:/^この商品を選ぶ：/}).click();
+  }
+  await page.getByRole('button',{name:'この構成を確認する',exact:true}).click();
   await page.getByRole('button',{name:'この構成で購入・保存へ',exact:true}).click();
   await page.getByRole('button',{name:/購入先を確認する/}).click();
   const owned = page.getByRole('article').filter({hasText:'手持ちの道具を使う'});
@@ -147,13 +164,33 @@ test('checklist, share, reload, reset and browser back restore the same plan',as
 
 test('browser back and forward preserve completed decisions',async({page})=>{
   await builder(page);
+  await page.getByRole('button',{name:'ロッドの商品を選ぶ',exact:true}).click();
   await page.getByRole('button',{name:'この商品を選ぶ：リバティクラブ 小継 磯 3-300',exact:true}).click();
-  await expect(page).toHaveURL(/#builder\/reel$/);
+  await expect(page).toHaveURL(/#builder$/);
   await page.goBack();
   await expect(page).toHaveURL(/#builder\/rod$/);
   await expect(page.getByText('前回の選択',{exact:true})).toBeVisible();
   await page.goForward();
-  await expect(page).toHaveURL(/#builder\/reel$/);
+  await expect(page).toHaveURL(/#builder$/);
+});
+
+test('the overview allows any category first and returning without choosing preserves the list',async({page})=>{
+  await builder(page);
+  await page.getByRole('button',{name:'バケツの商品を選ぶ',exact:true}).click();
+  await expect(page.getByRole('heading',{level:1})).toHaveText('バケツを選ぼう。');
+  await page.getByRole('button',{name:'戻る',exact:true}).click();
+  await expect(page).toHaveURL(/#builder$/);
+  await expect(page.getByText('未選択',{exact:true})).toHaveCount(8);
+  await page.getByRole('button',{name:'安全用品の商品を選ぶ',exact:true}).click();
+  await page.getByRole('button',{name:'この商品を選ぶ：トカラウ BSJ-201ARS レッド M',exact:true}).click();
+  await expect(page).toHaveURL(/#builder$/);
+  await expect(page.getByRole('row').filter({hasText:'トカラウ BSJ-201ARS レッド M'})).toContainText('Bluestorm');
+  await expect(page.getByText('未選択',{exact:true})).toHaveCount(7);
+  await expect(page.getByRole('button',{name:'この構成を確認する',exact:true})).toBeDisabled();
+  await page.reload();
+  await expect(page.getByRole('row').filter({hasText:'トカラウ BSJ-201ARS レッド M'})).toContainText('選択済み');
+  await page.getByRole('button',{name:'ロッドの商品を選ぶ',exact:true}).click();
+  await expect(page).toHaveURL(/#builder\/rod$/);
 });
 
 test('a new plan never inherits automatically populated or previously selected gear',async({page})=>{
@@ -211,6 +248,8 @@ test('automated accessibility across all decision types',async({page})=>{
   await diagnose(page); await check();
   await page.getByRole('button',{name:'おすすめの魚を見る',exact:true}).click(); await check();
   await builder(page); await check();
+  await page.getByRole('button',{name:'ロッドの商品を選ぶ',exact:true}).click(); await check();
+  await page.getByRole('button',{name:'戻る',exact:true}).click();
   await chooseAll(page); await check();
   await page.getByRole('button',{name:'ロッドの価格を入力',exact:true}).click(); await check();
   await page.getByRole('button',{name:'戻る',exact:true}).click();

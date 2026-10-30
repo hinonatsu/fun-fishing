@@ -55,9 +55,16 @@ describe('explicit choices and diagnosis',()=>{
   it('requires every category, including the recommended bucket, to be decided',()=>{
     const build = complete(); build.selection.bucket = '';
     expect(canComplete(build)).toBe(false);
-    expect(resolveScreen('checkout',build)).toBe('builder/bucket');
-    expect(resolveScreen('builder/safety',build)).toBe('builder/bucket');
+    expect(resolveScreen('checkout',build)).toBe('builder');
+    expect(resolveScreen('builder/safety',build)).toBe('builder/safety');
     expect(canComplete(chooseOwned(build,'bucket'))).toBe(true);
+  });
+  it('opens the equipment overview and any category without imposing an order',()=>{
+    const build = ready();
+    expect(resolveScreen('builder',build)).toBe('builder');
+    expect(resolveScreen('builder/reel',build)).toBe('builder/reel');
+    expect(resolveScreen('builder/safety',build)).toBe('builder/safety');
+    expect(resolveScreen('review',build)).toBe('builder');
   });
 });
 
@@ -74,7 +81,7 @@ describe('compatibility and included equipment',()=>{
   it('does not silently remove an existing conflicting selection',()=>{
     const build = complete(); build.selection.basket = 'basket-riseway-10'; build.selection.rod = 'rod-2-300';
     expect(canComplete(build)).toBe(false);
-    expect(resolveScreen('review',build)).toBe('builder/rod');
+    expect(resolveScreen('review',build)).toBe('builder');
     expect(build.selection.rod).toBe('rod-2-300');
   });
   it('requires an explicit choice to use included line, then invalidates it if the reel changes',()=>{
@@ -89,7 +96,7 @@ describe('compatibility and included equipment',()=>{
     expect(decodeBuild(encodeBuild(included))).toEqual(included);
     const changed = chooseProduct(included,'reel','reel-cf2500');
     expect(changed.included).toEqual([]);
-    expect(resolveScreen('review',changed)).toBe('builder/line');
+    expect(resolveScreen('review',changed)).toBe('builder');
   });
   it('keeps owned specifications unverified and excludes them from both price totals',()=>{
     const build = chooseOwned(complete(),'rod');

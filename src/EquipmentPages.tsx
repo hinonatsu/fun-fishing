@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ClipboardCheck, Copy, Info, PackageCheck, ShieldCheck, ShoppingBag, Sparkles } from 'lucide-react';
 import { amazonLinkLabel, categories, defaultSelection, fishSpecies, products, type CategoryId, type Product } from './catalog';
 import type { FishingBuild } from './domain';
-import { candidateStatus, candidatesFor, chosenCount, chooseIncludedLine, chooseOwned, chooseProduct, compatibilityForBuild, hasChoice, priceComparison, recommendedProduct, yen } from './planner';
+import { canComplete, candidateStatus, candidatesFor, chosenCount, chooseIncludedLine, chooseOwned, chooseProduct, compatibilityForBuild, hasChoice, priceComparison, recommendedProduct, yen } from './planner';
 import { GearIllustration } from './Illustrations';
 import { ConditionChips } from './DiscoverPage';
 import { FlowShell } from './FlowPages';
@@ -32,15 +32,38 @@ function PriceSummary({ build }: { build: FishingBuild }) {
   </section>;
 }
 
+export function EquipmentListPage({ build, onNavigate, onBack }: PageProps & { onNavigate: (screen: string) => void }) {
+  const count = chosenCount(build);
+  const results = compatibilityForBuild(build);
+  const conflicts = results.filter(r=>r.status === 'avoid');
+  const confirmations = results.filter(r=>r.status === 'check' && !r.id.startsWith('missing-'));
+  return <FlowShell wide eyebrow="BUILD YOUR FISHING SETUP" title="必要な道具を、ひとつずつ。" description="一覧から道具を選び、商品の候補を比べましょう。どの道具からでも選べます。" onBack={onBack}>
+    <ConditionChips build={build} />
+    <div className={`equipment-health ${conflicts.length ? 'has-conflict' : ''}`} role="status"><ShieldCheck size={21} /><div><strong>{conflicts.length ? '組み合わせの見直しが必要です' : count ? '選んだ道具の組み合わせを確認しています' : '道具を選ぶと、組み合わせを確認します'}</strong><p>{conflicts.length ? conflicts.map(r=>r.title).join('・') : confirmations.length ? `公開仕様では確認しきれない項目が${confirmations.length}件あります。詳細は下から確認できます。` : 'おすすめの理由や仕様は、各道具の商品選択画面で確認できます。'}</p></div></div>
+    <div className="equipment-overview-layout"><div className="equipment-overview-main"><table className="equipment-table"><caption className="sr-only">必要な道具と選択中の商品</caption><thead><tr><th scope="col">道具</th><th scope="col">選択中の商品</th><th scope="col">価格</th><th scope="col"><span className="sr-only">商品を選ぶ操作</span></th></tr></thead><tbody>{categories.map(c=>{
+      const p = getProduct(build.selection[c.id]);
+      const owned = build.owned.includes(c.id), included = build.included.includes(c.id);
+      const chosen = hasChoice(build,c.id);
+      const conflict = conflicts.some(r=>r.categoryIds.includes(c.id));
+      return <tr key={c.id} className={`${chosen ? 'has-selection' : 'not-selected'} ${conflict ? 'row-conflict' : ''}`}>
+        <th scope="row"><button className="equipment-category-link" aria-label={`${c.label}の商品候補を開く`} onClick={()=>onNavigate(`builder/${c.id}`)}>{c.label}<ArrowRight size={13} /></button><span className={`equipment-state ${chosen ? 'chosen' : ''}`}>{owned ? '手持ち' : included ? '付属品' : chosen ? '選択済み' : '未選択'}</span></th>
+        <td className="equipment-choice">{chosen ? <><span className="equipment-product-brand">{owned ? '購入対象外' : included ? '追加購入なし' : p?.brand}</span><h2>{owned ? '持っている道具を使う' : included ? 'リール付属のナイロン3号150m' : p?.name}</h2>{owned && <p>型番・仕様は要確認です</p>}{conflict && <p className="text-danger">組み合わせを見直してください</p>}</> : <><span className="equipment-empty">まだ選んでいません</span><p>{c.description}</p></>}</td>
+        <td className="equipment-cost"><span className="equipment-mobile-label">価格：</span>{owned || included ? '購入対象外' : p ? productPriceLabel(build,p) : '—'}</td>
+        <td className="equipment-action"><button className="button secondary" aria-label={chosen ? `${c.label}を変更する` : `${c.label}の商品を選ぶ`} onClick={()=>onNavigate(`builder/${c.id}`)}>{chosen ? '変更する' : '商品を選ぶ'}<ArrowRight size={14} /></button></td>
+      </tr>;
+    })}</tbody></table>{count > 0 && <CompatibilityDetails build={build} />}</div>
+    <aside className="equipment-overview-summary" aria-label="道具リストのサマリー"><p className="eyebrow">YOUR FISHING SETUP</p><h2>{count}<small> / {categories.length}カテゴリを選択</small></h2><div className="progress-track"><span style={{width:`${count/categories.length*100}%`}} /></div><PriceSummary build={build} />{count < categories.length && <p className="equipment-remaining">あと{categories.length-count}カテゴリを選んでください。</p>}{conflicts.length > 0 && <p className="equipment-remaining text-danger">非推奨の組み合わせを見直してください。</p>}<button className="button primary full-width" disabled={!canComplete(build)} onClick={()=>onNavigate('review')}>この構成を確認する<ArrowRight size={16} /></button><p className="quiet-note">すべての道具を自分で選んでから、購入・保存に進めます。</p></aside></div>
+  </FlowShell>;
+}
+
 export function BuilderPage({ build, category, onSelect, onBack }: PageProps & { category: CategoryId; onSelect: (build: FishingBuild) => void }) {
   const c = categories.find(c => c.id === category)!;
-  const index = categories.indexOf(c);
   const recommended = recommendedProduct(build, category);
   const candidates = candidatesFor(build, category).sort((a,b) => Number(b.id === recommended?.id) - Number(a.id === recommended?.id));
   const allCandidates = products.filter(p => p.category === category);
   const reel = getProduct(build.selection.reel);
   const current = getProduct(build.selection[category]);
-  return <FlowShell wide eyebrow={`CHOOSE YOUR GEAR · ${index + 1} / ${categories.length}`} title={`${c.label}を選ぼう。`} description={`${c.description} おすすめの理由を参考に、あなた自身でひとつ選びます。`} onBack={onBack}>
+  return <FlowShell wide eyebrow="CHOOSE YOUR GEAR" title={`${c.label}を選ぼう。`} description={`${c.description} おすすめの理由を参考に、あなた自身でひとつ選びます。`} onBack={onBack}>
     <div className="gear-layout"><div>
       {current && !candidates.some(p => p.id === current.id) && <Notice tone="warning">選択中の「{current.name}」は、現在の組み合わせでは非推奨です。別の候補を選んでください。</Notice>}
       {category === 'line' && reel?.technical.includedLine && !build.owned.includes('reel') && <div className="included-choice"><PackageCheck size={25} /><div><h2>リールに糸が付属しています。</h2><p>{reel.technical.includedLine}。別売りの糸を買わずに使う選択もできます。</p><button className="button primary" onClick={() => onSelect(chooseIncludedLine(build))}>リール付属の糸を使う<ArrowRight size={16} /></button></div></div>}
@@ -63,7 +86,7 @@ export function BuilderPage({ build, category, onSelect, onBack }: PageProps & {
       })}</div>
       {allCandidates.length > candidates.length && <p className="quiet-note">選択済みの道具と、公称仕様が明確に合わない候補は表示していません。</p>}
       <details className="owned-choice"><summary>持っている道具を使いたい</summary><p>購入対象から外します。手持ちの型番・仕様は未登録なので、関連する組み合わせは要確認として残します。</p><button className="button secondary" onClick={() => onSelect(chooseOwned(build,category))}>{c.label}は手持ちの道具を使う<ArrowRight size={16} /></button></details>
-      <p className="quiet-note">イラストは道具のイメージです。商品を選ぶと、次の画面に進みます。</p>
+      <p className="quiet-note">イラストは道具のイメージです。商品を選ぶと、道具の一覧に戻ります。</p>
     </div><aside className="gear-progress" aria-label="現在の道具選び"><p className="eyebrow">YOUR FISHING SETUP</p><h2>{chosenCount(build)}<small> / {categories.length}点を選択</small></h2><div className="progress-track"><span style={{width:`${chosenCount(build)/categories.length*100}%`}} /></div><ol className="gear-steps">{categories.map((slot,i) => <li key={slot.id} aria-current={category === slot.id ? 'step' : undefined}><span>{hasChoice(build,slot.id) ? <Check size={12} /> : i+1}</span>{slot.label}<small>{hasChoice(build,slot.id) ? '選択済み' : category === slot.id ? 'いま選ぶ' : 'これから'}</small></li>)}</ol><PriceSummary build={build} /><p className="quiet-note"><ShieldCheck size={14} />選択済みの点数は、適合確認済みの数とは異なります。</p></aside></div>
     <div className="gear-mobile-progress"><span>道具 <strong>{chosenCount(build)} / {categories.length}点</strong><small>いま選ぶ：{c.label}</small></span><span>{priceComparison(build).selectedTotal === null ? '価格未入力' : `商品代 ${yen(priceComparison(build).selectedTotal!)}`}</span></div>
   </FlowShell>;

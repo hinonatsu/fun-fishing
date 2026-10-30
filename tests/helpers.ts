@@ -22,14 +22,18 @@ export async function builder(page: Page) {
   await page.getByRole('button').filter({has:page.getByRole('heading',{name:'アジ',exact:true})}).click();
   await expect(page).toHaveURL(/#method$/);
   await page.getByRole('button',{name:'この釣り方の道具を選ぶ',exact:true}).click();
-  await expect(page).toHaveURL(/#builder\/rod$/);
+  await expect(page).toHaveURL(/#builder$/);
 }
 export async function chooseAll(page: Page) {
   for (const category of categories) {
+    await expect(page).toHaveURL(/#builder$/);
+    await page.getByRole('button',{name:`${category.label}の商品を選ぶ`,exact:true}).click();
     await expect(page).toHaveURL(new RegExp(`#builder/${category.id}$`));
     const p = products.find(p=>p.id === defaultSelection[category.id])!;
     await page.getByRole('button',{name:`この商品を選ぶ：${p.name}`,exact:true}).click();
   }
+  await expect(page).toHaveURL(/#builder$/);
+  await page.getByRole('button',{name:'この構成を確認する',exact:true}).click();
   await expect(page).toHaveURL(/#review$/);
 }
 export async function complete(page: Page) { await builder(page); await chooseAll(page); }

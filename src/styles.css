@@ -434,6 +434,67 @@ summary::-webkit-details-marker { display: none; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
 
 /* One screen, one decision. Existing brand colors and original artwork are retained. */
+.equipment-health { display:flex; align-items:flex-start; gap:13px; padding:17px 21px; background:#f1f6eb; color:#315f4b; border:1px solid #dce8d4; border-radius:10px; margin-bottom:25px; }
+.equipment-health > svg { margin-top:3px; }
+.equipment-health strong { font-size:13px; }
+.equipment-health p { font-size:11px; margin-top:3px; color:#536f61; }
+.equipment-health.has-conflict { background:#fcf1e9; border-color:#ecd0bc; color:#854226; }
+.equipment-overview-layout { display:grid; grid-template-columns:minmax(0,1fr) 295px; align-items:start; gap:27px; }
+.equipment-overview-main { min-width:0; }
+.equipment-table { width:100%; border-collapse:collapse; text-align:left; }
+.equipment-table thead th { padding:12px 13px; border-bottom:1px solid #ccd9ce; font-weight:500; font-size:11px; color:#5a7065; background:#f7f9f4; }
+.equipment-table tbody th,.equipment-table td { padding:20px 13px; border-bottom:1px solid var(--line); vertical-align:middle; }
+.equipment-table tbody th { width:120px; font-weight:500; }
+.equipment-category-link { display:flex; align-items:center; gap:6px; font-weight:700; font-size:12px; color:var(--teal-dark); min-height:34px; text-align:left; }
+.equipment-category-link:hover { text-decoration:underline; text-underline-offset:4px; }
+.equipment-state { display:inline-block; font-size:9px; padding:1px 6px; margin-top:4px; border-radius:4px; color:#617267; background:#f0f3ed; }
+.equipment-state.chosen { color:#356543; background:#eaf3e3; }
+.equipment-choice h2 { font-size:12px; line-height:1.8; margin-top:3px; }
+.equipment-product-brand { color:#587260; font-size:10px; }
+.equipment-choice p { color:#65756b; font-size:10px; margin-top:4px; }
+.equipment-empty { color:#65756b; font-size:11px; }
+.equipment-cost { width:140px; font-size:10px; color:#536e5f; overflow-wrap:anywhere; }
+.equipment-action { width:111px; text-align:right; }
+.equipment-action .button { font-size:10px; padding:9px 12px; gap:7px; min-height:40px; white-space:nowrap; }
+.equipment-mobile-label { display:none; }
+.equipment-table .row-conflict { background:#fff8f1; }
+.equipment-table .row-conflict .equipment-state { color:#854226; background:#f9e6d6; }
+.equipment-overview-summary { position:sticky; top:24px; padding:23px; background:#f7f9f2; border:1px solid #e1e8d8; border-radius:12px; }
+.equipment-overview-summary > h2 { font-size:35px; font-weight:500; margin:13px 0 12px; }
+.equipment-overview-summary > h2 small { font-size:11px; color:var(--muted); }
+.equipment-overview-summary > .button { margin-top:18px; }
+.equipment-remaining { color:#5d7264; margin-top:18px; font-size:11px; }
+@media(max-width:1050px) {
+  .equipment-overview-layout { grid-template-columns:minmax(0,1fr) 255px; gap:20px; }
+  .equipment-overview-summary { padding:18px; }
+  .equipment-table tbody th,.equipment-table td { padding:17px 9px; }
+  .equipment-table tbody th { width:105px; }
+  .equipment-category-link { font-size:11px; }
+  .equipment-category-link svg { display:none; }
+}
+@media(max-width:850px) {
+  .equipment-overview-layout { grid-template-columns:minmax(0,1fr); }
+  .equipment-overview-summary { position:static; padding:23px; }
+}
+@media(max-width:600px) {
+  .equipment-health { padding:15px; gap:10px; margin-bottom:20px; }
+  .equipment-health strong { font-size:12px; }
+  .equipment-health p { font-size:10px; }
+  .equipment-table,.equipment-table tbody { display:block; }
+  .equipment-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+  .equipment-table tbody tr { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px 13px; padding:16px; border:1px solid var(--line); border-radius:10px; margin-bottom:11px; }
+  .equipment-table tbody th,.equipment-table td { display:block; padding:0; border:0; width:auto; }
+  .equipment-table tbody th { grid-column:1; grid-row:1; }
+  .equipment-category-link { font-size:13px; min-height:28px; }
+  .equipment-state { margin-top:2px; }
+  .equipment-choice { grid-column:1/-1; grid-row:2; padding-top:8px!important; }
+  .equipment-choice h2 { font-size:12px; }
+  .equipment-choice p { font-size:10px; }
+  .equipment-cost { grid-column:1/-1; grid-row:3; font-size:10px; }
+  .equipment-action { grid-column:2; grid-row:1; align-self:center; }
+  .equipment-action .button { min-height:41px; padding-inline:13px; font-size:11px; }
+  .equipment-mobile-label { display:inline; }
+}
 .focused-header-links { display:flex; align-items:center; gap:24px; font-size:12px; color:#536e66; }
 .focused-header-links > button { min-height:44px; }
 .focused-header-links > span { display:flex; gap:5px; align-items:center; font-size:11px; }
