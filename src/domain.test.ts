@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { categories, defaultSelection, products } from './catalog';
-import { createDefaultBuild, decodeBuild, encodeBuild, evaluateCompatibility, getFish, isSupported, safeExternalUrl } from './domain';
+import { createDefaultBuild as createEmptyBuild, decodeBuild, encodeBuild, evaluateCompatibility, getFish, isSupported, safeExternalUrl } from './domain';
+// A fully populated fixture for the existing compatibility and v1 migration cases.
+function createDefaultBuild(input?: Parameters<typeof createEmptyBuild>[0]) {
+  const build = createEmptyBuild(input);
+  return {...build,fishId:getFish(build.conditions)[0]?.id || '',methodId:'sabiki',selection:{...defaultSelection}};
+}
 const conditions = { month:10,area:'tokyo-bay',field:'pier' };
 const pack = (value:unknown) => btoa(JSON.stringify(value)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 

@@ -1,32 +1,18 @@
-import { test, expect } from "@playwright/test";
-import { mkdir } from "node:fs/promises";
+import { test, expect } from '@playwright/test';
+import { encodeBuild } from '../src/domain';
+import { completedBuild, fresh, noOverflow } from './helpers';
 
-const sizes = [
-  { width: 360, height: 800 },
-  { width: 390, height: 844 },
-  { width: 768, height: 1024 },
-  { width: 1280, height: 800 },
-  { width: 1440, height: 900 },
-  { width: 1920, height: 1080 },
-];
-
-for (const size of sizes) {
-  test(`responsive primary screens ${size.width}x${size.height}`, async ({ page }) => {
+for (const size of [{width:360,height:800},{width:390,height:844},{width:768,height:1024},{width:1280,height:800},{width:1440,height:900},{width:1920,height:1080}]) {
+  test(`responsive decisions ${size.width}x${size.height}`,async({page},info)=>{
     await page.setViewportSize(size);
-    await page.goto("./#search");
-    await mkdir("artifacts/screenshots", { recursive: true });
-    const capture = async (screen: string) => {
-      const widths = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, viewport: innerWidth }));
-      expect(widths.scroll).toBeLessThanOrEqual(widths.viewport);
-      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-      await page.screenshot({ path: `artifacts/screenshots/responsive-${size.width}x${size.height}-${screen}.png`, fullPage: true, animations: "disabled", scale: "css" });
-    };
-    await capture("home");
-    await page.getByRole("button", { name: "まずはサンプルで試す", exact: true }).click();
-    await capture("discover");
-    await page.getByRole("button", { name: "この釣り方で道具を見る", exact: true }).click();
-    await capture("builder");
-    await page.getByRole("button", { name: "このセットで準備する", exact: true }).click();
-    await capture("list");
+    await fresh(page);
+    const capture = async(name:string)=>{await expect(page.getByRole('heading',{level:1})).toBeVisible();await noOverflow(page);await page.screenshot({path:info.outputPath(`${name}.png`),fullPage:true,animations:'disabled'});};
+    await capture('home');
+    await page.getByRole('button',{name:'釣りのプランをつくる',exact:true}).click(); await capture('month');
+    const build = completedBuild();
+    for (const screen of ['diagnosis/goal','diagnosis/ready','discover','method','builder/rod','builder/bucket','review','prices/bucket','checkout','save','list']) {
+      await page.goto(`./?build=${encodeBuild(build)}#${screen}`);
+      await capture(screen.replace('/','-'));
+    }
   });
 }

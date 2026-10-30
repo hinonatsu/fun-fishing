@@ -1,10 +1,13 @@
-import { areas, categories, defaultSelection, fishSpecies, fishingFields, methods, products, replacedProductIds, type CategoryId, type Product } from './catalog';
+import { areas, categories, fishSpecies, fishingFields, methods, products, replacedProductIds, type CategoryId, type Product } from './catalog';
+import { validAnswers } from './diagnosis';
 export type { CategoryId } from './catalog';
 
 export interface FishingConditions { month: number; area: string; field: string }
 export interface FishingBuild {
   conditions: FishingConditions; fishId: string; methodId: string;
   selection: Record<CategoryId,string>; checked: CategoryId[]; owned: CategoryId[]; replacedCategories?: CategoryId[];
+  answers: Record<string,string>; included: CategoryId[]; prices: Record<string,number>;
+  shipping: { selected: number | null; reference: number | null };
 }
 export type CompatibilityStatus = 'recommended' | 'check' | 'avoid';
 export interface CompatibilityResult { id: string; status: CompatibilityStatus; title: string; reason: string; categoryIds: CategoryId[] }
@@ -38,7 +41,7 @@ export function getFish(conditions: FishingConditions) {
   return isSupported(conditions) ? fishSpecies.filter(f => f.months.includes(conditions.month)) : [];
 }
 export function createDefaultBuild(conditions: FishingConditions = { month: new Date().getMonth() + 1, area:'tokyo-bay',field:'pier' }): FishingBuild {
-  return { conditions:{...conditions},fishId:getFish(conditions)[0]?.id ?? '',methodId:'sabiki',selection:{...defaultSelection},checked:[],owned:[] };
+  return { conditions:{...conditions},fishId:'',methodId:'',selection:Object.fromEntries(categories.map(c=>[c.id,''])) as Record<CategoryId,string>,checked:[],owned:[],answers:{},included:[],prices:{},shipping:{selected:null,reference:null} };
 }
 
 /** Pure evaluation: never changes/removes the user's selections. A recommendation only covers the named rule. */
@@ -106,7 +109,7 @@ export function safeExternalUrl(value: string): string | null {
   } catch { return null; }
 }
 export function encodeBuild(build: FishingBuild): string {
-  const bytes = new TextEncoder().encode(JSON.stringify({v:1,conditions:build.conditions,fishId:build.fishId,methodId:build.methodId,selection:build.selection,checked:build.checked,owned:build.owned}));
+  const bytes = new TextEncoder().encode(JSON.stringify({v:2,conditions:build.conditions,fishId:build.fishId,methodId:build.methodId,selection:build.selection,checked:build.checked,owned:build.owned,answers:build.answers,included:build.included,prices:build.prices,shipping:build.shipping}));
   let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte);
   return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
@@ -116,13 +119,16 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     if (encoded.length < 8 || encoded.length > 7000 || !/^[\w-]+$/.test(encoded)) return null;
     const binary = atob(encoded.replace(/-/g,'+').replace(/_/g,'/'));
     const value: unknown = JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Uint8Array.from(binary,c=>c.charCodeAt(0))));
-    if (!record(value) || value.v !== 1 || !record(value.conditions) || !record(value.selection)) return null;
+    if (!record(value) || (value.v !== 1 && value.v !== 2) || !record(value.conditions) || !record(value.selection)) return null;
     const c = value.conditions;
     if (typeof c.month !== 'number' || !Number.isInteger(c.month) || c.month < 1 || c.month > 12 || !areas.some(a => a.id === c.area) || !fishingFields.some(f=>f.id===c.field)) return null;
     if (typeof value.fishId !== 'string' || (value.fishId !== '' && !fishSpecies.some(f=>f.id===value.fishId))) return null;
     const conditions: FishingConditions = {month:c.month,area:c.area as string,field:c.field as string};
-    if (isSupported(conditions) && !getFish(conditions).some(f=>f.id===value.fishId)) return null;
-    if (!methods.some(m => m.supported && m.id === value.methodId)) return null;
+    if (isSupported(conditions) && value.fishId !== '' && !getFish(conditions).some(f=>f.id===value.fishId)) return null;
+    if (value.v === 1 && isSupported(conditions) && value.fishId === '') return null;
+    if (value.methodId !== '' && !methods.some(m => m.supported && m.id === value.methodId)) return null;
+    if (value.v === 1 && value.methodId === '') return null;
+    if (value.fishId !== '' && value.methodId !== '' && !fishSpecies.find(f=>f.id===value.fishId)?.methodIds.includes(value.methodId as string)) return null;
     const selection = {} as Record<CategoryId,string>;
     const replacedCategories: CategoryId[] = [];
     for (const id of categoryIds) {
@@ -134,7 +140,16 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     const list = (candidate:unknown): CategoryId[] | null => Array.isArray(candidate) && candidate.length <= categoryIds.length && candidate.every(v => typeof v === 'string' && knownCategories.has(v)) ? [...new Set(candidate)] as CategoryId[] : null;
     const checked = list(value.checked);
     const owned = list(value.owned ?? []);
-    if (!checked || !owned) return null;
-    return { conditions,fishId:value.fishId,methodId:value.methodId as string,selection,checked:checked.filter(id=>(!!selection[id]||owned.includes(id))&&!replacedCategories.includes(id)),owned,...(replacedCategories.length ? {replacedCategories} : {}) };
+    const included = list(value.included ?? []);
+    const answers = value.answers ?? {};
+    const prices = value.prices ?? {};
+    const shipping = value.shipping ?? {selected:null,reference:null};
+    const money = (n:unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= 10_000_000;
+    if (!checked || !owned || !included || !validAnswers(answers) || !record(prices) || !record(shipping)) return null;
+    if (Object.entries(prices).some(([id,n])=>!byId.has(id)||!money(n))) return null;
+    if ((shipping.selected !== null && !money(shipping.selected)) || (shipping.reference !== null && !money(shipping.reference))) return null;
+    if (included.some(id=>id !== 'line' || selection.line !== '' || owned.includes('line') || owned.includes('reel') || !byId.get(selection.reel)?.technical.includedLine)) return null;
+    if (owned.some(id=>included.includes(id))) return null;
+    return { conditions,fishId:value.fishId,methodId:value.methodId as string,selection,checked:checked.filter(id=>(!!selection[id]||owned.includes(id)||included.includes(id))&&!replacedCategories.includes(id)),owned,answers,included,prices:prices as Record<string,number>,shipping:{selected:shipping.selected as number|null,reference:shipping.reference as number|null},...(replacedCategories.length ? {replacedCategories} : {}) };
   } catch { return null; }
 }
