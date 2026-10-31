@@ -755,7 +755,7 @@ summary { cursor:pointer; }
 
 /* Layered, original rig drawings. Each part follows the existing choice state. */
 .rig-diagram { display:block; width:100%; height:auto; overflow:visible; }
-.rig-part,.rig-diagram.has-highlight .rig-part.is-highlighted { --rig-ink:#355d60; --rig-fill:#aacabd; --rig-soft:#eff5e9; --rig-metal:#729a96; --rig-cork:#d7bf94; --rig-accent:#c99773; --rig-bait:#c08d71; stroke:var(--rig-ink); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:filter .25s; }
+.rig-part,.rig-diagram.has-highlight .rig-part.is-highlighted { --rig-ink:#1e6261; --rig-fill:#74bba4; --rig-soft:#e4f3dd; --rig-metal:#3f8e88; --rig-cork:#dbaa58; --rig-accent:#db8759; --rig-bait:#d7815b; stroke:var(--rig-ink); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:filter .25s; }
 .rig-part.is-missing,.rig-diagram.has-highlight .rig-part:not(.is-highlighted) { --rig-ink:#9ba6a2; --rig-fill:#dfe5df; --rig-soft:#f0f2ed; --rig-metal:#c4ceca; --rig-cork:#d6ddd6; --rig-accent:#ccd5ce; --rig-bait:#bdc8c1; }
 .rig-hit-area,.rig-hit-area * { fill:none!important; stroke:transparent!important; stroke-width:14px!important; pointer-events:stroke; }
 .rig-part[data-part="line"] > .rig-thread { pointer-events:none; }
