@@ -7,7 +7,8 @@ export type CategoryId = 'rod' | 'reel' | 'line' | 'rig' | 'basket' | 'bait' | '
 export type VerificationStatus = 'verified' | 'partial';
 export interface Area { id: string; name: string; region: string; supported: boolean }
 export interface FishingField { id: string; name: string; supported: boolean }
-export interface FishSpecies { id: string; name: string; members: string[]; aliases: string[]; description: string; difficulty: string; months: number[]; methodIds: string[]; sourceUrl: string; habitat: string; tip: string }
+export type FishDifficulty = 1 | 2 | 3;
+export interface FishSpecies { id: string; name: string; members: string[]; aliases: string[]; description: string; difficulty: FishDifficulty; months: number[]; methodIds: string[]; sourceUrl: string; habitat: string; tip: string }
 export interface Seasonality { fishId: string; areaId: string; fieldId: string; months: number[]; sourceUrl: string; note: string }
 export interface FishingMethod { id: string; name: string; description: string; beginner: boolean; supported: boolean; supplies: string[]; steps: string[]; sourceUrl: string }
 export interface EquipmentCategory { id: CategoryId; label: string; necessity: 'required' | 'recommended' | 'optional'; description: string }

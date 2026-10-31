@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ArrowRight, CalendarDays, MapPin, Search, Sparkles, Waves } from 'lucide-react';
-import { areas, fishSpecies, methods } from './catalog';
+import { ArrowRight, CalendarDays, MapPin, Search, Sparkles, Star, Waves } from 'lucide-react';
+import { areas, fishSpecies, methods, type FishDifficulty } from './catalog';
 import { questions, requiredQuestions } from './diagnosis';
 import { getFish, hasProductGuide, type FishingBuild } from './domain';
 import { fishReason, nextQuestion, rankedFish } from './planner';
@@ -9,6 +9,18 @@ import { filterFish } from './fish-catalog';
 import { FlowShell } from './FlowPages';
 import { ExternalLinkButton, Notice } from './ui';
 import './fish-selection.css';
+
+const difficultyLabels: Record<FishDifficulty, string> = {1:'簡単', 2:'ふつう', 3:'難しい'};
+
+function DifficultyStars({ level, compact = false }: { level: FishDifficulty; compact?: boolean }) {
+  return <span className="fish-difficulty">
+    {!compact && <span className="fish-difficulty-caption">難易度</span>}
+    <span className="fish-difficulty-stars" role="img" aria-label={`星${level} / 3`}>
+      {[1,2,3].map(star => <Star key={star} size={14} strokeWidth={1.8} className={star <= level ? 'filled' : ''} fill={star <= level ? 'currentColor' : 'none'} aria-hidden="true" />)}
+    </span>
+    <span className="fish-difficulty-label">{difficultyLabels[level]}</span>
+  </span>;
+}
 
 export function ConditionChips({ build }: { build: FishingBuild }) {
   return <div className="condition-chips"><span><CalendarDays size={14} />{build.conditions.month}月</span><span><MapPin size={14} />{areas.find(a => a.id === build.conditions.area)?.name}</span><span><Waves size={14} />{build.conditions.field === 'pier' ? '堤防' : build.conditions.field === 'surf' ? 'サーフ' : '磯'}</span></div>;
@@ -49,12 +61,17 @@ export function DiscoverPage({ build, onSelect, onBack }: { build: FishingBuild;
       <label><span>釣り方で絞り込む</span><select value={methodId} onChange={e => setMethodId(e.target.value)}><option value="">すべての釣り方</option>{methods.filter(m => m.supported).map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select></label>
       <label><span>並び順</span><select value={sort} onChange={e => setSort(e.target.value)}><option value="recommended">あなたへのおすすめ順</option><option value="popular">有名順</option></select></label>
     </div>
+    <div className="fish-difficulty-legend">
+      <strong>難易度の目安</strong>
+      <div className="fish-difficulty-scale">{([1,2,3] as const).map(level => <DifficultyStars key={level} level={level} compact />)}</div>
+      <p>初心者が岸から1匹を狙う目安です。場所・時期・釣り方で変わります。</p>
+    </div>
     <p className="fish-result-count" role="status">{fish.length} / {fishSpecies.length}項目を表示<span>近い仲間はまとめています · イカ類を含む</span></p>
     {fish.length ? <div className="fish-grid" role="group" aria-label="狙う魚を選ぶ">{fish.map((f,i) =>
       <button className="fish-card" key={f.id} onClick={() => onSelect(f.id)}>
         <div className={`fish-art ${f.id}`}><FishArtwork species={f.id} />{sort === 'recommended' && i === 0 && seasonal.some(s => s.id === f.id) && <span className="fish-recommend"><Sparkles size={12} />あなたにおすすめ</span>}</div>
         <div className="fish-body">
-          <span className="fish-level">{f.difficulty}</span>
+          <DifficultyStars level={f.difficulty} />
           <h2>{f.name}<ArrowRight size={19} /></h2>
           {f.members.length > 0 && <span className="fish-members">{f.members.join('・')}</span>}
           <p>{f.description}</p><p className="fish-personal-reason">{fishReason(build,f.id)}</p>

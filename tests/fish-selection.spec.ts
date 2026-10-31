@@ -12,6 +12,15 @@ test('all 30 groups can be searched by aliases, sorted and filtered accessibly',
   await page.goto(`./?build=${encodeBuild(plan())}#discover`);
   const cards = page.getByRole('group',{name:'狙う魚を選ぶ'}).getByRole('button');
   await expect(cards).toHaveCount(30);
+  await expect(page.getByText('難易度の目安',{exact:true})).toBeVisible();
+  for (const fish of fishSpecies) {
+    const card = cards.filter({has:page.getByRole('heading',{name:fish.name,exact:true})});
+    await expect(card.getByRole('img',{name:`星${fish.difficulty} / 3`,exact:true})).toBeVisible();
+    await expect(card.locator('.fish-difficulty-stars .filled')).toHaveCount(fish.difficulty);
+  }
+  await expect(cards.filter({has:page.getByRole('heading',{name:'アジ',exact:true})}).getByRole('img',{name:'星1 / 3',exact:true})).toBeVisible();
+  await expect(cards.filter({has:page.getByRole('heading',{name:'カワハギ',exact:true})}).getByRole('img',{name:'星2 / 3',exact:true})).toBeVisible();
+  await expect(cards.filter({has:page.getByRole('heading',{name:'ヒラメ',exact:true})}).getByRole('img',{name:'星3 / 3',exact:true})).toBeVisible();
   await page.getByRole('combobox',{name:'並び順',exact:true}).selectOption('popular');
   await expect(cards.first().getByRole('heading')).toHaveText('アジ');
   await expect(cards.nth(1).getByRole('heading')).toHaveText('サバ');
