@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { categories, products } from '../src/catalog';
 import { questions } from '../src/diagnosis';
-import { decodeBuild, encodeBuild } from '../src/domain';
+import { createDefaultBuild, decodeBuild, encodeBuild } from '../src/domain';
 import { builder, chooseAll, complete, completedBuild, diagnose, fresh, noOverflow } from './helpers';
 
 test('conditions, questions, fish and method are separate decisions',async({page})=>{
@@ -180,12 +180,12 @@ test('the overview allows any category first and returning without choosing pres
   await expect(page.getByRole('heading',{level:1})).toHaveText('バケツを選ぼう。');
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
-  await expect(page.getByText('未選択',{exact:true})).toHaveCount(8);
+  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品'}).getByText('未選択',{exact:true})).toHaveCount(8);
   await page.getByRole('button',{name:'安全用品の商品を選ぶ',exact:true}).click();
   await page.getByRole('button',{name:'この商品を選ぶ：トカラウ BSJ-201ARS レッド M',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
   await expect(page.getByRole('row').filter({hasText:'トカラウ BSJ-201ARS レッド M'})).toContainText('Bluestorm');
-  await expect(page.getByText('未選択',{exact:true})).toHaveCount(7);
+  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品'}).getByText('未選択',{exact:true})).toHaveCount(7);
   await expect(page.getByRole('button',{name:'この構成を確認する',exact:true})).toBeDisabled();
   await page.reload();
   await expect(page.getByRole('row').filter({hasText:'トカラウ BSJ-201ARS レッド M'})).toContainText('選択済み');
@@ -209,7 +209,7 @@ test('unsupported conditions, malformed sharing and direct skips recover',async(
   await page.goto('./?build=invalid#list');
   await expect(page).toHaveURL(/#search$/);
   await expect(page.getByRole('status')).toContainText('共有URLを読み込めませんでした');
-  await page.goto('./#list');
+  await page.goto(`./?build=${encodeBuild(createDefaultBuild({month:10,area:'tokyo-bay',field:'pier'}))}#list`);
   await expect(page).toHaveURL(/#diagnosis\/goal$/);
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await page.getByRole('button',{name:/^サーフ/}).click();

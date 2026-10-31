@@ -9,6 +9,8 @@ import { ConditionsPage } from './FlowPages';
 import { DiagnosisPage, DiscoverPage, MethodPage } from './DiscoverPage';
 import { BuilderPage, EquipmentListPage, ChecklistPage, CheckoutPage, PricePage, ReviewPage, SavePage, ShippingPage } from './EquipmentPages';
 import { Modal } from './ui';
+import { RigLibraryPage } from './RigLibraryPage';
+import { rigById } from './rigs';
 
 const storageKey = 'fun-fishing-build-v1';
 const stages = ['釣行条件','あなたの好み','魚と釣り方','道具選び','完成・準備'];
@@ -32,7 +34,8 @@ function initialize() {
   }
   if (build?.replacedCategories?.length) message = '掲載商品を更新しました。変更した商品の仕様をご確認ください。';
   const restored = build || createDefaultBuild();
-  return { build: restored, screen: build ? resolveScreen(location.hash.slice(1) || (shared ? 'list' : 'search'),restored) : 'search', message, planId: history.state?.planId || crypto.randomUUID() };
+  const requested = location.hash.slice(1) || (shared ? 'list' : 'search');
+  return { build: restored, screen: build || requested === 'rigs' || requested.startsWith('rigs/') ? resolveScreen(requested,restored) : 'search', message, planId: history.state?.planId || crypto.randomUUID() };
 }
 
 export default function App() {
@@ -41,6 +44,8 @@ export default function App() {
   const [screen,setScreen] = useState(initial.screen);
   const [toast,setToast] = useState(initial.message);
   const [info,setInfo] = useState<'about'|'areas'|'reset'|null>(null);
+  const [recentCategory,setRecentCategory] = useState<CategoryId>();
+  const galleryReturn = useRef<string>(typeof history.state?.rigGalleryReturn === 'string' ? history.state.rigGalleryReturn : 'search');
   const planId = useRef(initial.planId);
   const cache = useRef(new Map<string,FishingBuild>());
   const savedError = useRef(false);
@@ -52,17 +57,19 @@ export default function App() {
     catch { if (!savedError.current) { savedError.current = true; setToast('自動保存が使えません。完成したリストは構成URLをコピーして保存してください。'); } }
     const params = new URLSearchParams(location.search);
     if (params.has('build')) params.set('build',encoded);
-    history.replaceState({fishingBuild:encoded,planId:planId.current},'',`${location.pathname}${params.size ? `?${params}` : ''}#${screen}`);
+    history.replaceState({fishingBuild:encoded,planId:planId.current,rigGalleryReturn:galleryReturn.current},'',`${location.pathname}${params.size ? `?${params}` : ''}#${screen}`);
   },[build,screen]);
 
   useEffect(()=>{
     const sync = ()=>{
       const state = history.state;
+      if (typeof state?.rigGalleryReturn === 'string') galleryReturn.current = state.rigGalleryReturn;
       const encoded = new URLSearchParams(location.search).get('build') || state?.fishingBuild;
       const restored = cache.current.get(state?.planId) || (encoded ? decodeBuild(encoded) : cache.current.get(planId.current));
       if (restored) { planId.current = state?.planId || crypto.randomUUID(); setBuild(restored); setScreen(resolveScreen(location.hash.slice(1),restored)); }
       else { const fresh = createDefaultBuild(); planId.current = crypto.randomUUID(); setBuild(fresh); setScreen('search'); setToast('履歴を読み込めませんでした。新しいプランを始められます。'); }
       setInfo(null);
+      setRecentCategory(undefined);
     };
     addEventListener('popstate',sync);
     return ()=>removeEventListener('popstate',sync);
@@ -75,11 +82,13 @@ export default function App() {
   useEffect(()=>{if (toast) {const timer = setTimeout(()=>setToast(''),7000); return ()=>clearTimeout(timer);}},[toast]);
 
   function navigate(requested: string, next = build) {
+    if (requested.startsWith('rigs') && !screen.startsWith('rigs')) galleryReturn.current = screen;
+    setRecentCategory(undefined);
     const resolved = resolveScreen(requested,next);
     cache.current.set(planId.current,next);
     const params = new URLSearchParams(location.search);
     if (params.has('build')) params.set('build',encodeBuild(next));
-    history.pushState({fishingBuild:encodeBuild(next),planId:planId.current},'',`${location.pathname}${params.size ? `?${params}` : ''}#${resolved}`);
+    history.pushState({fishingBuild:encodeBuild(next),planId:planId.current,rigGalleryReturn:galleryReturn.current},'',`${location.pathname}${params.size ? `?${params}` : ''}#${resolved}`);
     setBuild(next); setScreen(resolved); setInfo(null);
   }
   function sample() {
@@ -105,6 +114,7 @@ export default function App() {
   }
   function selectGear(next: FishingBuild) {
     navigate('builder',next);
+    setRecentCategory(screen.split('/')[1] as CategoryId);
   }
   function reset() {
     planId.current = crypto.randomUUID();
@@ -123,15 +133,16 @@ export default function App() {
   return <>
     <a className="skip-link" href="#main-content" onClick={e=>{e.preventDefault();document.getElementById('main-content')?.focus();}}>本文へスキップ</a>
     <header className="site-header"><div className="header-inner"><button className="brand" onClick={()=>navigate('search')} aria-label="FUN FISHING その一投を、もっと気軽に。 トップへ"><span className="brand-mark"><Fish size={26} strokeWidth={1.7} /><Waves size={20} strokeWidth={1.5} /></span><span>FUN FISHING<span className="brand-caption">その一投を、もっと気軽に。</span></span></button><div className="focused-header-links"><button onClick={()=>setInfo('about')}>使い方</button>{hasProgress && screen === 'search' ? <button className="text-button" onClick={()=>navigate('builder')}>プランの続きへ<ArrowRight size={15} /></button> : <span><Check size={13} />自動保存</span>}</div></div></header>
-    {screen !== 'search' && <div className="journey-progress"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></li>)}</ol></div>}
+    {screen !== 'search' && !screen.startsWith('rigs') && <div className="journey-progress"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></li>)}</ol></div>}
     <main id="main-content" tabIndex={-1}>
       {screen === 'search' && <SearchPage onStart={start} onSample={sample} />}
       {screen.startsWith('conditions/') && <ConditionsPage key={screen} conditions={build.conditions} field={segment as 'month'|'area'|'field'} onChoose={condition} onBack={()=>navigate(segment === 'month' ? 'search' : segment === 'area' ? 'conditions/month' : 'conditions/area')} />}
       {screen.startsWith('diagnosis/') && <DiagnosisPage key={screen} build={build} questionId={segment} onAnswer={answer} onNavigate={navigate} />}
       {screen === 'discover' && <DiscoverPage build={build} onSelect={id=>navigate('method',{...build,fishId:id,methodId:build.fishId === id ? build.methodId : ''})} onBack={()=>navigate(isSupported(build.conditions) ? 'diagnosis/ready' : 'conditions/field')} onSample={sample} />}
       {screen === 'method' && <MethodPage build={build} onSelect={id=>navigate('builder',{...build,methodId:id})} onBack={()=>navigate('discover')} />}
-      {screen === 'builder' && <EquipmentListPage build={build} onNavigate={navigate} onBack={()=>navigate('method')} />}
-      {screen.startsWith('builder/') && <BuilderPage key={screen} build={build} category={category} onSelect={selectGear} onBack={()=>navigate('builder')} />}
+      {screen === 'builder' && <EquipmentListPage build={build} onNavigate={navigate} recentCategory={recentCategory} onBack={()=>navigate('method')} />}
+      {screen.startsWith('builder/') && <BuilderPage key={screen} build={build} category={category} onSelect={selectGear} onNavigate={navigate} onBack={()=>navigate('builder')} />}
+      {screen.startsWith('rigs') && <RigLibraryPage key={screen} rig={rigById(segment) || rigById('sabiki')!} onNavigate={navigate} onBack={()=>navigate(galleryReturn.current)} />}
       {screen === 'review' && <ReviewPage build={build} onNavigate={navigate} onBack={()=>navigate('builder')} />}
       {screen.startsWith('prices/') && <PricePage key={screen} build={build} category={category} onSave={next=>navigate('review',next)} onBack={()=>navigate('review')} />}
       {screen === 'shipping' && <ShippingPage build={build} onSave={next=>navigate('review',next)} onBack={()=>navigate('review')} />}
@@ -139,7 +150,7 @@ export default function App() {
       {screen === 'save' && <SavePage shareUrl={shareUrl.href} onBack={()=>navigate('checkout')} />}
       {screen === 'list' && <ChecklistPage build={build} onChange={setBuild} onNavigate={navigate} onBack={()=>navigate('checkout')} />}
     </main>
-    <footer className="site-footer"><div className="container focused-footer"><span>© {new Date().getFullYear()} FUN FISHING</span><div><button onClick={()=>setInfo('areas')}>対応エリア・データ</button>{screen !== 'search' && <button onClick={()=>setInfo('reset')}>新しいプランをつくる</button>}</div></div></footer>
+    <footer className="site-footer"><div className="container focused-footer"><span>© {new Date().getFullYear()} FUN FISHING</span><div><button onClick={()=>navigate('rigs/sabiki')}>仕掛け図鑑</button><button onClick={()=>setInfo('areas')}>対応エリア・データ</button>{screen !== 'search' && <button onClick={()=>setInfo('reset')}>新しいプランをつくる</button>}</div></div></footer>
     {toast && <div className="toast" role="status"><InfoIcon /><span>{toast}</span><button className="icon-button" aria-label="通知を閉じる" onClick={()=>setToast('')}><X size={16} /></button></div>}
     {info === 'about' && <Modal title="一画面ずつ、あなたの釣りを。" onClose={()=>setInfo(null)}><div className="modal-body prose"><ol><li>時期・エリア・場所を、ひとつずつ選びます。</li><li>まず3問に回答。もっと答えることもできます。</li><li>魚と釣り方を、それぞれ選びます。</li><li>おすすめを参考に、道具8カテゴリをすべて自分で選びます。</li><li>価格を比べて、購入先の確認やリストの保存へ。</li></ol><p>商品は自動選択しません。公開仕様の確認範囲は商品ごとに表示します。完成したリストは専用URLで保存でき、会員登録は不要です。</p></div></Modal>}
     {info === 'areas' && <Modal title="対応エリアとデータについて" onClose={()=>setInfo(null)}><div className="modal-body prose"><p>現在は東京湾・堤防のサビキ釣りに対応しています。イワシ・小サバは4〜10月、アジは5〜10月の一般的な季節傾向を使っています。</p><p>商品は14点、道具は8カテゴリです。Amazon価格を毎朝取得し、取得日時とともに表示します。取得した購入単位の税込金額で比較でき、手入力した価格があれば優先します。取得失敗や36時間を超えた価格は合計に使いません。送料・在庫は購入先で確認してください。未入力を0円と扱ったり、実測していない節約額を表示したりしません。</p><p>組み合わせは公開仕様の範囲で確認します。現物装着や総重量、結束強度、体格への適合には未確認の項目があります。季節データは直近の釣果を保証するものではありません。</p><p>画像はオリジナルのイラストです。購入先はAmazonの個別商品ページです。</p></div></Modal>}

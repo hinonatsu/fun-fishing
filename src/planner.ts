@@ -2,6 +2,7 @@ import { categories, defaultSelection, products, type CategoryId, type Product }
 import { questions, requiredQuestions } from './diagnosis';
 import { evaluateCompatibility, getFish, isSupported, type FishingBuild } from './domain';
 import { productPrice } from './pricing';
+import { rigById } from './rigs';
 
 export function answeredRequired(build: FishingBuild) {
   return requiredQuestions.filter(q => !!build.answers[q.id]).length;
@@ -96,6 +97,8 @@ export const yen = (value: number) => `${value.toLocaleString('ja-JP')}円`;
 /** Every decision has a URL. Guards protect direct links as well as browser history. */
 export function resolveScreen(requested: string, build: FishingBuild): string {
   const screen = requested || 'search';
+  if (screen === 'rigs') return 'rigs/sabiki';
+  if (screen.startsWith('rigs/')) return rigById(screen.slice(5)) ? screen : 'rigs/sabiki';
   if (screen === 'search' || /^conditions\/(month|area|field)$/.test(screen)) return screen;
   if (!isSupported(build.conditions)) return 'discover';
   const completeLegacy = canComplete(build);

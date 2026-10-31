@@ -29,3 +29,5 @@
 `review-before-*` は修正前の比較用です。`final-home-viewport.png` は最終のトップページ表示です。
 
 テスト範囲と実行結果は `docs/QA_REPORT.md`、修正内容とレビューは `docs/UX_REVIEW.md` に記録しています。
+
+2026-11-01の `rig-*` は12種類の仕掛け図と、商品の選択状態に連動する全体図です。`rig-illustrations-12.png` は図の比較用に4列で並べた画像で、`rig-library-desktop.png` は実際の図鑑画面です。`rig-selection-state-*` と `rig-product-*` はロッドだけ選択済みで、未選択のリールを選んでいる状態をPC／スマホで撮影しています。

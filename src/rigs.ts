@@ -1,0 +1,60 @@
+import { products, type CategoryId } from './catalog';
+import type { FishingBuild } from './domain';
+
+export type RigId = 'sabiki' | 'float' | 'lure' | 'hole' | 'bukkomi' | 'nage' | 'choi-nage' | 'dozuki' | 'uki-sabiki' | 'eging' | 'hechi' | 'kago';
+export type RigPartId = CategoryId | 'float' | 'stopper' | 'sinker' | 'leader' | 'swivel' | 'hook' | 'tenbin' | 'snap' | 'lure' | 'egi' | 'burakuri' | 'cushion' | 'shock';
+export type PartState = 'missing' | 'selected' | 'owned' | 'included';
+export interface RigPart { id: RigPartId; label: string; description: string; category?: CategoryId }
+export interface RigDefinition {
+  id: RigId; name: string; variant: string; summary: string; connection: string[];
+  parts: RigPart[]; sources: { title: string; url: string }[]; note?: string;
+}
+const part = (id: RigPartId, label: string, description: string, category?: CategoryId): RigPart => ({ id, label, description, category });
+const rod = part('rod', 'ロッド', '仕掛けを操作し、魚を引き寄せる竿。釣り方に合った長さ・負荷を選びます。', 'rod');
+const reel = part('reel', 'リール', '糸を巻き取り、送り出す道具。図は形のイメージです。', 'reel');
+const line = part('line', 'メインライン', 'リールから竿のガイドを通って、仕掛けまでつながる道糸です。', 'line');
+const leader = part('leader', 'ハリス・リーダー', '道糸と針・ルアーの間をつなぐ糸。摩擦への強さや太さを合わせます。');
+const swivel = part('swivel', 'サルカン', '糸同士をつなぎ、糸のヨレを軽減する小さな金具です。');
+const hook = part('hook', '針', 'エサを付けて魚を掛ける部分。魚に合わせた大きさを使います。');
+const sinker = part('sinker', 'オモリ', '仕掛けを沈める重り。竿の負荷と釣り場に合わせて選びます。');
+const float = part('float', 'ウキ', '狙う深さを保ち、魚が食いついた反応を水面で知らせます。');
+const stopper = part('stopper', 'ウキ止め・シモリ玉', 'ウキが動く範囲を止め、狙う深さを調節します。');
+const tenbin = part('tenbin', '天秤', 'オモリと針の付いた糸を離し、絡まりを減らす金具です。');
+const snap = part('snap', 'スナップ', 'ルアーなどを取り替えやすくする接続金具です。');
+const bait = part('bait', 'エサ', '針に付けるエサ。魚や釣り方に合わせて準備します。', 'bait');
+const chum = part('bait', 'エサ・コマセ', 'カゴに詰めて魚を寄せるエサ。図の粒とパックは同じエサを表します。', 'bait');
+const bucket = part('bucket', 'バケツ', '手洗い・道具洗いなどの準備品。吊り下げ水くみは対応製品だけで行います。', 'bucket');
+const safety = part('safety', 'ライフジャケット', '体格と利用環境に合うものを着用します。仕掛けとは別の準備品です。', 'safety');
+const sabiki = part('rig', 'サビキ仕掛け', '幹糸から枝分かれした擬餌針で魚を掛けます。針の本数は省略しています。', 'rig');
+const basket = part('basket', 'サビキカゴ', 'コマセを入れる下カゴ。図はオモリ付きのタイプです。', 'basket');
+const common = [rod, reel, line];
+const extras = [bucket, safety];
+const honda = (slug: string, title: string) => ({ title: `Honda釣り倶楽部｜${title}`, url: `https://www.honda.co.jp/fishing/picture-book/${slug}/trap01/` });
+const sabikiSource = { title: 'DAIWA｜サビキ仕掛けで釣る', url: 'https://www.daiwa.com/jp/beginner/place/sabiki' };
+const castSource = honda('shirogisu', 'シロギスの仕掛け');
+
+/** Original diagrams of representative rigs, not scaled assembly instructions or product specifications. */
+export const rigs: RigDefinition[] = [
+  { id: 'sabiki', name: 'サビキ釣り', variant: '足元・下カゴ式', summary: '枝分かれした擬餌針の下に、コマセを入れるカゴ。足元へ下ろす基本形です。', connection: ['道糸', 'サビキ仕掛け', 'オモリ付き下カゴ'], parts: [...common, sabiki, basket, chum, ...extras], sources: [sabikiSource] },
+  { id: 'float', name: '浮き釣り', variant: 'リール竿・遊動ウキ式', summary: 'ウキで深さを決め、その下のハリスと針で魚を誘います。', connection: ['道糸', 'ウキ止め・玉', 'ウキ', 'サルカン', 'ハリス・ガン玉', '針・エサ'], parts: [...common, stopper, float, swivel, leader, part('sinker', 'ガン玉', 'ハリスに付ける小さな重り。ウキの浮力に合わせて調節します。'), hook, bait, ...extras], sources: [{ title: 'DAIWA｜ウキ釣りで釣る', url: 'https://www.daiwa.com/jp/beginner/place/uminouki' }] },
+  { id: 'lure', name: 'ルアー釣り', variant: 'PE＋リーダー・ミノーの例', summary: '道糸にリーダーを結び、先端のルアーを動かして誘うシンプルな形です。', connection: ['PEの道糸', 'リーダー', 'スナップ', 'ルアー'], parts: [...common, leader, snap, part('lure', 'ルアー', '小魚などに似せた疑似餌。図はミノーの例で、針もルアーの一部として表示します。'), ...extras], sources: [honda('suzuki', 'スズキの仕掛け')] },
+  { id: 'hole', name: '穴釣り', variant: 'ブラクリ式', summary: 'オモリと針が近いブラクリを、岩などの隙間へそっと下ろします。', connection: ['道糸', 'リーダー', 'ブラクリ', 'エサ'], parts: [...common, leader, part('burakuri', 'ブラクリ', 'オモリと短いハリス・針を組み合わせた仕掛けです。'), bait, ...extras], sources: [honda('kasago', 'カサゴのブラクリ釣り')], note: '図は立ち入れる場所から下ろすイメージです。消波ブロックへの立ち入りを勧めるものではありません。' },
+  { id: 'bukkomi', name: 'ぶっこみ釣り', variant: '中通しオモリ式', summary: '道糸を通したオモリの先に、ハリスと針。底へ届けて反応を待つ形です。', connection: ['道糸', '中通しオモリ', '保護ゴム', 'サルカン', 'ハリス', '針・エサ'], parts: [...common, part('sinker', '中通しオモリ', '中心に道糸を通すオモリ。糸が穴を通って動く遊動式を描いています。'), part('cushion', '保護ゴム', 'オモリが結び目へ直接当たるのを防ぐためのゴム管です。'), swivel, leader, hook, bait, ...extras], sources: [honda('unagi', 'ブッコミ釣り')] },
+  { id: 'nage', name: '投げ釣り', variant: '力糸＋天秤式', summary: '投げる負荷に備える力糸と、天秤・投げ仕掛けを組み合わせた例です。', connection: ['道糸', '力糸', '天秤・オモリ', '投げ仕掛け', 'エサ'], parts: [...common, part('shock', '力糸', '投げる瞬間の負荷を受ける、先端側の太い糸です。'), tenbin, sinker, part('rig', '投げ仕掛け', '天秤から先へ延びる幹糸・枝糸・針の組み合わせ。図は3本針の例です。'), bait, ...extras], sources: [castSource], note: '投げ釣りとちょい投げは構造が似ています。竿・糸・オモリの仕様や投げる負荷が異なります。' },
+  { id: 'choi-nage', name: 'ちょい投げ釣り', variant: '小型天秤・2本針の例', summary: '小型の天秤と短めの投げ仕掛けで、近い範囲の底を探る形です。', connection: ['道糸', '小型天秤・オモリ', '短い投げ仕掛け', 'エサ'], parts: [...common, tenbin, sinker, part('rig', 'ちょい投げ仕掛け', '取り回しやすい短めの仕掛け。図は2本針の例です。'), bait, ...extras], sources: [castSource, { title: '浜田商会｜投げ釣り入門', url: 'https://www.hamadashokai.co.jp/tsurinyumon/nage.html' }], note: '近距離でも、投げる総重量が竿の適合範囲に収まるか確認します。' },
+  { id: 'dozuki', name: '胴付き', variant: '枝針2本・下オモリ式', summary: '幹糸からエサ付きの針が枝分かれし、一番下にオモリが付きます。', connection: ['道糸', '胴付き仕掛け', '下オモリ'], parts: [...common, part('rig', '胴付き仕掛け', '幹糸と枝分かれした針のセット。下オモリで底を取り、エサを底から浮かせます。'), sinker, bait, ...extras], sources: [{ title: 'マルシン漁具｜かんたん五目胴突仕掛けセット', url: 'https://www.mr-dragon.jp/products/sea-fishing/fishing-gear/9936/' }] },
+  { id: 'uki-sabiki', name: '浮きサビキ', variant: '遊動ウキ＋下カゴ式', summary: 'サビキの上にウキを加え、針とカゴを狙う深さに保ちます。', connection: ['道糸', 'ウキ止め・玉', 'ウキ', 'サビキ仕掛け', 'オモリ付き下カゴ'], parts: [...common, stopper, float, sabiki, basket, chum, ...extras], sources: [sabikiSource, { title: 'SHIMANO｜サビキ釣り入門（沖を狙う仕掛け）', url: 'https://fish.shimano.com/ja-JP/content/beginners/fishingstyle/baitfishing/sabiki/index.html' }] },
+  { id: 'eging', name: 'エギング', variant: 'PE＋リーダー・エギ式', summary: 'PEの道糸からリーダー、スナップ、エギへ。先端の傘針でイカを掛けます。', connection: ['PEの道糸', 'リーダー', 'スナップ', 'エギ'], parts: [...common, leader, snap, part('egi', 'エギ', 'エビに似せた疑似餌。先端側のオモリと尾側の傘針を持つ形です。'), ...extras], sources: [honda('aoriika', 'アオリイカのエギング')] },
+  { id: 'hechi', name: 'ヘチ釣り', variant: 'タイコリール・ガン玉式', summary: 'ウキを使わず、軽いオモリとエサを壁際へ自然に落とす形です。', connection: ['道糸', 'ハリス', '針元のガン玉', '針・エサ'], parts: [...common, leader, part('sinker', 'ガン玉', '針元に打つ小さなオモリ。潮やエサに合わせ、沈み方を調節します。'), hook, bait, ...extras], sources: [honda('kurodai', 'クロダイの落とし込み釣り'), { title: 'つり人｜クロダイのヘチ釣り・針とガン玉', url: 'https://web.tsuribito.co.jp/beginner/kurodai-hechi-fishing-guide' }] },
+  { id: 'kago', name: 'カゴ釣り', variant: '遊動ウキ・天秤カゴ式', summary: 'ウキの下にコマセカゴと天秤。長いハリスの先の付けエサで魚を掛けます。', connection: ['道糸', 'ウキ止め・玉', 'ウキ', '天秤・カゴ', 'ハリス', '針・付けエサ'], parts: [...common, stopper, float, tenbin, part('basket', 'コマセカゴ', '寄せエサを入れるカゴ。図は天秤と組み合わせるオモリ付きの例です。'), leader, hook, part('bait', 'コマセ・付けエサ', 'カゴの寄せエサと針の付けエサ。図では同じ色で位置を示します。', 'bait'), ...extras], sources: [honda('isaki', 'イサキのカゴ釣り')] },
+];
+
+export const rigById = (id: string) => rigs.find(r => r.id === id);
+export const partStateLabel: Record<PartState, string> = { missing: '未選択', selected: '選択済み', owned: '手持ち', included: '付属品' };
+export function buildPartStates(build: FishingBuild, rig: RigDefinition): Partial<Record<RigPartId, PartState>> {
+  return Object.fromEntries(rig.parts.map(p => {
+    const category = p.category;
+    const state: PartState = !category ? 'missing' : build.owned.includes(category) ? 'owned' : build.included.includes(category) ? 'included' : products.some(product => product.id === build.selection[category] && product.category === category) ? 'selected' : 'missing';
+    return [p.id, state];
+  }));
+}
