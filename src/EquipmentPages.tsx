@@ -34,6 +34,9 @@ function PriceSummary({ build }: { build: FishingBuild }) {
 }
 
 export function EquipmentListPage({ build, onNavigate, onBack, recentCategory }: PageProps & { onNavigate: (screen: string) => void; recentCategory?: CategoryId }) {
+  const [hoveredCategory, setHoveredCategory] = useState<CategoryId>();
+  const [focusedCategory, setFocusedCategory] = useState<CategoryId>();
+  const highlightedCategory = hoveredCategory || focusedCategory;
   const count = chosenCount(build);
   const results = compatibilityForBuild(build);
   const conflicts = results.filter(r=>r.status === 'avoid');
@@ -46,7 +49,9 @@ export function EquipmentListPage({ build, onNavigate, onBack, recentCategory }:
       const owned = build.owned.includes(c.id), included = build.included.includes(c.id);
       const chosen = hasChoice(build,c.id);
       const conflict = conflicts.some(r=>r.categoryIds.includes(c.id));
-      return <tr key={c.id} className={`${chosen ? 'has-selection' : 'not-selected'} ${conflict ? 'row-conflict' : ''} ${recentCategory === c.id ? 'just-selected' : ''}`}>
+      return <tr key={c.id} data-category={c.id} className={`${chosen ? 'has-selection' : 'not-selected'} ${conflict ? 'row-conflict' : ''} ${recentCategory === c.id ? 'just-selected' : ''} ${highlightedCategory === c.id ? 'is-highlighted' : ''}`}
+        onPointerEnter={e => { if (e.pointerType !== 'touch') setHoveredCategory(c.id); }} onPointerLeave={() => setHoveredCategory(undefined)}
+        onFocusCapture={() => { setHoveredCategory(undefined); setFocusedCategory(c.id); }} onBlurCapture={e => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocusedCategory(undefined); }}>
         <th scope="row"><button className="equipment-category-link" aria-label={`${c.label}の商品候補を開く`} onClick={()=>onNavigate(`builder/${c.id}`)}>{c.label}<ArrowRight size={13} /></button><span className={`equipment-state ${chosen ? 'chosen' : ''}`}>{owned ? '手持ち' : included ? '付属品' : chosen ? '選択済み' : '未選択'}</span></th>
         <td className="equipment-choice">{chosen ? <><span className="equipment-product-brand">{owned ? '購入対象外' : included ? '追加購入なし' : p?.brand}</span><h2>{owned ? '持っている道具を使う' : included ? 'リール付属のナイロン3号150m' : p?.name}</h2>{owned && <p>型番・仕様は要確認です</p>}{conflict && <p className="text-danger">組み合わせを見直してください</p>}</> : <><span className="equipment-empty">まだ選んでいません</span><p>{c.description}</p></>}</td>
         <td className="equipment-cost"><span className="equipment-mobile-label">価格：</span>{owned || included ? '購入対象外' : p ? productPriceLabel(build,p) : '—'}</td>
@@ -54,7 +59,7 @@ export function EquipmentListPage({ build, onNavigate, onBack, recentCategory }:
       </tr>;
     })}</tbody></table>{count > 0 && <CompatibilityDetails build={build} />}</div>
     <aside className="equipment-overview-summary has-tackle" aria-label="道具リストのサマリー">
-      <TackleOverview build={build} onNavigate={onNavigate} interactive recentCategory={recentCategory} />
+      <TackleOverview build={build} onNavigate={onNavigate} interactive recentCategory={recentCategory} highlightedCategory={highlightedCategory} onHoverCategory={setHoveredCategory} onFocusCategory={setFocusedCategory} />
       <div className="equipment-cost-summary"><p className="eyebrow">YOUR FISHING SETUP</p><h2>{count}<small> / {categories.length}カテゴリを選択</small></h2><div className="progress-track"><span style={{width:`${count/categories.length*100}%`}} /></div><PriceSummary build={build} />{count < categories.length && <p className="equipment-remaining">あと{categories.length-count}カテゴリを選んでください。</p>}{conflicts.length > 0 && <p className="equipment-remaining text-danger">非推奨の組み合わせを見直してください。</p>}<button className="button primary full-width" disabled={!canComplete(build)} onClick={()=>onNavigate('review')}>この構成を確認する<ArrowRight size={16} /></button><p className="quiet-note">すべての道具を自分で選んでから、購入・保存に進めます。</p></div>
     </aside></div>
   </FlowShell>;

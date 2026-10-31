@@ -755,8 +755,17 @@ summary { cursor:pointer; }
 
 /* Layered, original rig drawings. Each part follows the existing choice state. */
 .rig-diagram { display:block; width:100%; height:auto; overflow:visible; }
-.rig-part { --rig-ink:#355d60; --rig-fill:#aacabd; --rig-soft:#eff5e9; --rig-metal:#729a96; --rig-cork:#d7bf94; --rig-accent:#c99773; --rig-bait:#c08d71; stroke:var(--rig-ink); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:filter .25s; }
-.rig-part.is-missing { --rig-ink:#9ba6a2; --rig-fill:#dfe5df; --rig-soft:#f0f2ed; --rig-metal:#c4ceca; --rig-cork:#d6ddd6; --rig-accent:#ccd5ce; --rig-bait:#bdc8c1; }
+.rig-part,.rig-diagram.has-highlight .rig-part.is-highlighted { --rig-ink:#355d60; --rig-fill:#aacabd; --rig-soft:#eff5e9; --rig-metal:#729a96; --rig-cork:#d7bf94; --rig-accent:#c99773; --rig-bait:#c08d71; stroke:var(--rig-ink); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:filter .25s; }
+.rig-part.is-missing,.rig-diagram.has-highlight .rig-part:not(.is-highlighted) { --rig-ink:#9ba6a2; --rig-fill:#dfe5df; --rig-soft:#f0f2ed; --rig-metal:#c4ceca; --rig-cork:#d6ddd6; --rig-accent:#ccd5ce; --rig-bait:#bdc8c1; }
+.rig-hit-area,.rig-hit-area * { fill:none!important; stroke:transparent!important; stroke-width:14px!important; pointer-events:stroke; }
+.rig-part[data-part="line"] > .rig-thread { pointer-events:none; }
+.rig-diagram.has-highlight .rig-part:not(.is-highlighted) { filter:none; animation:none; }
+.rig-diagram.has-highlight .rig-marker:not(.is-highlighted) > circle:not(.rig-marker-halo) { fill:#f9fbf6; stroke:#9eaea2; }
+.rig-diagram.has-highlight .rig-marker:not(.is-highlighted) text { fill:#4d6558; }
+.rig-diagram.has-highlight .rig-marker.is-highlighted > circle:not(.rig-marker-halo) { fill:#20766d; stroke:#20766d; }
+.rig-diagram.has-highlight .rig-marker.is-highlighted text { fill:white; }
+.equipment-table tr.is-highlighted > th,.equipment-table tr.is-highlighted > td { background:#edf5e8; }
+.tackle-part-list li.is-highlighted { background:#e7efdf; box-shadow:inset 0 0 0 1px #bdd4bc; }
 .rig-fill { fill:var(--rig-fill); }
 .rig-soft { fill:var(--rig-soft); }
 .rig-metal { fill:var(--rig-metal); }

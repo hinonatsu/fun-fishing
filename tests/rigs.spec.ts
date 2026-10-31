@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { decodeBuild, encodeBuild } from '../src/domain';
+import { categories } from '../src/catalog';
 import { rigs } from '../src/rigs';
 import { builder, completedBuild, noOverflow } from './helpers';
 
@@ -73,4 +74,62 @@ test('owned and included components keep distinct labels and restore from a shar
   await page.getByRole('button', { name: 'リールを変更する', exact: true }).click();
   await page.getByRole('button', { name: 'この商品を選ぶ：17 ワールドスピン CF2500', exact: true }).click();
   await expect(overview.locator('[data-part="line"]')).toHaveAttribute('data-state', 'missing');
+});
+
+test('hovering a gear cell previews only that tool and restores the actual choices', async ({ page, isMobile }, info) => {
+  const build = completedBuild();
+  build.selection.reel = '';
+  await page.goto(`./?build=${encodeBuild(build)}#builder`);
+  await page.getByRole('button', { name: '通知を閉じる', exact: true }).click();
+  await page.mouse.move(0, 0);
+  const diagram = page.getByRole('region', { name: '道具の全体像' }).locator('svg.rig-diagram');
+  const saved = await page.evaluate(() => localStorage.getItem('fun-fishing-build-v1'));
+  const selectedColor = await diagram.locator('[data-part="rod"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'));
+  const missingColor = await diagram.locator('[data-part="reel"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'));
+  expect(selectedColor).not.toBe(missingColor);
+  if (isMobile) {
+    // Touch does not leave a simulated hover behind or color unselected gear.
+    await diagram.locator('[data-part="reel"] > g:not(.rig-hit-area)').tap();
+    await expect(diagram).not.toHaveAttribute('data-highlighted-part');
+  } else {
+    for (const category of categories) {
+      await page.locator(`.equipment-table tr[data-category="${category.id}"]`).hover();
+      await expect(diagram).toHaveAttribute('data-highlighted-part', category.id);
+      const colors = await diagram.locator('[data-part]').evaluateAll(parts => parts.map(el => ({ id: el.getAttribute('data-part'), color: getComputedStyle(el).getPropertyValue('--rig-fill') })));
+      expect(colors.filter(p => p.color === selectedColor).map(p => p.id)).toEqual([category.id]);
+      expect(colors.filter(p => p.color === missingColor)).toHaveLength(7);
+    }
+    await page.locator('.equipment-table tr[data-category="reel"]').hover();
+    await page.getByRole('region', { name: '道具の全体像' }).screenshot({ path: info.outputPath('hover-reel.png'), animations: 'disabled' });
+    await page.getByRole('heading', { level: 1 }).hover();
+    await expect(diagram).not.toHaveAttribute('data-highlighted-part');
+  }
+  expect(await diagram.locator('[data-part="rod"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'))).toBe(selectedColor);
+  expect(await diagram.locator('[data-part="reel"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'))).toBe(missingColor);
+  expect(await page.evaluate(() => localStorage.getItem('fun-fishing-build-v1'))).toBe(saved);
+});
+
+test('illustration parts, legend cells and keyboard focus highlight the matching tool', async ({ page, isMobile }) => {
+  await page.goto(`./?build=${encodeBuild(completedBuild())}#builder`);
+  await page.getByRole('button', { name: '通知を閉じる', exact: true }).click();
+  await page.mouse.move(0, 0);
+  const overview = page.getByRole('region', { name: '道具の全体像' });
+  const diagram = overview.locator('svg.rig-diagram');
+  if (!isMobile) {
+    await diagram.scrollIntoViewIfNeeded();
+    const box = (await diagram.boundingBox())!;
+    const targets = { rod: [292, 150], reel: [307, 271], line: [112, 100], rig: [112, 190], basket: [112, 287], bait: [102, 367], bucket: [248, 370], safety: [381, 365] };
+    for (const [category, [x, y]] of Object.entries(targets)) {
+      await page.mouse.move(box.x + box.width * x / 430, box.y + box.height * y / 420);
+      await expect(diagram).toHaveAttribute('data-highlighted-part', category);
+      await expect(page.locator(`.equipment-table tr[data-category="${category}"]`)).toHaveClass(/is-highlighted/);
+    }
+    await overview.locator('.tackle-desktop-key [data-category="reel"]').hover();
+    await expect(diagram).toHaveAttribute('data-highlighted-part', 'reel');
+    await page.getByRole('heading', { level: 1 }).hover();
+  }
+  await page.getByRole('button', { name: 'リールを変更する', exact: true }).focus();
+  await expect(diagram).toHaveAttribute('data-highlighted-part', 'reel');
+  await page.getByRole('heading', { level: 1 }).focus();
+  await expect(diagram).not.toHaveAttribute('data-highlighted-part');
 });

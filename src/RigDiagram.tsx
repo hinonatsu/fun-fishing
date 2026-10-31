@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import type { CategoryId } from './catalog';
 import type { PartState, RigDefinition, RigPartId } from './rigs';
 
@@ -6,6 +6,7 @@ type Point = [number, number];
 type Props = {
   rig: RigDefinition; states?: Partial<Record<RigPartId, PartState>>; activePart?: RigPartId;
   recentCategory?: CategoryId; miniature?: boolean;
+  highlightedPart?: RigPartId; onPartHover?: (part?: RigPartId) => void;
 };
 const lineEnd = { sabiki: 116, float: 190, lure: 165, hole: 160, bukkomi: 145, nage: 130, 'choi-nage': 165, dozuki: 116, 'uki-sabiki': 174, eging: 165, hechi: 165, kago: 186 };
 const commonAnchors: Partial<Record<RigPartId, Point>> = { rod: [331, 150], reel: [346, 274], line: [189, 58], bait: [63, 367], bucket: [209, 367], safety: [344, 367] };
@@ -67,13 +68,19 @@ function Accessories({ part }: { part: 'bait' | 'bucket' | 'safety' }) {
 }
 
 /** Each physical component has its own state layer; line and tackle stay connected in every template. */
-export function RigDiagram({ rig, states, activePart, recentCategory, miniature = false }: Props) {
+export function RigDiagram({ rig, states, activePart, recentCategory, miniature = false, highlightedPart, onPartHover }: Props) {
   const id = useId().replaceAll(':', '');
+  const [hoveredPart, setHoveredPart] = useState<RigPartId>();
+  const highlight = onPartHover ? highlightedPart : hoveredPart;
+  const hoverPart = onPartHover || setHoveredPart;
   const part = (partId: RigPartId, children: ReactNode) => {
     const item = rig.parts.find(p => p.id === partId);
     if (!item) return null;
     const state = states ? states[partId] || 'missing' : 'selected';
-    return <g key={partId} data-part={partId} data-state={state} className={`rig-part is-${state}${activePart === partId ? ' is-current' : ''}${recentCategory && item.category === recentCategory ? ' just-selected' : ''}`}>{children}</g>;
+    return <g key={partId} data-part={partId} data-state={state} className={`rig-part is-${state}${activePart === partId ? ' is-current' : ''}${highlight === partId ? ' is-highlighted' : ''}${recentCategory && item.category === recentCategory ? ' just-selected' : ''}`}
+      onPointerEnter={miniature ? undefined : e => { if (e.pointerType !== 'touch') hoverPart(partId); }} onPointerLeave={miniature ? undefined : () => hoverPart(undefined)}>
+      {!miniature && <g className="rig-hit-area" aria-hidden="true">{partId === 'line' ? <Thread d={`M245 28C205 3 112 25 112 75V${lineEnd[rig.id]}`} /> : children}</g>}{children}
+    </g>;
   };
   const sabikiY = rig.id === 'uki-sabiki' ? [193, 225, 257] : [143, 189, 235];
   const cast = rig.id === 'nage' || rig.id === 'choi-nage';
@@ -89,7 +96,7 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
     if (rig.id === 'bukkomi') return <Worm x={110} y={301} />;
     return <Chum y={rig.id === 'uki-sabiki' ? 286 : 277} />;
   };
-  return <svg xmlns="http://www.w3.org/2000/svg" className={`rig-diagram${miniature ? ' miniature' : ''}`} viewBox="0 0 430 420" fill="none" role={miniature ? undefined : 'img'} aria-hidden={miniature || undefined} aria-labelledby={miniature ? undefined : `${id}-title ${id}-description`} focusable="false" data-rig={rig.id}>
+  return <svg xmlns="http://www.w3.org/2000/svg" className={`rig-diagram${miniature ? ' miniature' : ''}${highlight ? ' has-highlight' : ''}`} viewBox="0 0 430 420" fill="none" role={miniature ? undefined : 'img'} aria-hidden={miniature || undefined} aria-labelledby={miniature ? undefined : `${id}-title ${id}-description`} focusable="false" data-rig={rig.id} data-highlighted-part={highlight} onPointerLeave={miniature ? undefined : () => hoverPart(undefined)}>
     <title id={`${id}-title`}>{`${rig.name}の道具全体図`}</title>
     <desc id={`${id}-description`}>{rig.variant}。{rig.connection.join('、')}の順につながります。{activePart ? `いま選ぶ部分は${rig.parts.find(p => p.id === activePart)?.label}です。` : ''}番号は下の道具名と対応します。</desc>
     <g className="rig-scene" aria-hidden="true"><circle cx="219" cy="180" r="153" fill="#edf3ec" /><circle cx="216" cy="174" r="129" fill="#f5f8f2" /><path d="M43 326h342" stroke="#dce6da" strokeDasharray="3 7" /><text x="219" y="343" textAnchor="middle">いっしょに準備するもの</text><ellipse cx="108" cy="397" rx="31" ry="3" fill="#dfe8dc" /><ellipse cx="249" cy="397" rx="35" ry="3" fill="#dfe8dc" /><ellipse cx="379" cy="397" rx="29" ry="3" fill="#dfe8dc" /></g>
@@ -158,7 +165,7 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
       const targets: Partial<Record<RigPartId, Point>> = { rod: [292, 150], reel: [314, 274], line: [168, 28], bait: [91, 367], bucket: [226, 367], safety: [359, 367] };
       const target = targets[p.id] || [point[0] < 100 ? 104 : point[0] > 200 ? 202 : 118, point[1]];
       const dx = target[0] - point[0], dy = target[1] - point[1], distance = Math.hypot(dx, dy);
-      return <g key={p.id} transform={`translate(${point[0]} ${point[1]})`} className={`rig-marker is-${state}${current ? ' is-current' : ''}`} aria-hidden="true">{distance > 22 && <path d={`M${dx / distance * 12} ${dy / distance * 12}L${dx} ${dy}`} className="rig-callout" />}{current && <circle r="16" className="rig-marker-halo" />}<circle r="11" /><text textAnchor="middle" dy=".36em">{index + 1}</text></g>;
+      return <g key={p.id} transform={`translate(${point[0]} ${point[1]})`} className={`rig-marker is-${state}${current ? ' is-current' : ''}${highlight === p.id ? ' is-highlighted' : ''}`} aria-hidden="true" onPointerEnter={e => { if (e.pointerType !== 'touch') hoverPart(p.id); }} onPointerLeave={() => hoverPart(undefined)}>{distance > 22 && <path d={`M${dx / distance * 12} ${dy / distance * 12}L${dx} ${dy}`} className="rig-callout" />}{current && <circle r="16" className="rig-marker-halo" />}<circle r="11" /><text textAnchor="middle" dy=".36em">{index + 1}</text></g>;
     })}
   </svg>;
 }
