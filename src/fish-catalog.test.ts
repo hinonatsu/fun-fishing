@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { defaultSelection, fishSpecies, methods, seasonality } from './catalog';
+import { fishSpecies, methods, seasonality } from './catalog';
 import { filterFish } from './fish-catalog';
 import { createDefaultBuild, decodeBuild, encodeBuild, getFish, hasProductGuide, safeExternalUrl } from './domain';
-import { canComplete, candidatesFor, fishReason, rankedFish, resolveScreen } from './planner';
+import { candidatesFor, fishReason, rankedFish, resolveScreen } from './planner';
 
 const conditions = { month:10, area:'tokyo-bay', field:'pier' };
 const answers = { goal:'food', pace:'calm', budget:'30000' };
@@ -31,7 +31,7 @@ describe('30 selectable beginner targets', () => {
     expect(fishReason({...build,conditions},'nishin')).not.toContain('東京湾の堤防の季節データ');
   });
   for (const fish of fishSpecies) {
-    it(`restores ${fish.name} and each valid style without reusing the sabiki shopping list`, () => {
+    it(`restores ${fish.name} and each valid style with a separate product guide`, () => {
       expect(safeExternalUrl(fish.sourceUrl)).not.toBeNull();
       for (const methodId of fish.methodIds) {
         const method = methods.find(m => m.id === methodId)!;
@@ -43,16 +43,13 @@ describe('30 selectable beginner targets', () => {
         expect(decodeBuild(encodeBuild(build))).toEqual(build);
         expect(resolveScreen('method',build)).toBe('method');
         expect(resolveScreen('builder',build)).toBe('builder');
-        if (!hasProductGuide(build)) {
-          expect(candidatesFor(build,'rig')).toEqual([]);
-          expect(canComplete({...build,selection:{...defaultSelection}})).toBe(false);
-          expect(resolveScreen('builder/rig',build)).toBe('builder');
-          expect(resolveScreen('checkout',build)).toBe('builder');
-        }
+        expect(hasProductGuide(build)).toBe(true);
+        if(!['sabiki','uki-sabiki'].includes(methodId)) expect(candidatesFor(build,'rig').map(p=>p.id)).not.toContain('rig-6');
+        expect(resolveScreen('checkout',build)).toBe('builder');
         const regional = {...build,conditions:{month:1,area:'osaka-bay',field:'surf'}};
         expect(decodeBuild(encodeBuild(regional))).toEqual(regional);
         expect(resolveScreen('builder',regional)).toBe('builder');
-        expect(hasProductGuide(regional)).toBe(false);
+        expect(hasProductGuide(regional)).toBe(true);
       }
     });
   }

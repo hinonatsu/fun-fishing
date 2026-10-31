@@ -1,0 +1,1542 @@
+{
+  "checkedAt": "2026-11-01",
+  "scope": "Amazon individual variants; specifications from primary manufacturer pages. No live price or stock claims.",
+  "notes": [
+    "Amazon HTML pages can be retrieved for some outbound tagged URLs but canonical dp pages often return cache miss. amazonVerification=partial means ASIN was observed in an existing product-specific outbound link but full Amazon content was not retrieved.",
+    "Manufacturer discontinued status is recorded. Proposed method/fish applicability requires final profile review; it is not a blanket fit guarantee.",
+    "CUA確認時Amazonは初期の商品詳細が別バリエーションのままの場合あり。明示的選択後に規格・実URLの更新を待って照合。サイズ#1スナップは商品特徴の矛盾が残るため提案除外。"
+  ],
+  "products": [
+    {
+      "id": "rod-lurenist-68ls",
+      "category": "rod",
+      "name": "ルアーニスト 68L-S",
+      "brand": "DAIWA",
+      "asin": "B07CZ62TMR",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07CZ62TMR",
+      "sourceUrl": "https://www.daiwa.com/jp/product/jif8hho",
+      "jan": "4960652207928",
+      "specs": [
+        "全長2.03m",
+        "2本継・仕舞106cm",
+        "自重126g",
+        "ルアー2〜10g",
+        "ナイロン3〜8lb"
+      ],
+      "technical": {
+        "rodMinLureG": 2,
+        "rodMaxLureG": 10,
+        "rodMinLineLb": 3,
+        "rodMaxLineLb": 8,
+        "rodReelType": "spinning"
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "fishIds": [
+        "aji",
+        "mebaru",
+        "kamasu",
+        "tsutsuika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B07CZ6Z5TN?language=ja_JP&linkCode=ogi&psc=1&tag=note-cta-22&th=1",
+          "finding": "Amazon dimensionValuesDisplayData maps B07CZ62TMR to 68L-S (アジング/メバリング)."
+        }
+      ],
+      "note": "ライトエギング利用時はエギ重量が2〜10gに収まるか確認。PE号数のメーカー表記はないため断定しない。"
+    },
+    {
+      "id": "rod-lurenist-86ml",
+      "category": "rod",
+      "name": "ルアーニスト 86ML",
+      "brand": "DAIWA",
+      "asin": "B07CZ6Z5TN",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07CZ6Z5TN",
+      "sourceUrl": "https://www.daiwa.com/jp/product/jif8hho",
+      "jan": "4960652207973",
+      "specs": [
+        "全長2.59m",
+        "2本継・仕舞134cm",
+        "自重147g",
+        "ルアー5〜25g",
+        "エギ2.5〜3.5号",
+        "PE0.6〜1.2号"
+      ],
+      "technical": {
+        "rodMinLureG": 5,
+        "rodMaxLureG": 25,
+        "rodMinEgi": 2.5,
+        "rodMaxEgi": 3.5,
+        "rodMinPE": 0.6,
+        "rodMaxPE": 1.2,
+        "rodReelType": "spinning"
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "fishIds": [
+        "suzuki",
+        "aoriika",
+        "kouika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B07CZ6Z5TN?language=ja_JP&linkCode=ogi&psc=1&tag=note-cta-22&th=1",
+          "finding": "Amazon title metadata names 86ML; selectedVariationValues style_name=11 and variationValues index11=86ML."
+        }
+      ],
+      "note": "紹介記事にある135gは採用せず、現行メーカー公式の147gを使用。ちょい投げ8号30gセットには不可。"
+    },
+    {
+      "id": "rod-lurenist-86m",
+      "category": "rod",
+      "name": "ルアーニスト 86M",
+      "brand": "DAIWA",
+      "asin": "B07CZ67WKZ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07CZ67WKZ",
+      "sourceUrl": "https://www.daiwa.com/jp/product/jif8hho",
+      "jan": "4960652207980",
+      "specs": [
+        "全長2.59m",
+        "2本継・仕舞134cm",
+        "自重158g",
+        "ルアー7〜35g",
+        "エギ2.5〜4号",
+        "PE0.6〜1.5号"
+      ],
+      "technical": {
+        "rodMinLureG": 7,
+        "rodMaxLureG": 35,
+        "rodMinEgi": 2.5,
+        "rodMaxEgi": 4,
+        "rodMinPE": 0.6,
+        "rodMaxPE": 1.5,
+        "rodReelType": "spinning"
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "fishIds": [
+        "suzuki",
+        "hirame",
+        "magochi",
+        "aoriika",
+        "kouika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B07CZ6Z5TN?language=ja_JP&linkCode=ogi&psc=1&tag=note-cta-22&th=1",
+          "finding": "Amazon dimensionValuesDisplayData maps B07CZ67WKZ to 86M (エギング)."
+        }
+      ],
+      "note": "大型青物を無条件に対象とせず、サイズと釣り場を別確認。"
+    },
+    {
+      "id": "rod-anazuri-m110",
+      "category": "rod",
+      "name": "穴釣り専科 M110",
+      "brand": "DAIWA",
+      "asin": "B083SF82FD",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B083SF82FD",
+      "sourceUrl": "https://www.daiwa.com/jp/product/w7m7qxv",
+      "jan": "4550133059780",
+      "specs": [
+        "全長1.11m",
+        "3本継・仕舞63cm",
+        "自重78g",
+        "オモリ負荷2〜10号",
+        "スピニング・両軸兼用"
+      ],
+      "technical": {
+        "rodMinWeight": 2,
+        "rodMaxWeight": 10,
+        "rodReelType": "both"
+      },
+      "methodIds": [
+        "hole",
+        "dozuki"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://note.com/muscle_outdoor/n/n7159d737aad4",
+          "finding": "穴釣り専科M110の商品名に結び付いたAmazon個別リンクのASIN B083SF82FDを確認。Amazon本文はcache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B083SF82FD",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "足場のよい場所から届く際を狙う用途。消波ブロックへの立入りを勧めない。"
+    },
+    {
+      "id": "rod-hechi-cxsht24",
+      "category": "rod",
+      "name": "CX攻技ヘチTE 240 CXSHT24",
+      "brand": "PROX",
+      "asin": "B00GBVPD1S",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00GBVPD1S",
+      "sourceUrl": "https://www.proxinc.co.jp/lineup/item/1923",
+      "jan": "4548992001989",
+      "specs": [
+        "全長2.4m",
+        "2本継・仕舞130cm",
+        "自重121g",
+        "オモリ負荷1〜3号（メーカー表記）"
+      ],
+      "technical": {
+        "rodMinWeight": 1,
+        "rodMaxWeight": 3,
+        "rodReelType": "drum"
+      },
+      "methodIds": [
+        "hechi"
+      ],
+      "amazonVerification": "verified",
+      "manufacturerStatus": "完売",
+      "evidence": [
+        {
+          "url": "https://tacklebox.anglers.jp/rods/228601",
+          "finding": "CX攻技ヘチTE240の商品別AmazonリンクのASIN B00GBVPD1Sを確認。Amazon本文はcache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B00GBVPD1S",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "メーカー公式では完売表示。ガン玉B/2Bなどの軽量運用を上記号数と単純比較して排除しない。現物の糸抜けと取付を確認。",
+      "availability": "unavailable",
+      "recommendedForCatalog": false
+    },
+    {
+      "id": "reel-crest-lt2500",
+      "category": "reel",
+      "name": "20 クレスト LT2500",
+      "brand": "DAIWA",
+      "asin": "B089NGG3LC",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B089NGG3LC",
+      "sourceUrl": "https://www.daiwa.com/jp/product/nwl7zus",
+      "jan": "4960652309417",
+      "specs": [
+        "自重235g",
+        "PE0.8号200m",
+        "ナイロン6lb150m",
+        "ギア比5.3",
+        "最大ドラグ10kg"
+      ],
+      "technical": {
+        "reelType": "spinning",
+        "peCapacity": {
+          "0.8": 200
+        },
+        "nylonLbCapacity": {
+          "6": 150
+        }
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://turiview.com/daiwa-reel-comparison/",
+          "finding": "20クレストLT2500の商品別AmazonリンクのASIN B089NGG3LCを確認。Amazon本文はcache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B089NGG3LC?th=1",
+          "finding": "CUA IAB actual Amazon page on 2026-11-01 showed selected style LT2500, 235g, PE0.8-200m, nylon6lb150m."
+        }
+      ],
+      "note": "PE0.8号150mを巻くときは下巻き調整が必要。最大ドラグは推奨設定値ではない。"
+    },
+    {
+      "id": "reel-chinumaster90",
+      "category": "reel",
+      "name": "19 チヌマスター90",
+      "brand": "DAIWA",
+      "asin": "B07MZX8H73",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07MZX8H73",
+      "sourceUrl": "https://www.daiwa.com/jp/product/hefba3b",
+      "jan": "4960652324519",
+      "specs": [
+        "タイコリール",
+        "自重90g（メーカー公式）",
+        "ギア比1.0",
+        "ナイロン2号150m",
+        "ベアリング2個"
+      ],
+      "technical": {
+        "reelType": "drum",
+        "nylonCapacity": {
+          "2": 150
+        }
+      },
+      "methodIds": [
+        "hechi"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://shobon53.hatenablog.com/entry/20230510/1683647231",
+          "finding": "チヌマスター90の商品別AmazonリンクのASIN B07MZX8H73を確認。Amazon本文はcache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B07MZX8H73",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "スピニングリールと異なり、指で糸を制御する。 Amazon95gと公式90gが相違。製品スペックは公式90gを優先。"
+    },
+    {
+      "id": "line-pe-x8-08",
+      "category": "line",
+      "name": "シーガー PE X8 150m 0.8号 マルチ",
+      "brand": "Seaguar",
+      "asin": "B06X6FR6L8",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B06X6FR6L8",
+      "sourceUrl": "https://www.seaguar.ne.jp/",
+      "specs": [
+        "PE8本組",
+        "0.8号",
+        "150m",
+        "最大18lb（8.2kg）",
+        "マルチカラー"
+      ],
+      "technical": {
+        "lineMaterial": "pe",
+        "lineSize": 0.8,
+        "lineLength": 150,
+        "spoolLength": 150,
+        "lineStrengthLb": 18
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B06X6FR6L8?linkCode=osi&psc=1&tag=fishing-ranking-22&th=1",
+          "finding": "Amazon productTitleでPE X8・150m・0.8号・18lb・マルチを確認。"
+        }
+      ],
+      "note": "ルアー用の基本候補。ライトエギングの小型ツツイカ用細糸とは別。"
+    },
+    {
+      "id": "line-pe-lure-08",
+      "category": "line",
+      "name": "シーガー PEX8 ルアーエディション 150m 0.8号",
+      "brand": "Seaguar",
+      "asin": "B07NHCBCJ4",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07NHCBCJ4",
+      "sourceUrl": "https://www.seaguar.ne.jp/",
+      "specs": [
+        "PE8本組",
+        "0.8号",
+        "150m",
+        "ピンク系マーキング"
+      ],
+      "technical": {
+        "lineMaterial": "pe",
+        "lineSize": 0.8,
+        "lineLength": 150,
+        "spoolLength": 150
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B07NHCBCJ4?linkCode=osi&psc=1&tag=fishing-ranking-22&th=1",
+          "finding": "Amazon currentAsin B07NHCBCJ4; dimensionToAsinMap 1_0対応のsize0.8号/style150mと確認。"
+        }
+      ],
+      "note": "PE X8通常版とは別の製品。"
+    },
+    {
+      "id": "leader-yamatoyo-2",
+      "category": "leader",
+      "name": "フロロショックリーダー 30m 2号 8lb クリア",
+      "brand": "YAMATOYO",
+      "asin": "B002NPHMFQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B002NPHMFQ",
+      "sourceUrl": "https://yamatoyo.com/products/fluoro-shock-leader/",
+      "specs": [
+        "フロロカーボン",
+        "2号・8lb",
+        "30m",
+        "クリア"
+      ],
+      "technical": {
+        "leaderSize": 2,
+        "leaderStrengthLb": 8,
+        "leaderMaterial": "fluorocarbon"
+      },
+      "methodIds": [
+        "lure",
+        "eging",
+        "float",
+        "hole",
+        "hechi",
+        "bukkomi",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://bestseller-items.com/sports/14315521",
+          "finding": "ヤマトヨ2号8lb30mのAmazon商品リンクB002NPHMFQを確認。本文cache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B002NPHMFQ?th=1",
+          "finding": "CUA selected30m2号8lbクリア, settled actualURL same, bullets30m2号8lb and imagealt confirmed."
+        }
+      ],
+      "note": "対象魚・接続先に応じて候補を絞る。タチウオの歯切れ対策として断定しない。"
+    },
+    {
+      "id": "lure-jpmsw-3",
+      "category": "lure",
+      "name": "ジグパラ マイクロ スイム 3g",
+      "brand": "Major Craft",
+      "asin": "B017W5K1CC",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B017W5K1CC",
+      "sourceUrl": "https://www.majorcraft.co.jp/lure/jpmsw/",
+      "specs": [
+        "メタルジグ3g",
+        "ダブルフック仕様",
+        "投げて巻くタイプ"
+      ],
+      "technical": {
+        "lureWeightG": 3,
+        "lureType": "metal-jig"
+      },
+      "methodIds": [
+        "lure"
+      ],
+      "fishIds": [
+        "aji",
+        "mebaru",
+        "kamasu",
+        "saba"
+      ],
+      "amazonVerification": "partial",
+      "manufacturerStatus": "生産終了",
+      "evidence": [
+        {
+          "url": "https://kurashi-no.jp/I0024811",
+          "finding": "JPMSW3gのAmazonリンクB017W5K1CCを確認。色の選択名とAmazon本文は未確認。"
+        }
+      ],
+      "note": "色は商品ページで確認。メーカー公式では生産終了。現行ジグパラマイクロを優先するなら追加調査が必要。",
+      "recommendedForCatalog": false
+    },
+    {
+      "id": "egi-k-35-005",
+      "category": "egi",
+      "name": "エギ王K ベーシック 3.5号 005 ムラムラチェリー",
+      "brand": "YAMASHITA",
+      "asin": "B078ZWQHQ8",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B078ZWQHQ8",
+      "sourceUrl": "https://www.yamaria.co.jp/yamashita/product/detail/522",
+      "specs": [
+        "エギ3.5号",
+        "重量22g",
+        "005ムラムラチェリー",
+        "ベーシック"
+      ],
+      "technical": {
+        "egiSize": 3.5,
+        "lureWeightG": 22
+      },
+      "methodIds": [
+        "eging"
+      ],
+      "fishIds": [
+        "aoriika",
+        "kouika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B078ZWQHQ8?linkCode=osi&psc=1&tag=fishing-ranking-22&th=1",
+          "finding": "Amazon productTitleがエギ王K、selectedVariationValues set_name6=3.5号/color_name4=005ムラムラチェリー。"
+        }
+      ],
+      "note": "ツツイカのライトエギングには表示しない。"
+    },
+    {
+      "id": "egi-naory-18",
+      "category": "egi",
+      "name": "NAORY レンジ ベーシック 1.8号 010 金アジ",
+      "brand": "YAMASHITA",
+      "asin": "B0DTWZPR2S",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0DTWZPR2S",
+      "sourceUrl": "https://www.yamaria.co.jp/yamashita/product/detail/713",
+      "specs": [
+        "ライトエギング用",
+        "1.8号・6.0g",
+        "010金アジ"
+      ],
+      "technical": {
+        "egiSize": 1.8,
+        "lureWeightG": 6
+      },
+      "methodIds": [
+        "eging"
+      ],
+      "fishIds": [
+        "tsutsuika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.bonjourphoto.yokohama/naory.html",
+          "finding": "NAORYレンジ1.8号金アジの商品別AmazonリンクB0DTWZPR2Sを確認。本文cache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B0DTWZPR2S",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "Root CUA actual Amazon1.8B010 specification6.0g. Header generic2g rejected. Oldレンジハンターとは別モデル。"
+    },
+    {
+      "id": "rod-surf-25-420",
+      "category": "rod",
+      "name": "リバティクラブ サーフT 25-420・K",
+      "brand": "DAIWA",
+      "asin": "B00T4950YE",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00T4950YE",
+      "sourceUrl": "https://www.daiwa.com/jp/product/obywwcy",
+      "jan": "4960652911993",
+      "specs": [
+        "全長4.20m",
+        "4本継・仕舞117cm",
+        "自重445g",
+        "オモリ負荷20〜30号"
+      ],
+      "technical": {
+        "rodMinWeight": 20,
+        "rodMaxWeight": 30,
+        "rodReelType": "spinning"
+      },
+      "methodIds": [
+        "nage",
+        "bukkomi"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.doorzo.com/zhCn/mall/amazon/detail/B00T4950YE",
+          "finding": "Amazon販売情報の製品型番911993・25-420に対応するASINとして確認。Amazon本文未取得。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B00T4950YE",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "メーカー公式で錘20〜30号を照合。メーカーAmazon表のルアー19.6gという汎用フィールド値は採用しない。"
+    },
+    {
+      "id": "rod-surf-20-360",
+      "category": "rod",
+      "name": "リバティクラブ サーフT 20-360・K",
+      "brand": "DAIWA",
+      "asin": "B00T494M2A",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00T494M2A",
+      "sourceUrl": "https://www.daiwa.com/jp/product/obywwcy",
+      "jan": "4960652911962",
+      "specs": [
+        "全長3.60m",
+        "4本継・仕舞102cm",
+        "自重330g",
+        "オモリ負荷15〜25号"
+      ],
+      "technical": {
+        "rodMinWeight": 15,
+        "rodMaxWeight": 25,
+        "rodReelType": "spinning"
+      },
+      "methodIds": [
+        "nage",
+        "bukkomi"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://my-best.com/2160",
+          "finding": "製品型番911962のAmazon個別リンクB00T494M2Aを確認。型番は公式JAN4960652911962と一致。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B00T494M2A",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "20号前後を使う入門投げ用。投げるときはオモリ以外の総重量も確認。"
+    },
+    {
+      "id": "rod-isokaze-4-53",
+      "category": "rod",
+      "name": "リバティクラブ 磯風 4-53 遠投・K",
+      "brand": "DAIWA",
+      "asin": "B00T4954UY",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00T4954UY",
+      "sourceUrl": "https://www.daiwa.com/jp/product/2023/05/09/09/55/d1jdu8h",
+      "jan": "4960652911658",
+      "specs": [
+        "全長5.30m",
+        "6本継・仕舞103cm",
+        "自重370g",
+        "オモリ負荷10〜15号",
+        "適合ハリス3〜10号"
+      ],
+      "technical": {
+        "rodMinWeight": 10,
+        "rodMaxWeight": 15,
+        "rodMinLeader": 3,
+        "rodMaxLeader": 10,
+        "rodReelType": "spinning"
+      },
+      "methodIds": [
+        "kago",
+        "uki-sabiki"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://tackle-compare-lab.com/product/688",
+          "finding": "4-53遠投Kの商品別AmazonリンクB00T4954UYを確認。Amazon本文cache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B00T4954UY",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "Kは製品記号でKガイドの意味ではない。PE対応と断定しない。"
+    },
+    {
+      "id": "line-pitbull4-04",
+      "category": "line",
+      "name": "ピットブル4 PL-M54R 150m 0.4号 ライムグリーン",
+      "brand": "SHIMANO",
+      "asin": "B079M5QW7Q",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B079M5QW7Q",
+      "sourceUrl": "https://fish.shimano.com/ja-JP/product/line/generalpurpose/pe/a155f00000c53ktqab_p.html",
+      "jan": "4969363572547",
+      "specs": [
+        "PE4本組",
+        "0.4号",
+        "150m",
+        "最大8.6lb（3.9kg）",
+        "ライムグリーン"
+      ],
+      "technical": {
+        "lineMaterial": "pe",
+        "lineSize": 0.4,
+        "lineLength": 150,
+        "spoolLength": 150,
+        "lineStrengthLb": 8.6
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "fishIds": [
+        "aji",
+        "mebaru",
+        "kamasu",
+        "tsutsuika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://achikochi-data.com/product_popularity_ranking_fishing_line/",
+          "finding": "0.4号150mPL-M54RのAmazon商品別リンクB079M5QW7Qを確認。Amazon本文cache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B079M5QW7Q",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "メーカー公式で号数・巻長・強力照合。シマノ公式ライトエギング実釣でピットブル0.4号使用例あり。"
+    },
+    {
+      "id": "lure-jpm-3-glow",
+      "category": "lure",
+      "name": "ジグパラ マイクロ 3g #03 レッドゴールド",
+      "brand": "Major Craft",
+      "asin": "B00NXP6UM6",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00NXP6UM6",
+      "sourceUrl": "https://www.majorcraft.co.jp/lure/jpm/",
+      "specs": [
+        "メタルジグ3g",
+        "#03レッドゴールド",
+        "リアトレブルフック付き"
+      ],
+      "technical": {
+        "lureWeightG": 3,
+        "lureType": "metal-jig"
+      },
+      "methodIds": [
+        "lure"
+      ],
+      "fishIds": [
+        "aji",
+        "mebaru",
+        "kamasu",
+        "saba",
+        "kasago",
+        "soi"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://kurashi-no.jp/I0008537",
+          "finding": "商品名JPM3g#19に対応するAmazon個別リンクB00NXP6UM6を確認。Amazon本文cache miss。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B00NXP6UM6",
+          "finding": "Root CUA actual Amazon page 2026-11-01 verified selected variant; see product notes for corrections."
+        }
+      ],
+      "note": "Root CUA Amazon exact3g#03レッドゴールド; article#19 association rejected.3gはリアトレブル、7g以上と混同しない。"
+    },
+    {
+      "id": "rod-hechi-bjx270",
+      "category": "rod",
+      "name": "BJスナイパー ヘチX XH-270",
+      "brand": "DAIWA",
+      "asin": "B083QHVD81",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B083QHVD81",
+      "sourceUrl": "https://www.daiwa.com/jp/product/2023/05/09/09/31/75iji6s",
+      "jan": "4550133022944",
+      "specs": [
+        "全長2.7m",
+        "3本継・仕舞141cm",
+        "自重165g",
+        "オモリ負荷1〜3号",
+        "適合ハリス1〜2.5号"
+      ],
+      "technical": {
+        "rodMinWeight": 1,
+        "rodMaxWeight": 3,
+        "rodMinLeader": 1,
+        "rodMaxLeader": 2.5,
+        "rodReelType": "drum"
+      },
+      "methodIds": [
+        "hechi"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B083QHVD81?th=1",
+          "finding": "CUA Amazon selected style XH-270,2.7m165g and purchase offer verified."
+        }
+      ],
+      "note": "チヌ駒X装着不可をメーカー明記。選択候補のチヌマスター90とは別製品。ヘチのB/2Bガン玉を投げ用錘負荷と単純比較しない。"
+    },
+    {
+      "id": "leader-yamatoyo-15",
+      "category": "leader",
+      "name": "フロロショックリーダー 30m 1.5号 6lb クリア",
+      "brand": "YAMATOYO",
+      "asin": "B002NPJP5Q",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B002NPJP5Q",
+      "sourceUrl": "https://yamatoyo.com/products/fluoro-shock-leader/",
+      "jan": "4990463092352",
+      "specs": [
+        "フロロカーボン",
+        "1.5号・6lb",
+        "30m",
+        "クリア"
+      ],
+      "technical": {
+        "leaderSize": 1.5,
+        "leaderStrengthLb": 6,
+        "leaderMaterial": "fluorocarbon"
+      },
+      "methodIds": [
+        "lure",
+        "eging",
+        "hechi",
+        "float"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B002NPJP5Q?th=1",
+          "finding": "CUA dropdown explicitly selected30m/1.5号6lb, settled bullets and image alt confirmed1.5号6lb30m clear."
+        }
+      ],
+      "note": "Amazon初期表示でサイズ未選択・3.5号の古い詳細が出るため、選択後の詳細とメーカー表を照合。"
+    },
+    {
+      "id": "leader-yamatoyo-4",
+      "category": "leader",
+      "name": "フロロショックリーダー 20m 4号 16lb クリア",
+      "brand": "YAMATOYO",
+      "asin": "B002NPFKG4",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B002NPFKG4",
+      "sourceUrl": "https://yamatoyo.com/products/fluoro-shock-leader/",
+      "jan": "4990463092406",
+      "specs": [
+        "フロロカーボン",
+        "4号・16lb",
+        "20m",
+        "クリア"
+      ],
+      "technical": {
+        "leaderSize": 4,
+        "leaderStrengthLb": 16,
+        "leaderMaterial": "fluorocarbon"
+      },
+      "methodIds": [
+        "lure",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B002NPFKG4?th=1",
+          "finding": "CUA explicit selected20m/4号16lb, settled bullets lineweight4号/20m/16lb and image alt verified."
+        }
+      ],
+      "note": "30mではなく20m。歯の鋭い魚の歯切れを防ぐ保証はない。"
+    },
+    {
+      "id": "leader-yamatoyo-5",
+      "category": "leader",
+      "name": "フロロショックリーダー 20m 5号 20lb クリア",
+      "brand": "YAMATOYO",
+      "asin": "B002NPHMKQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B002NPHMKQ",
+      "sourceUrl": "https://yamatoyo.com/products/fluoro-shock-leader/",
+      "jan": "4990463092413",
+      "specs": [
+        "フロロカーボン",
+        "5号・20lb",
+        "20m",
+        "クリア"
+      ],
+      "technical": {
+        "leaderSize": 5,
+        "leaderStrengthLb": 20,
+        "leaderMaterial": "fluorocarbon"
+      },
+      "methodIds": [
+        "lure",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B002NPHMKQ?th=1",
+          "finding": "CUA explicit selected20m/5号20lb, settled bullets and image alt5号20lb20m clear verified."
+        }
+      ],
+      "note": "Amazon耐摩耗ショックリーダーはナイロンの別製品なので混同しない。"
+    },
+    {
+      "id": "lure-jps-20",
+      "category": "lure",
+      "name": "ジグパラ ショート20g #01 イワシ",
+      "brand": "Major Craft",
+      "asin": "B00JRT99KW",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00JRT99KW",
+      "sourceUrl": "https://www.majorcraft.co.jp/lure/jps/",
+      "specs": [
+        "メタルジグ20g",
+        "#01イワシ",
+        "フロント・リアフック付き"
+      ],
+      "technical": {
+        "lureWeightG": 20,
+        "lureType": "metal-jig"
+      },
+      "methodIds": [
+        "lure"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B00JRT99KW",
+          "finding": "Root CUA actual Amazon verified20g01イワシ."
+        }
+      ],
+      "note": "小型青物などのライトショア用。大型ブリやカンパチ向け重装備と同一視しない。"
+    },
+    {
+      "id": "lure-rapala-cd9",
+      "category": "lure",
+      "name": "カウントダウン CD9 P パーチ",
+      "brand": "Rapala",
+      "asin": "B001NXC95M",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B001NXC95M",
+      "sourceUrl": "https://rapala.co.jp/cn4/cn5/cd.html",
+      "specs": [
+        "9cm・12g",
+        "シンキングミノー",
+        "カラーPパーチ",
+        "標準フック#5×2"
+      ],
+      "technical": {
+        "lureWeightG": 12,
+        "lureType": "sinking-minnow"
+      },
+      "methodIds": [
+        "lure"
+      ],
+      "fishIds": [
+        "suzuki"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B001NXC95M",
+          "finding": "Root CUA Amazon verifiedCD9Pパーチ12g."
+        }
+      ],
+      "note": "メーカーCD9表で9cm12gを照合。"
+    },
+    {
+      "id": "lure-chinu-rise50",
+      "category": "lure",
+      "name": "ブレニアス ライズポップ50F OP-150Q 015 キョウリンレッドヘッド",
+      "brand": "SHIMANO",
+      "asin": "B08VMTLDPC",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08VMTLDPC",
+      "sourceUrl": "https://fish.shimano.com/ja-JP/product/lure/bream/topwater/a155f00000c5ctuqaf_p.html",
+      "jan": "4969363513229",
+      "specs": [
+        "50mm・7g",
+        "フローティングポッパー",
+        "015キョウリンレッドヘッド",
+        "フック#10×2"
+      ],
+      "technical": {
+        "lureWeightG": 7,
+        "lureType": "floating-popper"
+      },
+      "methodIds": [
+        "lure"
+      ],
+      "fishIds": [
+        "kurodai"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://sakana-za.com/2934",
+          "finding": "Product-specific outbound Amazon B08VMTLDPC; primary SHIMANO exactOP150Q015 model/JAN50mm7g floating verified."
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B08VMTLDPC",
+          "finding": "CUA actual Amazon selectedvariant verified on2026-11-01."
+        }
+      ],
+      "note": "チニングの水面ポッパー釣り用。底を引くフリーリグやワーム仕掛けの代用品として説明しない。"
+    },
+    {
+      "id": "snap-owner-1",
+      "category": "snap",
+      "name": "P-02 クイックスナップ #1",
+      "brand": "OWNER",
+      "asin": "B000BSAWSQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000BSAWSQ",
+      "sourceUrl": "https://www.owner.co.jp/search/1970/",
+      "jan": "4953873190018",
+      "specs": [
+        "サイズ#1",
+        "強度10.9kg（メーカー表）"
+      ],
+      "technical": {
+        "snapSize": 1,
+        "snapStrengthKg": 10.9
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "amazonVerification": "partial",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B000BSAWSQ",
+          "finding": "Root CUA selected#1, feature bullets erroneously2号; manufacturer table#1=10.9kg. Earlier article #0 association rejected."
+        }
+      ],
+      "note": "Amazon商品特徴に2号と矛盾する表示があるため、パッケージ写真の確認を追加。#0として登録しない。",
+      "recommendedForCatalog": false
+    },
+    {
+      "id": "snap-owner-00",
+      "category": "snap",
+      "name": "P-02 クイックスナップ #00",
+      "brand": "OWNER",
+      "asin": "B000BSAWS6",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000BSAWS6",
+      "sourceUrl": "https://www.owner.co.jp/search/1970/",
+      "jan": "4953873189951",
+      "specs": [
+        "サイズ#00",
+        "強度8.9kg（メーカー表）"
+      ],
+      "technical": {
+        "snapSize": "00",
+        "snapStrengthKg": 8.9
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://retsu-business.com/fishing/fishing-line/lure-snap-recommendation-ranking-begin/",
+          "finding": "P-02#00 individual Amazon outbound B000BSAWS6, primary manufacturer #00=8.9kg."
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B000BSAWS6",
+          "finding": "CUA actual Amazon selectedvariant verified on2026-11-01."
+        }
+      ],
+      "note": "Amazon選択#00、詳細サイズ00・強度8.9kgまで更新した状態を確認。"
+    },
+    {
+      "id": "net-lsfc500",
+      "category": "landing-net",
+      "name": "ファーストキャスト ランディングシャフト ネットセット LSFC-500",
+      "brand": "Major Craft",
+      "asin": "B0BDRL3VFK",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0BDRL3VFK",
+      "sourceUrl": "https://www.majorcraft.co.jp/other_items/lsfc/",
+      "jan": "4573236271675",
+      "specs": [
+        "シャフト455cm",
+        "ネット55×47cm",
+        "継数9本（メーカー訂正済み）"
+      ],
+      "technical": {
+        "landingNet": true
+      },
+      "methodIds": [
+        "sabiki",
+        "float",
+        "lure",
+        "hole",
+        "bukkomi",
+        "nage",
+        "choi-nage",
+        "dozuki",
+        "uki-sabiki",
+        "eging",
+        "hechi",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.turiharu.com/seabass-landingnet/",
+          "finding": "LSFC-500 product-specific Amazon outboundB0BDRL3VFK."
+        },
+        {
+          "url": "https://www.majorcraft.co.jp/wp-content/uploads/2025/09/20240718.pdf",
+          "finding": "Manufacturer specs erratum LSFC-500継数10→9. Not a product recall."
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B0BDRL3VFK",
+          "finding": "CUA actual Amazon selectedvariant verified on2026-11-01."
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B0BDRL3VFK",
+          "finding": "Amazon500selected,shaft455cm/net55x47cm. Bullet10piecesstale;manufacturererratum9piecesused."
+        }
+      ],
+      "note": "満潮・干潮時の足場から水面までの距離に届く長さを購入前に確認。大きい魚を柄で持ち上げない。"
+    },
+    {
+      "id": "cooler-minicool2-s650",
+      "category": "cooler",
+      "name": "ミニクール2 S650 パステルグリーン",
+      "brand": "DAIWA",
+      "asin": "B0GFL71WXV",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0GFL71WXV",
+      "sourceUrl": "https://www.daiwa.com/jp/product/2ya8o4q",
+      "jan": "4550133689000",
+      "specs": [
+        "容量6.5L",
+        "自重1.5kg",
+        "内寸15×22×19cm",
+        "外寸22×33×25cm"
+      ],
+      "technical": {
+        "coolerCapacityL": 6.5
+      },
+      "methodIds": [
+        "sabiki",
+        "float",
+        "lure",
+        "hole",
+        "bukkomi",
+        "nage",
+        "choi-nage",
+        "dozuki",
+        "uki-sabiki",
+        "eging",
+        "hechi",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B0GFL71WXV?linkCode=osi&psc=1&tag=hatena-22&th=1",
+          "finding": "Amazon dimensionToAsinMap1_0=B0GFL71WXV, colorindex1パステルグリーン,sizeindex0S650. Primary DAIWA JAN/capacity/dimensions checked."
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B0GFL71WXV",
+          "finding": "CUA actual Amazon selectedvariant verified on2026-11-01."
+        }
+      ],
+      "note": "小型魚向け。大型魚の持ち帰りには十分な内寸の別製品または所有品が必要。保冷剤は別途。"
+    },
+    {
+      "id": "pliers-v190",
+      "category": "pliers",
+      "name": "プライヤーV 190H",
+      "brand": "DAIWA",
+      "asin": "B001HJZA9O",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B001HJZA9O",
+      "sourceUrl": "https://www.daiwa.com/jp/product/alsao7u",
+      "jan": "4960652714518",
+      "specs": [
+        "ステンレス製ロングノーズ",
+        "190H",
+        "ナイロン・フロロ対応カッター"
+      ],
+      "technical": {
+        "hookRemover": true,
+        "peCutter": false
+      },
+      "methodIds": [
+        "sabiki",
+        "float",
+        "lure",
+        "hole",
+        "bukkomi",
+        "nage",
+        "choi-nage",
+        "dozuki",
+        "uki-sabiki",
+        "eging",
+        "hechi",
+        "kago"
+      ],
+      "amazonVerification": "partial",
+      "evidence": [
+        {
+          "url": "https://my-best.com/6534",
+          "finding": "DAIWA V190H individual Amazon outboundB001HJZA9O, primary cutter supportsnylon/FC, notPE."
+        }
+      ],
+      "note": "PEライン切断用には別のPE対応カッターが必要。代わりのステンコアプライヤー190Hを調査中。",
+      "recommendedForCatalog": false
+    },
+    {
+      "id": "reel-crest-lt2000",
+      "category": "reel",
+      "name": "20 クレスト LT2000",
+      "brand": "DAIWA",
+      "asin": "B089NLF95Y",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B089NLF95Y",
+      "sourceUrl": "https://www.daiwa.com/jp/product/nwl7zus",
+      "jan": "4960652309394",
+      "specs": [
+        "自重215g",
+        "PE0.6号200m",
+        "ナイロン4lb150m",
+        "ギア比5.2",
+        "最大ドラグ5kg"
+      ],
+      "technical": {
+        "reelType": "spinning",
+        "peCapacity": {
+          "0.6": 200
+        },
+        "nylonLbCapacity": {
+          "4": 150
+        }
+      },
+      "methodIds": [
+        "lure",
+        "eging"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B089NLF95Y?th=1",
+          "finding": "CUA selectedLT2000 and settled actualURL B089NLF95Y, standardweight215g PE0.6-200 nylon4lb150 verified."
+        }
+      ],
+      "note": "PE0.4号150mを使う場合はメーカー糸巻量を目安に下巻き量を調整。"
+    },
+    {
+      "id": "reel-crest-lt4000",
+      "category": "reel",
+      "name": "20 クレスト LT4000-C",
+      "brand": "DAIWA",
+      "asin": "B089N6JZJW",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B089N6JZJW",
+      "sourceUrl": "https://www.daiwa.com/jp/product/nwl7zus",
+      "jan": "4960652309462",
+      "specs": [
+        "自重270g",
+        "PE1.5号200m",
+        "ナイロン12lb150m",
+        "ギア比5.2",
+        "最大ドラグ12kg"
+      ],
+      "technical": {
+        "reelType": "spinning",
+        "peCapacity": {
+          "1.5": 200
+        },
+        "nylonLbCapacity": {
+          "12": 150
+        }
+      },
+      "methodIds": [
+        "lure",
+        "bukkomi",
+        "nage",
+        "kago",
+        "uki-sabiki"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B089N6JZJW?th=1",
+          "finding": "CUA selectedLT4000-C, settledactualURL B089N6JZJW,270g PE1.5-200 nylon12lb150 verified."
+        }
+      ],
+      "note": "糸付属なし。最大ドラグは推奨設定値ではない。"
+    },
+    {
+      "id": "pliers-staincore190",
+      "category": "pliers",
+      "name": "ステンコアプライヤー 190H ブラック",
+      "brand": "DAIWA",
+      "asin": "B08ZSM87SF",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B08ZSM87SF",
+      "sourceUrl": "https://www.daiwa.com/jp/product/trk81yk",
+      "jan": "4550133078569",
+      "specs": [
+        "全長190mm",
+        "自重約160g",
+        "PE対応ラインカッター",
+        "スプリットリング#3〜7対応"
+      ],
+      "technical": {
+        "hookRemover": true,
+        "peCutter": true
+      },
+      "methodIds": [
+        "sabiki",
+        "float",
+        "lure",
+        "hole",
+        "bukkomi",
+        "nage",
+        "choi-nage",
+        "dozuki",
+        "uki-sabiki",
+        "eging",
+        "hechi",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B08ZSM87SF?th=1",
+          "finding": "CUA selected190H/ブラック; Amazon bullet190mm and manufacturer-description PEライン対応カッター. PrimaryDAIWA exactJAN160g/190mm verified."
+        }
+      ],
+      "note": "針外しとPE切断用。小型ルアー#10等の小さいスプリットリングは#3〜7対応オープナー範囲外なので、交換作業は小型対応品が別途必要。"
+    },
+    {
+      "id": "lure-riseblade-10",
+      "category": "lure",
+      "name": "ソアレ ライズショットブレード10g JJ-210U 014 ヒモカガミ",
+      "brand": "SHIMANO",
+      "asin": "B0FHH5VNDR",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0FHH5VNDR",
+      "sourceUrl": "https://fish.shimano.com/ja-JP/product/lure/lightgame/jig_vibration_blade/a155f00000c6difqa3_p.html",
+      "jan": "4969363152084",
+      "specs": [
+        "35mm・10g",
+        "シンキング・スピンテールジグ",
+        "014ヒモカガミ",
+        "フロント#11・リア#10・インディアナブレード#2"
+      ],
+      "technical": {
+        "lureWeightG": 10,
+        "lureType": "spin-tail-jig",
+        "includesHook": true
+      },
+      "methodIds": [
+        "lure"
+      ],
+      "fishIds": [
+        "kasago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B0FHH5VNDR",
+          "finding": "CUAChromeactualAmazon2026-11-01selected014ヒモカガミ/size10g;bulletselfweight10g,35mm,front#11rear#10Indiana#2verified."
+        },
+        {
+          "url": "https://fish.shimano.com/ja-JP/content/fishingstyle/article/2023/231002_v1/index.html",
+          "finding": "Manufacturer official article explicitly states RiseShotBladeworksforKasagoandvariouslightsalttargets;usesearchretrieveexactforprofileauditing."
+        }
+      ],
+      "note": "カサゴを狙うボトム周辺のリフト＆フォール／巻き用。ワームのジグヘッドリグではない。Amazon汎用重量50gは採用せず、商品特徴とメーカー双方一致の自重10gを使用。ロッド上限10gならスナップ等追加重量も考慮し強く振り抜かない。"
+    },
+    {
+      "id": "egi-k-30-005",
+      "category": "egi",
+      "name": "エギ王K ベーシック 3.0号 005 ムラムラチェリー",
+      "brand": "YAMASHITA",
+      "asin": "B07CWXSDRX",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07CWXSDRX",
+      "sourceUrl": "https://www.yamaria.co.jp/yamashita/product/detail/522",
+      "specs": [
+        "エギ3.0号",
+        "重量16g・全長90mm（針ヌキ）",
+        "005ムラムラチェリー",
+        "ベーシック・沈下約3秒/m"
+      ],
+      "technical": {
+        "egiSize": 3,
+        "lureWeightG": 16
+      },
+      "methodIds": [
+        "eging"
+      ],
+      "fishIds": [
+        "aoriika",
+        "kouika"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B07CWXSDRX?th=1",
+          "finding": "CUAChromeexact005ムラムラチェリー/3.0号 selected; settledURLB07CWXSDRX; bullet16g90mm約3秒/m and productimagealt3.0号005confirmed."
+        },
+        {
+          "url": "https://www.yamaria.co.jp/yamashita/product/detail/522",
+          "finding": "Manufacturer table order595-123 Egi王K3 005ムラムラチェリー3号16g90mmベーシック約3秒/m."
+        }
+      ],
+      "note": "Amazon汎用商品重量15gは採用せず、商品特徴・メーカー双方の16gを採用。秋アオリの基本候補として3.5号22gより小型。ツツイカライトエギングには表示しない。"
+    },
+    {
+      "id": "rig-hokke-nb602-12",
+      "category": "rig",
+      "name": "投げ カレイ・アブラコ・ホッケ 胴突式3セット NB602 12号-3",
+      "brand": "HAYABUSA",
+      "asin": "B00GAUW39K",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00GAUW39K",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/NB602/",
+      "jan": "4993722708476",
+      "specs": [
+        "鈎12号",
+        "ハリス3号・幹糸8号",
+        "全長90cm・投げ胴突式",
+        "2本鈎3セット",
+        "オモリ別売"
+      ],
+      "technical": {
+        "hookSize": 12,
+        "rigBranchSize": 3,
+        "rigMainSize": 8,
+        "rigLengthM": 0.9,
+        "rigHookCount": 2,
+        "rigType": "cast-dozuki",
+        "rigSinkerConnection": "bottom-eye"
+      },
+      "methodIds": [
+        "nage"
+      ],
+      "fishIds": [
+        "hokke",
+        "karei"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B00GAUW39K",
+          "finding": "CUAChromeactualAmazon2026-11-01headingNB602-12-3,imagealt12-3,bullets鈎12/ハリス3/幹糸8/2本鈎3セットconfirmed."
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/hayabusa/products/NB602/",
+          "finding": "Manufacturer exactly namesホッケas target and table12/3/8JAN4993722708476,90cm投げ胴突,2本鈎3セット."
+        },
+        {
+          "url": "https://www.honda.co.jp/fishing/picture-book/hokke/trap01/",
+          "finding": "Honda fishing reference explicitly says投げ釣りではドウヅキ仕掛けを使うforHokke."
+        }
+      ],
+      "note": "ホッケ投げ釣りは胴突式の別プロフィールとし、上端へ力糸、下端へ別売ナスオモリを接続。既存カレイ天秤仕掛けと混ぜて天秤を必須にしない。"
+    },
+    {
+      "id": "rig-hokkaido-hs556-6",
+      "category": "rig",
+      "name": "ホッケ・サバ・ニシン オーロラフィルム＆緑ウーリー6本鈎 HS556 6号-2",
+      "brand": "HAYABUSA",
+      "asin": "B01M9FCUD7",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01M9FCUD7",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/HS556/",
+      "jan": "4993722708155",
+      "specs": [
+        "鈎6号",
+        "ハリス2号・幹糸4号",
+        "全長1.75m",
+        "6本鈎1セット",
+        "オーロラフィルム＆緑ウーリー"
+      ],
+      "technical": {
+        "hookSize": 6,
+        "rigBranchSize": 2,
+        "rigMainSize": 4,
+        "rigLengthM": 1.75,
+        "rigHookCount": 6,
+        "rigType": "sabiki"
+      },
+      "methodIds": [
+        "sabiki",
+        "uki-sabiki"
+      ],
+      "fishIds": [
+        "hokke",
+        "nishin",
+        "saba"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B01M9FCUD7?th=1",
+          "finding": "CUAactualAmazon明示選択オーロラ＆緑/6号後、同URL、bullet鉤6号ハリス2号幹糸4号全長1.75m,imagealtHS556ホッケサバニシン6本鈎6号confirmed. Initiallystale9号10hooksHS562detailsrejected."
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/hayabusa/products/30106/index.html",
+          "finding": "ManufacturerホッケニシンcategorylistsHS556ホッケサバニシンオーロラフィルム&緑ウーリー6本鈎."
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/catalogue/2018hayabusacatalogue/pageindices/index296.html",
+          "finding": "Primarycatalogindex listsHS556 exacttargetnameunder北海道堤防岸釣りpage136."
+        }
+      ],
+      "note": "ホッケ・ニシンへ小アジ専科HS201を一律に割り当てる代わりの専用サビキ。メーカー製品URLは2026-11-01Web取得ではメンテナンス案内。型番・対象は公式分類/公式カタログ、個別規格はAmazon選択後の記載を照合。JANは流通照合でありメーカー現行本文は未取得。"
+    },
+    {
+      "id": "sinker-nasu25",
+      "category": "weight",
+      "name": "パックオモリ(小袋入) ナス型 25号 23078",
+      "brand": "第一精工",
+      "asin": "B000AR6WMS",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000AR6WMS",
+      "sourceUrl": "https://www.daiichiseiko.com/pricerevision/img/pricerevision.pdf",
+      "specs": [
+        "ナス型25号",
+        "上端に取付環のある下オモリ",
+        "商品コード23078",
+        "一度に使うのは1個"
+      ],
+      "technical": {
+        "weight": 25,
+        "sinkerSizeGou": 25,
+        "sinkerType": "nasu"
+      },
+      "methodIds": [
+        "nage"
+      ],
+      "fishIds": [
+        "hokke"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B000AR6WMS?th=1&psc=1",
+          "finding": "CUAexactナス型25号explicitselected;settledactualURLB000AR6WMS;imagealt第一精工パックナス型25号23078シルバー. Generic200gproductweightispackagingnotindividualsinker."
+        },
+        {
+          "url": "https://www.daiichiseiko.com/pricerevision/img/pricerevision.pdf",
+          "finding": "Manufacturer itemcode23078=パックオモリナス25号."
+        }
+      ],
+      "note": "胴突下端へ接続。投げ竿25-420の20〜30号負荷内。Amazon汎用重量200gは1個重量として使用しない。"
+    },
+    {
+      "id": "cooler-lighttrunk-s3200",
+      "category": "cooler",
+      "name": "ライトトランクα S3200 ブルー",
+      "brand": "DAIWA",
+      "asin": "B083WGRWJP",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B083WGRWJP",
+      "sourceUrl": "https://www.daiwa.com/jp/product/twjlq4i",
+      "jan": "4550133075827",
+      "specs": [
+        "容量32L",
+        "内寸22×56.5×24.5cm（奥行×幅×高さ）",
+        "外寸31.5×69×34cm",
+        "自重4.6kg",
+        "断熱材スチロール"
+      ],
+      "technical": {
+        "coolerCapacityL": 32,
+        "coolerInnerLengthCm": 56.5,
+        "coolerInnerDepthCm": 22,
+        "coolerInnerHeightCm": 24.5
+      },
+      "methodIds": [
+        "sabiki",
+        "float",
+        "lure",
+        "hole",
+        "bukkomi",
+        "nage",
+        "choi-nage",
+        "dozuki",
+        "uki-sabiki",
+        "eging",
+        "hechi",
+        "kago"
+      ],
+      "amazonVerification": "verified",
+      "evidence": [
+        {
+          "url": "https://www.amazon.co.jp/dp/B083WGRWJP",
+          "finding": "CUAChromeactualAmazon2026-11-01selectedブルーand32ℓ(スチロール),bullet容量32L/内寸22×56.5×24.5cm/大型中型魚まで収納(内寸56.5cm)verified."
+        },
+        {
+          "url": "https://www.daiwa.com/jp/product/twjlq4i",
+          "finding": "ManufacturerライトトランクαS3200BLtable32L/4.6kg/内寸22×56.5×24.5/外寸31.5×69×34/JAN4550133075827verified. Officialdimensionsaredepth×width×height,minimuminteriorpoint."
+        }
+      ],
+      "note": "大きめの岸釣り魚を持ち帰るための32L候補。魚の長さ・体高と氷を入れた後の空間を確認。内寸幅56.5cmを超えるスズキ・ヒラメ・青物の収納を保証しない。6.5L小型クーラーの代わりとなる選択肢。"
+    }
+  ],
+  "pending": []
+}

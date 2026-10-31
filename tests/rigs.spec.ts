@@ -88,8 +88,11 @@ test('hovering a gear cell previews only that tool and restores the actual choic
   const missingColor = await diagram.locator('[data-part="reel"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'));
   expect(selectedColor).not.toBe(missingColor);
   if (isMobile) {
-    // Touch does not leave a simulated hover behind or color unselected gear.
+    // Touch opens the matching gear chooser and does not save a simulated hover.
     await diagram.locator('[data-part="reel"] > g:not(.rig-hit-area)').tap();
+    await expect(page).toHaveURL(/#builder\/reel$/);
+    await page.getByRole('button',{name:'戻る',exact:true}).click();
+    await expect(page).toHaveURL(/#builder$/);
     await expect(diagram).not.toHaveAttribute('data-highlighted-part');
     await expect(page.getByRole('tooltip')).toHaveCount(0);
   } else {

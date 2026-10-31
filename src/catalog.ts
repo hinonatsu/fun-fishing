@@ -1,9 +1,10 @@
 import amazonAsins from './data/amazon-products.json' with { type: 'json' };
 import { amazonPriceRecord, currentAmazonPrice, type AmazonPriceRecord } from './amazon-prices';
 import { targetFish, targetMethods } from './fish-catalog';
+import methodProducts from './data/method-products.json' with { type: 'json' };
 
 /** Curated specifications with a daily Amazon price snapshot. See docs/AMAZON_PRICES.md. */
-export type CategoryId = 'rod' | 'reel' | 'line' | 'rig' | 'basket' | 'bait' | 'bucket' | 'safety';
+export type CategoryId = 'rod' | 'reel' | 'line' | 'rig' | 'basket' | 'bait' | 'bucket' | 'safety' | 'float' | 'stopper' | 'sinker' | 'leader' | 'swivel' | 'hook' | 'tenbin' | 'snap' | 'lure' | 'egi' | 'burakuri' | 'cushion' | 'shock' | 'net' | 'pliers' | 'cooler' | 'chum';
 export type VerificationStatus = 'verified' | 'partial';
 export interface Area { id: string; name: string; region: string; supported: boolean }
 export interface FishingField { id: string; name: string; supported: boolean }
@@ -17,14 +18,22 @@ export interface ProductSpecification {
   reelNylon3Capacity?: number; nylonCapacity?: Record<number, number>; lineSize?: number;
   lineLength?: number; spoolLength?: number; basketWeight?: number; basketWeightG?: number;
   rigMainSize?: number; rigBranchSize?: number; hookSize?: number; includedLine?: string;
+  rodMinLureG?: number; rodMaxLureG?: number; rodMinEgi?: number; rodMaxEgi?: number;
+  rodMinPe?: number; rodMaxPe?: number; rodType?: 'spinning' | 'hechi'; reelType?: 'spinning' | 'hechi';
+  lineMaterial?: 'nylon' | 'pe' | 'fluoro'; peCapacity?: Record<number, number>;
+  weightG?: number; sinkerSize?: number; floatLoadSize?: number; egiSize?: number;
+  leaderSize?: number; strengthLb?: number; includedLineProductId?: string;
+  shockThinSize?: number; shockThickSize?: number;
 }
-export interface RetailOffer { retailer: string; url: string; price: number | null; linkStatus: 'content-confirmed'; checkedAt: string }
+export interface RetailOffer { retailer: string; url: string; price: number | null; linkStatus: 'content-confirmed' | 'listing-confirmed'; checkedAt: string }
 export interface VerificationRecord { checkedAt: string; status: VerificationStatus; sourceUrl: string; note: string }
 export interface Product {
   id: string; category: CategoryId; name: string; brand: string; summary: string; reason: string;
   specs: string[]; sourceUrl: string; purchaseUrl?: string; verification: VerificationStatus;
   price: number | null; amazonPrice: AmazonPriceRecord | null; generic?: boolean; localOnly?: boolean; technical: ProductSpecification;
   offer: RetailOffer; record: VerificationRecord; jan: string;
+  methodIds?: string[]; fishIds?: string[]; profiles?: string[]; provides?: CategoryId[];
+  evidenceUrls?: string[];
 }
 export interface AlternativeProduct { productId: string; replacesId: string; conditions: string[]; limits: string[] }
 export const VERIFIED_AT = '2026-10-30';
@@ -54,6 +63,27 @@ export const categories: EquipmentCategory[] = [
   { id: 'bucket', label: 'バケツ', necessity: 'recommended', description: '手洗いや水くみに。用途に合わせて選びます。' },
   { id: 'safety', label: '安全用品', necessity: 'required', description: '体に合うライフジャケットを必ず準備しましょう。' },
 ];
+export const allCategories: EquipmentCategory[] = [...categories,
+  ...([
+    ['float','ウキ','魚の反応を知らせます。使用する仕掛けの負荷に合わせます。'],
+    ['stopper','ウキ取付セット','ウキ止め・シモリ玉・ウキスイベル・下側のストッパーをそろえます。'],
+    ['sinker','オモリ','釣り方と竿の負荷に合う重さを選びます。'],
+    ['leader','ハリス・リーダー','道糸の先につなぐ糸。素材と太さを確認します。'],
+    ['swivel','サルカン','糸と仕掛けをつなぐ接続金具です。'],
+    ['hook','針','対象魚に合う針。ハリス付き商品も選べます。'],
+    ['tenbin','天秤','仕掛けの絡まりを減らします。オモリ付きなら追加分は不要です。'],
+    ['snap','スナップ','ルアーやエギを交換するための接続金具です。'],
+    ['lure','ルアー','対象魚と竿の適合重量に合う疑似餌を選びます。'],
+    ['egi','エギ','対象のイカ・竿の適合サイズと重量に合わせます。'],
+    ['burakuri','ブラクリ','オモリ・短いハリス・針が一体の穴釣り仕掛けです。'],
+    ['cushion','保護ゴム','オモリから結び目を保護する部品です。'],
+    ['shock','力糸','投げる負荷に備える糸。道糸との接続を確認します。'],
+    ['net','玉網','魚と釣り場の高さに合う取り込み用具を準備します。'],
+    ['pliers','針外し・プライヤー','針を安全に外すための道具です。'],
+    ['cooler','保冷用品','持ち帰る魚を冷やす容器。氷も準備します。'],
+    ['chum','コマセ','魚を寄せるエサ。針に付けるエサとは別に準備します。'],
+  ] as [CategoryId,string,string][]).map(([id,label,description])=>({id,label,description,necessity:'required' as const})),
+];
 const source = {
   rod: 'https://www.daiwa.com/jp/product/2023/05/09/09/55/eu19urm',
   reel: 'https://www.daiwa.com/jp/product/m4f0cz4',
@@ -77,7 +107,7 @@ function product(data: Omit<Product, 'price' | 'amazonPrice' | 'verification' | 
     record: { checkedAt: VERIFIED_AT, status: verification, sourceUrl: data.sourceUrl, note },
   };
 }
-export const products: Product[] = [
+const legacyProducts: Product[] = [
   product({ id: 'rod-3-300', category: 'rod', name: 'リバティクラブ 小継 磯 3-300', brand: 'DAIWA', summary: 'しまうと47cm。持ち運びやすい堤防用の竿。', reason: '6号カゴを使う基本構成に。振り出し式で電車移動にも持ち出しやすい長さです。', specs: ['全長 2.98m', '仕舞 47cm', 'オモリ負荷 5〜10号', '自重 145g'], sourceUrl: source.rod, jan: '4960652108010', technical: { rodMinWeight: 5, rodMaxWeight: 10, rodMinLeader: 3, rodMaxLeader: 7 } }),
   product({ id: 'rod-2-300', category: 'rod', name: 'リバティクラブ 小継 磯 2-300', brand: 'DAIWA', summary: '少し軽い竿。重いカゴとの組み合わせに注意。', reason: '自重140g。オモリ負荷の上限が6号なので、エサを含む総重量の確認が必要です。', specs: ['全長 2.98m', '仕舞 47cm', 'オモリ負荷 2〜6号', '自重 140g'], sourceUrl: source.rod, jan: '4960652107990', technical: { rodMinWeight: 2, rodMaxWeight: 6, rodMinLeader: 2, rodMaxLeader: 5 } }),
   product({ id: 'reel-cf2500', category: 'reel', name: '17 ワールドスピン CF2500', brand: 'DAIWA', summary: '好きな糸を巻いて準備する、糸なしモデル。', reason: '3号のナイロン糸を150m巻ける仕様。糸は別に準備し、釣具店に巻き方を相談できます。', specs: ['スピニング', 'ナイロン 3号-150m / 2号-200m', '自重 265g', '糸は付属しません'], sourceUrl: source.reel, jan: '4960652252539', technical: { reelNylon3Capacity: 150, nylonCapacity: {2: 200,3:150} } }),
@@ -93,12 +123,21 @@ export const products: Product[] = [
   product({ id:'bucket-risu-8',category:'bucket',name:'アクティブバケツ ホワイト 8L',brand:'リス（RISU）',summary:'地上での手洗いや道具洗いに使う、容量8Lの汎用バケツ。',reason:'清掃・ガーデニング用の容器を、施設の水道などから給水する用途に限定。ロープで海へ下ろす水くみの代替には使いません。',specs:['容量 8L / ホワイト','直径28.0×高さ21.7cm / 本体重量417g','本体 ポリエチレン・EVA','持ち手 ポリプロピレン・ステンレス鋼','吊り下げ水くみは不可'],sourceUrl:'https://www.amazon.co.jp/dp/B002P9A77U',jan:'',generic:true,verification:'partial',technical:{},note:'Amazonの商品名、選択サイズ8L、色、材質、寸法、重量を照合。海水への長期耐久性・吊り下げ強度は未確認のため、地上で水を入れる用途のみ比較します。' }),
   product({ id:'safety-tokarau',category:'safety',name:'トカラウ BSJ-201ARS レッド M',brand:'Bluestorm',summary:'体に合うか試着して選ぶ、固型式ライフジャケット。',reason:'股ベルト付き。身長・胸囲・利用環境に合うか、必ず販売店や施設で確認してください。',specs:['国土交通省型式承認品 Type D','M：身長155〜175cm / 胸囲100cmまで','初期浮力 約8.8kg','使用水域に制限あり'],sourceUrl:'https://bluestorm.jp/products/inherently_buoyant_lifejacket/bsj-201ars/',jan:'4513291159815',localOnly:true,technical:{},note:'メーカー公式で仕様を確認。着用者の体格と利用環境が不明のため適合は要確認。安全装備は汎用品へ置き換えません。' }),
 ];
+type AdditionalProduct = Omit<Product,'price'|'amazonPrice'|'record'|'offer'|'purchaseUrl'|'verification'|'jan'> & {asin:string; note:string; verification?:VerificationStatus; jan?:string; amazonVerified?:boolean};
+export const products: Product[] = [...legacyProducts, ...(methodProducts as unknown as AdditionalProduct[]).map(data=>{
+  const {asin,note,amazonVerified,...rest}=data;
+  const purchaseUrl=`https://www.amazon.co.jp/dp/${asin}?th=1&psc=1`;
+  const amazonPrice=amazonPriceRecord(data.id,asin), price=currentAmazonPrice(amazonPrice);
+  return {...rest,jan:data.jan||'',purchaseUrl,amazonPrice,price,verification:data.verification||'partial',
+    offer:{retailer:'Amazon.co.jp',url:purchaseUrl,price,linkStatus:amazonVerified?'content-confirmed' as const:'listing-confirmed' as const,checkedAt:'2026-11-01'},
+    record:{checkedAt:'2026-11-01',status:data.verification||'partial',sourceUrl:data.sourceUrl,note}} satisfies Product;
+})];
 
 export const replacedProductIds: Record<string,string> = { 'basket-6':'basket-riseway-6', 'basket-10':'basket-riseway-10', 'bucket-generic':'bucket-risu-8' };
 
 export const defaultSelection: Record<CategoryId,string> = {
   rod:'rod-3-300',reel:'reel-cf2500',line:'line-3',rig:'rig-6',basket:'basket-riseway-6',bait:'bait-amihime',bucket:'bucket-daiwa',safety:'safety-tokarau',
-};
+} as Record<CategoryId,string>;
 export const alternatives: AlternativeProduct[] = [{ productId:'bucket-risu-8',replacesId:'bucket-daiwa',conditions:['地上での手洗い・道具洗いに限る','施設の水道などから給水できる','使用前に破損がないか確認'],limits:['海への吊り下げは不可','海水への長期耐久性・取っ手強度は未検証','価格優位性は比較していません'] }];
 export const dataSources = [
   {title:'関東の季節傾向・対象魚（Honda釣り倶楽部）',url:fishSource},

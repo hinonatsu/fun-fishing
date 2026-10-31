@@ -52,10 +52,10 @@ describe('explicit choices and diagnosis',()=>{
     expect(rankedFish({...build,answers:{...build.answers,goal:'fight'}})[0].id).toBe('saba');
     expect(rankedFish({...build,answers:{...build.answers,goal:'first'}})[0].id).toBe('iwashi');
   });
-  it('requires every category, including the recommended bucket, to be decided',()=>{
+  it('allows completion without a recommended bucket while keeping it selectable',()=>{
     const build = complete(); build.selection.bucket = '';
-    expect(canComplete(build)).toBe(false);
-    expect(resolveScreen('checkout',build)).toBe('builder');
+    expect(canComplete(build)).toBe(true);
+    expect(resolveScreen('checkout',build)).toBe('checkout');
     expect(resolveScreen('builder/safety',build)).toBe('builder/safety');
     expect(canComplete(chooseOwned(build,'bucket'))).toBe(true);
   });

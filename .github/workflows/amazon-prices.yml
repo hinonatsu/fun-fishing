@@ -23,7 +23,8 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # Includes the full expanded catalog and the existing deferred retry pass.
+    timeout-minutes: 240
     outputs:
       ref: ${{ steps.commit.outputs.ref }}
       failed: ${{ steps.scrape.outputs.failed }}

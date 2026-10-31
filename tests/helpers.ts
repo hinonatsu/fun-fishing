@@ -21,7 +21,7 @@ export async function builder(page: Page) {
   await page.getByRole('button',{name:'おすすめの魚を見る',exact:true}).click();
   await page.getByRole('button').filter({has:page.getByRole('heading',{name:'アジ',exact:true})}).click();
   await expect(page).toHaveURL(/#method$/);
-  await page.getByRole('button',{name:'この釣り方の道具を選ぶ',exact:true}).click();
+  await page.locator('.style-choice').filter({has:page.getByRole('heading',{name:'サビキ釣り',exact:true})}).getByRole('button',{name:'この釣り方の道具を選ぶ',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
 }
 export async function chooseAll(page: Page) {

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { categories, products } from '../src/catalog';
+import { equipmentFor } from '../src/equipment';
 import { questions } from '../src/diagnosis';
 import { createDefaultBuild, decodeBuild, encodeBuild } from '../src/domain';
 import { builder, chooseAll, complete, completedBuild, diagnose, fresh, noOverflow } from './helpers';
@@ -49,7 +50,7 @@ test('all optional questions can be answered and results are always reachable',a
 
 test('every gear slot requires an explicit choice and recommendations do not preselect',async({page},info)=>{
   await builder(page);
-  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品',exact:true}).getByRole('row')).toHaveCount(9);
+  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品',exact:true}).getByRole('row')).toHaveCount(equipmentFor(completedBuild()).length+1);
   await expect(page.getByRole('button',{name:'この構成を確認する',exact:true})).toBeDisabled();
   await page.screenshot({path:info.outputPath('overview-empty.png'),fullPage:true,scale:'css'});
   expect(decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!))?.selection.rod).toBe('');
@@ -180,12 +181,12 @@ test('the overview allows any category first and returning without choosing pres
   await expect(page.getByRole('heading',{level:1})).toHaveText('バケツを選ぼう。');
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
-  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品'}).getByText('未選択',{exact:true})).toHaveCount(8);
+  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品'}).getByText('未選択',{exact:true})).toHaveCount(equipmentFor(completedBuild()).length);
   await page.getByRole('button',{name:'安全用品の商品を選ぶ',exact:true}).click();
   await page.getByRole('button',{name:'この商品を選ぶ：トカラウ BSJ-201ARS レッド M',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
   await expect(page.getByRole('row').filter({hasText:'トカラウ BSJ-201ARS レッド M'})).toContainText('Bluestorm');
-  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品'}).getByText('未選択',{exact:true})).toHaveCount(7);
+  await expect(page.getByRole('table',{name:'必要な道具と選択中の商品'}).getByText('未選択',{exact:true})).toHaveCount(equipmentFor(completedBuild()).length-1);
   await expect(page.getByRole('button',{name:'この構成を確認する',exact:true})).toBeDisabled();
   await page.reload();
   await expect(page.getByRole('row').filter({hasText:'トカラウ BSJ-201ARS レッド M'})).toContainText('選択済み');

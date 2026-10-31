@@ -9,6 +9,8 @@ import { filterFish } from './fish-catalog';
 import { FlowShell } from './FlowPages';
 import { ExternalLinkButton, Notice } from './ui';
 import './fish-selection.css';
+import { equipmentFor, equipmentProfile, requiredEquipment } from './equipment';
+import { rigForBuild } from './rigs';
 
 const difficultyLabels: Record<FishDifficulty, string> = {1:'簡単', 2:'ふつう', 3:'難しい'};
 
@@ -90,8 +92,10 @@ export function MethodPage({ build, onSelect, onBack }: { build: FishingBuild; o
   return <FlowShell eyebrow="CHOOSE YOUR STYLE" title={`${fish?.name}、どうやって釣る？`} description="楽しみ方を確かめて、釣り方をひとつ選びましょう。" onBack={onBack}>
     {fish && <div className="fish-target-summary"><FishArtwork species={fish.id} /><div><strong>{fish.habitat}</strong><p>{fish.tip}</p></div></div>}
     <div className="decision-options">{available.map(m => {
-      const productsAvailable = hasProductGuide({...build, methodId:m.id});
-      return <div key={m.id} className="style-choice"><span className="style-art"><Waves size={36} /></span><div><span className={productsAvailable ? 'recommended-tag' : 'neutral-tag'}>{productsAvailable ? '商品を選んで準備' : '準備品と始め方をご案内'}</span><h2>{m.name}</h2><p>{m.description}</p><dl className="style-facts"><div><dt>道具</dt><dd>{productsAvailable ? '8カテゴリをひとつずつ選択' : m.supplies[0]}</dd></div><div><dt>進め方</dt><dd>{productsAvailable ? '商品・組み合わせ・価格を確認' : '必要な道具と基本の手順を確認'}</dd></div></dl><button className="button primary full-width" onClick={() => onSelect(m.id)}>{productsAvailable ? 'この釣り方の道具を選ぶ' : 'この釣り方で準備する'}<ArrowRight size={17} /></button></div></div>;
+      const context={...build,methodId:m.id};
+      const productsAvailable = hasProductGuide(context);
+      const description=['kamasu-sabiki','hokke-cast','sayori-float','tachiuo-float','light-eging'].includes(equipmentProfile(context))?rigForBuild(context).summary:m.description;
+      return <div key={m.id} className="style-choice"><span className="style-art"><Waves size={36} /></span><div><span className={productsAvailable ? 'recommended-tag' : 'neutral-tag'}>{productsAvailable ? '商品を選んで準備' : '準備品と始め方をご案内'}</span><h2>{m.name}</h2><p>{description}</p><dl className="style-facts"><div><dt>道具</dt><dd>{productsAvailable ? `${equipmentFor({...build,methodId:m.id}).length}項目から必須${requiredEquipment({...build,methodId:m.id}).length}項目を選択` : m.supplies[0]}</dd></div><div><dt>進め方</dt><dd>{productsAvailable ? '商品・組み合わせ・価格を確認' : '必要な道具と基本の手順を確認'}</dd></div></dl><button className="button primary full-width" onClick={() => onSelect(m.id)}>{productsAvailable ? 'この釣り方の道具を選ぶ' : 'この釣り方で準備する'}<ArrowRight size={17} /></button></div></div>;
     })}</div>
   </FlowShell>;
 }

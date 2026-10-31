@@ -1,0 +1,753 @@
+{
+  "checkedAt": "2026-11-01",
+  "verificationPolicy": "ASINは紹介記事に実在するAmazon個別商品リンクから取得。メーカー一次資料で確認した仕様のみtechnicalへ記載。Amazon本文を直接取得できない商品はpartialとし、価格・在庫・未確認の総重量を推測しない。外部紹介記事は商品リンク発見のためだけに利用し、釣り方や適合判断の根拠には利用しない。 追記のamazon-ui-verifiedは親エージェントが実ブラウザで確認した結果を受領して記録。",
+  "products": [
+    {
+      "id": "float-kit-ha176-m",
+      "category": "rig",
+      "name": "コンパクトロッド カンタンウキ釣りセット 堤防用 HA176 M",
+      "brand": "HAYABUSA",
+      "asin": "B01GG5DBQM",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01GG5DBQM",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/HA176/",
+      "jan": "4993722863816",
+      "specs": [
+        "M・海タナゴ針6号",
+        "ハリス1号・道糸2号",
+        "全長4m・1本針1セット"
+      ],
+      "technical": {
+        "hookSize": 6,
+        "rigBranchSize": 1,
+        "rigMainSize": 2
+      },
+      "methodIds": [
+        "float"
+      ],
+      "provides": [
+        "float",
+        "stopper",
+        "swivel",
+        "leader",
+        "sinker",
+        "hook"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://retsu-business.com/fishing/fishing-line/isori-shikake-osusume-ranking-anketo/",
+          "type": "amazon-link-discovery",
+          "detail": "HA176 Mの個別リンクがB01GG5DBQM"
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/hayabusa/products/HA176/",
+          "type": "manufacturer-specification",
+          "detail": "Mの針6号、ハリス1、道糸2、全長4m、JANを確認"
+        }
+      ],
+      "notes": "Amazon本文は取得不可。セット部品の詳細はメーカー商品図と現品照合を要する。ウキ1号はAmazon転記販売店表記で、technicalには未採用。竿を含むセットではない。"
+    },
+    {
+      "id": "float-kit-ha176-l",
+      "category": "rig",
+      "name": "コンパクトロッド カンタンウキ釣りセット 堤防用 HA176 L",
+      "brand": "HAYABUSA",
+      "asin": "B01GG5G17S",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01GG5G17S",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/HA176/",
+      "jan": "4993722863823",
+      "specs": [
+        "L・チヌ針2号",
+        "ハリス1.5号・道糸3号",
+        "全長4m・1本針1セット"
+      ],
+      "technical": {
+        "hookSize": 2,
+        "rigBranchSize": 1.5,
+        "rigMainSize": 3
+      },
+      "methodIds": [
+        "float"
+      ],
+      "provides": [
+        "float",
+        "stopper",
+        "swivel",
+        "leader",
+        "sinker",
+        "hook"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://retsu-business.com/fishing/fishing-line/isori-shikake-osusume-ranking-anketo/",
+          "type": "amazon-link-discovery",
+          "detail": "HA176 Lの個別リンクがB01GG5G17S"
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/hayabusa/products/HA176/",
+          "type": "manufacturer-specification",
+          "detail": "Lの針2号、ハリス1.5、道糸3、全長4m、JANを確認"
+        }
+      ],
+      "notes": "Amazon本文は取得不可。竿を含むセットではない。セット内容の部品図と現品照合を要する。"
+    },
+    {
+      "id": "burakuri-ve803-3",
+      "category": "burakuri",
+      "name": "VE803 ブラクリ 3号",
+      "brand": "SASAME",
+      "asin": "B002NP8ESK",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B002NP8ESK",
+      "sourceUrl": "https://www.sasame.co.jp/products/1567/",
+      "jan": "4941430027716",
+      "specs": [
+        "オモリ3号・3個入",
+        "丸セイゴ（赤）・夜光玉"
+      ],
+      "technical": {
+        "sinkerWeightGo": 3
+      },
+      "methodIds": [
+        "hole"
+      ],
+      "provides": [
+        "burakuri"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://kurashi-no.jp/I0012431",
+          "type": "amazon-link-discovery",
+          "detail": "VE803ブラクリ3号のリンクがB002NP8ESK"
+        },
+        {
+          "url": "https://www.sasame.co.jp/products/1567/",
+          "type": "manufacturer-specification",
+          "detail": "3号3個、丸セイゴ赤、夜光玉を確認"
+        }
+      ],
+      "notes": "Amazon本文は取得不可。号数からオモリ公称質量のみ計算可能で、針等を含む実測総重量は未確認。"
+    },
+    {
+      "id": "sliding-sinker-daiichi-8",
+      "category": "sinker",
+      "name": "ゴム管入りブッコミオモリ 8号 23108",
+      "brand": "第一精工",
+      "asin": "B001HNKYFA",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B001HNKYFA",
+      "sourceUrl": "https://www.daiichiseiko.com/",
+      "specs": [
+        "8号・中通し式",
+        "ゴム管入り"
+      ],
+      "technical": {
+        "sinkerWeightGo": 8
+      },
+      "methodIds": [
+        "bukkomi"
+      ],
+      "provides": [
+        "sinker"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://tsuri-labo.jp/item/fishing-gimmick/10820",
+          "type": "amazon-link-discovery",
+          "detail": "ゴム管入リブッコミ8号のリンクがB001HNKYFA"
+        },
+        {
+          "url": "https://www.point-official.shop/shop/g/g4995915231082/",
+          "type": "retailer-cross-check",
+          "detail": "メーカー・型番23108・8号・4個入りを確認。メーカー一次個別ページ未取得"
+        }
+      ],
+      "notes": "Amazon本文・メーカー個別資料未取得。オモリ内部のゴム管は糸保護用で、結び目側の保護ゴムを自動的に付属扱いにしない。"
+    },
+    {
+      "id": "sliding-sinker-daiichi-6",
+      "category": "sinker",
+      "name": "ゴム管オモリ 長型 6号",
+      "brand": "第一精工",
+      "asin": "B000AR6VF6",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000AR6VF6",
+      "sourceUrl": "https://www.daiichiseiko.com/",
+      "specs": [
+        "6号・長型中通しオモリ",
+        "ゴム管入り"
+      ],
+      "technical": {
+        "sinkerWeightGo": 6
+      },
+      "methodIds": [
+        "bukkomi"
+      ],
+      "provides": [
+        "sinker"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://tsuri-labo.jp/item/fishing-gimmick/10820",
+          "type": "amazon-link-discovery",
+          "detail": "ゴム管 長型6号のリンクがB000AR6VF6"
+        }
+      ],
+      "notes": "Amazon本文・メーカー個別資料未取得。公称号数のみ。内部ゴム管を別付け保護ゴムの代用と断定しない。"
+    },
+    {
+      "id": "tenbin-jet-25",
+      "category": "tenbin",
+      "name": "ジェット天秤 2JO25 25号",
+      "brand": "富士工業",
+      "asin": "B000AQR33Q",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000AQR33Q",
+      "sourceUrl": "https://www.fujitackle.com/cms-fuji/wp-content/uploads/2023/04/2023_sinker_2.pdf",
+      "specs": [
+        "25号・天秤とオモリ一体型"
+      ],
+      "technical": {
+        "sinkerWeightGo": 25
+      },
+      "methodIds": [
+        "nage"
+      ],
+      "provides": [
+        "tenbin",
+        "sinker"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://sabiki.tsurigood.com/ganda-omori-weight-guide-family/",
+          "type": "amazon-link-discovery",
+          "detail": "富士工業ジェット天秤2JO25・25号の個別リンクがB000AQR33Q"
+        },
+        {
+          "url": "https://www.fujitackle.com/cms-fuji/wp-content/uploads/2023/04/2023_sinker_2.pdf",
+          "type": "manufacturer-catalog",
+          "detail": "ジェット天秤シリーズの構造・号数体系を確認"
+        }
+      ],
+      "notes": "Amazon本文取得不可。25号は公称オモリの号数で、天秤・仕掛け・エサを含む総重量ではない。"
+    },
+    {
+      "id": "gandama-fujiwara-black",
+      "category": "sinker",
+      "name": "ゴムコートガン玉セット スタンダード 黒",
+      "brand": "フジワラ",
+      "asin": "B01MFDG16V",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01MFDG16V",
+      "sourceUrl": "https://fishing-fujiwara.com/product/gumcoatset_s/",
+      "specs": [
+        "3B・2B・B・1・2・3・4・5の8サイズ",
+        "黒・専用BOX入り"
+      ],
+      "technical": {
+        "adjustableSplitShot": true
+      },
+      "methodIds": [
+        "float",
+        "hechi"
+      ],
+      "provides": [
+        "sinker"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://sabiki.tsurigood.com/ganda-omori-weight-guide-family/",
+          "type": "amazon-link-discovery",
+          "detail": "フジワラ黒スタンダードsetリンクがB01MFDG16V"
+        },
+        {
+          "url": "https://fishing-fujiwara.com/product/gumcoatset_s/",
+          "type": "manufacturer-specification",
+          "detail": "8サイズと色、専用BOXを確認"
+        }
+      ],
+      "notes": "Amazon本文未取得。セット全量を仕掛け重量に加算しない。使う粒数・号数を現地で調整する。"
+    },
+    {
+      "id": "hook-chinu-aa302-3-15",
+      "category": "hook",
+      "name": "AA302 チヌ 黒 糸付 3号-1.5号",
+      "brand": "SASAME",
+      "asin": "B00J3EV6O8",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00J3EV6O8",
+      "sourceUrl": "https://www.sasame.co.jp/",
+      "specs": [
+        "チヌ針3号・黒",
+        "ハリス1.5号付き"
+      ],
+      "technical": {
+        "hookSize": 3,
+        "rigBranchSize": 1.5
+      },
+      "methodIds": [
+        "hechi",
+        "float",
+        "bukkomi",
+        "kago"
+      ],
+      "provides": [
+        "hook",
+        "leader"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://retsu-business.com/fishing/fishing-line/chinu-kurodai-hook-recommendation/",
+          "type": "amazon-link-discovery",
+          "detail": "AA3023-1.5の個別リンクがB00J3EV6O8"
+        }
+      ],
+      "notes": "Amazon本文・メーカー一次個別資料未取得。糸長は未確認なのでtechnicalへ登録しない。対象魚・仕掛け長との適合は別途必要。"
+    },
+    {
+      "id": "rig-dozuki-d309-5",
+      "category": "rig",
+      "name": "D-309 波止際族のさぐり胴突 極太ハリス 5号",
+      "brand": "SASAME",
+      "asin": "B07NVN1RCD",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07NVN1RCD",
+      "sourceUrl": "https://www.sasame.co.jp/",
+      "specs": [
+        "5号・胴突仕掛け"
+      ],
+      "technical": {
+        "hookSize": 5
+      },
+      "methodIds": [
+        "dozuki"
+      ],
+      "provides": [
+        "rig"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://retsu-business.com/fishing/fishing-line/isori-shikake-osusume-ranking-anketo/",
+          "type": "amazon-link-discovery",
+          "detail": "D-3095号のリンクがB07NVN1RCD"
+        }
+      ],
+      "notes": "Amazon本文・メーカー個別資料未取得。下オモリは別に用意。枝糸・幹糸号数は一次資料未確認のため未登録。"
+    },
+    {
+      "id": "rig-kago-ha240-7",
+      "category": "rig",
+      "name": "ひとっ飛び 天秤カゴ釣りセット リアルアミエビ＆カラ鈎2本 HA240 7/1-2-2",
+      "brand": "HAYABUSA",
+      "asin": "B00J3BEY4K",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00J3BEY4K",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/HA240/",
+      "jan": "4993722803256",
+      "specs": [
+        "新アジ鈎7号＋カラ鈎1号",
+        "ハリス2号・幹糸2号",
+        "針仕掛け全長1m・2本針2セット"
+      ],
+      "technical": {
+        "rigBranchSize": 2,
+        "rigMainSize": 2
+      },
+      "methodIds": [
+        "kago"
+      ],
+      "provides": [
+        "rig",
+        "float",
+        "stopper",
+        "tenbin",
+        "basket",
+        "sinker",
+        "leader",
+        "hook",
+        "swivel"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://fishing-fishing.com/2023/08/12/kago/",
+          "type": "amazon-link-discovery",
+          "detail": "HA2407/1-2-2のリンクがB00J3BEY4K"
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/hayabusa/products/HA240/",
+          "type": "manufacturer-specification",
+          "detail": "号数・1m・2本鈎2セット・JANを確認"
+        }
+      ],
+      "notes": "Amazon本文取得不可。カゴ・ウキの号数、エサを含む総重量は公式テキストにないため未登録。公式商品図の部品照合を要する。カゴ釣りの初期型はこのセットと合う2本針に図を合わせる。"
+    },
+    {
+      "id": "rig-uki-sabiki-ha230-8",
+      "category": "rig",
+      "name": "小アジ専科 下カゴ飛ばしサビキセット リアルアミエビ HA230 8-3",
+      "brand": "HAYABUSA",
+      "asin": "B00D3RLNHQ",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00D3RLNHQ",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/HA230/",
+      "jan": "4993722796527",
+      "specs": [
+        "針8号・ハリス3号・幹糸5号",
+        "4本針1セット・針仕掛け全長1.1m",
+        "下カゴ式の飛ばしサビキセット"
+      ],
+      "technical": {
+        "hookSize": 8,
+        "rigBranchSize": 3,
+        "rigMainSize": 5
+      },
+      "methodIds": [
+        "uki-sabiki"
+      ],
+      "provides": [
+        "rig",
+        "float",
+        "stopper",
+        "basket",
+        "sinker"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://oh-vivi.com/sabiki/2923/",
+          "type": "amazon-link-discovery",
+          "detail": "HA2308-3の個別リンクがB00D3RLNHQ"
+        },
+        {
+          "url": "https://www.hayabusa.co.jp/hayabusa/products/HA230/",
+          "type": "manufacturer-specification",
+          "detail": "針8・ハリス3・幹糸5・1.1m・4本鈎とJANを確認"
+        }
+      ],
+      "notes": "Amazon本文取得不可。カゴ重量・ウキ浮力、セット部品は商品図と現品照合を要する。投げる総重量と強度は未確認。"
+    },
+    {
+      "id": "rig-sayori-ha143-35",
+      "category": "rig",
+      "name": "サヨリ仕掛 弾丸サヨリ3連シモリ リール竿用 HA143 3.5-0.8",
+      "brand": "HAYABUSA",
+      "asin": "B01HT91DIC",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B01HT91DIC",
+      "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/HA143/index.html",
+      "specs": [
+        "サヨリ専用・針3.5号・ハリス0.8号",
+        "3連シモリ・リール竿用"
+      ],
+      "technical": {
+        "hookSize": 3.5,
+        "rigBranchSize": 0.8
+      },
+      "methodIds": [
+        "float"
+      ],
+      "fishIds": [
+        "sayori"
+      ],
+      "provides": [
+        "rig",
+        "float",
+        "hook",
+        "leader"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://retsu-business.com/fishing/fishing-line/sawari-shikkake-osusume-ranking-anketo/",
+          "type": "amazon-link-discovery",
+          "detail": "HA1433.5-0.8の個別リンクがB01HT91DIC"
+        }
+      ],
+      "notes": "Amazon本文未取得、公式のスラッシュ末尾URLはmaintenanceへ転送。3連シモリの浅ダナ専用形で、一般的な遊動ウキ図とは異なる。カゴ付属は未確認のためprovidesに含めない。"
+    },
+    {
+      "id": "bait-power-isome-blue-thick",
+      "category": "bait",
+      "name": "パワーイソメ 太 青イソメ",
+      "brand": "マルキユー",
+      "asin": "B004XV0MD2",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B004XV0MD2",
+      "sourceUrl": "https://www.marukyu.com/",
+      "specs": [
+        "人工イソメ・太・青イソメ色",
+        "生きエサではありません"
+      ],
+      "technical": {},
+      "methodIds": [
+        "hole",
+        "bukkomi",
+        "nage",
+        "choi-nage",
+        "dozuki",
+        "float",
+        "hechi"
+      ],
+      "provides": [
+        "bait"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://kurashi-no.jp/I0012431",
+          "type": "amazon-link-discovery",
+          "detail": "パワーイソメ太青の個別リンクがB004XV0MD2"
+        }
+      ],
+      "notes": "Amazon本文・メーカー個別資料未取得。生きた青イソメや魚種専用エサと同等の釣果は保証しない。ヘチなどではカニ・貝など現地のエサも検討。"
+    },
+    {
+      "id": "bait-oki-hard-m",
+      "category": "bait",
+      "name": "くわせオキアミ スーパーハード M",
+      "brand": "マルキユー",
+      "asin": "B00LGDBWNO",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B00LGDBWNO",
+      "sourceUrl": "https://www.marukyu.com/",
+      "specs": [
+        "付けエサ用オキアミ・M",
+        "冷凍エサ・保冷が必要"
+      ],
+      "technical": {},
+      "methodIds": [
+        "float",
+        "kago",
+        "dozuki",
+        "hole"
+      ],
+      "provides": [
+        "bait"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://kurashi-no.jp/I0012431",
+          "type": "amazon-link-discovery",
+          "detail": "スーパーハードMの個別リンクがB00LGDBWNO"
+        }
+      ],
+      "notes": "Amazon本文・メーカー個別資料未取得。コマセとのセットではなく刺しエサ。"
+    }
+  ],
+  "additionalFindings": [
+    {
+      "id": "swivel-nt-8",
+      "category": "swivel",
+      "name": "タル型サルカン クロ #8",
+      "brand": "NTスイベル",
+      "asin": "B007JJS21O",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B007JJS21O?th=1&psc=1",
+      "sourceUrl": "https://www.amazon.co.jp/dp/B007JJS21O?th=1&psc=1",
+      "jan": "4934288356121",
+      "specs": [
+        "タル型・8号・黒",
+        "14個入り・公称強度25kg"
+      ],
+      "technical": {
+        "swivelStrengthKg": 25
+      },
+      "methodIds": [
+        "bukkomi",
+        "float",
+        "kago"
+      ],
+      "provides": [
+        "swivel"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://www.fishing-tokyo.com/entry/20250207/1738899227",
+          "type": "amazon-link-discovery",
+          "detail": "NTタル型サルカンクロ#8の個別リンクがB007JJS21O"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B007JJS21O?th=1&psc=1",
+          "type": "amazon-ui-verified",
+          "detail": "親エージェントがAmazon個別画面で8号・14個・25kgを確認。スナップ付き型と取り違えない。"
+        }
+      ],
+      "notes": "仕様の一次情報はAmazonの当該商品表示。メーカー独立サイトの仕様表は未取得。結び目と中通しオモリの穴径との実装は要確認。"
+    },
+    {
+      "id": "bait-power-crab-black-m",
+      "category": "bait",
+      "name": "パワークラブ M 黒ガニ",
+      "brand": "マルキユー",
+      "asin": "B07FQ1SSGT",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07FQ1SSGT?th=1&psc=1",
+      "sourceUrl": "https://www.marukyu.com/product/1111/",
+      "jan": "4905789005856",
+      "specs": [
+        "Mサイズ・黒ガニ・10匹入り",
+        "カニ型の人工エサ",
+        "50℃以下で保管"
+      ],
+      "technical": {},
+      "methodIds": [
+        "hechi",
+        "hole",
+        "bukkomi"
+      ],
+      "fishIds": [
+        "kurodai",
+        "kibire",
+        "kasago",
+        "ainame",
+        "kijihata"
+      ],
+      "provides": [
+        "bait"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://fishing-fishing.com/2023/02/04/poewrcrab01/",
+          "type": "amazon-link-discovery",
+          "detail": "M黒ガニのリンクがB07FQ1SSGT"
+        },
+        {
+          "url": "https://www.marukyu.com/product/1111/",
+          "type": "manufacturer-specification",
+          "detail": "M黒10匹・JAN・ヘチ釣りに対応する人工カニ型エサと確認"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B07FQ1SSGT?th=1&psc=1",
+          "type": "amazon-ui-verified",
+          "detail": "親エージェントがAmazon個別画面でM黒ガニ・10匹を確認。"
+        }
+      ],
+      "notes": "生きガニではない。メーカーはヘチ・落とし込み対応を明記するが現地の生餌と同一の釣果は保証しない。"
+    },
+    {
+      "id": "bait-kibinago",
+      "category": "bait",
+      "name": "くわせきびなご 60g",
+      "brand": "マルキユー",
+      "asin": "B0F4D2TSNT",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0F4D2TSNT?th=1&psc=1",
+      "sourceUrl": "https://www.marukyu.com/product/1150/",
+      "jan": "4905789006310",
+      "specs": [
+        "冷凍くわせエサ・60g",
+        "1匹の長さ約9cm",
+        "保冷・解凍管理が必要"
+      ],
+      "technical": {},
+      "methodIds": [
+        "float",
+        "bukkomi",
+        "hole",
+        "dozuki"
+      ],
+      "fishIds": [
+        "tachiuo",
+        "kasago",
+        "anago",
+        "suzuki"
+      ],
+      "provides": [
+        "bait"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://www.fish-rium.com/recommended-kibinago-for-hairtail-fishing/",
+          "type": "amazon-link-discovery",
+          "detail": "マルキューくわせきびなごの個別AmazonリンクがB0F4D2TSNT"
+        },
+        {
+          "url": "https://www.marukyu.com/product/1150/",
+          "type": "manufacturer-specification",
+          "detail": "内容60g・1匹9cm前後・JANを確認"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B0F4D2TSNT?th=1&psc=1",
+          "type": "amazon-ui-verified",
+          "detail": "親エージェントがAmazon個別画面で60g・約9cmを確認。"
+        }
+      ],
+      "notes": "価格・在庫はAmazon本文未確認。鮮度・冷凍配送の受取条件を購入先で確認。"
+    },
+    {
+      "id": "hook-owner-maruseigo-13-3",
+      "category": "hook",
+      "name": "OH 白丸せいご 糸付 13号-3 20607",
+      "brand": "OWNER",
+      "asin": "B000AR25KG",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B000AR25KG?th=1&psc=1",
+      "sourceUrl": "https://www.owner.co.jp/search/1143/",
+      "jan": "4953873203800",
+      "specs": [
+        "丸せいご針13号・白",
+        "ハリス3号付き・4本入り"
+      ],
+      "technical": {
+        "hookSize": 13,
+        "rigBranchSize": 3
+      },
+      "methodIds": [
+        "bukkomi"
+      ],
+      "provides": [
+        "hook",
+        "leader"
+      ],
+      "verification": "partial",
+      "evidence": [
+        {
+          "url": "https://www.owner.co.jp/search/1143/",
+          "type": "manufacturer-specification",
+          "detail": "メーカー公式で品番20607・糸付・針13号/ハリス3号・JAN4953873203800を確認。"
+        },
+        {
+          "url": "https://www.amazon.co.jp/dp/B000AR25KG?th=1&psc=1",
+          "type": "amazon-ui-verified",
+          "detail": "親エージェントがAmazonで針13号・ハリス3号の2軸を選択し、ASIN B000AR25KG・4本入りを確認。"
+        }
+      ],
+      "notes": "最初の紹介記事リンク B000AR25AG は別バリエーションのため採用しない。糸長はメーカー本文未確認。魚種や餌の大きさに応じた針号数は別途選ぶ。"
+    }
+  ],
+  "pendingCandidates": [
+    {
+      "name": "東邦産業 N.T.うきゴム ヘッダー式",
+      "sourceUrl": "https://toho-sangyo.co.jp/",
+      "discoveryUrl": "https://tsuri-labo.jp/item/fishing-gimmick/73079",
+      "notes": "クッション用途に合う切断用ゴム管。品番2200・JAN4996624022008。Amazonリンクは検索URLなのでASIN未確認、親へ直接検索依頼。長い伸縮クッションゴム1.5-20と別物。"
+    },
+    {
+      "name": "SASAME K-017ちょい投げセット",
+      "asin": "B003UDR7AU",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B003UDR7AU",
+      "sourceUrl": "https://www.sasame.co.jp/products/742/",
+      "discoveryUrl": "https://corp.tacklenote.jp/columns/a-little-gimmick-kiss/",
+      "notes": "Amazonの針号数バリエーション未確認。全規格オモリ8号、全長0.8m、2本針＋スペア1セットは公式確認済み。"
+    },
+    {
+      "name": "Gamakatsu HF1138号ハリス3",
+      "asin": "B0751LJJ8Y",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0751LJJ8Y",
+      "discoveryUrl": "https://fishing-fishing.com/2023/08/12/kago/",
+      "notes": "カゴ釣り用交換仕掛け。3m長で短い竿に無条件推奨しない。"
+    },
+    {
+      "name": "SANYアポロ遠投サビキ S-8",
+      "asin": "B0B3G74H79",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0B3G74H79",
+      "discoveryUrl": "https://fishing-fishing.com/2023/08/12/kago/",
+      "sourceUrl": "https://sany32.com/",
+      "notes": "上カゴ式なので現行下カゴ図に流用不可。"
+    },
+    {
+      "name": "SASAME E-108急流ぶっこみ釣りB丸セイゴ13-3",
+      "asin": "B0849XZB9B",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0849XZB9B",
+      "discoveryUrl": "https://nessaw.com/bukkomi-yarikata/",
+      "notes": "仕掛け形状とオモリ有無の一次資料確認待ち。"
+    }
+  ]
+}

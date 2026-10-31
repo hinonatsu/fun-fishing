@@ -56,5 +56,5 @@ export function RigHoverLabel({ parts, diagram }: { parts: RigPart[]; diagram: R
     tooltip.style.left = `${Math.max(8, Math.min(label.x + 12, innerWidth - width - 8))}px`;
     tooltip.style.top = `${label.y + height + 22 > innerHeight ? Math.max(8, label.y - height - 10) : label.y + 14}px`;
   }, [label]);
-  return label ? createPortal(<div ref={element} role="tooltip" className="rig-name-tooltip">{label.text}</div>, document.body) : null;
+  return label ? createPortal(<div ref={element} role="tooltip" className="rig-name-tooltip">{label.text}</div>, diagram.current?.closest('main') || document.body) : null;
 }

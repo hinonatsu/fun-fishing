@@ -19,9 +19,9 @@ describe('Amazon purchase destinations', () => {
       expect(amazonLinkLabel(product)).toBe('Amazonで価格を確認');
     });
   }
-  it('requires individual pages for all fourteen products', () => {
-    expect(products).toHaveLength(14);
-    expect(products.filter(p => p.offer.linkStatus === 'content-confirmed')).toHaveLength(14);
+  it('requires a confirmed individual Amazon listing for every proposed product', () => {
+    expect(products.length).toBeGreaterThan(14);
+    expect(products.filter(p => p.offer.linkStatus === 'content-confirmed')).toHaveLength(products.length);
     expect(products.some(p => p.brand === 'DAISO')).toBe(false);
     expect(Object.keys(amazonAsins).sort()).toEqual(products.map(p => p.id).sort());
   });

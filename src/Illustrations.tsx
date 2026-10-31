@@ -79,7 +79,7 @@ export function GearIllustration({ category, className }: { category: string; cl
       <path d="m89 83 29-14m-27 18 29-14m-27 18 29-14" stroke="#DFE7D3" strokeWidth="1" />
       <path d="m144 106 18 9 4-20" strokeWidth="4" /><path d="m162 96 4-9 11 4-4 11z" fill={dark} />
     </g>}
-    {category === "line" && <g {...common}>
+    {["line","leader","shock"].includes(category) && <g {...common}>
       <ellipse cx="115" cy="127" rx="45" ry="16" fill={mid} /><path d="M70 71v55q43 27 90 0V71" fill={`url(#${id}-metal)`} />
       <path d="M78 87q36 19 74 0m-74 8q36 19 74 0m-74 8q36 19 74 0m-74 8q36 19 74 0" stroke="#87ADA4" strokeWidth="1" />
       <ellipse cx="115" cy="71" rx="45" ry="17" fill={pale} /><ellipse cx="115" cy="70" rx="22" ry="8" fill="#A9C4BB" /><ellipse cx="115" cy="69" rx="9" ry="4" fill="#648D87" />
@@ -121,5 +121,14 @@ export function GearIllustration({ category, className }: { category: string; cl
       <path d="M98 99h18v7H98zm26 0h18v7h-18zM98 124h18v7H98zm26 0h18v7h-18z" fill={dark} strokeWidth="1" />
       <path d="m87 50 5 18m56-18-4 18" stroke="#EDEAD3" strokeWidth="5" /><path d="M103 111v8m34-8v8" stroke="#7C9F91" />
     </g>}
+    {category === 'float' && <g {...common}><path d="M120 25v128"/><ellipse cx="120" cy="92" rx="23" ry="40" fill={pale}/><path d="M98 86q2-35 22-35t22 35Z" fill="#ba8e57"/><path d="M120 25v24" stroke="#ba8e57" strokeWidth="5"/></g>}
+    {['hook','snap','swivel','burakuri'].includes(category) && <g {...common}><path d="M96 43v63c0 48 54 48 54 0V87l-15 16" strokeWidth="5"/><circle cx="96" cy="35" r="8" fill={pale}/>{category==='burakuri'&&<path d="m96 45-20 26 20 24 20-24Z" fill={mid}/>}</g>}
+    {['sinker','cushion','stopper'].includes(category) && <g {...common}><path d="M120 30v113"/><ellipse cx="120" cy="98" rx="24" ry="35" fill={`url(#${id}-metal)`}/><circle cx="120" cy="49" r="7" fill={mid}/></g>}
+    {category==='tenbin'&&<g {...common}><path d="M90 35v60h85" strokeWidth="4"/><path d="m90 98-17 39h34Z" fill={mid}/><circle cx="177" cy="95" r="5"/></g>}
+    {['lure','egi'].includes(category)&&<g {...common}><path d="M45 91q50-55 125-14l30 15-29 18Q95 141 45 91Z" fill={mid}/><circle cx="66" cy="88" r="5" fill={dark}/><path d="M119 120v24m0-4-10-10m10 10 10-10m58-37 19-16m-19 16 19 15"/>{category==='egi'&&<path d="m83 115 13 23 15-16" fill={pale}/>}</g>}
+    {category==='chum'&&<g {...common}><path d="M75 45h90v96H75Z" fill={pale}/><path d="M75 45h90v15H75Z" fill={mid}/><path d="M96 91h49m-49 14h35" strokeWidth="5"/></g>}
+    {category==='net'&&<g {...common}><ellipse cx="132" cy="61" rx="45" ry="30" fill={pale}/><path d="M88 61q44 110 89 0m-81-17 72 36m-62-45 63 36M99 78l64-37m-73 25 57-32M121 91l-38 58"/></g>}
+    {category==='pliers'&&<g {...common}><path d="m90 35 18 50-28 54m70-104-18 50 28 54" strokeWidth="10"/><circle cx="120" cy="88" r="9" fill={pale}/></g>}
+    {category==='cooler'&&<g {...common}><rect x="66" y="65" width="109" height="77" rx="9" fill={pale}/><rect x="61" y="55" width="119" height="19" rx="5" fill={mid}/><path d="M92 53V33h59v20m-37 22v13h15V75"/></g>}
   </svg>;
 }

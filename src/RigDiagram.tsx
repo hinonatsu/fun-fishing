@@ -7,7 +7,7 @@ type Point = [number, number];
 type Props = {
   rig: RigDefinition; states?: Partial<Record<RigPartId, PartState>>; activePart?: RigPartId;
   recentCategory?: CategoryId; miniature?: boolean;
-  highlightedPart?: RigPartId; onPartHover?: (part?: RigPartId) => void;
+  highlightedPart?: RigPartId; onPartHover?: (part?: RigPartId) => void; onPartSelect?: (part:RigPartId)=>void;
 };
 const lineEnd = { sabiki: 116, float: 190, lure: 165, hole: 160, bukkomi: 145, nage: 130, 'choi-nage': 165, dozuki: 116, 'uki-sabiki': 174, eging: 165, hechi: 165, kago: 186 };
 const commonAnchors: Partial<Record<RigPartId, Point>> = { rod: [331, 150], reel: [346, 274], line: [189, 58], bait: [63, 367], bucket: [209, 367], safety: [344, 367] };
@@ -44,14 +44,17 @@ function Swivel({ y }: { y: number }) {
 function Weight({ x = 112, y, inline = false }: { x?: number; y: number; inline?: boolean }) {
   return <g transform={`translate(${x} ${y})`}><circle cy="-18" r="3" fill="none" /><path d="M0-14C-3-14-14 5-11 12s19 8 22 0S3-14 0-14Z" className="rig-metal" />{inline && <path d="M0-16v34" className="rig-detail" strokeWidth="1.5" />}</g>;
 }
-function Float({ y = 127 }: { y?: number }) {
-  return <g transform={`translate(112 ${y})`}><path d="M0-30V29" fill="none" /><path d="M0-23C-12-23-13 14 0 18 13 14 12-23 0-23Z" className="rig-soft" /><path d="M0-23C-6-23-9-12-8-4H8C9-12 6-23 0-23Z" className="rig-accent" /><path d="M-8-4H8" fill="none" /><path d="M0-39V-30" className="rig-accent-stroke" strokeWidth="3" /></g>;
+function Float({ y = 127, inline=false }: { y?: number; inline?:boolean }) {
+  return <g transform={`translate(${inline?112:138} ${y})`}><path d="M0-30V29" fill="none" /><path d="M0-23C-12-23-13 14 0 18 13 14 12-23 0-23Z" className="rig-soft" /><path d="M0-23C-6-23-9-12-8-4H8C9-12 6-23 0-23Z" className="rig-accent" /><path d="M-8-4H8" fill="none" /><path d="M0-39V-30" className="rig-accent-stroke" strokeWidth="3" />{!inline&&<><circle cy="31" r="2.6" className="rig-metal"/><path d="M0 31h-26v-4" fill="none"/><ellipse cx="-26" cy="24" rx="3" ry="4" className="rig-metal"/></>}</g>;
 }
-function Stopper() {
-  return <g><path d="m106 78 12 8m-12 0 12-8" fill="none" strokeWidth="2.5" /><circle cx="112" cy="96" r="3.6" className="rig-accent" /></g>;
+function Stopper({inline=false}:{inline?:boolean}) {
+  return <g><path d="m106 78 12 8m-12 0 12-8" fill="none" strokeWidth="2.5" /><circle cx="112" cy="96" r="3.6" className="rig-accent" /><circle cx="112" cy={inline?157:165} r="3" className="rig-accent"/><rect x="109" y={inline?161:169} width="6" height="7" rx="2" className="rig-cork"/></g>;
 }
 function Basket({ y, x = 112 }: { x?: number; y: number }) {
   return <g transform={`translate(${x} ${y})`}><path d="M0-29v8" fill="none" /><path d="m-12-17-6 9 4 29q14 10 28 0l4-29-6-9Z" className="rig-fill" /><ellipse cy="-7" rx="18" ry="5" className="rig-soft" /><path d="M-15 2h30M-14 9h28M-13 16h26M-6-6v29M6-6v29" className="rig-detail" strokeWidth="1.1" /><path d="m-10 25 10 7 10-7Z" className="rig-metal" /></g>;
+}
+function RocketBasket({y}:{y:number}) {
+  return <g transform={`translate(112 ${y})`}><path d="M0-29v9m0 40v10" fill="none"/><path d="M-10-19q10-15 20 0l4 27-6 12H-8L-14 8Z" className="rig-soft"/><path d="M-11-7h22M-12 1h24M-10 9h20M-5-15v30M5-15v30" className="rig-detail"/></g>;
 }
 function Chum({ y, x = 112 }: { y: number; x?: number }) {
   return <g className="rig-chum" transform={`translate(${x} ${y})`}>{[[-7, -1], [4, 2], [-3, 8], [10, 13], [-16, 17], [2, 20]].map(([cx, cy], i) => <ellipse key={i} cx={cx} cy={cy} rx="2.5" ry="1.5" className="rig-bait-fill" stroke="none" />)}</g>;
@@ -69,7 +72,8 @@ function Accessories({ part }: { part: 'bait' | 'bucket' | 'safety' }) {
 }
 
 /** Each physical component has its own state layer; line and tackle stay connected in every template. */
-export function RigDiagram({ rig, states, activePart, recentCategory, miniature = false, highlightedPart, onPartHover }: Props) {
+export function RigDiagram({ rig, states, activePart, recentCategory, miniature = false, highlightedPart, onPartHover, onPartSelect }: Props) {
+  const sayori=rig.variant==='サヨリ用完成仕掛け', kamasu=rig.variant==='カマス用サビキ', tachiuo=rig.variant==='タチウオ用完成仕掛け', hokke=rig.variant==='ホッケ用投げ胴突式';
   const id = useId().replaceAll(':', '');
   const diagram = useRef<SVGSVGElement>(null);
   const [hoveredPart, setHoveredPart] = useState<RigPartId>();
@@ -80,18 +84,20 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
     if (!item) return null;
     const state = states ? states[partId] || 'missing' : 'selected';
     return <g key={partId} data-part={partId} data-state={state} className={`rig-part is-${state}${activePart === partId ? ' is-current' : ''}${highlight === partId ? ' is-highlighted' : ''}${recentCategory && item.category === recentCategory ? ' just-selected' : ''}`}
+      onClick={onPartSelect?()=>onPartSelect(partId):undefined} style={onPartSelect?{cursor:'pointer'}:undefined}
       onPointerEnter={miniature ? undefined : e => { if (e.pointerType !== 'touch') hoverPart(partId); }} onPointerLeave={miniature ? undefined : () => hoverPart(undefined)}>
       {!miniature && <g className="rig-hit-area" aria-hidden="true">{partId === 'line' ? <Thread d={`M245 28C205 3 112 25 112 75V${lineEnd[rig.id]}`} /> : children}</g>}{children}
     </g>;
   };
-  const sabikiY = rig.id === 'uki-sabiki' ? [193, 225, 257] : [143, 189, 235];
+  const sabikiY = kamasu?[140,175,210,245]:rig.id === 'uki-sabiki' ? [181,205,229,253] : [143, 189, 235];
   const cast = rig.id === 'nage' || rig.id === 'choi-nage';
-  const castHooks = rig.id === 'nage' ? [222, 258, 294] : [239, 281];
+  const castHooks = [239,281];
   const castX = 184;
   const baitOnHooks = () => {
+    if(hokke) return [196,252].map(y=><Worm key={y} x={154} y={y+13}/>);
     if (cast) return castHooks.map(y => <Worm key={y} x={castX + 26} y={y + 9} />);
-    if (rig.id === 'dozuki') return [162, 226].map(y => <Worm key={y} x={154} y={y + 13} />);
-    if (rig.id === 'kago') return <><Worm x={184} y={307} /><Chum y={218} /></>;
+    if (rig.id === 'dozuki') return [153,205,257].map(y => <Worm key={y} x={154} y={y + 13} />);
+    if (rig.id === 'kago') return <Worm x={184} y={307} />;
     if (rig.id === 'hole') return <Worm x={110} y={305} />;
     if (rig.id === 'float') return <Worm x={110} y={291} />;
     if (rig.id === 'hechi') return <g transform="translate(116 304)"><ellipse rx="9" ry="6" className="rig-bait-fill" /><path d="m-7-3-8-5m8 10-8 5m21-10 8-5m-8 10 8 5m-18-13-6-8m17 8 6-8" className="rig-bait-stroke" fill="none" strokeWidth="1.6" /></g>;
@@ -104,23 +110,25 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
     <g className="rig-scene" aria-hidden="true"><circle cx="219" cy="180" r="153" fill="#edf3ec" /><circle cx="216" cy="174" r="129" fill="#f5f8f2" /><path d="M43 326h342" stroke="#dce6da" strokeDasharray="3 7" /><text x="219" y="343" textAnchor="middle">いっしょに準備するもの</text><ellipse cx="108" cy="397" rx="31" ry="3" fill="#dfe8dc" /><ellipse cx="249" cy="397" rx="35" ry="3" fill="#dfe8dc" /><ellipse cx="379" cy="397" rx="29" ry="3" fill="#dfe8dc" /></g>
     {part('rod', <Rod />)}
     {part('reel', <Reel drum={rig.id === 'hechi'} />)}
-    {part('line', <Thread d={`M299 250 320 229 298 170 276 115 258 65 245 28C205 3 112 25 112 75V${lineEnd[rig.id]}`} />)}
-    {part('stopper', <Stopper />)}
-    {part('float', <Float />)}
+    {part('line', <Thread d={`M299 250 320 229 298 170 276 115 258 65 245 28C205 3 112 25 112 75V${sayori?85:lineEnd[rig.id]}`} />)}
+    {part('stopper', <><Stopper inline={rig.id==='float'&&!tachiuo} />{tachiuo&&<rect x="117" y="174" width="6" height="20" rx="3" className="rig-accent"/>}</>)}
+    {part('float', sayori?<><Float y={112} inline/><Thread d="M112 141v9M112 223v45"/>{[226,243,260].map(y=><ellipse key={y} cx="112" cy={y} rx="5" ry="7" className="rig-accent"/>)}<rect x="109" y="269" width="6" height="5" className="rig-metal"/></>:<Float inline={rig.id==='float'&&!tachiuo} />)}
     {(rig.id === 'sabiki' || rig.id === 'uki-sabiki') && <>
       {part('rig', <><Thread d={`M112 ${rig.id === 'sabiki' ? 116 : 174}V${rig.id === 'sabiki' ? 261 : 274}`} />{sabikiY.map((y, i) => <g key={y}><Thread d={`M112 ${y}q18-1 ${i % 2 ? 34 : 27} 9`} /><Hook x={i % 2 ? 146 : 139} y={y + 12} feather /></g>)}<circle cx="112" cy={rig.id === 'sabiki' ? 118 : 175} r="3" className="rig-metal" /></>)}
       {part('basket', <Basket y={rig.id === 'sabiki' ? 287 : 298} />)}
+      {kamasu&&part('sinker',<><path d="M112 261v9" fill="none"/><rect x="106" y="270" width="12" height="44" rx="4" className="rig-metal"/></>)}
     </>}
     {rig.id === 'float' && <>
-      {part('swivel', <Swivel y={190} />)}
-      {part('leader', <Thread d="M112 203V279" />)}
-      {part('sinker', <><circle cx="112" cy="249" r="4.5" className="rig-metal" /><path d="m109 247 5 4" fill="none" strokeWidth="1" /></>)}
-      {part('hook', <Hook x={112} y={283} />)}
+      {part('swivel', sayori?<><Swivel y={87}/><Swivel y={210}/></>:<Swivel y={tachiuo?184:190} />)}
+      {part('leader', <Thread d={`M112 ${sayori?274:tachiuo?235:203}V279`} />)}
+      {part('sinker', tachiuo?<><Thread d="M112 193v5"/><Weight y={215}/></>:<ellipse cx="112" cy="176" rx="5" ry="7" className="rig-metal"/>)}
+      {sayori&&part('basket',<RocketBasket y={174}/>)}
+      {part('hook', <><Hook x={112} y={283} /></>)}
     </>}
     {(rig.id === 'lure' || rig.id === 'eging') && <>
       {part('leader', <><path d="m108 164 8 3m-8 1 8 3" fill="none" /><Thread d="M112 171V229" /></>)}
       {part('snap', <g transform="translate(112 237)"><path d="m-3-8-3 12q5 9 10 0L1-6-3-8" fill="none" /><path d="M0 6v9" fill="none" /></g>)}
-      {part('lure', <g transform="translate(112 256) rotate(12)"><path d="M0 0q25-21 78-7L96 3 76 7Q29 16 0 0Z" className="rig-fill" /><path d="M7-3Q41-15 76-7" className="rig-detail" fill="none" /><circle cx="14" cy="-2" r="2.5" className="rig-metal" /><path d="m4 4-5 7 12-3" className="rig-soft" /><path d="M38 11v6m39-9v7" fill="none" /><path d="M38 17v9m0-3-7-6m7 6 7-6m32-2v9m0-3-7-6m7 6 7-6" fill="none" strokeWidth="1.6" /></g>)}
+      {part('lure', rig.variant.includes('メタルジグ')?<g transform="translate(112 251)"><path d="M0 0 8 18 1 43-7 20Z" className="rig-fill"/><circle cy="-2" r="3" className="rig-metal"/><path d="M1 43v8m0 0-7-7m7 7 7-7" fill="none"/></g>:rig.variant==='ブレード付きルアー'?<g transform="translate(112 251)"><path d="M0 0q18-5 36 10L18 23 2 13Z" className="rig-fill"/><circle cx="7" cy="5" r="2" className="rig-metal"/><path d="M31 14v8"/><ellipse cx="31" cy="30" rx="7" ry="11" className="rig-metal"/><Hook x={9} y={24}/></g>:<g transform="translate(112 256) rotate(12)"><path d={rig.variant==='チヌ用ポッパー'?'M0-8q39-7 75 8Q38 12 0 8Z':'M0 0q25-21 78-7L96 3 76 7Q29 16 0 0Z'} className="rig-fill" /><path d="M7-3Q41-15 76-7" className="rig-detail" fill="none" /><circle cx="14" cy="-2" r="2.5" className="rig-metal" />{rig.variant==='チヌ用ポッパー'?<ellipse cy="0" rx="3" ry="8" className="rig-accent"/>:<path d="m4 4-5 7 12-3" className="rig-soft"/>}<path d="M38 11v6m39-9v7" fill="none" /><path d="M38 17v9m0-3-7-6m7 6 7-6m32-2v9m0-3-7-6m7 6 7-6" fill="none" strokeWidth="1.6" /></g>)}
       {part('egi', <g transform="translate(112 255) rotate(15)"><path d="M0 0q18-20 51-5L83 5 65 9Q26 17 0 0Z" className="rig-fill" /><path d="m10 8 8 17 13-14" className="rig-metal" /><path d="m25-8 5 14m11-12 5 13m10-8 5 9" className="rig-detail" strokeWidth="3" /><circle cx="12" cy="-2" r="2.5" className="rig-metal" /><path d="M80 5h15m-9 0 8-7m-8 7 8 7m-2-7 9-7m-9 7 9 7m-17-7 7-11m-7 11 7 11" fill="none" strokeWidth="1.5" /></g>)}
     </>}
     {rig.id === 'hole' && <>
@@ -134,14 +142,19 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
       {part('leader', <Thread d="M112 226V291" />)}
       {part('hook', <Hook x={112} y={295} />)}
     </>}
-    {cast && <>
+    {cast && !hokke && <>
       {part('shock', <><path d="m108 130 8 3m-8 1 8 3" fill="none" /><Thread d="M112 137v29" heavy /></>)}
       {part('tenbin', <><path d={`M112 ${rig.id === 'nage' ? 166 : 165}v24h72`} fill="none" strokeWidth="2.6" /><circle cx="184" cy="190" r="3" className="rig-metal" /></>)}
       {part('sinker', <><Thread d="M112 190v15" /><Weight y={224} /></>)}
       {part('rig', <><Thread d={`M187 190q-3 5-3 15v${rig.id === 'nage' ? 108 : 87}`} />{castHooks.map(y => <g key={y}><Thread d={`M184 ${y}l25 8`} /><Hook x={209} y={y + 11} /></g>)}</>)}
     </>}
+    {hokke&&<>
+      {part('shock',<><path d="m108 130 8 3m-8 1 8 3"/><Thread d="M112 137v27" heavy/></>)}
+      {part('rig',<><Swivel y={174}/><Thread d="M112 187V278"/>{[196,252].map(y=><g key={y}><Thread d={`M112 ${y}l40 11`}/><Hook x={152} y={y+14}/></g>)}</>)}
+      {part('sinker',<><Thread d="M112 278v6"/><Weight y={302}/></>)}
+    </>}
     {rig.id === 'dozuki' && <>
-      {part('rig', <><circle cx="112" cy="118" r="3.5" className="rig-metal" /><Thread d="M112 122V276" />{[162, 226].map(y => <g key={y}><Thread d={`M112 ${y}l40 11`} /><Hook x={152} y={y + 14} /></g>)}</>)}
+      {part('rig', <><circle cx="112" cy="118" r="3.5" className="rig-metal" /><Thread d="M112 122V276" />{[153,205,257].map(y => <g key={y}><Thread d={`M112 ${y}l40 11`} /><Hook x={152} y={y + 14} /></g>)}</>)}
       {part('sinker', <><Thread d="M112 276v7" /><Weight y={301} /></>)}
     </>}
     {rig.id === 'hechi' && <>
@@ -154,13 +167,14 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
       {part('tenbin', <><path d="M112 186v12h61" fill="none" strokeWidth="2.6" /><circle cx="173" cy="198" r="3" className="rig-metal" /></>)}
       {part('basket', <Basket y={225} />)}
       {part('leader', <Thread d="M176 198C225 230 218 267 184 293" />)}
-      {part('hook', <Hook x={184} y={298} />)}
+      {part('hook', <><Hook x={184} y={298} /><Thread d="M210 251l-25 2"/><Hook x={185} y={256} feather/></>)}
     </>}
     {part('bait', <>{baitOnHooks()}<Accessories part="bait" /></>)}
+    {part('chum', <><Chum y={sayori?174:218}/><g transform="translate(30 5)"><Accessories part="bait"/></g></>)}
     {part('bucket', <Accessories part="bucket" />)}
     {part('safety', <Accessories part="safety" />)}
     {!miniature && rig.parts.map((p, index) => {
-      const point = terminalAnchors[rig.id][p.id] || commonAnchors[p.id];
+      const point = (hokke?({rig:[62,213],sinker:[62,301]} as Partial<Record<RigPartId,Point>>)[p.id]:undefined) || (sayori?({float:[61,111],basket:[62,174],swivel:[61,207],leader:[62,264],hook:[62,299],chum:[164,367]} as Partial<Record<RigPartId,Point>>)[p.id]:kamasu&&p.id==='sinker'?[62,293] as Point:undefined) || (p.id==='chum'?[164,367] as Point:undefined) || terminalAnchors[rig.id][p.id] || commonAnchors[p.id];
       if (!point) return null;
       const state = states ? states[p.id] || 'missing' : 'selected';
       const current = activePart === p.id;

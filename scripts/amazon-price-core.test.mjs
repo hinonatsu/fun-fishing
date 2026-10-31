@@ -90,13 +90,14 @@ test('visits every product, retries failures only after the full pass and prunes
     wait: async ms => { waits.push(ms); },
     scrape: async value => { visited.push(value); if (value === asin) throw new Error('timeout'); return { status: 'ok', price: 1500, error: null }; },
   });
-  assert.deepEqual(visited.slice(0,14), Object.values(targets));
-  assert.deepEqual(visited.slice(14), [asin]);
-  assert.equal(waits.length, 14);
+  const count=Object.keys(targets).length;
+  assert.deepEqual(visited.slice(0,count), Object.values(targets));
+  assert.deepEqual(visited.slice(count), [asin]);
+  assert.equal(waits.length, count);
   assert.equal(waits.at(-1), 60_000);
   assert.ok(waits.every(ms => ms >= 5000));
   assert.equal(snapshot.products['rod-3-300'].status, 'error');
-  assert.equal(Object.keys(snapshot.products).length, 14);
+  assert.equal(Object.keys(snapshot.products).length, count);
   assert.equal(snapshot.updatedAt, now);
 });
 

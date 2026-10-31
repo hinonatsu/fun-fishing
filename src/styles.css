@@ -451,8 +451,8 @@ summary::-webkit-details-marker { display: none; }
 .equipment-state.chosen { color:#356543; background:#eaf3e3; }
 .equipment-choice h2 { font-size:12px; line-height:1.8; margin-top:3px; }
 .equipment-product-brand { color:#587260; font-size:10px; }
-.equipment-choice p { color:#65756b; font-size:10px; margin-top:4px; }
-.equipment-empty { color:#65756b; font-size:11px; }
+.equipment-choice p { color:#53655e; font-size:10px; margin-top:4px; }
+.equipment-empty { color:#53655e; font-size:11px; }
 .equipment-cost { width:140px; font-size:10px; color:#536e5f; overflow-wrap:anywhere; }
 .equipment-action { width:111px; text-align:right; }
 .equipment-action .button { font-size:10px; padding:9px 12px; gap:7px; min-height:40px; white-space:nowrap; }
@@ -935,3 +935,8 @@ summary { cursor:pointer; }
   .rig-part { transition:none; }
   .rig-part.just-selected,.equipment-table tr.just-selected { animation:none; }
 }
+.equipment-method-title {display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;font-weight:700;color:var(--ink);margin:20px 0;}
+.equipment-method-title span {font-size:12px;font-weight:400;color:#587074;}
+.equipment-necessity {display:inline-block;margin:5px 0 0 7px;padding:2px 6px;border:1px solid #d6dfd4;border-radius:4px;color:#53655e;font-size:10px;font-weight:500;}
+.gear-card .product-details .external-link {margin:5px 8px 5px 0;}
+@media(max-width:640px){.equipment-method-title{gap:5px;font-size:14px}.equipment-method-title span{flex-basis:100%;font-size:11px}}

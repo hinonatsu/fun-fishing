@@ -20,6 +20,6 @@ export function RigLibraryPage({ rig, onNavigate, onBack }: { rig: RigDefinition
         <details className="rig-references"><summary><BookOpen size={14} aria-hidden="true" />図解の参考にした資料</summary><p>Web画像検索と以下の解説を参照し、接続関係を独自のSVGで描いています。画像の転載・トレースはしていません。</p>{rig.sources.map(source => <ExternalLinkButton key={source.url} href={source.url}>{source.title}</ExternalLinkButton>)}</details>
       </div>
     </article>
-    <p className="rig-library-scope">このページは仕掛けの基本形を知るための図鑑です。現在、具体的な商品の選択・価格比較に対応しているのはサビキ釣りです。</p>
+    <p className="rig-library-scope">このページは仕掛けの基本形を知るための図鑑です。全12釣法で、魚と釣り方を選ぶと必要な道具の商品選択・価格確認へ進めます。対象魚や商品によって構成・針の本数は変わります。</p>
   </FlowShell>;
 }

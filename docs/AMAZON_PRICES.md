@@ -54,3 +54,9 @@ npm run prices:update -- --dry-run
 テストは外部サイトへ接続せず、HTMLフィクスチャで価格抽出・品切れ・ロボット確認・別ASIN・参考価格の除外を検証。全商品の巡回、エラー後の継続、前回価格の保持、期限切れと手入力の優先、PC/モバイル表示と合計も検証する。
 
 参考：[GitHub schedule](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)、[GITHUB_TOKENによるトリガー制限](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow)。
+
+## 全釣法への拡張（2026-11-01）
+
+対象表を80商品候補（79 ASIN）へ拡張。追加候補の価格スナップショットは推測で埋めず、未取得表示から始める。次の定期取得・手動取得は全対象表を処理する。既存の5秒間隔・一巡後の失敗のみ再取得は維持し、Actionsの上限時間を拡張対象数に合わせて240分に変更した。価格処理のオフライン検証は対象数を固定せず全対象の巡回・失敗再試行・削除済み商品の除去を確認する。
+
+完成セットの付属部品は価格へ二重計上しない。候補間で提供部品が異なる場合は同等条件の節約額を出さない。新商品のAmazon本文は照合したが、80候補のライブ価格取得が毎回成功するという主張ではない。

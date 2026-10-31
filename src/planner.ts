@@ -1,8 +1,9 @@
-import { categories, defaultSelection, fishSpecies, methods, products, type CategoryId, type Product } from './catalog';
+import { categories, fishSpecies, methods, products, type CategoryId, type Product } from './catalog';
 import { questions, requiredQuestions } from './diagnosis';
-import { evaluateCompatibility, getFish, hasProductGuide, type FishingBuild } from './domain';
+import { createDefaultBuild, evaluateCompatibility, evaluateMethodCompatibility, getFish, hasProductGuide, type FishingBuild, type EquipmentDraft } from './domain';
 import { productPrice } from './pricing';
 import { rigById } from './rigs';
+import { coveringProduct, equipmentFor, includedLineProduct, productApplies, referenceProduct, requiredEquipment } from './equipment';
 
 export function answeredRequired(build: FishingBuild) {
   return requiredQuestions.filter(q => !!build.answers[q.id]).length;
@@ -11,25 +12,56 @@ export function nextQuestion(build: FishingBuild) {
   return questions.find(q => !build.answers[q.id]);
 }
 export function hasChoice(build: FishingBuild, id: CategoryId) {
-  return !!build.selection[id] || build.owned.includes(id) || build.included.includes(id);
+  return products.some(p=>p.id===build.selection[id]&&p.category===id) || build.owned.includes(id) || build.included.includes(id) || !!coveringProduct(build,id);
 }
 export function chosenCount(build: FishingBuild) {
-  return categories.filter(c => hasChoice(build, c.id)).length;
+  return equipmentFor(build).filter(c => hasChoice(build, c.id)).length;
+}
+export const requiredChosenCount=(build:FishingBuild)=>requiredEquipment(build).filter(c=>hasChoice(build,c.id)).length;
+export function isPrepared(build:FishingBuild,id:CategoryId):boolean {
+  const set=coveringProduct(build,id);
+  return build.owned.includes(id)||build.checked.includes(id)||!!(set&&build.checked.includes(set.category))||(id==='line'&&build.included.includes('line')&&build.checked.includes('reel'));
 }
 export function firstUnchosen(build: FishingBuild) {
-  return categories.find(c => !hasChoice(build, c.id))?.id;
+  return requiredEquipment(build).find(c => !hasChoice(build, c.id))?.id;
 }
 export function compatibilityForBuild(build: FishingBuild) {
-  const selection = build.included.includes('line') ? { ...build.selection, line: 'line-3' } : build.selection;
-  return evaluateCompatibility(selection, build.owned).filter(r => !(build.included.includes('line') && r.id === 'included-line'));
+  const selection = build.included.includes('line') ? { ...build.selection, line: includedLineProduct(build)?.id||'' } : build.selection;
+  if(build.methodId!=='sabiki'||build.fishId==='kamasu') return evaluateMethodCompatibility(build);
+  const results=evaluateCompatibility(selection,build.owned).filter(r=>!(build.included.includes('line')&&r.id==='included-line'));
+  for(const c of equipmentFor(build)) {
+    const p=products.find(p=>p.id===selection[c.id]);
+    if(p&&!build.owned.includes(c.id)&&!productApplies(build,p)) results.push({id:`method-${c.id}`,status:'avoid',title:`${c.label}を対象魚・釣法に合わせて選び直す`,reason:'この対象魚・釣法の候補ではありません。',categoryIds:[c.id]});
+    if(c.necessity==='required'&&!categories.some(old=>old.id===c.id)&&!hasChoice(build,c.id)) results.push({id:`missing-${c.id}`,status:'check',title:`${c.label}が未選択`,reason:'商品か手持ちの道具を選んでください。',categoryIds:[c.id]});
+  }
+  return results;
 }
 export function canComplete(build: FishingBuild) {
   return hasProductGuide(build) && !!build.fishId && !!build.methodId
-    && chosenCount(build) === categories.length && !compatibilityForBuild(build).some(r => r.status === 'avoid');
+    && requiredEquipment(build).every(c=>hasChoice(build,c.id)) && !compatibilityForBuild(build).some(r => r.status === 'avoid');
 }
 export function chooseProduct(build: FishingBuild, category: CategoryId, id: string): FishingBuild {
+  const product=products.find(p=>p.id===id);
+  if(id && (!product || (product.category!==category&&!product.provides?.includes(category)))) return build;
+  if(product && product.category!==category) {
+    const cleared=chooseProduct(build,category,'');
+    return chooseProduct(cleared,product.category,id);
+  }
   const included = build.included.filter(c => c !== category && !(category === 'reel' && c === 'line'));
   return { ...build, selection: { ...build.selection, [category]: id }, owned: build.owned.filter(c => c !== category), included, checked: [], shipping: { selected: null, reference: null } };
+}
+export function chooseSetIncluded(build:FishingBuild,category:CategoryId):FishingBuild {
+  const next=chooseProduct(build,category,'');
+  return coveringProduct(next,category)?next:build;
+}
+export function switchFishingPlan(build:FishingBuild,fishId:string,methodId:string):FishingBuild {
+  if(build.fishId===fishId&&build.methodId===methodId) return build;
+  const drafts={...build.drafts};
+  const snapshot:EquipmentDraft={selection:{...build.selection},owned:[...build.owned],included:[...build.included],checked:[...build.checked],shipping:{...build.shipping}};
+  if(hasProductGuide(build)) drafts[`${build.fishId}:${build.methodId}`]=snapshot;
+  const saved=drafts[`${fishId}:${methodId}`];
+  const empty=createDefaultBuild(build.conditions);
+  return {...build,fishId,methodId,selection:saved?{...saved.selection}:empty.selection,owned:saved?[...saved.owned]:[],included:saved?[...saved.included]:[],checked:saved?[...saved.checked]:[],shipping:saved?{...saved.shipping}:empty.shipping,drafts};
 }
 export function chooseOwned(build: FishingBuild, category: CategoryId): FishingBuild {
   const next = chooseProduct(build, category, '');
@@ -48,10 +80,15 @@ export function candidateStatus(build: FishingBuild, product: Product) {
 }
 export function candidatesFor(build: FishingBuild, category: CategoryId) {
   if (!hasProductGuide(build)) return [];
-  return products.filter(p => p.category === category && candidateStatus(build, p) !== 'avoid');
+  if(!equipmentFor(build).some(c=>c.id===category)) return [];
+  return products.filter(p => (p.category === category || p.provides?.includes(category)) && equipmentFor(build).some(c=>c.id===p.category) && productApplies(build,p) && candidateStatus(build, p) !== 'avoid');
 }
 export function recommendedProduct(build: FishingBuild, category: CategoryId) {
   const eligible = candidatesFor(build, category).filter(p => !p.generic || build.answers.water === 'tap');
+  if(category==='leader'&&['hechi','bukkomi'].includes(build.methodId)) {
+    const tied=eligible.find(p=>p.category==='hook'&&p.provides?.includes('leader'));
+    if(tied) return tied;
+  }
   if (category === 'bucket' && build.answers.water === 'tap' && build.answers.priority === 'cost') {
     // A lower price must be observed, never inferred from a product being generic.
     const quoted = eligible.filter(p => productPrice(build,p) !== null).sort((a,b) => productPrice(build,a)! - productPrice(build,b)!);
@@ -62,7 +99,7 @@ export function recommendedProduct(build: FishingBuild, category: CategoryId) {
     const quoted = eligible.filter(p => productPrice(build,p) !== null && candidateStatus(build, p) !== 'check').sort((a,b) => productPrice(build,a)! - productPrice(build,b)!);
     if (quoted.length) return quoted[0];
   }
-  return eligible.find(p => p.id === defaultSelection[category]) || eligible[0];
+  return eligible.find(p => p.id === referenceProduct(build,category)?.id) || eligible[0];
 }
 export function rankedFish(build: FishingBuild) {
   const preferred = build.answers.goal === 'fight' ? 'saba' : build.answers.goal === 'first' ? 'iwashi' : 'aji';
@@ -79,11 +116,11 @@ export function fishReason(build: FishingBuild, fishId: string) {
 
 export interface PriceRow { category: CategoryId; product: Product; reference: Product; selected: number | null; baseline: number | null; comparable: boolean }
 export function priceComparison(build: FishingBuild) {
-  const rows: PriceRow[] = categories.flatMap(c => {
-    if (build.owned.includes(c.id) || build.included.includes(c.id)) return [];
+  const rows: PriceRow[] = equipmentFor(build).flatMap(c => {
+    if (build.owned.includes(c.id) || build.included.includes(c.id) || coveringProduct(build,c.id)) return [];
     const product = products.find(p => p.id === build.selection[c.id]);
-    const reference = products.find(p => p.id === defaultSelection[c.id]);
-    return product && reference ? [{ category: c.id, product, reference, selected: productPrice(build,product), baseline: productPrice(build,reference), comparable: !product.generic || build.answers.water === 'tap' }] : [];
+    const reference = referenceProduct(build,c.id);
+    return product ? [{ category: c.id, product, reference:reference||product, selected: productPrice(build,product), baseline: reference?productPrice(build,reference):null, comparable:!!reference && (!product.generic || build.answers.water === 'tap') && JSON.stringify([...(product.provides||[])].sort())===JSON.stringify([...(reference.provides||[])].sort()) }] : [];
   });
   const knownCount = rows.filter(r => r.selected !== null).length;
   const selectedTotal = rows.length && knownCount === rows.length ? rows.reduce((sum,r) => sum + r.selected!,0) : null;
@@ -110,14 +147,17 @@ export function resolveScreen(requested: string, build: FishingBuild): string {
     if (required && (id === 'ready' || questions.findIndex(q => q.id === id) >= 3)) return `diagnosis/${required.id}`;
     return id === 'ready' || questions.some(q => q.id === id) ? screen : 'search';
   }
-  if (!['discover','method','review','checkout','list','save','shipping','builder'].includes(screen) && !/^builder\/(rod|reel|line|rig|basket|bait|bucket|safety)$/.test(screen) && !/^prices\/(rod|reel|line|rig|basket|bait|bucket|safety)$/.test(screen)) return 'search';
+  const categoryScreen=/^(builder|prices)\/([a-z-]+)$/.exec(screen);
+  if (!['discover','method','review','checkout','list','save','shipping','builder'].includes(screen) && !categoryScreen) return 'search';
   if (required && !completeLegacy) return `diagnosis/${required.id}`;
   if (screen === 'discover') return screen;
   if (!fishSpecies.some(f => f.id === build.fishId)) return 'discover';
   if (screen === 'method') return screen;
   if (!methods.some(m => m.supported && m.id === build.methodId) || !fishSpecies.find(f => f.id === build.fishId)?.methodIds.includes(build.methodId)) return 'method';
   if (!hasProductGuide(build)) return 'builder';
+  if(categoryScreen&&!equipmentFor(build).some(c=>c.id===categoryScreen[2])) return 'builder';
   if (screen === 'builder' || screen.startsWith('builder/')) return screen;
   if (!canComplete(build)) return 'builder';
+  if(categoryScreen?.[1]==='prices'&&(!build.selection[categoryScreen[2] as CategoryId]||build.owned.includes(categoryScreen[2] as CategoryId)||build.included.includes(categoryScreen[2] as CategoryId))) return 'review';
   return screen;
 }

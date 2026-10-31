@@ -1,0 +1,114 @@
+[
+  {
+    "id": "shock-surf-caster-3-12",
+    "category": "shock",
+    "name": "サーフキャスターちから糸(R) クリア 3-12号 15m×5本",
+    "brand": "DAIWA",
+    "asin": "B001HYAZF8",
+    "amazonUrl": "https://www.amazon.co.jp/dp/B001HYAZF8?th=1&psc=1",
+    "sourceUrl": "https://www.daiwa.com/jp/product/2023/05/09/09/43/iuoxqmh",
+    "jan": "4960652647229",
+    "specs": ["ナイロン・テーパー3～12号", "1本15m・5本入り", "カラー：クリアー"],
+    "technical": {"lineMaterial": "nylon", "lineLength": 15, "shockThinSize": 3, "shockThickSize": 12},
+    "methodIds": ["nage"],
+    "provides": [],
+    "verification": "verified",
+    "amazonVerified": true,
+    "checkedAt": "2026-11-01",
+    "evidence": [
+      {"url": "https://www.amazon.co.jp/dp/B001HYAZF8?th=1&psc=1", "type": "amazon-browser-selected-variant", "detail": "Amazonの個別ページを開き、サイズ3-12号のラジオボタンが選択済みであること、商品名・素材ナイロンを確認。初期表示の別サイズ説明をそのまま採用せず、3-12号を明示選択した。"},
+      {"url": "https://www.daiwa.com/jp/product/2023/05/09/09/43/iuoxqmh", "type": "manufacturer-specification", "detail": "クリア3～12号、15m×5本、ナイロン、JAN4960652647229をメーカー表で確認。"}
+    ],
+    "notes": "3～12号は先端と太い側で太さが変わるテーパー表記。固定12号のリーダーや、リールへ巻く道糸75mとして扱わない。25号天秤を使う投げ構成の力糸候補だが、メーカーが25号への適合を個別保証したという意味ではない。結束・投げ方・指保護を確認する。shockThinSize/shockThickSizeは追加候補の仕様項目で、既存モデルへ取り込む場合は型定義も追加する。"
+  },
+  {
+    "id": "rig-kisu-k001-7",
+    "category": "rig",
+    "name": "K-001 ちょい投げ2本鈎 7号-1.5号",
+    "brand": "SASAME",
+    "asin": "B00I1AS2S8",
+    "amazonUrl": "https://www.amazon.co.jp/dp/B00I1AS2S8?th=1&psc=1",
+    "sourceUrl": "https://www.sasame.co.jp/products/736/",
+    "specs": ["キス専用針7号・ハリス1.5号・モトス3号", "全長0.8m・2本鈎×2セット", "夜光玉・上端スナップ付サルカン", "天秤・オモリは別売り"],
+    "technical": {"hookSize": 7, "rigBranchSize": 1.5, "rigMainSize": 3},
+    "methodIds": ["nage", "choi-nage"],
+    "fishIds": ["kisu", "haze"],
+    "provides": ["swivel"],
+    "verification": "verified",
+    "amazonVerified": true,
+    "checkedAt": "2026-11-01",
+    "evidence": [
+      {"url": "https://www.amazon.co.jp/dp/B00I1AS2S8?th=1&psc=1", "type": "amazon-browser-selected-variant", "detail": "サイズ7号を明示選択しラジオボタン選択済み、スタイル2本針、商品画像説明『K-001 7号-1.5』と個別ASINを確認。"},
+      {"url": "https://www.sasame.co.jp/products/736/", "type": "manufacturer-specification", "detail": "全長0.8m、2本鈎2セット、7号/ハリス1.5/モトス3、キス専用赤金針を確認。投げ釣りビギナーズモデルの表記。"},
+      {"url": "https://www.sasame.co.jp/wp-content/uploads/2015/03/K-001.jpg", "type": "manufacturer-package-image", "detail": "7-1.5-3の代表写真を目視。キス・ハゼ等の対象と、仕掛け2組を確認。"},
+      {"url": "https://www.sasame.co.jp/wp-content/uploads/2015/03/k-001-1.jpg", "type": "manufacturer-rig-image", "detail": "上端のスナップ付サルカンから、枝鈎1本と末端鈎1本へ続く2本針。天秤・オモリは仕掛けに含まれないことを確認。"}
+    ],
+    "notes": "短い完成投げ仕掛けで、25号の天秤そのものを含む商品ではない。採用時の図は2本針へ合わせる。Amazon初期表示が6号でも、7号を選択した後の表示とASINを照合した。カレイ用大針と同じ候補にはしない。"
+  },
+  {
+    "id": "rig-karei-nt364-12",
+    "category": "rig",
+    "name": "投げの達人 速潮カレイ 全身レッド NT364 12-4",
+    "brand": "HAYABUSA",
+    "asin": "B002NPF8NO",
+    "amazonUrl": "https://www.amazon.co.jp/dp/B002NPF8NO?th=1&psc=1",
+    "sourceUrl": "https://www.hayabusa.co.jp/hayabusa/products/NT364/index.html",
+    "jan": "4993722655909",
+    "specs": ["カレイ針12号・ハリス4号・幹糸4号", "投げ・天秤式、全長80cm", "2本鈎×2セット", "上端スナップ付サルカン・赤い集魚フェザー", "天秤・オモリは別売り"],
+    "technical": {"hookSize": 12, "rigBranchSize": 4, "rigMainSize": 4},
+    "methodIds": ["nage", "choi-nage"],
+    "fishIds": ["karei"],
+    "provides": ["swivel"],
+    "verification": "verified",
+    "amazonVerified": true,
+    "checkedAt": "2026-11-01",
+    "evidence": [
+      {"url": "https://www.amazon.co.jp/dp/B002NPF8NO?th=1&psc=1", "type": "amazon-browser-selected-variant", "detail": "Amazonでサイズ12号を明示選択し選択済みを確認。選択後に鈎12、ハリス4、幹糸4、2本鈎2セット、および商品画像説明NT364-12-4を確認。"},
+      {"url": "https://www.hayabusa.co.jp/hayabusa/products/NT364/index.html", "type": "manufacturer-specification", "detail": "12/4/4、JAN4993722655909、80cm、2本鈎2セット、投げ天秤式を公式本文で確認。Web取得ツールで表示できなかったため通常のHTTPSで本文を読んだ。"},
+      {"url": "https://www.hayabusa.co.jp/wp/wp-content/themes/hayabusa2019/web_img/him_img/NT364_s.jpg", "type": "manufacturer-rig-image", "detail": "上端インタースナップ付クレンサルカン、70cmの撚り糸区間、短い枝鈎と下端鈎を目視。天秤・オモリは含まない。"}
+    ],
+    "notes": "速潮向けカレイ用の短い天秤仕掛け。カレイの投げ用であり、全魚種の共通仕掛けにはしない。図は2本針に合わせる。Amazonの14g/20gという商品重量は包装やセット全体の欄のため、実際に投げる仕掛けの重量としてtechnicalへ採用しない。"
+  },
+  {
+    "id": "sinker-nasu-daiichi-5",
+    "category": "sinker",
+    "name": "パックオモリ(小袋入) ナス型 5号 23045",
+    "brand": "第一精工",
+    "asin": "B000AR6WIW",
+    "amazonUrl": "https://www.amazon.co.jp/dp/B000AR6WIW?th=1&psc=1",
+    "sourceUrl": "https://www.daiichiseiko.com/pricerevision/img/pricerevision.pdf",
+    "specs": ["ナス型・5号", "上端に取付環のある下オモリ", "パック商品・一度に使うのは1個"],
+    "technical": {"sinkerSize": 5},
+    "methodIds": ["dozuki"],
+    "provides": [],
+    "verification": "verified",
+    "amazonVerified": true,
+    "checkedAt": "2026-11-01",
+    "evidence": [
+      {"url": "https://www.amazon.co.jp/dp/B000AR6WIW?th=1&psc=1", "type": "amazon-browser-selected-variant", "detail": "Amazonのナス型シリーズで5号を明示選択。色ナス型、サイズ5号、画像説明ナス型5号を確認し、商品詳細ASIN B000AR6WIWを読んだ。"},
+      {"url": "https://www.daiichiseiko.com/pricerevision/img/pricerevision.pdf", "type": "manufacturer-item-code", "detail": "メーカー一覧の型番23045がパックオモリ ナス5号であることを確認。"}
+    ],
+    "notes": "号数5から公称オモリ質量18.75gへ換算できる。パックや接続金具全体の実測重量を意味しない。入数は未確定のため表示しない。中通しオモリ・ガン玉として扱わない。"
+  },
+  {
+    "id": "sinker-nasu-daiichi-6",
+    "category": "sinker",
+    "name": "パックオモリ(小袋入) ナス型 6号 23046",
+    "brand": "第一精工",
+    "asin": "B000AR6WJ6",
+    "amazonUrl": "https://www.amazon.co.jp/dp/B000AR6WJ6?th=1&psc=1",
+    "sourceUrl": "https://www.daiichiseiko.com/pricerevision/img/pricerevision.pdf",
+    "specs": ["ナス型・6号", "上端に取付環のある下オモリ", "パック商品・一度に使うのは1個"],
+    "technical": {"sinkerSize": 6},
+    "methodIds": ["dozuki"],
+    "provides": [],
+    "verification": "verified",
+    "amazonVerified": true,
+    "checkedAt": "2026-11-01",
+    "evidence": [
+      {"url": "https://www.amazon.co.jp/dp/B000AR6WJ6?th=1&psc=1", "type": "amazon-browser-selected-variant", "detail": "Amazonで6号を明示選択しラジオボタン選択済み、色ナス型、サイズ6号、商品画像説明『パック ナス型6号23046』と個別ASINを確認。"},
+      {"url": "https://www.daiichiseiko.com/pricerevision/img/pricerevision.pdf", "type": "manufacturer-item-code", "detail": "メーカー一覧の型番23046がパックオモリ ナス6号であることを確認。"}
+    ],
+    "notes": "号数6から公称オモリ質量22.5gへ換算できる。Amazonの商品の重量90gという欄はパック全体を示す可能性があり、1個のオモリ質量として登録しない。入数は未確定のため表示しない。中通しオモリ・ガン玉として扱わない。"
+  }
+]
