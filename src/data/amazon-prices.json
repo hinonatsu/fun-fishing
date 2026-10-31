@@ -1,132 +1,132 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T03:56:58.215Z",
+  "updatedAt": "2026-10-31T01:44:35.198Z",
   "products": {
     "rod-3-300": {
       "asin": "B06Y5DCTZD",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 11176,
       "fetchedAt": "2026-10-30T03:55:25.153Z",
-      "attemptedAt": "2026-10-30T03:55:25.153Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:40:27.449Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rod-2-300": {
       "asin": "B06Y57LTNK",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 9560,
       "fetchedAt": "2026-10-30T03:55:32.113Z",
-      "attemptedAt": "2026-10-30T03:55:32.113Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:40:42.792Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "reel-cf2500": {
       "asin": "B01N7UIMFF",
       "currency": "JPY",
-      "status": "unavailable",
+      "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-10-30T03:55:39.440Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:41:06.151Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "reel-2500": {
       "asin": "B01MTAC6LF",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 4089,
       "fetchedAt": "2026-10-30T03:55:46.673Z",
-      "attemptedAt": "2026-10-30T03:55:46.673Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:41:29.416Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "line-3": {
       "asin": "B0BTH65BMH",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 1002,
       "fetchedAt": "2026-10-30T03:55:53.854Z",
-      "attemptedAt": "2026-10-30T03:55:53.854Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:41:44.862Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "line-2": {
       "asin": "B0BTH41SBX",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 1038,
       "fetchedAt": "2026-10-30T03:56:01.083Z",
-      "attemptedAt": "2026-10-30T03:56:01.083Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:42:00.329Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-6": {
       "asin": "B00BTNM0E6",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 506,
       "fetchedAt": "2026-10-30T03:56:08.331Z",
-      "attemptedAt": "2026-10-30T03:56:08.331Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:42:23.533Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-8": {
       "asin": "B00BTNM1KY",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 411,
       "fetchedAt": "2026-10-30T03:56:15.568Z",
-      "attemptedAt": "2026-10-30T03:56:15.568Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:42:46.758Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "bait-amihime": {
       "asin": "B0711KFYX7",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 960,
       "fetchedAt": "2026-10-30T03:56:22.808Z",
-      "attemptedAt": "2026-10-30T03:56:22.808Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:43:10.040Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "bucket-daiwa": {
       "asin": "B0CH3D5B2R",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 2467,
       "fetchedAt": "2026-10-30T03:56:29.841Z",
-      "attemptedAt": "2026-10-30T03:56:29.841Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:43:33.411Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "safety-tokarau": {
       "asin": "B08T5LXFCG",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 6190,
       "fetchedAt": "2026-10-30T03:56:37.015Z",
-      "attemptedAt": "2026-10-30T03:56:37.015Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:43:48.869Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "basket-riseway-6": {
       "asin": "B07HFTBWBN",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 559,
       "fetchedAt": "2026-10-30T03:56:44.206Z",
-      "attemptedAt": "2026-10-30T03:56:44.206Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:44:04.370Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "basket-riseway-10": {
       "asin": "B07HFSRS9P",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 847,
       "fetchedAt": "2026-10-30T03:56:51.142Z",
-      "attemptedAt": "2026-10-30T03:56:51.142Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:44:19.622Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "bucket-risu-8": {
       "asin": "B002P9A77U",
       "currency": "JPY",
-      "status": "ok",
+      "status": "error",
       "price": 891,
       "fetchedAt": "2026-10-30T03:56:58.215Z",
-      "attemptedAt": "2026-10-30T03:56:58.215Z",
-      "error": null
+      "attemptedAt": "2026-10-31T01:44:35.198Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     }
   },
   "deliveryPostalCode": "100-0001"
