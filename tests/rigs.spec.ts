@@ -91,18 +91,26 @@ test('hovering a gear cell previews only that tool and restores the actual choic
     // Touch does not leave a simulated hover behind or color unselected gear.
     await diagram.locator('[data-part="reel"] > g:not(.rig-hit-area)').tap();
     await expect(diagram).not.toHaveAttribute('data-highlighted-part');
+    await expect(page.getByRole('tooltip')).toHaveCount(0);
   } else {
     for (const category of categories) {
       await page.locator(`.equipment-table tr[data-category="${category.id}"]`).hover();
       await expect(diagram).toHaveAttribute('data-highlighted-part', category.id);
+      await expect(page.getByRole('tooltip')).toHaveText(rigs.find(r => r.id === 'sabiki')!.parts.find(p => p.category === category.id)!.label);
       const colors = await diagram.locator('[data-part]').evaluateAll(parts => parts.map(el => ({ id: el.getAttribute('data-part'), color: getComputedStyle(el).getPropertyValue('--rig-fill') })));
       expect(colors.filter(p => p.color === selectedColor).map(p => p.id)).toEqual([category.id]);
       expect(colors.filter(p => p.color === missingColor)).toHaveLength(7);
     }
     await page.locator('.equipment-table tr[data-category="reel"]').hover();
+    await expect(page.getByRole('tooltip')).toBeVisible();
+    const nameBox = (await page.getByRole('tooltip').boundingBox())!;
+    expect(nameBox.x).toBeGreaterThanOrEqual(8);
+    expect(nameBox.x + nameBox.width).toBeLessThanOrEqual(page.viewportSize()!.width - 8);
+    await page.screenshot({ path: info.outputPath('hover-name-tooltip.png'), animations: 'disabled' });
     await page.getByRole('region', { name: '道具の全体像' }).screenshot({ path: info.outputPath('hover-reel.png'), animations: 'disabled' });
     await page.getByRole('heading', { level: 1 }).hover();
     await expect(diagram).not.toHaveAttribute('data-highlighted-part');
+    await expect(page.getByRole('tooltip')).toHaveCount(0);
   }
   expect(await diagram.locator('[data-part="rod"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'))).toBe(selectedColor);
   expect(await diagram.locator('[data-part="reel"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'))).toBe(missingColor);
@@ -122,10 +130,16 @@ test('illustration parts, legend cells and keyboard focus highlight the matching
     for (const [category, [x, y]] of Object.entries(targets)) {
       await page.mouse.move(box.x + box.width * x / 430, box.y + box.height * y / 420);
       await expect(diagram).toHaveAttribute('data-highlighted-part', category);
+      await expect(page.getByRole('tooltip')).toHaveText(rigs.find(r => r.id === 'sabiki')!.parts.find(p => p.id === category)!.label);
       await expect(page.locator(`.equipment-table tr[data-category="${category}"]`)).toHaveClass(/is-highlighted/);
     }
+    await diagram.locator('[data-part-label="reel"]').hover();
+    await expect(page.getByRole('tooltip')).toHaveText('リール');
     await overview.locator('.tackle-desktop-key [data-category="reel"]').hover();
     await expect(diagram).toHaveAttribute('data-highlighted-part', 'reel');
+    await expect(page.getByRole('tooltip')).toHaveText('リール');
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('tooltip')).toHaveCount(0);
     await page.getByRole('heading', { level: 1 }).hover();
   }
   await page.getByRole('button', { name: 'リールを変更する', exact: true }).focus();
