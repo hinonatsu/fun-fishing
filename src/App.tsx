@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Fish, Waves, X } from 'lucide-react';
-import { type CategoryId } from './catalog';
+import { fishSpecies, type CategoryId } from './catalog';
 import { requiredQuestions } from './diagnosis';
-import { createDefaultBuild, decodeBuild, encodeBuild, getFish, isSupported, type FishingBuild } from './domain';
+import { createDefaultBuild, decodeBuild, encodeBuild, hasProductGuide, isSupported, type FishingBuild } from './domain';
 import { chosenCount, resolveScreen } from './planner';
 import { SearchPage } from './SearchPage';
 import { ConditionsPage } from './FlowPages';
-import { DiagnosisPage, DiscoverPage, MethodPage } from './DiscoverPage';
+import { DiagnosisPage, DiscoverPage, FishGuidePage, MethodPage } from './DiscoverPage';
 import { BuilderPage, EquipmentListPage, ChecklistPage, CheckoutPage, PricePage, ReviewPage, SavePage, ShippingPage } from './EquipmentPages';
 import { Modal } from './ui';
 import { RigLibraryPage } from './RigLibraryPage';
@@ -103,9 +103,9 @@ export default function App() {
   function condition(value: string) {
     const field = screen.split('/')[1] as 'month'|'area'|'field';
     const conditions = {...build.conditions,[field]:field === 'month' ? Number(value) : value};
-    const validFish = getFish(conditions).some(f=>f.id === build.fishId);
+    const validFish = fishSpecies.some(f=>f.id === build.fishId);
     const next = {...build,conditions,fishId:validFish ? build.fishId : '',methodId:validFish ? build.methodId : ''};
-    navigate(field === 'month' ? 'conditions/area' : field === 'area' ? 'conditions/field' : isSupported(conditions) ? 'diagnosis/goal' : 'discover',next);
+    navigate(field === 'month' ? 'conditions/area' : field === 'area' ? 'conditions/field' : 'diagnosis/goal',next);
   }
   function answer(id: string, value: string) {
     const next = {...build,answers:{...build.answers,[id]:value}};
@@ -133,14 +133,14 @@ export default function App() {
   return <>
     <a className="skip-link" href="#main-content" onClick={e=>{e.preventDefault();document.getElementById('main-content')?.focus();}}>本文へスキップ</a>
     <header className="site-header"><div className="header-inner"><button className="brand" onClick={()=>navigate('search')} aria-label="FUN FISHING その一投を、もっと気軽に。 トップへ"><span className="brand-mark"><Fish size={26} strokeWidth={1.7} /><Waves size={20} strokeWidth={1.5} /></span><span>FUN FISHING<span className="brand-caption">その一投を、もっと気軽に。</span></span></button><div className="focused-header-links"><button onClick={()=>setInfo('about')}>使い方</button>{hasProgress && screen === 'search' ? <button className="text-button" onClick={()=>navigate('builder')}>プランの続きへ<ArrowRight size={15} /></button> : <span><Check size={13} />自動保存</span>}</div></div></header>
-    {screen !== 'search' && !screen.startsWith('rigs') && <div className="journey-progress"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></li>)}</ol></div>}
+    {screen !== 'search' && !screen.startsWith('rigs') && <div className="journey-progress" role="navigation" aria-label="準備の進み具合"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></li>)}</ol></div>}
     <main id="main-content" tabIndex={-1}>
       {screen === 'search' && <SearchPage onStart={start} onSample={sample} />}
       {screen.startsWith('conditions/') && <ConditionsPage key={screen} conditions={build.conditions} field={segment as 'month'|'area'|'field'} onChoose={condition} onBack={()=>navigate(segment === 'month' ? 'search' : segment === 'area' ? 'conditions/month' : 'conditions/area')} />}
       {screen.startsWith('diagnosis/') && <DiagnosisPage key={screen} build={build} questionId={segment} onAnswer={answer} onNavigate={navigate} />}
       {screen === 'discover' && <DiscoverPage build={build} onSelect={id=>navigate('method',{...build,fishId:id,methodId:build.fishId === id ? build.methodId : ''})} onBack={()=>navigate(isSupported(build.conditions) ? 'diagnosis/ready' : 'conditions/field')} onSample={sample} />}
       {screen === 'method' && <MethodPage build={build} onSelect={id=>navigate('builder',{...build,methodId:id})} onBack={()=>navigate('discover')} />}
-      {screen === 'builder' && <EquipmentListPage build={build} onNavigate={navigate} recentCategory={recentCategory} onBack={()=>navigate('method')} />}
+      {screen === 'builder' && (hasProductGuide(build) ? <EquipmentListPage build={build} onNavigate={navigate} recentCategory={recentCategory} onBack={()=>navigate('method')} /> : <FishGuidePage build={build} onBack={()=>navigate('method')} />)}
       {screen.startsWith('builder/') && <BuilderPage key={screen} build={build} category={category} onSelect={selectGear} onNavigate={navigate} onBack={()=>navigate('builder')} />}
       {screen.startsWith('rigs') && <RigLibraryPage key={screen} rig={rigById(segment) || rigById('sabiki')!} onNavigate={navigate} onBack={()=>navigate(galleryReturn.current)} />}
       {screen === 'review' && <ReviewPage build={build} onNavigate={navigate} onBack={()=>navigate('builder')} />}
@@ -153,7 +153,7 @@ export default function App() {
     <footer className="site-footer"><div className="container focused-footer"><span>© {new Date().getFullYear()} FUN FISHING</span><div><button onClick={()=>navigate('rigs/sabiki')}>仕掛け図鑑</button><button onClick={()=>setInfo('areas')}>対応エリア・データ</button>{screen !== 'search' && <button onClick={()=>setInfo('reset')}>新しいプランをつくる</button>}</div></div></footer>
     {toast && <div className="toast" role="status"><InfoIcon /><span>{toast}</span><button className="icon-button" aria-label="通知を閉じる" onClick={()=>setToast('')}><X size={16} /></button></div>}
     {info === 'about' && <Modal title="一画面ずつ、あなたの釣りを。" onClose={()=>setInfo(null)}><div className="modal-body prose"><ol><li>時期・エリア・場所を、ひとつずつ選びます。</li><li>まず3問に回答。もっと答えることもできます。</li><li>魚と釣り方を、それぞれ選びます。</li><li>おすすめを参考に、道具8カテゴリをすべて自分で選びます。</li><li>価格を比べて、購入先の確認やリストの保存へ。</li></ol><p>商品は自動選択しません。公開仕様の確認範囲は商品ごとに表示します。完成したリストは専用URLで保存でき、会員登録は不要です。</p></div></Modal>}
-    {info === 'areas' && <Modal title="対応エリアとデータについて" onClose={()=>setInfo(null)}><div className="modal-body prose"><p>現在は東京湾・堤防のサビキ釣りに対応しています。イワシ・小サバは4〜10月、アジは5〜10月の一般的な季節傾向を使っています。</p><p>商品は14点、道具は8カテゴリです。Amazon価格を毎朝取得し、取得日時とともに表示します。取得した購入単位の税込金額で比較でき、手入力した価格があれば優先します。取得失敗や36時間を超えた価格は合計に使いません。送料・在庫は購入先で確認してください。未入力を0円と扱ったり、実測していない節約額を表示したりしません。</p><p>組み合わせは公開仕様の範囲で確認します。現物装着や総重量、結束強度、体格への適合には未確認の項目があります。季節データは直近の釣果を保証するものではありません。</p><p>画像はオリジナルのイラストです。購入先はAmazonの個別商品ページです。</p></div></Modal>}
+    {info === 'areas' && <Modal title="対応エリアとデータについて" onClose={()=>setInfo(null)}><div className="modal-body prose"><p>海の岸釣りで狙える30項目（イカ類を含む）から、魚と釣り方を選べます。地域・月ごとの回遊や釣果を保証する一覧ではありません。購入商品まで案内するのは、東京湾・堤防の足元のサビキで、イワシ・小サバは4〜10月、アジは5〜10月です。ほかの魚・釣法は準備品と始め方をご案内します。</p><p>商品は14点、道具は8カテゴリです。Amazon価格を毎朝取得し、取得日時とともに表示します。取得した購入単位の税込金額で比較でき、手入力した価格があれば優先します。取得失敗や36時間を超えた価格は合計に使いません。送料・在庫は購入先で確認してください。未入力を0円と扱ったり、実測していない節約額を表示したりしません。</p><p>組み合わせは公開仕様の範囲で確認します。現物装着や総重量、結束強度、体格への適合には未確認の項目があります。季節データは直近の釣果を保証するものではありません。</p><p>画像はオリジナルのイラストです。購入先はAmazonの個別商品ページです。</p></div></Modal>}
     {info === 'reset' && <Modal title="新しいプランをつくりますか？" onClose={()=>setInfo(null)}><div className="modal-body"><p>現在の選択を残す場合は、先に完成したリストの構成URLを保存してください。</p><div className="button-row"><button className="button secondary" onClick={()=>setInfo(null)}>今のプランに戻る</button><button className="button primary" onClick={reset}>最初からはじめる<ArrowRight size={16} /></button></div></div></Modal>}
   </>;
 }

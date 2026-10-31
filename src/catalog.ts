@@ -1,14 +1,15 @@
 import amazonAsins from './data/amazon-products.json' with { type: 'json' };
 import { amazonPriceRecord, currentAmazonPrice, type AmazonPriceRecord } from './amazon-prices';
+import { targetFish, targetMethods } from './fish-catalog';
 
 /** Curated specifications with a daily Amazon price snapshot. See docs/AMAZON_PRICES.md. */
 export type CategoryId = 'rod' | 'reel' | 'line' | 'rig' | 'basket' | 'bait' | 'bucket' | 'safety';
 export type VerificationStatus = 'verified' | 'partial';
 export interface Area { id: string; name: string; region: string; supported: boolean }
 export interface FishingField { id: string; name: string; supported: boolean }
-export interface FishSpecies { id: string; name: string; description: string; difficulty: string; months: number[]; methodIds: string[]; sourceUrl: string }
+export interface FishSpecies { id: string; name: string; members: string[]; aliases: string[]; description: string; difficulty: string; months: number[]; methodIds: string[]; sourceUrl: string; habitat: string; tip: string }
 export interface Seasonality { fishId: string; areaId: string; fieldId: string; months: number[]; sourceUrl: string; note: string }
-export interface FishingMethod { id: string; name: string; description: string; beginner: boolean; supported: boolean }
+export interface FishingMethod { id: string; name: string; description: string; beginner: boolean; supported: boolean; supplies: string[]; steps: string[]; sourceUrl: string }
 export interface EquipmentCategory { id: CategoryId; label: string; necessity: 'required' | 'recommended' | 'optional'; description: string }
 export interface ProductSpecification {
   rodMinWeight?: number; rodMaxWeight?: number; rodMinLeader?: number; rodMaxLeader?: number;
@@ -38,16 +39,10 @@ export const fishingFields: FishingField[] = [
   { id: 'rock', name: '磯', supported: false },
 ];
 const fishSource = 'https://www.honda.co.jp/fishing/enjoy/season/season-201707/';
-export const fishSpecies: FishSpecies[] = [
-  { id: 'aji', name: 'アジ', description: '群れを寄せて、足元から。はじめての一匹を狙う定番です。', difficulty: '初心者向け', months: [5,6,7,8,9,10], methodIds: ['sabiki', 'ajing'], sourceUrl: fishSource },
-  { id: 'iwashi', name: 'イワシ', description: '小さな群れとの出会いを楽しむ釣り。回遊情報が頼りです。', difficulty: '初心者向け', months: [4,5,6,7,8,9,10], methodIds: ['sabiki'], sourceUrl: fishSource },
-  { id: 'saba', name: 'サバ', description: '小サバの元気な引きが魅力。群れが来たら手返しよく。', difficulty: '少し慣れてから', months: [4,5,6,7,8,9,10], methodIds: ['sabiki'], sourceUrl: fishSource },
-];
-export const seasonality: Seasonality[] = fishSpecies.map(fish => ({ fishId: fish.id, areaId: 'tokyo-bay', fieldId: 'pier', months: fish.months, sourceUrl: fishSource, note: '関東の一般的な季節傾向を東京湾の試作シナリオに限定して使用。直近の釣果予測ではありません。' }));
-export const methods: FishingMethod[] = [
-  { id: 'sabiki', name: 'サビキ釣り', description: 'エサを入れたカゴと、小さな針が並ぶ仕掛けを足元に下ろす釣り方。投げずに狙えます。', beginner: true, supported: true },
-  { id: 'ajing', name: 'アジング', description: '小さなルアーを動かしてアジを誘う釣り方。専用の道具が必要です。道具提案は準備中です。', beginner: false, supported: false },
-];
+export const fishSpecies: FishSpecies[] = targetFish;
+// A fish being selectable does not establish local seasonality or product fit.
+export const seasonality: Seasonality[] = ['aji','iwashi','saba'].map(id => fishSpecies.find(f => f.id === id)!).map(fish => ({ fishId: fish.id, areaId: 'tokyo-bay', fieldId: 'pier', months: fish.months, sourceUrl: fishSource, note: '関東の一般的な季節傾向を東京湾の試作シナリオに限定して使用。直近の釣果予測ではありません。' }));
+export const methods: FishingMethod[] = targetMethods;
 export const categories: EquipmentCategory[] = [
   { id: 'rod', label: 'ロッド', necessity: 'required', description: '釣り竿。重さの合うカゴを使います。' },
   { id: 'reel', label: 'リール', necessity: 'required', description: '糸を巻いて魚を引き寄せる道具です。' },

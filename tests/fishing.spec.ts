@@ -213,9 +213,14 @@ test('unsupported conditions, malformed sharing and direct skips recover',async(
   await expect(page).toHaveURL(/#diagnosis\/goal$/);
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await page.getByRole('button',{name:/^サーフ/}).click();
-  await expect(page.getByRole('heading',{level:1})).toContainText('データを準備中');
-  await page.getByRole('button',{name:'対応する条件で診断を始める',exact:true}).click();
   await expect(page).toHaveURL(/#diagnosis\/goal$/);
+  await page.getByRole('button',{name:/まずは一匹、釣ってみたい/}).click();
+  await page.getByRole('button',{name:/のんびり、魚の反応を待つ/}).click();
+  await page.getByRole('button',{name:/相場を見ながら決めたい/}).click();
+  await page.getByRole('button',{name:'おすすめの魚を見る',exact:true}).click();
+  await expect(page.getByRole('heading',{level:1})).toHaveText('どの魚に、出会いたい？');
+  await expect(page.getByRole('group',{name:'狙う魚を選ぶ'}).getByRole('button')).toHaveCount(30);
+  await expect(page.getByText(/この条件の季節のおすすめは準備中/)).toBeVisible();
 });
 
 test('keyboard operation, focus and Escape remain usable',async({page})=>{

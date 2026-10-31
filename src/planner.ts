@@ -1,6 +1,6 @@
-import { categories, defaultSelection, products, type CategoryId, type Product } from './catalog';
+import { categories, defaultSelection, fishSpecies, methods, products, type CategoryId, type Product } from './catalog';
 import { questions, requiredQuestions } from './diagnosis';
-import { evaluateCompatibility, getFish, isSupported, type FishingBuild } from './domain';
+import { evaluateCompatibility, getFish, hasProductGuide, type FishingBuild } from './domain';
 import { productPrice } from './pricing';
 import { rigById } from './rigs';
 
@@ -24,7 +24,7 @@ export function compatibilityForBuild(build: FishingBuild) {
   return evaluateCompatibility(selection, build.owned).filter(r => !(build.included.includes('line') && r.id === 'included-line'));
 }
 export function canComplete(build: FishingBuild) {
-  return isSupported(build.conditions) && !!build.fishId && !!build.methodId
+  return hasProductGuide(build) && !!build.fishId && !!build.methodId
     && chosenCount(build) === categories.length && !compatibilityForBuild(build).some(r => r.status === 'avoid');
 }
 export function chooseProduct(build: FishingBuild, category: CategoryId, id: string): FishingBuild {
@@ -47,6 +47,7 @@ export function candidateStatus(build: FishingBuild, product: Product) {
   return results.some(r => r.status === 'avoid') ? 'avoid' : !results.length || results.some(r => r.status === 'check') ? 'check' : 'recommended';
 }
 export function candidatesFor(build: FishingBuild, category: CategoryId) {
+  if (!hasProductGuide(build)) return [];
   return products.filter(p => p.category === category && candidateStatus(build, p) !== 'avoid');
 }
 export function recommendedProduct(build: FishingBuild, category: CategoryId) {
@@ -65,9 +66,11 @@ export function recommendedProduct(build: FishingBuild, category: CategoryId) {
 }
 export function rankedFish(build: FishingBuild) {
   const preferred = build.answers.goal === 'fight' ? 'saba' : build.answers.goal === 'first' ? 'iwashi' : 'aji';
-  return [...getFish(build.conditions)].sort((a,b) => Number(b.id === preferred) - Number(a.id === preferred));
+  const seasonal = new Set(getFish(build.conditions).map(f => f.id));
+  return [...fishSpecies].sort((a,b) => Number(b.id === preferred && seasonal.has(b.id)) - Number(a.id === preferred && seasonal.has(a.id)) || Number(seasonal.has(b.id)) - Number(seasonal.has(a.id)));
 }
 export function fishReason(build: FishingBuild, fishId: string) {
+  if (!getFish(build.conditions).some(f => f.id === fishId)) return fishSpecies.find(f => f.id === fishId)?.habitat || '現地の時期と釣果を確認しましょう。';
   if (fishId === 'saba' && build.answers.goal === 'fight') return '「魚とのやり取りを楽しみたい」という回答から、小サバの元気な引きを提案します。';
   if (fishId === 'iwashi' && build.answers.goal === 'first') return '「まずは一匹」という回答から、群れとの出会いを楽しむ釣りを提案します。';
   if (fishId === 'aji' && build.answers.goal === 'food') return '「おいしく食べたい」という回答から、食卓でも楽しめるアジを提案します。';
@@ -100,7 +103,6 @@ export function resolveScreen(requested: string, build: FishingBuild): string {
   if (screen === 'rigs') return 'rigs/sabiki';
   if (screen.startsWith('rigs/')) return rigById(screen.slice(5)) ? screen : 'rigs/sabiki';
   if (screen === 'search' || /^conditions\/(month|area|field)$/.test(screen)) return screen;
-  if (!isSupported(build.conditions)) return 'discover';
   const completeLegacy = canComplete(build);
   const required = requiredQuestions.find(q => !build.answers[q.id]);
   if (screen.startsWith('diagnosis/')) {
@@ -111,9 +113,10 @@ export function resolveScreen(requested: string, build: FishingBuild): string {
   if (!['discover','method','review','checkout','list','save','shipping','builder'].includes(screen) && !/^builder\/(rod|reel|line|rig|basket|bait|bucket|safety)$/.test(screen) && !/^prices\/(rod|reel|line|rig|basket|bait|bucket|safety)$/.test(screen)) return 'search';
   if (required && !completeLegacy) return `diagnosis/${required.id}`;
   if (screen === 'discover') return screen;
-  if (!getFish(build.conditions).some(f => f.id === build.fishId)) return 'discover';
+  if (!fishSpecies.some(f => f.id === build.fishId)) return 'discover';
   if (screen === 'method') return screen;
-  if (build.methodId !== 'sabiki') return 'method';
+  if (!methods.some(m => m.supported && m.id === build.methodId) || !fishSpecies.find(f => f.id === build.fishId)?.methodIds.includes(build.methodId)) return 'method';
+  if (!hasProductGuide(build)) return 'builder';
   if (screen === 'builder' || screen.startsWith('builder/')) return screen;
   if (!canComplete(build)) return 'builder';
   return screen;

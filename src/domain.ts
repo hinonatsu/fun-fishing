@@ -1,4 +1,4 @@
-import { areas, categories, fishSpecies, fishingFields, methods, products, replacedProductIds, type CategoryId, type Product } from './catalog';
+import { areas, categories, fishSpecies, fishingFields, methods, products, replacedProductIds, seasonality, type CategoryId, type Product } from './catalog';
 import { validAnswers } from './diagnosis';
 export type { CategoryId } from './catalog';
 
@@ -38,7 +38,10 @@ export function isSupported(conditions: FishingConditions): boolean {
   return conditions.area === 'tokyo-bay' && conditions.field === 'pier' && Number.isInteger(conditions.month) && conditions.month >= 4 && conditions.month <= 10;
 }
 export function getFish(conditions: FishingConditions) {
-  return isSupported(conditions) ? fishSpecies.filter(f => f.months.includes(conditions.month)) : [];
+  return isSupported(conditions) ? seasonality.filter(s => s.areaId === conditions.area && s.fieldId === conditions.field && s.months.includes(conditions.month)).map(s => fishSpecies.find(f => f.id === s.fishId)!) : [];
+}
+export function hasProductGuide(build: Pick<FishingBuild, 'conditions'|'fishId'|'methodId'>) {
+  return build.methodId === 'sabiki' && getFish(build.conditions).some(f => f.id === build.fishId);
 }
 export function createDefaultBuild(conditions: FishingConditions = { month: new Date().getMonth() + 1, area:'tokyo-bay',field:'pier' }): FishingBuild {
   return { conditions:{...conditions},fishId:'',methodId:'',selection:Object.fromEntries(categories.map(c=>[c.id,''])) as Record<CategoryId,string>,checked:[],owned:[],answers:{},included:[],prices:{},shipping:{selected:null,reference:null} };
@@ -104,7 +107,7 @@ export function evaluateCompatibility(selection: Record<CategoryId,string>, owne
 export function safeExternalUrl(value: string): string | null {
   try {
     const url = new URL(value);
-    const hosts = new Set(['www.daiwa.com','www.hayabusa.co.jp','www.honda.co.jp','www.marukyu.com','bluestorm.jp','jp.daisonet.com','store.castingnet.jp','affiliate.amazon.co.jp','www.amazon.co.jp','www.jma.go.jp','www.kaiho.mlit.go.jp','yokohama-fishingpiers.jp']);
+    const hosts = new Set(['www.daiwa.com','www.hayabusa.co.jp','www.honda.co.jp','www.marukyu.com','bluestorm.jp','jp.daisonet.com','store.castingnet.jp','affiliate.amazon.co.jp','www.amazon.co.jp','www.jma.go.jp','www.kaiho.mlit.go.jp','yokohama-fishingpiers.jp','www.yamaria.co.jp','www.gamakatsu.co.jp','fish.shimano.com','begood-funegg.jackall.co.jp','www.ishiguro-gr.com','fishland.jp']);
     return url.protocol === 'https:' && !url.username && !url.password && !url.port && hosts.has(url.hostname) ? url.href : null;
   } catch { return null; }
 }
@@ -124,7 +127,7 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     if (typeof c.month !== 'number' || !Number.isInteger(c.month) || c.month < 1 || c.month > 12 || !areas.some(a => a.id === c.area) || !fishingFields.some(f=>f.id===c.field)) return null;
     if (typeof value.fishId !== 'string' || (value.fishId !== '' && !fishSpecies.some(f=>f.id===value.fishId))) return null;
     const conditions: FishingConditions = {month:c.month,area:c.area as string,field:c.field as string};
-    if (isSupported(conditions) && value.fishId !== '' && !getFish(conditions).some(f=>f.id===value.fishId)) return null;
+    if (value.v === 1 && isSupported(conditions) && value.fishId !== '' && !getFish(conditions).some(f=>f.id===value.fishId)) return null;
     if (value.v === 1 && isSupported(conditions) && value.fishId === '') return null;
     if (value.methodId !== '' && !methods.some(m => m.supported && m.id === value.methodId)) return null;
     if (value.v === 1 && value.methodId === '') return null;
