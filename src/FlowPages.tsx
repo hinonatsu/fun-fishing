@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 import { areas, fishingFields } from './catalog';
 import type { FishingConditions } from './domain';
 
-export function FlowShell({ eyebrow, title, description, onBack, children, wide = false }: { eyebrow: string; title: string; description: string; onBack: () => void; children: ReactNode; wide?: boolean }) {
-  return <div className={`container focused-page ${wide ? 'focused-wide' : ''}`}><button className="back-button" onClick={onBack}><ArrowLeft size={16} />戻る</button><div className="focused-heading"><p className="eyebrow">{eyebrow}</p><h1 tabIndex={-1}>{title}</h1><p>{description}</p></div>{children}</div>;
+export function FlowShell({ eyebrow, title, onBack, children, wide = false }: { eyebrow: string; title: string; description?: string; onBack: () => void; children: ReactNode; wide?: boolean }) {
+  return <div className={`container focused-page ${wide ? 'focused-wide' : ''}`}><button className="back-button" onClick={onBack}><ArrowLeft size={16} />戻る</button><div className="focused-heading"><p className="eyebrow">{eyebrow}</p><h1 tabIndex={-1}>{title}</h1></div>{children}</div>;
 }
 
 export function ConditionsPage({ conditions, field, onChoose, onBack }: { conditions: FishingConditions; field: 'month'|'area'|'field'; onChoose: (value: string) => void; onBack: () => void }) {
