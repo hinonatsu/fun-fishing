@@ -67,7 +67,9 @@ function Rod() {
   return <g transform="translate(245 28) rotate(-21)"><GearIllustration category="rod" variant="vertical-rod" x="-14" y="-2" width="28" height="300" shadow={false}/></g>;
 }
 function Reel({ drum }: { drum: boolean }) {
-  return <g><GearIllustration category="reel" variant={drum ? 'drum' : undefined} x="272" y="226" width="94" height="82" viewBox="60 27 140 125" shadow={false}/></g>;
+  if (drum) return <g><GearIllustration category="reel" variant="drum" x="272" y="226" width="94" height="82" viewBox="60 27 140 125" shadow={false}/></g>;
+  // The catalogue image is level; turn only the rig-diagram instance so its reel foot follows the rod.
+  return <g transform="rotate(32 322 266)"><GearIllustration category="reel" x="267" y="221" width="110" height="90" shadow={false}/></g>;
 }
 function Accessories({ part }: { part: 'bait' | 'bucket' | 'safety' }) {
   const frames = { bait: [65, 333, 72, 68], bucket: [206, 325, 84, 76], safety: [345, 332, 72, 69] };
