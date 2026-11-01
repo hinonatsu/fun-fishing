@@ -4,7 +4,7 @@
 .rig-part.is-missing .gear-artwork { filter: grayscale(1); opacity: .38; }
 .rig-diagram.has-highlight .rig-part.is-highlighted .gear-artwork { filter: none; opacity: 1; }
 .rig-part.is-planned .gear-artwork { filter: sepia(.45); }
-.rig-hit-area .gear-artwork { filter: none; opacity: 0; }
+.rig-hit-area .gear-artwork { filter: none !important; opacity: 0 !important; }
 
 /* Give the material details room within the existing product cards. */
 .gear-card .gear-image { width: 112px; min-width: 112px; height: 112px; }
