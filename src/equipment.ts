@@ -1,8 +1,14 @@
-import { allCategories, categories, defaultSelection, products, type CategoryId, type EquipmentCategory, type Product } from './catalog';
+import { allCategories, categories, defaultSelection, findProduct, products, type CategoryId, type EquipmentCategory, type Product } from './catalog';
 import type { FishingBuild } from './domain';
 
 export type EquipmentContext = Pick<FishingBuild,'fishId'|'methodId'|'answers'>;
 const common: CategoryId[]=['rod','reel','line'];
+const providersByCategory = new Map<CategoryId, Product[]>();
+for (const product of products) for (const category of product.provides || []) {
+  const providers = providersByCategory.get(category) || [];
+  providers.push(product);
+  providersByCategory.set(category, providers);
+}
 const parts: Record<string,CategoryId[]>={
   sabiki:['rig','basket','bait'], float:['stopper','float','swivel','leader','sinker','hook','bait'],
   lure:['leader','snap','lure'], hole:['leader','burakuri','bait'],
@@ -70,17 +76,17 @@ export function productApplies(build:EquipmentContext,p:Product):boolean {
 export function coveringProduct(build:Pick<FishingBuild,'selection'|'owned'|'included'>&Partial<EquipmentContext>,category:CategoryId):Product|undefined {
   if(build.selection[category]||build.owned.includes(category)||build.included.includes(category)) return undefined;
   const context=build.fishId&&build.methodId?{fishId:build.fishId,methodId:build.methodId,answers:build.answers||{}}:undefined;
-  return products.find(p=>p.category!==category && build.selection[p.category]===p.id && !build.owned.includes(p.category) && p.provides?.includes(category) && (!context||(equipmentFor(context).some(c=>c.id===p.category)&&productApplies(context,p))));
+  return providersByCategory.get(category)?.find(p=>p.category!==category && build.selection[p.category]===p.id && !build.owned.includes(p.category) && (!context||(equipmentFor(context).some(c=>c.id===p.category)&&productApplies(context,p))));
 }
 export function includedLabel(build:Pick<FishingBuild,'selection'|'owned'|'included'>,category:CategoryId):string {
   const covering=coveringProduct(build,category);
   if(covering) return `${covering.name}に付属`;
-  if(category==='line'&&build.included.includes('line')) return `リール付属の${products.find(p=>p.id===build.selection.reel)?.technical.includedLine||'糸'}`;
+  if(category==='line'&&build.included.includes('line')) return `リール付属の${findProduct(build.selection.reel)?.technical.includedLine||'糸'}`;
   return 'セットに付属';
 }
 export function includedLineProduct(build:Pick<FishingBuild,'selection'>):Product|undefined {
-  const reel=products.find(p=>p.id===build.selection.reel);
-  return products.find(p=>p.id===(reel?.technical.includedLineProductId||'line-3'));
+  const reel=findProduct(build.selection.reel);
+  return findProduct(reel?.technical.includedLineProductId||'line-3');
 }
 export function referenceProduct(build:EquipmentContext,category:CategoryId):Product|undefined {
   const eligible=products.filter(p=>p.category===category&&productApplies(build,p));

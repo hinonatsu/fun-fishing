@@ -1,0 +1,11 @@
+.price-tier-filter { min-width:0; margin:0 0 12px; padding:18px; border:1px solid var(--line, #d8dedb); border-radius:12px; background:var(--surface, #fff); }
+.price-tier-filter legend { padding:0 6px; font-size:16px; font-weight:700; }
+.price-tier-options { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.price-tier-options button { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px; min-height:46px; padding:10px 6px; border:1px solid #aabdb7; border-radius:8px; background:#fff; color:#23443d; font:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+.price-tier-options button span { font-size:11px; font-weight:400; }
+.price-tier-options button[aria-pressed="true"] { color:white; background:#23574d; border-color:#23574d; }
+.price-tier-options button:disabled { opacity:.5; cursor:default; }
+.price-tier-options button:focus-visible { outline:3px solid #b87626; outline-offset:3px; }
+.price-tier-filter p { margin:12px 0 0; font-size:12px; line-height:1.8; color:#52655f; }
+.price-tier-result { margin:12px 0; font-size:13px; font-weight:600; }
+@media (max-width:480px) { .price-tier-filter { padding:14px 10px; } .price-tier-options { gap:5px; } .price-tier-options button { flex-direction:column; gap:1px; padding:8px 2px; font-size:13px; } }

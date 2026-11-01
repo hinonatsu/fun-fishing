@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-01T01:37:06.350Z",
+  "updatedAt": "2026-11-01T10:19:54.578Z",
   "products": {
     "rod-3-300": {
       "asin": "B06Y5DCTZD",
@@ -26,7 +26,7 @@
       "status": "unavailable",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:29:56.724Z",
+      "attemptedAt": "2026-11-01T10:07:59.966Z",
       "error": null
     },
     "reel-2500": {
@@ -143,7 +143,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:31:33.333Z",
+      "attemptedAt": "2026-11-01T10:08:06.743Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "rod-lurenist-86ml": {
@@ -152,7 +152,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:31:48.012Z",
+      "attemptedAt": "2026-11-01T10:08:13.352Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "rod-lurenist-86m": {
@@ -161,7 +161,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:32:02.636Z",
+      "attemptedAt": "2026-11-01T10:08:19.055Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "rod-anazuri-m110": {
@@ -179,7 +179,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:32:24.167Z",
+      "attemptedAt": "2026-11-01T10:08:25.031Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "reel-chinumaster90": {
@@ -251,7 +251,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:33:27.434Z",
+      "attemptedAt": "2026-11-01T10:08:31.311Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "rod-isokaze-4-53": {
@@ -260,7 +260,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:33:42.152Z",
+      "attemptedAt": "2026-11-01T10:08:39.280Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "line-pitbull4-04": {
@@ -449,7 +449,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:36:22.470Z",
+      "attemptedAt": "2026-11-01T10:08:56.442Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "lure-rapala-cd9": {
@@ -476,7 +476,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:36:37.157Z",
+      "attemptedAt": "2026-11-01T10:09:06.043Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "net-lsfc500": {
@@ -503,7 +503,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:36:51.780Z",
+      "attemptedAt": "2026-11-01T10:09:15.314Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "reel-crest-lt4000": {
@@ -512,7 +512,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-01T01:37:06.350Z",
+      "attemptedAt": "2026-11-01T10:09:19.693Z",
       "error": "No unambiguous JPY purchase price found in the main product price area"
     },
     "pliers-staincore190": {
@@ -720,6 +720,1239 @@
       "price": 12578,
       "fetchedAt": "2026-11-01T01:28:41.278Z",
       "attemptedAt": "2026-11-01T01:28:41.278Z",
+      "error": null
+    },
+    "rod-sabiki-ex-336": {
+      "asin": "B07B3X7R17",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 2834,
+      "fetchedAt": "2026-11-01T09:49:31.865Z",
+      "attemptedAt": "2026-11-01T09:49:31.865Z",
+      "error": null
+    },
+    "rod-holiday-iso": {
+      "asin": "B071WL2GTY",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 9566,
+      "fetchedAt": "2026-11-01T09:49:39.317Z",
+      "attemptedAt": "2026-11-01T09:49:39.317Z",
+      "error": null
+    },
+    "rod-surf-rider-25420": {
+      "asin": "B09QXKS5RB",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 5209,
+      "fetchedAt": "2026-11-01T09:49:45.075Z",
+      "attemptedAt": "2026-11-01T09:49:45.075Z",
+      "error": null
+    },
+    "rod-prime-surf": {
+      "asin": "B00INFFALI",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 11946,
+      "fetchedAt": "2026-11-01T09:49:51.681Z",
+      "attemptedAt": "2026-11-01T09:49:51.681Z",
+      "error": null
+    },
+    "rod-broad-iso": {
+      "asin": "B08C588BKV",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 6510,
+      "fetchedAt": "2026-11-01T09:49:57.399Z",
+      "attemptedAt": "2026-11-01T09:49:57.399Z",
+      "error": null
+    },
+    "rod-regal-iso": {
+      "asin": "B00MTT27ZG",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 15042,
+      "fetchedAt": "2026-11-01T09:50:02.494Z",
+      "attemptedAt": "2026-11-01T09:50:02.494Z",
+      "error": null
+    },
+    "rod-across-egi": {
+      "asin": "B0CXDNX9QD",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3855,
+      "fetchedAt": "2026-11-01T09:50:08.707Z",
+      "attemptedAt": "2026-11-01T09:50:08.707Z",
+      "error": null
+    },
+    "rod-emeraldas-x": {
+      "asin": "B0F9Y686KX",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 14091,
+      "fetchedAt": "2026-11-01T09:50:14.437Z",
+      "attemptedAt": "2026-11-01T09:50:14.437Z",
+      "error": null
+    },
+    "rod-ez1-light": {
+      "asin": "B0CNQQV571",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 13003,
+      "fetchedAt": "2026-11-01T09:50:25.364Z",
+      "attemptedAt": "2026-11-01T09:50:25.364Z",
+      "error": null
+    },
+    "rod-gekka-ajing": {
+      "asin": "B088GVB1D8",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 13475,
+      "fetchedAt": "2026-11-01T09:50:31.931Z",
+      "attemptedAt": "2026-11-01T09:50:31.931Z",
+      "error": null
+    },
+    "rod-ajimebaru-x": {
+      "asin": "B0CCN5YSCQ",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 10000,
+      "fetchedAt": "2026-11-01T10:10:03.163Z",
+      "attemptedAt": "2026-11-01T10:10:03.163Z",
+      "error": null
+    },
+    "rod-saltyfield-ul": {
+      "asin": "B0BDK3Y4HR",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 6269,
+      "fetchedAt": "2026-11-01T10:10:14.891Z",
+      "attemptedAt": "2026-11-01T10:10:14.891Z",
+      "error": null
+    },
+    "rod-eging-x": {
+      "asin": "B0B2VXF6KS",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 11176,
+      "fetchedAt": "2026-11-01T10:10:20.920Z",
+      "attemptedAt": "2026-11-01T10:10:20.920Z",
+      "error": null
+    },
+    "rod-seabass-flat-x": {
+      "asin": "B0BSTPV2YH",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 10636,
+      "fetchedAt": "2026-11-01T10:10:28.965Z",
+      "attemptedAt": "2026-11-01T10:10:28.965Z",
+      "error": null
+    },
+    "rod-bouhatei-kago": {
+      "asin": "B0F1SGNLY2",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 5816,
+      "fetchedAt": "2026-11-01T10:10:37.086Z",
+      "attemptedAt": "2026-11-01T10:10:37.086Z",
+      "error": null
+    },
+    "rod-across-seabass": {
+      "asin": "B0CY1Y1MP8",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3783,
+      "fetchedAt": "2026-11-01T09:50:39.013Z",
+      "attemptedAt": "2026-11-01T09:50:39.013Z",
+      "error": null
+    },
+    "rod-lateo": {
+      "asin": "B0D8724MPV",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 24890,
+      "fetchedAt": "2026-11-01T09:50:45.936Z",
+      "attemptedAt": "2026-11-01T09:50:45.936Z",
+      "error": null
+    },
+    "rod-prox-hechi": {
+      "asin": "B07LH1JTQV",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 9878,
+      "fetchedAt": "2026-11-01T09:50:51.639Z",
+      "attemptedAt": "2026-11-01T09:50:51.639Z",
+      "error": null
+    },
+    "rod-nissin-hechi": {
+      "asin": "B0H34TP68F",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 25344,
+      "fetchedAt": "2026-11-01T09:50:58.954Z",
+      "attemptedAt": "2026-11-01T09:50:58.954Z",
+      "error": null
+    },
+    "reel-sienna": {
+      "asin": "B07WC88339",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3546,
+      "fetchedAt": "2026-11-01T09:51:05.827Z",
+      "attemptedAt": "2026-11-01T09:51:05.827Z",
+      "error": null
+    },
+    "reel-sedona": {
+      "asin": "B0C7BH7FNW",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 5756,
+      "fetchedAt": "2026-11-01T09:51:12.080Z",
+      "attemptedAt": "2026-11-01T09:51:12.080Z",
+      "error": null
+    },
+    "reel-legalis": {
+      "asin": "B0CCN4VJN2",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 9605,
+      "fetchedAt": "2026-11-01T09:51:17.404Z",
+      "attemptedAt": "2026-11-01T09:51:17.404Z",
+      "error": null
+    },
+    "reel-sienna-c3000": {
+      "asin": "B07W5Y4NCJ",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3785,
+      "fetchedAt": "2026-11-01T10:10:46.565Z",
+      "attemptedAt": "2026-11-01T10:10:46.565Z",
+      "error": null
+    },
+    "reel-sedona4000": {
+      "asin": "B0C7BPVF8X",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 6434,
+      "fetchedAt": "2026-11-01T10:17:54.173Z",
+      "attemptedAt": "2026-11-01T10:17:54.173Z",
+      "error": null
+    },
+    "reel-invicta": {
+      "asin": "B08B1N5WS4",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 9754,
+      "fetchedAt": "2026-11-01T09:51:23.292Z",
+      "attemptedAt": "2026-11-01T09:51:23.292Z",
+      "error": null
+    },
+    "reel-battlefield": {
+      "asin": "B0CXDKGLTB",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 5175,
+      "fetchedAt": "2026-11-01T09:51:29.901Z",
+      "attemptedAt": "2026-11-01T09:51:29.901Z",
+      "error": null
+    },
+    "line-ginrin": {
+      "asin": "B01M0QRT0L",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1227,
+      "fetchedAt": "2026-11-01T09:51:36.859Z",
+      "attemptedAt": "2026-11-01T09:51:36.859Z",
+      "error": null
+    },
+    "line-flash-orange": {
+      "asin": "B00N5JL368",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 692,
+      "fetchedAt": "2026-11-01T09:51:41.786Z",
+      "attemptedAt": "2026-11-01T09:51:41.786Z",
+      "error": null
+    },
+    "line-ginrin2": {
+      "asin": "B01M12234E",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1202,
+      "fetchedAt": "2026-11-01T09:51:49.105Z",
+      "attemptedAt": "2026-11-01T09:51:49.105Z",
+      "error": null
+    },
+    "line-ginrin-neo2": {
+      "asin": "B002NPDL9C",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1398,
+      "fetchedAt": "2026-11-01T09:51:55.507Z",
+      "attemptedAt": "2026-11-01T09:51:55.507Z",
+      "error": null
+    },
+    "line-pe-pitbull-08": {
+      "asin": "B079M54QMK",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1021,
+      "fetchedAt": "2026-11-01T09:52:04.143Z",
+      "attemptedAt": "2026-11-01T09:52:04.143Z",
+      "error": null
+    },
+    "line-pe-upgrade-08": {
+      "asin": "B084ZXXBWM",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 2500,
+      "fetchedAt": "2026-11-01T09:52:10.940Z",
+      "attemptedAt": "2026-11-01T09:52:10.940Z",
+      "error": null
+    },
+    "line-pe-seaguar-04": {
+      "asin": "B07W566KW8",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1400,
+      "fetchedAt": "2026-11-01T09:52:18.482Z",
+      "attemptedAt": "2026-11-01T09:52:18.482Z",
+      "error": null
+    },
+    "line-pe-pitbullplus-04": {
+      "asin": "B082DZ285H",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1858,
+      "fetchedAt": "2026-11-01T09:52:25.480Z",
+      "attemptedAt": "2026-11-01T09:52:25.480Z",
+      "error": null
+    },
+    "leader-seaguar-2": {
+      "asin": "B00H3V5M1Q",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 422,
+      "fetchedAt": "2026-11-01T09:52:32.489Z",
+      "attemptedAt": "2026-11-01T09:52:32.489Z",
+      "error": null
+    },
+    "leader-premium-2": {
+      "asin": "B01B71UMVM",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 897,
+      "fetchedAt": "2026-11-01T09:52:42.896Z",
+      "attemptedAt": "2026-11-01T09:52:42.896Z",
+      "error": null
+    },
+    "rig-explosion-sabiki": {
+      "asin": "B019HU11NS",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 501,
+      "fetchedAt": "2026-11-01T09:52:51.478Z",
+      "attemptedAt": "2026-11-01T09:52:51.478Z",
+      "error": null
+    },
+    "rig-twist-sabiki": {
+      "asin": "B003Z6978W",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 395,
+      "fetchedAt": "2026-11-01T09:52:59.770Z",
+      "attemptedAt": "2026-11-01T09:52:59.770Z",
+      "error": null
+    },
+    "rig-nishin-special": {
+      "asin": "B077TM8VB8",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 583,
+      "fetchedAt": "2026-11-01T09:53:09.371Z",
+      "attemptedAt": "2026-11-01T09:53:09.371Z",
+      "error": null
+    },
+    "rig-hokkaido-extra": {
+      "asin": "B01M715OKC",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 501,
+      "fetchedAt": "2026-11-01T09:53:16.467Z",
+      "attemptedAt": "2026-11-01T09:53:16.467Z",
+      "error": null
+    },
+    "rig-hokke-gamakatsu": {
+      "asin": "B077TMG6J6",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 500,
+      "fetchedAt": "2026-11-01T10:18:05.072Z",
+      "attemptedAt": "2026-11-01T10:18:05.072Z",
+      "error": null
+    },
+    "rig-nishin-large": {
+      "asin": "B07PT6VQNH",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 521,
+      "fetchedAt": "2026-11-01T10:18:17.401Z",
+      "attemptedAt": "2026-11-01T10:18:17.401Z",
+      "error": null
+    },
+    "rig-kamasu-cast9": {
+      "asin": "B002NPFDW0",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 528,
+      "fetchedAt": "2026-11-01T09:53:22.465Z",
+      "attemptedAt": "2026-11-01T09:53:22.465Z",
+      "error": null
+    },
+    "rig-kamasu-cast11": {
+      "asin": "B002NP8DT0",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 528,
+      "fetchedAt": "2026-11-01T09:53:26.768Z",
+      "attemptedAt": "2026-11-01T09:53:26.768Z",
+      "error": null
+    },
+    "rig-kamasu-cast7": {
+      "asin": "B002NPFDUM",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 411,
+      "fetchedAt": "2026-11-01T10:18:27.910Z",
+      "attemptedAt": "2026-11-01T10:18:27.910Z",
+      "error": null
+    },
+    "sinker-kamasu-slim-a": {
+      "asin": "B0H2XMY7K3",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 980,
+      "fetchedAt": "2026-11-01T10:18:38.776Z",
+      "attemptedAt": "2026-11-01T10:18:38.776Z",
+      "error": null
+    },
+    "sinker-kamasu-slim-b": {
+      "asin": "B0H2XQDCHD",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1580,
+      "fetchedAt": "2026-11-01T10:18:43.678Z",
+      "attemptedAt": "2026-11-01T10:18:43.678Z",
+      "error": null
+    },
+    "sinker-kamasu-slim-c": {
+      "asin": "B0H2XDQ635",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1640,
+      "fetchedAt": "2026-11-01T10:18:52.137Z",
+      "attemptedAt": "2026-11-01T10:18:52.137Z",
+      "error": null
+    },
+    "basket-promarine": {
+      "asin": "B010UNZQV4",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 433,
+      "fetchedAt": "2026-11-01T09:53:34.300Z",
+      "attemptedAt": "2026-11-01T09:53:34.300Z",
+      "error": null
+    },
+    "basket-nakajima6": {
+      "asin": "B000BT85RU",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 709,
+      "fetchedAt": "2026-11-01T09:53:38.798Z",
+      "attemptedAt": "2026-11-01T09:53:38.798Z",
+      "error": null
+    },
+    "float-sayori-ball": {
+      "asin": "B01HUDL57G",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 649,
+      "fetchedAt": "2026-11-01T09:53:43.335Z",
+      "attemptedAt": "2026-11-01T09:53:43.335Z",
+      "error": null
+    },
+    "float-sayori-shimori": {
+      "asin": "B01GF72ONW",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 653,
+      "fetchedAt": "2026-11-01T09:53:47.825Z",
+      "attemptedAt": "2026-11-01T09:53:47.825Z",
+      "error": null
+    },
+    "float-tachiuo-red": {
+      "asin": "B08Y8ZWZC2",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1650,
+      "fetchedAt": "2026-11-01T09:53:52.334Z",
+      "attemptedAt": "2026-11-01T09:53:52.334Z",
+      "error": null
+    },
+    "float-tachiuo-flat": {
+      "asin": "B0962XCK46",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 2200,
+      "fetchedAt": "2026-11-01T09:53:56.526Z",
+      "attemptedAt": "2026-11-01T09:53:56.526Z",
+      "error": null
+    },
+    "float-kit-ha176-s": {
+      "asin": "B01GKK5L0M",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 440,
+      "fetchedAt": "2026-11-01T09:54:00.865Z",
+      "attemptedAt": "2026-11-01T09:54:00.865Z",
+      "error": null
+    },
+    "rig-owner-gomoku": {
+      "asin": "B00LA0JZY6",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 464,
+      "fetchedAt": "2026-11-01T09:54:05.142Z",
+      "attemptedAt": "2026-11-01T09:54:05.142Z",
+      "error": null
+    },
+    "rig-owner-strong": {
+      "asin": "B0159UH8K0",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 440,
+      "fetchedAt": "2026-11-01T09:54:09.306Z",
+      "attemptedAt": "2026-11-01T09:54:09.306Z",
+      "error": null
+    },
+    "float-sasame-w668": {
+      "asin": "B07SFY514L",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 550,
+      "fetchedAt": "2026-11-01T10:19:03.099Z",
+      "attemptedAt": "2026-11-01T10:19:03.099Z",
+      "error": null
+    },
+    "float-sasame-w661": {
+      "asin": "B00O3POCPM",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 379,
+      "fetchedAt": "2026-11-01T10:19:12.216Z",
+      "attemptedAt": "2026-11-01T10:19:12.216Z",
+      "error": null
+    },
+    "rig-uki-upper6": {
+      "asin": "B00GAUMX3Q",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 711,
+      "fetchedAt": "2026-11-01T09:54:13.713Z",
+      "attemptedAt": "2026-11-01T09:54:13.713Z",
+      "error": null
+    },
+    "rig-uki-sasame": {
+      "asin": "B01M2CL2IM",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 837,
+      "fetchedAt": "2026-11-01T09:54:18.032Z",
+      "attemptedAt": "2026-11-01T09:54:18.032Z",
+      "error": null
+    },
+    "basket-kago-ha240-8": {
+      "asin": "B00J3BEYJK",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1193,
+      "fetchedAt": "2026-11-01T09:54:22.500Z",
+      "attemptedAt": "2026-11-01T09:54:22.500Z",
+      "error": null
+    },
+    "basket-kago-light": {
+      "asin": "B0C7MM8BXD",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1008,
+      "fetchedAt": "2026-11-01T09:54:27.323Z",
+      "attemptedAt": "2026-11-01T09:54:27.323Z",
+      "error": null
+    },
+    "rig-dozuki-owner": {
+      "asin": "B002NPFDJS",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 397,
+      "fetchedAt": "2026-11-01T09:54:32.434Z",
+      "attemptedAt": "2026-11-01T09:54:32.434Z",
+      "error": null
+    },
+    "rig-dozuki-sasame": {
+      "asin": "B016GR9U6A",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 397,
+      "fetchedAt": "2026-11-01T09:54:37.288Z",
+      "attemptedAt": "2026-11-01T09:54:37.288Z",
+      "error": null
+    },
+    "rig-kisu-hayabusa": {
+      "asin": "B008QQSRUA",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 385,
+      "fetchedAt": "2026-11-01T09:54:41.970Z",
+      "attemptedAt": "2026-11-01T09:54:41.970Z",
+      "error": null
+    },
+    "rig-kisu-light": {
+      "asin": "B00BUYYUEC",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 276,
+      "fetchedAt": "2026-11-01T09:54:47.261Z",
+      "attemptedAt": "2026-11-01T09:54:47.261Z",
+      "error": null
+    },
+    "rig-karei-gamakatsu": {
+      "asin": "B0751LKNDY",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 426,
+      "fetchedAt": "2026-11-01T09:54:51.760Z",
+      "attemptedAt": "2026-11-01T09:54:51.760Z",
+      "error": null
+    },
+    "rig-karei-hayabusa": {
+      "asin": "B00GAUXVO6",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 501,
+      "fetchedAt": "2026-11-01T09:54:55.850Z",
+      "attemptedAt": "2026-11-01T09:54:55.850Z",
+      "error": null
+    },
+    "rig-hokke14": {
+      "asin": "B00GAUW6NI",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 560,
+      "fetchedAt": "2026-11-01T09:55:00.098Z",
+      "attemptedAt": "2026-11-01T09:55:00.098Z",
+      "error": null
+    },
+    "rig-hokke-alt": {
+      "asin": "B00GAUW6N8",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 553,
+      "fetchedAt": "2026-11-01T09:55:04.261Z",
+      "attemptedAt": "2026-11-01T09:55:04.261Z",
+      "error": null
+    },
+    "burakuri-owner": {
+      "asin": "B002NP8D04",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 377,
+      "fetchedAt": "2026-11-01T09:55:08.405Z",
+      "attemptedAt": "2026-11-01T09:55:08.405Z",
+      "error": null
+    },
+    "burakuri-drop": {
+      "asin": "B00M4Q5E5O",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 439,
+      "fetchedAt": "2026-11-01T09:55:12.632Z",
+      "attemptedAt": "2026-11-01T09:55:12.632Z",
+      "error": null
+    },
+    "sinker-yozuri-gandama": {
+      "asin": "B002OAV9S6",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 479,
+      "fetchedAt": "2026-11-01T09:55:16.968Z",
+      "attemptedAt": "2026-11-01T09:55:16.968Z",
+      "error": null
+    },
+    "sinker-prox-gandama": {
+      "asin": "B01D0XUGAC",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 436,
+      "fetchedAt": "2026-11-01T09:55:21.343Z",
+      "attemptedAt": "2026-11-01T09:55:21.343Z",
+      "error": null
+    },
+    "sinker-gomukan-round": {
+      "asin": "B000AR6VHE",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 293,
+      "fetchedAt": "2026-11-01T09:55:25.814Z",
+      "attemptedAt": "2026-11-01T09:55:25.814Z",
+      "error": null
+    },
+    "sinker-bukkomi": {
+      "asin": "B001GC5XH6",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 588,
+      "fetchedAt": "2026-11-01T09:55:30.901Z",
+      "attemptedAt": "2026-11-01T09:55:30.901Z",
+      "error": null
+    },
+    "sinker-nasu-color": {
+      "asin": "B00IHSGQAA",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 460,
+      "fetchedAt": "2026-11-01T09:55:35.996Z",
+      "attemptedAt": "2026-11-01T09:55:35.996Z",
+      "error": null
+    },
+    "sinker-nasu-color2": {
+      "asin": "B016GRBG6C",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 400,
+      "fetchedAt": "2026-11-01T09:55:40.800Z",
+      "attemptedAt": "2026-11-01T09:55:40.800Z",
+      "error": null
+    },
+    "sinker-nasu25-pack": {
+      "asin": "B0DCG1P4S7",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1058,
+      "fetchedAt": "2026-11-01T09:55:48.978Z",
+      "attemptedAt": "2026-11-01T09:55:48.978Z",
+      "error": null
+    },
+    "sinker-nasu25-fujiwara": {
+      "asin": "B002OAZ6N0",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 629,
+      "fetchedAt": "2026-11-01T09:55:57.065Z",
+      "attemptedAt": "2026-11-01T09:55:57.065Z",
+      "error": null
+    },
+    "swivel-yozuri": {
+      "asin": "B001G75QOQ",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 165,
+      "fetchedAt": "2026-11-01T09:56:06.378Z",
+      "attemptedAt": "2026-11-01T09:56:06.378Z",
+      "error": null
+    },
+    "swivel-nt50": {
+      "asin": "B004LPWCSI",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 414,
+      "fetchedAt": "2026-11-01T09:56:14.464Z",
+      "attemptedAt": "2026-11-01T09:56:14.464Z",
+      "error": null
+    },
+    "hook-chinu-gamakatsu": {
+      "asin": "B0182CA82W",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 397,
+      "fetchedAt": "2026-11-01T09:56:22.742Z",
+      "attemptedAt": "2026-11-01T09:56:22.742Z",
+      "error": null
+    },
+    "hook-chinu-sasame": {
+      "asin": "B01M8O1GYW",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 275,
+      "fetchedAt": "2026-11-01T09:56:29.412Z",
+      "attemptedAt": "2026-11-01T09:56:29.412Z",
+      "error": null
+    },
+    "hook-seigo-sasame": {
+      "asin": "B071ZHB924",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 248,
+      "fetchedAt": "2026-11-01T09:56:38.400Z",
+      "attemptedAt": "2026-11-01T09:56:38.400Z",
+      "error": null
+    },
+    "hook-seigo-gamakatsu": {
+      "asin": "B089B56RZ7",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 363,
+      "fetchedAt": "2026-11-01T09:56:46.191Z",
+      "attemptedAt": "2026-11-01T09:56:46.191Z",
+      "error": null
+    },
+    "tenbin-kaiso": {
+      "asin": "B000RXAX02",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 936,
+      "fetchedAt": "2026-11-01T09:56:54.047Z",
+      "attemptedAt": "2026-11-01T09:56:54.047Z",
+      "error": null
+    },
+    "tenbin-yudojet": {
+      "asin": "B002OATCBC",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 904,
+      "fetchedAt": "2026-11-01T09:57:00.410Z",
+      "attemptedAt": "2026-11-01T09:57:00.410Z",
+      "error": null
+    },
+    "tenbin-choi-sl": {
+      "asin": "B07BJZ2CNZ",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 539,
+      "fetchedAt": "2026-11-01T09:57:05.623Z",
+      "attemptedAt": "2026-11-01T09:57:05.623Z",
+      "error": null
+    },
+    "tenbin-choi-sl2": {
+      "asin": "B07D36B3LH",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 653,
+      "fetchedAt": "2026-11-01T09:57:22.354Z",
+      "attemptedAt": "2026-11-01T09:57:22.354Z",
+      "error": null
+    },
+    "snap-owner-x": {
+      "asin": "B07QM1W4NN",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 225,
+      "fetchedAt": "2026-11-01T09:57:44.866Z",
+      "attemptedAt": "2026-11-01T09:57:44.866Z",
+      "error": null
+    },
+    "snap-owner-power": {
+      "asin": "B099Z55D44",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 298,
+      "fetchedAt": "2026-11-01T09:57:58.290Z",
+      "attemptedAt": "2026-11-01T09:57:58.290Z",
+      "error": null
+    },
+    "snap-active-value": {
+      "asin": "B01MXYQS9C",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 385,
+      "fetchedAt": "2026-11-01T10:19:19.524Z",
+      "attemptedAt": "2026-11-01T10:19:19.524Z",
+      "error": null
+    },
+    "egi-aoq3": {
+      "asin": "B08BC42TV7",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 977,
+      "fetchedAt": "2026-11-01T09:58:10.599Z",
+      "attemptedAt": "2026-11-01T09:58:10.599Z",
+      "error": null
+    },
+    "egi-clinch3": {
+      "asin": "B0C657YG5X",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 660,
+      "fetchedAt": "2026-11-01T09:58:33.767Z",
+      "attemptedAt": "2026-11-01T09:58:33.767Z",
+      "error": null
+    },
+    "egi-aoq-hii": {
+      "asin": "B015N8QGKG",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 990,
+      "fetchedAt": "2026-11-01T09:58:43.059Z",
+      "attemptedAt": "2026-11-01T09:58:43.059Z",
+      "error": null
+    },
+    "egi-clinch18": {
+      "asin": "B0C65BMB4M",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 840,
+      "fetchedAt": "2026-11-01T09:58:57.097Z",
+      "attemptedAt": "2026-11-01T09:58:57.097Z",
+      "error": null
+    },
+    "lure-tetrajig": {
+      "asin": "B076H133X7",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 699,
+      "fetchedAt": "2026-11-01T09:59:10.011Z",
+      "attemptedAt": "2026-11-01T09:59:10.011Z",
+      "error": null
+    },
+    "lure-gekka-prisoner": {
+      "asin": "B09FF9QYJ8",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 644,
+      "fetchedAt": "2026-11-01T09:59:28.949Z",
+      "attemptedAt": "2026-11-01T09:59:28.949Z",
+      "error": null
+    },
+    "lure-makippa3": {
+      "asin": "B07W348QZJ",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 700,
+      "fetchedAt": "2026-11-01T10:19:26.486Z",
+      "attemptedAt": "2026-11-01T10:19:26.486Z",
+      "error": null
+    },
+    "lure-samuraijig": {
+      "asin": "B09R8YK387",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 691,
+      "fetchedAt": "2026-11-01T09:59:49.363Z",
+      "attemptedAt": "2026-11-01T09:59:49.363Z",
+      "error": null
+    },
+    "lure-daniel": {
+      "asin": "B074215S56",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 848,
+      "fetchedAt": "2026-11-01T10:00:12.621Z",
+      "attemptedAt": "2026-11-01T10:00:12.621Z",
+      "error": null
+    },
+    "lure-metaleffect20": {
+      "asin": "B09PR13Q89",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 892,
+      "fetchedAt": "2026-11-01T10:19:31.985Z",
+      "attemptedAt": "2026-11-01T10:19:31.985Z",
+      "error": null
+    },
+    "lure-rise-walk": {
+      "asin": "B09777G447",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1124,
+      "fetchedAt": "2026-11-01T10:00:25.286Z",
+      "attemptedAt": "2026-11-01T10:00:25.286Z",
+      "error": null
+    },
+    "lure-bleeker": {
+      "asin": "B0CZDGLH4C",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1417,
+      "fetchedAt": "2026-11-01T10:00:55.330Z",
+      "attemptedAt": "2026-11-01T10:00:55.330Z",
+      "error": null
+    },
+    "lure-nanoraba": {
+      "asin": "B09KNGR913",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 660,
+      "fetchedAt": "2026-11-01T10:01:24.654Z",
+      "attemptedAt": "2026-11-01T10:01:24.654Z",
+      "error": null
+    },
+    "lure-micro-makijig": {
+      "asin": "B09FF49Z7N",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 497,
+      "fetchedAt": "2026-11-01T10:01:44.992Z",
+      "attemptedAt": "2026-11-01T10:01:44.992Z",
+      "error": null
+    },
+    "cushion-daiichi": {
+      "asin": "B000AR6X6S",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 333,
+      "fetchedAt": "2026-11-01T10:02:11.154Z",
+      "attemptedAt": "2026-11-01T10:02:11.154Z",
+      "error": null
+    },
+    "cushion-sasame": {
+      "asin": "B00CKZNY24",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 264,
+      "fetchedAt": "2026-11-01T10:02:36.557Z",
+      "attemptedAt": "2026-11-01T10:02:36.557Z",
+      "error": null
+    },
+    "shock-castest": {
+      "asin": "B075VSSDNX",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1247,
+      "fetchedAt": "2026-11-01T10:02:59.932Z",
+      "attemptedAt": "2026-11-01T10:02:59.932Z",
+      "error": null
+    },
+    "shock-yamatoyo": {
+      "asin": "B004EVGI7A",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1147,
+      "fetchedAt": "2026-11-01T10:03:31.639Z",
+      "attemptedAt": "2026-11-01T10:03:31.639Z",
+      "error": null
+    },
+    "bucket-promarine21": {
+      "asin": "B06X6FY2L2",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 660,
+      "fetchedAt": "2026-11-01T10:03:56.825Z",
+      "attemptedAt": "2026-11-01T10:03:56.825Z",
+      "error": null
+    },
+    "bucket-gamakatsu": {
+      "asin": "B0CHYVRY31",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3861,
+      "fetchedAt": "2026-11-01T10:04:23.267Z",
+      "attemptedAt": "2026-11-01T10:04:23.267Z",
+      "error": null
+    },
+    "safety-tk200ars": {
+      "asin": "B0GSD6898Q",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 9510,
+      "fetchedAt": "2026-11-01T10:04:53.770Z",
+      "attemptedAt": "2026-11-01T10:04:53.770Z",
+      "error": null
+    },
+    "safety-ocean-bw2003": {
+      "asin": "B0BDRQXY6K",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 9768,
+      "fetchedAt": "2026-11-01T10:05:14.945Z",
+      "attemptedAt": "2026-11-01T10:05:14.945Z",
+      "error": null
+    },
+    "net-bluebay540": {
+      "asin": "B07P9NKMV9",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3110,
+      "fetchedAt": "2026-11-01T10:05:35.030Z",
+      "attemptedAt": "2026-11-01T10:05:35.030Z",
+      "error": null
+    },
+    "net-prox-allinone": {
+      "asin": "B0HH9JJD8C",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 14333,
+      "fetchedAt": "2026-11-01T10:05:57.731Z",
+      "attemptedAt": "2026-11-01T10:05:57.731Z",
+      "error": null
+    },
+    "pliers-prox": {
+      "asin": "B001GCBRGC",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 771,
+      "fetchedAt": "2026-11-01T10:06:12.959Z",
+      "attemptedAt": "2026-11-01T10:06:12.959Z",
+      "error": null
+    },
+    "pliers-umibozu": {
+      "asin": "B08LH47T7X",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 3080,
+      "fetchedAt": "2026-11-01T10:06:33.552Z",
+      "attemptedAt": "2026-11-01T10:06:33.552Z",
+      "error": null
+    },
+    "cooler-sanka14": {
+      "asin": "B0BW3M7359",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 2661,
+      "fetchedAt": "2026-11-01T10:06:39.839Z",
+      "attemptedAt": "2026-11-01T10:06:39.839Z",
+      "error": null
+    },
+    "cooler-coleman6": {
+      "asin": "B079C48YN1",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 2200,
+      "fetchedAt": "2026-11-01T10:07:03.028Z",
+      "attemptedAt": "2026-11-01T10:07:03.028Z",
+      "error": null
+    },
+    "cooler-coleman28": {
+      "asin": "B01ABDUITS",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 4285,
+      "fetchedAt": "2026-11-01T10:07:08.771Z",
+      "attemptedAt": "2026-11-01T10:07:08.771Z",
+      "error": null
+    },
+    "cooler-shimano30": {
+      "asin": "B0GCK25KWN",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 15516,
+      "fetchedAt": "2026-11-01T10:07:13.163Z",
+      "attemptedAt": "2026-11-01T10:07:13.163Z",
+      "error": null
+    },
+    "bait-amihime-half": {
+      "asin": "B07HFH3FNY",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 556,
+      "fetchedAt": "2026-11-01T10:07:17.883Z",
+      "attemptedAt": "2026-11-01T10:07:17.883Z",
+      "error": null
+    },
+    "chum-amihime-half": {
+      "asin": "B07HFH3FNY",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 556,
+      "fetchedAt": "2026-11-01T10:07:17.883Z",
+      "attemptedAt": "2026-11-01T10:07:17.883Z",
+      "error": null
+    },
+    "bait-amihime-1200": {
+      "asin": "B0C2C4DYGW",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 991,
+      "fetchedAt": "2026-11-01T10:07:22.420Z",
+      "attemptedAt": "2026-11-01T10:07:22.420Z",
+      "error": null
+    },
+    "chum-amihime-1200": {
+      "asin": "B0C2C4DYGW",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 991,
+      "fetchedAt": "2026-11-01T10:07:22.420Z",
+      "attemptedAt": "2026-11-01T10:07:22.420Z",
+      "error": null
+    },
+    "bait-isome-medium": {
+      "asin": "B004257J3U",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 765,
+      "fetchedAt": "2026-11-01T10:07:26.986Z",
+      "attemptedAt": "2026-11-01T10:07:26.986Z",
+      "error": null
+    },
+    "bait-isome-soft": {
+      "asin": "B011NXP45S",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 585,
+      "fetchedAt": "2026-11-01T10:07:31.313Z",
+      "attemptedAt": "2026-11-01T10:07:31.313Z",
+      "error": null
+    },
+    "bait-oki-hard-l": {
+      "asin": "B085WR7YB3",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1493,
+      "fetchedAt": "2026-11-01T10:07:35.398Z",
+      "attemptedAt": "2026-11-01T10:07:35.398Z",
+      "error": null
+    },
+    "bait-oki-v9": {
+      "asin": "B08314SK3Q",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1493,
+      "fetchedAt": "2026-11-01T10:07:39.865Z",
+      "attemptedAt": "2026-11-01T10:07:39.865Z",
+      "error": null
+    },
+    "bait-oki-big": {
+      "asin": "B00LGDBWMU",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 740,
+      "fetchedAt": "2026-11-01T10:19:40.949Z",
+      "attemptedAt": "2026-11-01T10:19:40.949Z",
+      "error": null
+    },
+    "bait-kibi-hamaichi": {
+      "asin": "B0GFMSPPJV",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 1700,
+      "fetchedAt": "2026-11-01T10:19:49.972Z",
+      "attemptedAt": "2026-11-01T10:19:49.972Z",
+      "error": null
+    },
+    "bait-kibi-taiga": {
+      "asin": "B0BPXQ8WJ1",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 2970,
+      "fetchedAt": "2026-11-01T10:19:54.578Z",
+      "attemptedAt": "2026-11-01T10:19:54.578Z",
+      "error": null
+    },
+    "bait-crab-blue-l": {
+      "asin": "B01CS4OHYA",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 585,
+      "fetchedAt": "2026-11-01T10:07:47.651Z",
+      "attemptedAt": "2026-11-01T10:07:47.651Z",
+      "error": null
+    },
+    "bait-crab-brown-m": {
+      "asin": "B01CS4OI1M",
+      "currency": "JPY",
+      "status": "ok",
+      "price": 932,
+      "fetchedAt": "2026-11-01T10:07:53.851Z",
+      "attemptedAt": "2026-11-01T10:07:53.851Z",
       "error": null
     }
   },

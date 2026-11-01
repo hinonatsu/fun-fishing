@@ -1,4 +1,4 @@
-import { categories, fishSpecies, methods, products, type CategoryId, type Product } from './catalog';
+import { categories, findProduct, fishSpecies, methods, products, type CategoryId, type Product } from './catalog';
 import { questions, requiredQuestions } from './diagnosis';
 import { createDefaultBuild, evaluateCompatibility, evaluateMethodCompatibility, getFish, hasProductGuide, type FishingBuild, type EquipmentDraft } from './domain';
 import { productPrice } from './pricing';
@@ -12,7 +12,7 @@ export function nextQuestion(build: FishingBuild) {
   return questions.find(q => !build.answers[q.id]);
 }
 export function hasChoice(build: FishingBuild, id: CategoryId) {
-  return products.some(p=>p.id===build.selection[id]&&p.category===id) || build.owned.includes(id) || build.included.includes(id) || !!coveringProduct(build,id);
+  return findProduct(build.selection[id])?.category === id || build.owned.includes(id) || build.included.includes(id) || !!coveringProduct(build,id);
 }
 export function chosenCount(build: FishingBuild) {
   return equipmentFor(build).filter(c => hasChoice(build, c.id)).length;
@@ -30,7 +30,7 @@ export function compatibilityForBuild(build: FishingBuild) {
   if(build.methodId!=='sabiki'||build.fishId==='kamasu') return evaluateMethodCompatibility(build);
   const results=evaluateCompatibility(selection,build.owned).filter(r=>!(build.included.includes('line')&&r.id==='included-line'));
   for(const c of equipmentFor(build)) {
-    const p=products.find(p=>p.id===selection[c.id]);
+    const p=findProduct(selection[c.id]);
     if(p&&!build.owned.includes(c.id)&&!productApplies(build,p)) results.push({id:`method-${c.id}`,status:'avoid',title:`${c.label}を対象魚・釣法に合わせて選び直す`,reason:'この対象魚・釣法の候補ではありません。',categoryIds:[c.id]});
     if(c.necessity==='required'&&!categories.some(old=>old.id===c.id)&&!hasChoice(build,c.id)) results.push({id:`missing-${c.id}`,status:'check',title:`${c.label}が未選択`,reason:'商品か手持ちの道具を選んでください。',categoryIds:[c.id]});
   }
@@ -41,7 +41,7 @@ export function canComplete(build: FishingBuild) {
     && requiredEquipment(build).every(c=>hasChoice(build,c.id)) && !compatibilityForBuild(build).some(r => r.status === 'avoid');
 }
 export function chooseProduct(build: FishingBuild, category: CategoryId, id: string): FishingBuild {
-  const product=products.find(p=>p.id===id);
+  const product=findProduct(id);
   if(id && (!product || (product.category!==category&&!product.provides?.includes(category)))) return build;
   if(product && product.category!==category) {
     const cleared=chooseProduct(build,category,'');
@@ -68,7 +68,7 @@ export function chooseOwned(build: FishingBuild, category: CategoryId): FishingB
   return { ...next, owned: [...next.owned, category] };
 }
 export function chooseIncludedLine(build: FishingBuild): FishingBuild {
-  const reel = products.find(p => p.id === build.selection.reel);
+  const reel = findProduct(build.selection.reel);
   if (!reel?.technical.includedLine || build.owned.includes('reel')) return build;
   const next = chooseProduct(build, 'line', '');
   return { ...next, included: [...next.included, 'line'] };
@@ -80,8 +80,9 @@ export function candidateStatus(build: FishingBuild, product: Product) {
 }
 export function candidatesFor(build: FishingBuild, category: CategoryId) {
   if (!hasProductGuide(build)) return [];
-  if(!equipmentFor(build).some(c=>c.id===category)) return [];
-  return products.filter(p => (p.category === category || p.provides?.includes(category)) && equipmentFor(build).some(c=>c.id===p.category) && productApplies(build,p) && candidateStatus(build, p) !== 'avoid');
+  const categoryIds = new Set(equipmentFor(build).map(c => c.id));
+  if(!categoryIds.has(category)) return [];
+  return products.filter(p => (p.category === category || p.provides?.includes(category)) && categoryIds.has(p.category) && productApplies(build,p) && candidateStatus(build, p) !== 'avoid');
 }
 export function recommendedProduct(build: FishingBuild, category: CategoryId) {
   const eligible = candidatesFor(build, category).filter(p => !p.generic || build.answers.water === 'tap');
@@ -118,7 +119,7 @@ export interface PriceRow { category: CategoryId; product: Product; reference: P
 export function priceComparison(build: FishingBuild) {
   const rows: PriceRow[] = equipmentFor(build).flatMap(c => {
     if (build.owned.includes(c.id) || build.included.includes(c.id) || coveringProduct(build,c.id)) return [];
-    const product = products.find(p => p.id === build.selection[c.id]);
+    const product = findProduct(build.selection[c.id]);
     const reference = referenceProduct(build,c.id);
     return product ? [{ category: c.id, product, reference:reference||product, selected: productPrice(build,product), baseline: reference?productPrice(build,reference):null, comparable:!!reference && (!product.generic || build.answers.water === 'tap') && JSON.stringify([...(product.provides||[])].sort())===JSON.stringify([...(reference.provides||[])].sort()) }] : [];
   });

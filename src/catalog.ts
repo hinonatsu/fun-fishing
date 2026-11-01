@@ -2,6 +2,7 @@ import amazonAsins from './data/amazon-products.json' with { type: 'json' };
 import { amazonPriceRecord, currentAmazonPrice, type AmazonPriceRecord } from './amazon-prices';
 import { targetFish, targetMethods } from './fish-catalog';
 import methodProducts from './data/method-products.json' with { type: 'json' };
+import tierProducts from './data/tier-products.json' with { type: 'json' };
 
 /** Curated specifications with a daily Amazon price snapshot. See docs/AMAZON_PRICES.md. */
 export type CategoryId = 'rod' | 'reel' | 'line' | 'rig' | 'basket' | 'bait' | 'bucket' | 'safety' | 'float' | 'stopper' | 'sinker' | 'leader' | 'swivel' | 'hook' | 'tenbin' | 'snap' | 'lure' | 'egi' | 'burakuri' | 'cushion' | 'shock' | 'net' | 'pliers' | 'cooler' | 'chum';
@@ -124,7 +125,7 @@ const legacyProducts: Product[] = [
   product({ id:'safety-tokarau',category:'safety',name:'トカラウ BSJ-201ARS レッド M',brand:'Bluestorm',summary:'体に合うか試着して選ぶ、固型式ライフジャケット。',reason:'股ベルト付き。身長・胸囲・利用環境に合うか、必ず販売店や施設で確認してください。',specs:['国土交通省型式承認品 Type D','M：身長155〜175cm / 胸囲100cmまで','初期浮力 約8.8kg','使用水域に制限あり'],sourceUrl:'https://bluestorm.jp/products/inherently_buoyant_lifejacket/bsj-201ars/',jan:'4513291159815',localOnly:true,technical:{},note:'メーカー公式で仕様を確認。着用者の体格と利用環境が不明のため適合は要確認。安全装備は汎用品へ置き換えません。' }),
 ];
 type AdditionalProduct = Omit<Product,'price'|'amazonPrice'|'record'|'offer'|'purchaseUrl'|'verification'|'jan'> & {asin:string; note:string; verification?:VerificationStatus; jan?:string; amazonVerified?:boolean};
-export const products: Product[] = [...legacyProducts, ...(methodProducts as unknown as AdditionalProduct[]).map(data=>{
+export const products: Product[] = [...legacyProducts, ...([...methodProducts, ...tierProducts] as unknown as AdditionalProduct[]).map(data=>{
   const {asin,note,amazonVerified,...rest}=data;
   const purchaseUrl=`https://www.amazon.co.jp/dp/${asin}?th=1&psc=1`;
   const amazonPrice=amazonPriceRecord(data.id,asin), price=currentAmazonPrice(amazonPrice);
@@ -132,6 +133,9 @@ export const products: Product[] = [...legacyProducts, ...(methodProducts as unk
     offer:{retailer:'Amazon.co.jp',url:purchaseUrl,price,linkStatus:amazonVerified?'content-confirmed' as const:'listing-confirmed' as const,checkedAt:'2026-11-01'},
     record:{checkedAt:'2026-11-01',status:data.verification||'partial',sourceUrl:data.sourceUrl,note}} satisfies Product;
 })];
+
+const indexedProducts = new Map(products.map(product => [product.id, product]));
+export const findProduct = (id: string): Product | undefined => indexedProducts.get(id);
 
 export const replacedProductIds: Record<string,string> = { 'basket-6':'basket-riseway-6', 'basket-10':'basket-riseway-10', 'bucket-generic':'bucket-risu-8' };
 

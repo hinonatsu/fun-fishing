@@ -1,3 +1,4 @@
+import { PriceTierPicker } from './PriceTierPicker';
 import { useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ClipboardCheck, Copy, Info, PackageCheck, ShieldCheck, ShoppingBag, Sparkles } from 'lucide-react';
 import { amazonLinkLabel, fishSpecies, methods, products, type CategoryId, type Product } from './catalog';
@@ -82,7 +83,7 @@ export function BuilderPage({ build, category, onSelect, onBack, onNavigate }: P
       {current && !candidates.some(p => p.id === current.id) && <Notice tone="warning">選択中の「{current.name}」は、現在の組み合わせでは非推奨です。別の候補を選んでください。</Notice>}
       {bundled && <div className="included-choice"><PackageCheck size={25}/><div><h2>選んだセットに含まれています。</h2><p>{bundled.name}</p><button className="button primary" onClick={()=>onSelect(chooseSetIncluded(build,category))}>セットの付属品を使う<ArrowRight size={16}/></button></div></div>}
       {category === 'line' && reel?.technical.includedLine && !build.owned.includes('reel') && <div className="included-choice"><PackageCheck size={25} /><div><h2>リールに糸が付属しています。</h2><p>{reel.technical.includedLine}。別売りの糸を買わずに使う選択もできます。</p><button className="button primary" onClick={() => onSelect(chooseIncludedLine(build))}>リール付属の糸を使う<ArrowRight size={16} /></button></div></div>}
-      <div className="gear-candidates">{candidates.map(p => {
+      <PriceTierPicker key={`${build.fishId}:${build.methodId}:${category}`} build={build} candidates={candidates}>{visible=><div className="gear-candidates">{visible.map(p => {
         const active = current?.id === p.id && !build.owned.includes(category);
         const status = candidateStatus(build,p);
         const isRecommended = recommended?.id === p.id;
@@ -98,7 +99,7 @@ export function BuilderPage({ build, category, onSelect, onBack, onNavigate }: P
             onSelect(p.generic ? {...next,answers:{...next.answers,water:'tap'}} : next);
           }}>{p.generic ? '地上で給水して使うことを確認して選ぶ' : 'この商品を選ぶ'}<ArrowRight size={16} /></button>
         </article>;
-      })}</div>
+      })}</div>}</PriceTierPicker>
       {allCandidates.length > candidates.length && <p className="quiet-note">選択済みの道具と、公称仕様が明確に合わない候補は表示していません。</p>}
       {!candidates.length && <Notice>現在の選択と合う商品候補がありません。先に選んだ竿・糸・仕掛けを見直してください。</Notice>}
       <details className="owned-choice"><summary>持っている道具を使いたい</summary><p>購入対象から外します。手持ちの型番・仕様は未登録なので、関連する組み合わせは要確認として残します。</p><button className="button secondary" onClick={() => onSelect(chooseOwned(build,category))}>{c.label}は手持ちの道具を使う<ArrowRight size={16} /></button></details>
