@@ -93,6 +93,7 @@ test('hover previews unselected gear while chosen tools stay colored', async ({ 
   const saved = await page.evaluate(() => localStorage.getItem('fun-fishing-build-v1'));
   const selectedColor = await diagram.locator('[data-part="rod"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'));
   const missingColor = await diagram.locator('[data-part="reel"]').evaluate(el => getComputedStyle(el).getPropertyValue('--rig-fill'));
+  const selectedMarkerColor = await diagram.locator('[data-part-label="rod"] > circle').evaluate(el => getComputedStyle(el).fill);
   expect(selectedColor).not.toBe(missingColor);
   if (isMobile) {
     // Touch opens the matching gear chooser and does not save a simulated hover.
@@ -115,7 +116,7 @@ test('hover previews unselected gear while chosen tools stay colored', async ({ 
     await page.locator('.equipment-table tr[data-category="reel"]').hover();
     await expect(diagram.locator('[data-part="rod"]')).toHaveCSS('--rig-fill', selectedColor);
     await expect(diagram.locator('[data-part="reel"]')).toHaveCSS('--rig-fill', selectedColor);
-    await expect(diagram.locator('[data-part-label="rod"] > circle')).toHaveCSS('fill', 'rgb(32, 118, 109)');
+    await expect(diagram.locator('[data-part-label="rod"] > circle')).toHaveCSS('fill', selectedMarkerColor);
     await expect(page.getByRole('tooltip')).toBeVisible();
     const nameBox = (await page.getByRole('tooltip').boundingBox())!;
     expect(nameBox.x).toBeGreaterThanOrEqual(8);
