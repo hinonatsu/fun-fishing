@@ -60,7 +60,7 @@ export function SearchSelect({ label, icon, value, choices, onChange, grid = fal
 }
 
 export function CompatibilityBadge({ status }: { status: CompatibilityResult["status"] }) {
-  return <span className={`status-badge ${status}`}>{status === "recommended" ? <Check size={13} /> : <Info size={13} />} {status === "recommended" ? "推奨" : status === "avoid" ? "非推奨" : "要確認"}</span>;
+  return <span className={`status-badge ${status}`}>{status === "recommended" ? <Check size={13} /> : <Info size={13} />} {status === "recommended" ? "仕様を照合" : status === "avoid" ? "条件に合わない" : "購入前に確認"}</span>;
 }
 
 export function Notice({ children, tone = "info" }: { children: ReactNode; tone?: "info" | "warning" }) {

@@ -20,8 +20,8 @@ export const questions: DiagnosisQuestion[] = [
     { value: 'unsure', label: '相場を見ながら決めたい', description: 'まずは必要な道具を知りたい。', icon: '💭' },
   ] },
   { id: 'experience', title: '釣りの経験はありますか？', description: '道具を選ぶときの説明に役立てます。', options: [
-    { value: 'first', label: '今回がはじめて', description: '準備から、ひとつずつ知りたい。', icon: '🌱' },
-    { value: 'some', label: '何度か釣ったことがある', description: '自分の道具を揃えてみたい。', icon: '🎣' },
+    { value: 'first', label: '釣りは初めて', description: '準備から、ひとつずつ知りたい。', icon: '🌱' },
+    { value: 'some', label: '経験はあるが、道具の準備は初めて', description: '一度だけ連れていってもらった人もこちら。', icon: '🎣' },
     { value: 'experienced', label: '自分で準備したことがある', description: '仕様を見ながら比較したい。', icon: '🧰' },
   ] },
   { id: 'bait', title: 'エサを使う釣りはどうですか？', description: '苦手なことも、選ぶための大切なヒントです。', options: [
@@ -44,10 +44,10 @@ export const questions: DiagnosisQuestion[] = [
     { value: 'cost', label: '購入費用', description: '確認できた価格を比べて選びたい。', icon: '👛' },
     { value: 'specs', label: '仕様を確認できること', description: '用途や素材に納得して選びたい。', icon: '🔎' },
   ] },
-  { id: 'water', title: '水はどこから用意する予定？', description: '汎用バケツを候補にできるか確認します。', options: [
+  { id: 'water', title: '手や道具を洗う水は、どこで用意しますか？', description: '水の用意に合うバケツを選びます。施設が決まっていなければ、あとで確認できます。', options: [
     { value: 'tap', label: '施設の水道などで用意する', description: '地上で水を入れる容器として使う。', icon: '🚰' },
     { value: 'sea', label: '海からロープで水をくむ', description: '水くみ用の釣り専用品が必要。', icon: '🪣' },
-    { value: 'unsure', label: 'まだわからない', description: '水くみ用の専用品を基本候補に。', icon: '💭' },
+    { value: 'unsure', label: '釣り場が決まってから確認する', description: '水道の有無と、水くみができる場所を施設に聞きます。', icon: '💭' },
   ] },
   { id: 'time', title: 'どの時間帯に出かけたい？', description: '釣果を予測する質問ではありません。釣行メモとして保存します。', options: [
     { value: 'morning', label: '朝から', description: '早起きして、海で一日を始めたい。', icon: '🌅' },

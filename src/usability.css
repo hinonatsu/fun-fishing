@@ -1,0 +1,118 @@
+/* Beginner purchase flow: task controls precede optional illustrations. */
+[hidden] { display:none!important; }
+.journey-progress li > button { display:flex;align-items:center;gap:8px;min-height:44px;text-align:left;border-radius:6px; }
+.journey-progress li > button > span { display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:1px solid #bdcdc3;border-radius:50%;font-size:11px; }
+.journey-progress .current > button > span { background:var(--teal);color:white;border-color:var(--teal); }
+.journey-progress .completed > button > span { background:#e9f2e9;color:var(--teal-dark); }
+.journey-progress button:disabled { opacity:.65;cursor:default; }
+.condition-chips { flex-wrap:wrap; }
+.condition-chip-edit { display:inline-flex;align-items:center;gap:6px;border:1px solid #cbdace;border-radius:6px;min-height:42px;padding:7px 10px;background:#fff;color:#325b50;font-size:12px; }
+.condition-chip-edit small { font-size:10px;color:#536a60;border-left:1px solid #dce5de;padding-left:5px; }
+.focused-page { overflow-wrap:anywhere; }
+.focused-page .small,.focused-page .quiet-note { font-size:13px;line-height:1.8; }
+.focused-page .external-link,.focused-page .text-button { font-size:13px;min-height:44px; }
+.focused-page details > summary { cursor:pointer;min-height:44px;padding:10px 0;color:#315b50;font-size:14px;font-weight:600; }
+.focused-page input:not([type=checkbox]),.focused-page select { min-height:44px;border:1px solid #b8cbbd;border-radius:7px;padding:9px 11px;font:inherit;font-size:16px;color:#23463d;background:white;max-width:100%;min-width:0; }
+.focused-page input[type=checkbox] { width:20px;height:20px;accent-color:var(--teal);flex:none; }
+.focused-page label { color:#345b50; }
+.field-label-block { display:grid;gap:8px;margin:18px 0; }
+.field-label-block select { width:100%; }
+.trip-facts { display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f1f6ee;border:1px solid #dce7d7;border-radius:10px;padding:14px 16px;margin:14px 0; }
+.trip-facts strong,.trip-facts span { display:block; }.trip-facts span { font-size:13px;color:#526b5e;margin-top:4px; }
+.trip-facts .text-button { flex:none; }
+.regional-info { padding:14px 16px;border:1px solid #dce7d7;border-radius:9px;background:#f7faf3;margin:18px 0; }
+.regional-info p { font-size:13px;line-height:1.8;color:#536c5d;margin-top:4px; }
+.fish-filters { margin:10px 0; }.fish-filters > summary { width:max-content;max-width:100%; }
+.fish-toolbar { grid-template-columns:repeat(2,minmax(0,1fr)); }.fish-toolbar .fish-search { grid-column:1/-1; }
+.fish-context-note { margin-bottom:10px;font-size:14px; }
+.fish-result-count { margin:10px 0 14px; }.fish-result-count span { font-size:12px; }
+.focused-wide .fish-body { padding:17px; }.focused-wide .fish-body p { font-size:14px;line-height:1.8;min-height:0; }
+.focused-wide .fish-body .fish-personal-reason { font-size:13px;line-height:1.8;margin-top:10px;padding-top:10px; }
+.fish-season-state { display:block;font-size:12px;font-weight:600;color:#5e6740;margin-top:8px; }
+.focused-wide .fish-body h2 { font-size:24px; }.fish-grid { margin-bottom:18px; }
+.style-art .rig-diagram { width:90px;height:110px; }.style-choice { min-width:0; }.style-choice > div { min-width:0;flex:1; }
+.style-facts { font-size:14px; }.style-facts dt { width:95px;flex:none; }.style-facts small { display:block;font-size:12px;margin-top:5px;color:#5a7164; }
+.method-personal-reason { background:#edf5e8;padding:10px;border-radius:6px; }
+.equipment-overview-layout,.gear-layout { align-items:start; }
+.equipment-health { margin:18px 0; }.equipment-health strong { font-size:16px; }.equipment-health p { font-size:13px; }
+.equipment-table th,.equipment-table td { overflow-wrap:anywhere; }.equipment-cost { width:155px;font-size:12px;line-height:1.7; }
+.equipment-cost small { display:block;font-size:12px;margin-top:5px; }.equipment-choice h2 { font-size:15px;line-height:1.8; }
+.equipment-choice p,.equipment-empty { font-size:13px; }.equipment-action { width:130px; }
+.equipment-action .button { white-space:normal;font-size:13px;min-height:44px; }
+.equipment-action .remove-choice { text-align:left;line-height:1.6; }.equipment-necessity { font-size:12px; }
+.quantity-control { display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;margin-top:10px; }
+.quantity-control input { width:78px; }.next-missing { margin-top:16px; }
+.equipment-cost-summary > strong { display:block;font-size:17px;margin-bottom:15px; }
+.tackle-toggle { display:flex;align-items:center;gap:8px;min-height:44px;width:100%;font-weight:600;font-size:14px;color:var(--teal-dark);text-align:left; }
+.tackle-overview-heading { margin-top:12px; }.tackle-diagram-caption { font-size:12px; }.tackle-diagram-caption strong { white-space:normal; }
+.tackle-part-copy strong { font-size:12px; }.tackle-part-copy small,.tackle-figure-note { font-size:11px; }
+.gear-card { min-width:0;padding:20px; }.gear-card-heading { gap:10px; }.gear-card-heading > span { font-size:12px; }
+.gear-card-main { gap:14px;margin-top:12px; }.gear-image { width:70px;min-width:70px;flex:none;flex-direction:column; }.gear-image small { font-size:10px;color:#627468;display:block;white-space:nowrap; }
+.gear-description h2 { font-size:18px;line-height:1.6; }.gear-description>p:not(.product-brand) { font-size:14px;line-height:1.7; }
+.gear-price { font-size:15px;line-height:1.8;margin-top:8px;display:block; }.gear-reason { font-size:13px;line-height:1.7;padding:10px;margin:10px 0; }
+.candidate-rule { font-size:13px;align-items:flex-start;line-height:1.7;gap:8px; }.candidate-rule .status-badge { flex:none; }
+.gear-card > .button { margin-top:12px;min-height:48px; }.gear-card .product-details { font-size:13px;line-height:1.8; }
+.status-badge { font-size:12px; }.status-badge svg { flex:none; }
+.purchase-unit { font-size:13px;color:#506a5a;line-height:1.8;margin-top:8px; }
+.product-details p { margin:10px 0; }.product-details ul { padding-left:20px; }.product-details li { margin:5px 0; }
+.candidate-confirmations h3 { margin-top:15px;font-size:15px; }.candidate-confirmations p { font-size:13px; }
+.included-choice { margin:0 0 16px; }.included-choice h2 { font-size:18px; }.included-choice p { font-size:14px; }
+.arrangement-choice,.owned-choice,.replacement-options,.product-use-help { margin-top:20px;border-top:1px solid #dce5d6;padding-top:7px; }
+.arrangement-choice p,.owned-choice p { font-size:14px;line-height:1.8; }.arrangement-choice .button { margin:12px 10px 0 0; }
+.product-use-help { border:1px solid #dce5d6;border-radius:10px;padding:18px;background:#f7f9f3; }.product-use-help h2 { font-size:18px;margin-bottom:8px; }
+.fit-guide { background:#f7f9f2;border:1px solid #dce5d6;border-radius:10px;padding:18px;margin-bottom:20px; }.fit-guide h2 { font-size:18px; }.fit-guide p { font-size:14px;line-height:1.8;margin:10px 0; }
+.form-columns { display:grid;grid-template-columns:1fr 1fr;gap:14px; }.form-columns label,.planning-form label { display:grid;gap:7px;min-width:0; }
+.planning-form { display:grid;gap:18px;font-size:14px;line-height:1.8; }.planning-form h2 { font-size:20px;margin-top:15px; }.planning-form>label { max-width:500px; }
+.quantity-row,.price-batch-row,.budget-row { display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid #dce5d6;min-width:0; }
+.quantity-row>div,.price-batch-row>div,.budget-row>div { min-width:0; }.quantity-row h2,.price-batch-row h2 { font-size:17px; }.quantity-row input { width:80px; }
+.quantity-row p,.price-batch-row p,.budget-row p { font-size:13px;line-height:1.8;color:#526c60;margin-top:5px; }
+.price-batch-row label { flex:0 0 240px; }.shipping-order { border:1px solid #d7e4d4;border-radius:10px;padding:18px;display:grid;gap:12px; }.shipping-order legend { padding:0 7px; }
+.budget-category { border-top:1px solid #dce5d6;margin-top:20px;padding-top:18px; }.budget-category h3 { font-size:18px; }.budget-category p { margin:8px 0; }
+.budget-offer { border:1px solid #cbdcc4;background:#f5f9f0;border-radius:9px;padding:16px;margin:12px 0; }.budget-offer .button { margin-top:8px; }
+.undo-action { display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:#f3f8e9;border:1px solid #cadab8;border-radius:8px;margin:14px 0; }
+.price-comparison { font-size:14px;line-height:1.8;min-width:0; }.price-comparison h2 { font-size:20px; }.price-comparison dl { margin-top:12px; }.price-comparison dl>div { gap:10px; }
+.price-comparison dt { font-size:13px; }.price-comparison dd { font-size:17px; }.price-comparison .small { font-size:12px; }
+.partial-price,.budget-message,.confirmation-inline { margin-top:12px; }.partial-price strong { display:block; }.cost-actions { display:flex;flex-direction:column;margin-top:12px; }
+.reference-details,.price-data-details { margin-top:14px;border-top:1px solid #dce5d6;padding-top:4px; }.reference-details p,.price-data-details p { font-size:13px;line-height:1.8; }
+.reference-details ul { padding-left:20px; }.reference-details li { margin:12px 0; }.review-sidebar { top:20px;max-height:calc(100dvh - 40px);overflow-y:auto; }
+.review-compatibility { margin:16px 0 22px;border:1px solid #d7e2cf;border-radius:10px;padding:12px 16px; }
+.review-compatibility>p { font-size:14px;line-height:1.8; }.confirmation-item { border-top:1px solid #dce5d6;padding:16px 0; }.confirmation-item h3 { display:inline;font-size:16px;margin-left:8px; }.confirmation-item p { font-size:14px;line-height:1.8;margin-top:9px; }
+.question-copy { padding:12px;background:#f3f7ee;border-radius:7px; }.question-copy p { font-size:13px;line-height:1.8; }.question-copy>span { display:block;font-size:12px; }
+.verified-rules>div { margin:12px 0;font-size:13px; }.review-item h2 { font-size:16px; }.review-item p { font-size:13px; }.review-item .text-button { font-size:13px; }
+.supplies-checklist { border:1px solid #dce5d6;border-radius:10px;padding:18px;margin:20px 0; }.supplies-checklist h2 { font-size:20px; }.supplies-checklist>p { font-size:14px;line-height:1.8;margin:10px 0; }
+.supplies-checklist>label { display:flex;align-items:start;gap:12px;min-height:48px;padding:12px 0;border-top:1px solid #e4ebde;cursor:pointer; }.supplies-checklist input { margin-top:4px; }.supplies-checklist strong,.supplies-checklist small { display:block; }.supplies-checklist strong { font-size:14px; }.supplies-checklist small { font-size:13px;line-height:1.8;margin-top:4px; }
+.shopping-info h2 { font-size:17px; }.shopping-info>p { font-size:14px;line-height:1.8;margin-top:8px; }.shopping-actions .buy-link { font-size:13px;min-height:44px; }.shopping-category { font-size:13px; }
+.shopping-info .delivery-check { margin-top:14px; }.delivery-check p,.delivery-check label { font-size:13px;line-height:1.8; }.delivery-check label { display:grid;gap:7px; }.delivery-check input { width:max-content; }
+.thread-guide { margin:12px 0;padding:10px;background:#f6f9f1;border-radius:8px; }.thread-guide svg { width:100%;max-width:480px;height:auto; }.thread-guide text { font-size:12px;fill:#2d5144; }.thread-guide figcaption { font-size:12px;line-height:1.8; }
+.glossary-list { font-size:14px;line-height:1.8; }.glossary-list>details { border-bottom:1px solid #dce5d6;padding:4px 0; }.glossary-list summary { cursor:pointer;padding:12px 0;min-height:44px;font-weight:600; }.glossary-list summary span { display:block;font-size:13px;font-weight:400;color:#536b5e; }.glossary-list details p { margin:5px 0 16px; }.glossary-list input { width:100%;min-height:44px;border:1px solid #b9c9ba;border-radius:7px;padding:10px;font:inherit; }
+.save-card { font-size:14px;line-height:1.9; }.save-card>.button { margin-bottom:12px; }.save-card h2 { font-size:19px;margin-top:22px; }.save-card p { margin:10px 0; }
+.share-qr { margin:16px auto;max-width:100%;text-align:center; }.share-qr img { display:block;width:min(100%,360px);height:auto;image-rendering:pixelated;margin:auto; }.share-qr figcaption { font-size:13px; }.share-url-details input { width:100%; }.share-status { min-height:24px; }
+.rig-switcher { display:grid;gap:8px;max-width:440px;margin:0 0 18px; }.rig-all-methods { margin-top:24px; }.rig-all-methods .rig-library-choices { margin-top:12px; }
+.rig-part.is-planned { --rig-ink:#896427;--rig-fill:#e4d09a;--rig-soft:#fbf4df;--rig-metal:#a78c4c; }
+@media(max-width:850px) {
+  .gear-progress.visual-progress { order:2;padding:14px; }.has-tackle>.tackle-overview { order:2;padding:12px 16px; }.equipment-cost-summary { order:1; }
+  .review-sidebar { max-height:none;overflow:visible; }.journey-progress ol { gap:12px; }.journey-progress li>button { gap:5px; }
+  .equipment-action { width:auto; }.equipment-choice h2 { font-size:15px; }.price-batch-row { align-items:start; }
+}
+@media(max-width:600px) {
+  .header-inner { height:64px; }.brand { font-size:15px;gap:6px; }.brand-caption { font-size:7px; }.focused-header-links { gap:10px;font-size:12px; }.focused-header-links>span { font-size:10px; }.focused-header-links>span svg { display:none; }
+  .journey-progress ol { gap:4px;padding-block:6px; }.journey-progress li { flex:1;min-width:0;justify-content:center; }.journey-progress li>button { flex-direction:column;gap:2px;text-align:center;min-height:48px;width:100%; }.journey-progress li strong { font-size:9px;white-space:nowrap; }
+  .focused-page { padding-top:12px;padding-bottom:70px; }.focused-heading { margin:14px 0 18px; }.focused-heading h1 { font-size:25px;margin:7px 0 9px;line-height:1.5; }.focused-heading>p:last-child { font-size:14px;line-height:1.8; }
+  .condition-chip-edit { padding:5px 7px;min-height:38px;gap:4px;font-size:11px; }.condition-chip-edit small { font-size:9px; }.condition-chips { gap:6px; }
+  .trip-facts { padding:10px 12px;gap:8px; }.trip-facts strong { font-size:14px; }.trip-facts span { font-size:12px; }.trip-facts .text-button { font-size:11px; }
+  .fish-context-note { font-size:13px;margin-top:12px; }.fish-result-count { margin:7px 0 12px;font-size:13px; }.fish-result-count span { font-size:11px; }
+  .focused-wide .fish-art { width:90px;min-height:180px; }.focused-wide .fish-body { padding:13px; }.focused-wide .fish-body h2 { font-size:22px; }.focused-wide .fish-body p { font-size:13px; }.focused-wide .fish-body .fish-personal-reason { font-size:12px; }.fish-members { font-size:11px; }
+  .fish-filters { margin:4px 0; }.fish-filters>summary { font-size:13px;min-height:40px; }.fish-grid { gap:14px; }
+  .style-choice { padding:16px;gap:9px; }.style-art .rig-diagram { width:42px;height:66px; }.style-choice h2 { font-size:23px; }.style-choice p { font-size:14px; }.style-facts { font-size:13px; }.style-facts dt { width:75px; }
+  .equipment-health { padding:13px;gap:10px; }.equipment-health strong { font-size:15px; }.equipment-health p { font-size:12px; }.equipment-table tbody tr { padding:16px 0; }.equipment-choice h2 { font-size:15px; }.equipment-cost { font-size:13px;width:auto; }.equipment-action .button { font-size:13px; }
+  .equipment-table .quantity-control { margin-top:9px; }.equipment-table .equipment-action { display:flex;flex-wrap:wrap;gap:10px;align-items:center; }
+  .gear-card { padding:16px; }.gear-card-main { gap:10px; }.gear-image { width:49px;min-width:49px; }.gear-image svg { width:47px;height:57px; }.gear-description h2 { font-size:16px;line-height:1.5; }.gear-description>p:not(.product-brand) { font-size:13px;line-height:1.7; }.gear-price { font-size:14px;line-height:1.7; }.gear-reason { font-size:12px;margin:9px 0;padding:9px; }.candidate-rule { font-size:12px;gap:7px; }.status-badge { font-size:11px; }.gear-card>.button { margin-top:10px; }.gear-card .external-link { font-size:12px; }
+  .gear-mobile-progress { font-size:11px;padding:10px 18px;gap:9px; }.gear-mobile-progress>span { min-width:0;max-width:57%; }.gear-mobile-progress>span:last-child { text-align:right;max-width:43%; }.gear-mobile-progress small { font-size:10px; }
+  .fit-guide { padding:14px; }.fit-guide p { font-size:13px; }.fit-guide h2 { font-size:17px; }.included-choice { padding:14px; }.included-choice h2 { font-size:17px; }.included-choice p { font-size:13px; }.included-choice>.lucide { display:none; }
+  .form-columns { gap:10px; }.quantity-row,.price-batch-row,.budget-row { flex-direction:column;align-items:stretch;gap:12px; }.quantity-row>label { align-self:start; }.price-batch-row label { flex:auto; }.quantity-row strong { font-size:14px; }
+  .review-sidebar { padding:18px; }.review-item { padding-block:18px;flex-wrap:wrap; }.review-item>div:nth-child(2) { flex:1;min-width:0; }.review-item h2 { font-size:15px; }.review-item .price-edit { position:static;margin-left:65px; }.review-item p { font-size:13px; }.review-item-icon { width:48px;height:58px; }
+  .confirmation-item h3 { display:block;margin:7px 0 0;font-size:16px; }.confirmation-item p { font-size:13px; }.review-compatibility { padding:10px 13px; }.review-compatibility>p { font-size:13px; }
+  .shopping-info h2 { font-size:15px; }.shopping-info>p { font-size:13px; }.shopping-art { width:42px; }.shopping-info { width:calc(100% - 86px); }.shopping-actions { margin-left:76px; }.shopping-actions .buy-link { font-size:12px; }
+  .rig-library-visual .rig-diagram { max-height:320px;width:auto;max-width:100%; }.rig-library-visual { padding:14px; }.rig-library-explanation { padding:20px 16px; }.rig-library-summary { font-size:14px; }
+  .save-card { padding:20px 16px; }.share-qr img { width:100%; }.month-decisions button>span { font-size:10px; }.focused-footer>div { gap:5px 12px; }
+}

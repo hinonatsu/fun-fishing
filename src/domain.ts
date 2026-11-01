@@ -1,6 +1,7 @@
 import { areas, allCategories, categories, fishSpecies, fishingFields, methods, products, replacedProductIds, seasonality, type CategoryId, type Product } from './catalog';
 import { validAnswers } from './diagnosis';
 import { coveringProduct, equipmentFor, includedLineProduct, productApplies, selectableMethodIds } from './equipment';
+import { validPreparation, type PreparationPlan } from './preparation';
 export type { CategoryId } from './catalog';
 
 export interface FishingConditions { month: number; area: string; field: string }
@@ -10,8 +11,9 @@ export interface FishingBuild {
   answers: Record<string,string>; included: CategoryId[]; prices: Record<string,number>;
   shipping: { selected: number | null; reference: number | null };
   drafts?: Record<string,EquipmentDraft>;
+  preparation?: PreparationPlan;
 }
-export interface EquipmentDraft { selection: Record<CategoryId,string>; checked: CategoryId[]; owned: CategoryId[]; included: CategoryId[]; shipping: FishingBuild['shipping'] }
+export interface EquipmentDraft { selection: Record<CategoryId,string>; checked: CategoryId[]; owned: CategoryId[]; included: CategoryId[]; shipping: FishingBuild['shipping']; preparation?: PreparationPlan }
 export type CompatibilityStatus = 'recommended' | 'check' | 'avoid';
 export interface CompatibilityResult { id: string; status: CompatibilityStatus; title: string; reason: string; categoryIds: CategoryId[] }
 export interface CompatibilityRule { id: string; title: string; categoryIds: CategoryId[]; sourceUrls: string[] }
@@ -153,12 +155,12 @@ export function evaluateMethodCompatibility(build:FishingBuild):CompatibilityRes
 export function safeExternalUrl(value: string): string | null {
   try {
     const url = new URL(value);
-    const hosts = new Set(['www.daiwa.com','www.hayabusa.co.jp','www.honda.co.jp','www.marukyu.com','bluestorm.jp','jp.daisonet.com','store.castingnet.jp','affiliate.amazon.co.jp','www.amazon.co.jp','www.jma.go.jp','www.kaiho.mlit.go.jp','yokohama-fishingpiers.jp','www.yamaria.co.jp','www.gamakatsu.co.jp','fish.shimano.com','begood-funegg.jackall.co.jp','www.ishiguro-gr.com','fishland.jp','www.proxinc.co.jp','www.seaguar.ne.jp','yamatoyo.com','www.majorcraft.co.jp','www.sasame.co.jp','www.daiichiseiko.com','www.fujitackle.com','fishing-fujiwara.com','www.owner.co.jp','www.rapala.co.jp','rapala.co.jp','fujitoki.co.jp','www.mr-dragon.jp','www.hamadashokai.co.jp','web.tsuribito.co.jp']);
+    const hosts = new Set(['www.daiwa.com','www.hayabusa.co.jp','www.honda.co.jp','www.marukyu.com','bluestorm.jp','jp.daisonet.com','store.castingnet.jp','affiliate.amazon.co.jp','www.amazon.co.jp','www.jma.go.jp','www.kaiho.mlit.go.jp','yokohama-fishingpiers.jp','www.yamaria.co.jp','www.gamakatsu.co.jp','fish.shimano.com','begood-funegg.jackall.co.jp','www.ishiguro-gr.com','fishland.jp','www.proxinc.co.jp','www.seaguar.ne.jp','yamatoyo.com','www.majorcraft.co.jp','www.sasame.co.jp','www.daiichiseiko.com','www.fujitackle.com','fishing-fujiwara.com','www.owner.co.jp','www.rapala.co.jp','rapala.co.jp','fujitoki.co.jp','www.mr-dragon.jp','www.hamadashokai.co.jp','web.tsuribito.co.jp','www.yokohama-fishingpiers.jp','nankou-uotsuri-en.com','www.city.shizuoka.lg.jp','faq.globeride.co.jp','www.mlit.go.jp','www6.kaiho.mlit.go.jp','www.komeri.com']);
     return url.protocol === 'https:' && !url.username && !url.password && !url.port && hosts.has(url.hostname) ? url.href : null;
   } catch { return null; }
 }
 export function encodeBuild(build: FishingBuild): string {
-  const bytes = new TextEncoder().encode(JSON.stringify({v:3,conditions:build.conditions,fishId:build.fishId,methodId:build.methodId,selection:build.selection,checked:build.checked,owned:build.owned,answers:build.answers,included:build.included,prices:build.prices,shipping:build.shipping,...(build.drafts?{drafts:build.drafts}:{})}));
+  const bytes = new TextEncoder().encode(JSON.stringify({v:4,conditions:build.conditions,fishId:build.fishId,methodId:build.methodId,selection:build.selection,checked:build.checked,owned:build.owned,answers:build.answers,included:build.included,prices:build.prices,shipping:build.shipping,...(build.drafts?{drafts:build.drafts}:{}),...(build.preparation?{preparation:build.preparation}:{})}));
   let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte);
   return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
@@ -168,7 +170,7 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     if (encoded.length < 8 || encoded.length > 65000 || !/^[\w-]+$/.test(encoded)) return null;
     const binary = atob(encoded.replace(/-/g,'+').replace(/_/g,'/'));
     const value: unknown = JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Uint8Array.from(binary,c=>c.charCodeAt(0))));
-    if (!record(value) || ![1,2,3].includes(value.v as number) || !record(value.conditions) || !record(value.selection)) return null;
+    if (!record(value) || ![1,2,3,4].includes(value.v as number) || !record(value.conditions) || !record(value.selection)) return null;
     const c = value.conditions;
     if (typeof c.month !== 'number' || !Number.isInteger(c.month) || c.month < 1 || c.month > 12 || !areas.some(a => a.id === c.area) || !fishingFields.some(f=>f.id===c.field)) return null;
     if (typeof value.fishId !== 'string' || (value.fishId !== '' && !fishSpecies.some(f=>f.id===value.fishId))) return null;
@@ -200,19 +202,22 @@ export function decodeBuild(encoded: string): FishingBuild | null {
     if ((shipping.selected !== null && !money(shipping.selected)) || (shipping.reference !== null && !money(shipping.reference))) return null;
     if (included.some(id=>id !== 'line' || selection.line !== '' || owned.includes('line') || owned.includes('reel') || !byId.get(selection.reel)?.technical.includedLine)) return null;
     if (owned.some(id=>included.includes(id))) return null;
+    if (value.preparation !== undefined && !validPreparation(value.preparation)) return null;
+    if (value.preparation?.arrangements && Object.keys(value.preparation.arrangements).some(id => selection[id as CategoryId] || owned.includes(id as CategoryId) || included.includes(id as CategoryId))) return null;
     const result:FishingBuild={ conditions,fishId:value.fishId,methodId:value.methodId as string,selection,checked,owned,answers,included,prices:prices as Record<string,number>,shipping:{selected:shipping.selected as number|null,reference:shipping.reference as number|null},...(replacedCategories.length ? {replacedCategories} : {}) };
-    result.checked=checked.filter(id=>(!!selection[id]||owned.includes(id)||included.includes(id)||!!coveringProduct(result,id))&&!replacedCategories.includes(id));
+    if (value.preparation !== undefined) result.preparation = value.preparation;
+    result.checked=checked.filter(id=>(!!selection[id]||owned.includes(id)||included.includes(id)||!!coveringProduct(result,id)||!!result.preparation?.arrangements?.[id])&&!replacedCategories.includes(id));
     if(value.drafts!==undefined) {
-      if(value.v!==3||!record(value.drafts)||Object.keys(value.drafts).length>120) return null;
+      if(![3,4].includes(value.v as number)||!record(value.drafts)||Object.keys(value.drafts).length>120) return null;
       const drafts:Record<string,EquipmentDraft>={};
       for(const [key,draft] of Object.entries(value.drafts)) {
         if(!record(draft)) return null;
         const [fishId,methodId,...extra]=key.split(':');
         if(extra.length||!fishSpecies.find(f=>f.id===fishId)?.methodIds.includes(methodId)||!selectableMethodIds.includes(methodId)) return null;
         // Reuse the strict active-selection validator, without recursive drafts.
-        const decoded=decodeBuild(encodeBuild({...result,fishId,methodId,selection:draft.selection as Record<CategoryId,string>,checked:draft.checked as CategoryId[],owned:draft.owned as CategoryId[],included:draft.included as CategoryId[],shipping:draft.shipping as FishingBuild['shipping'],drafts:undefined}));
+        const decoded=decodeBuild(encodeBuild({...result,fishId,methodId,selection:draft.selection as Record<CategoryId,string>,checked:draft.checked as CategoryId[],owned:draft.owned as CategoryId[],included:draft.included as CategoryId[],shipping:draft.shipping as FishingBuild['shipping'],preparation:draft.preparation as PreparationPlan|undefined,drafts:undefined}));
         if(!decoded) return null;
-        drafts[key]={selection:decoded.selection,checked:decoded.checked,owned:decoded.owned,included:decoded.included,shipping:decoded.shipping};
+        drafts[key]={selection:decoded.selection,checked:decoded.checked,owned:decoded.owned,included:decoded.included,shipping:decoded.shipping,...(decoded.preparation?{preparation:decoded.preparation}:{})};
       }
       result.drafts=drafts;
     }

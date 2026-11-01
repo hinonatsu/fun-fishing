@@ -1,10 +1,12 @@
 import { ArrowLeft, ArrowRight, CalendarDays, MapPin, Waves } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { areas, fishingFields } from './catalog';
-import type { FishingConditions } from './domain';
+import { getFish, type FishingConditions } from './domain';
+import { regionalGuides } from './guidance';
+import { ExternalLinkButton } from './ui';
 
-export function FlowShell({ eyebrow, title, description, onBack, children, wide = false }: { eyebrow: string; title: string; description: string; onBack: () => void; children: ReactNode; wide?: boolean }) {
-  return <div className={`container focused-page ${wide ? 'focused-wide' : ''}`}><button className="back-button" onClick={onBack}><ArrowLeft size={16} />戻る</button><div className="focused-heading"><p className="eyebrow">{eyebrow}</p><h1 tabIndex={-1}>{title}</h1><p>{description}</p></div>{children}</div>;
+export function FlowShell({ eyebrow, title, description, onBack, children, wide = false, backLabel='戻る' }: { eyebrow: string; title: string; description: string; onBack: () => void; children: ReactNode; wide?: boolean; backLabel?:string }) {
+  return <div className={`container focused-page ${wide ? 'focused-wide' : ''}`}><button className="back-button" onClick={onBack}><ArrowLeft size={16} />{backLabel}</button><div className="focused-heading"><p className="eyebrow">{eyebrow}</p><h1 tabIndex={-1}>{title}</h1><p>{description}</p></div>{children}</div>;
 }
 
 export function ConditionsPage({ conditions, field, onChoose, onBack }: { conditions: FishingConditions; field: 'month'|'area'|'field'; onChoose: (value: string) => void; onBack: () => void }) {
@@ -16,7 +18,9 @@ export function ConditionsPage({ conditions, field, onChoose, onBack }: { condit
   }[field];
   return <FlowShell eyebrow={`PLAN YOUR DAY · ${field === 'month' ? '1' : field === 'area' ? '2' : '3'} / 3`} title={info.title} description={info.description} onBack={onBack}>
     <div className="condition-context">{info.icon}<span>{field === 'month' ? '季節から、出会える魚が変わります。' : field === 'area' ? `${conditions.month}月の釣りを計画中` : `${conditions.month}月 · ${areas.find(a=>a.id===conditions.area)?.name}`}</span></div>
-    {field === 'month' ? <div className="month-decisions" role="group" aria-label="釣りに行く月">{Array.from({length:12},(_,i) => <button key={i} onClick={() => onChoose(String(i+1))}><strong>{i+1}<small>月</small></strong><span>{i+1 === month ? '今月' : i+1 >= 4 && i+1 <= 10 ? '東京湾の季節の目安あり' : '全国の魚から選択'}</span></button>)}</div> : <div className="decision-options" role="group" aria-label={info.title}>{(field === 'area' ? areas.map(a=>({id:a.id,name:a.name,note:`${a.region} · ${a.supported ? '季節の目安あり' : '全国の魚から選択'}`})) : fishingFields.map(f=>({id:f.id,name:f.name,note:f.supported ? '足場の整った施設など' : '全国の魚から選択'}))).map(c => <button key={c.id} className="decision-option" onClick={() => onChoose(c.id)}><span className="decision-symbol">{info.icon}</span><span className="decision-copy"><strong>{c.name}</strong><span>{c.note}</span></span><ArrowRight size={18} /></button>)}{field === 'field' && <button className="decision-option" onClick={() => onChoose('pier')}><span className="decision-symbol"><Waves size={23} /></span><span className="decision-copy"><strong>おすすめの場所から始める</strong><span>足場の整った堤防・海釣り施設をご案内</span></span><ArrowRight size={18} /></button>}</div>}
-    <p className="quiet-note">ひとつ選ぶと、次の画面へ進みます。あとから戻って変更できます。</p>
+    {field === 'month' ? <div className="month-decisions" role="group" aria-label="釣りに行く月">{Array.from({length:12},(_,i) => <button key={i} onClick={() => onChoose(String(i+1))}><strong>{i+1}<small>月</small></strong><span>{i+1 === month ? '今月・' : ''}{i+1 >= 4 && i+1 <= 10 ? '東京湾・堤防の季節目安あり' : '季節情報は未整備'}</span></button>)}</div> : <div className="decision-options" role="group" aria-label={info.title}>{(field === 'area' ? areas.map(a=>({id:a.id,name:a.name,note:`${a.region} · ${getFish({...conditions,area:a.id,field:'pier'}).length ? `${conditions.month}月・堤防の季節目安あり` : `${conditions.month}月の季節情報は未整備`}`})) : fishingFields.map(f=>({id:f.id,name:f.name,note:f.id==='pier'?'堤防や施設の利用案内を確認して行き先を決める':f.id==='surf'?'砂の海岸。釣りができる場所と波の状態を確認':'海に面した岩場。足場・立入条件・必要装備を確認'}))).map(c => <button key={c.id} className="decision-option" onClick={() => onChoose(c.id)}><span className={`decision-symbol field-symbol ${c.id}`}>{info.icon}</span><span className="decision-copy"><strong>{c.name}</strong><span>{c.note}</span></span><ArrowRight size={18} /></button>)}</div>}
+    {field!=='month'&&<p className="quiet-note">季節情報の有無は、道具を選べるかとは別です。未整備は「釣れない」という意味ではありません。現地の時期・釣果を確認します。</p>}
+    {field==='field'&&<div className="regional-info"><ExternalLinkButton href={regionalGuides[conditions.area]?.url}>{regionalGuides[conditions.area]?.title}</ExternalLinkButton><p>{regionalGuides[conditions.area]?.note}</p></div>}
+    <p className="quiet-note">選ぶと保存されます。あとから変更できます。</p>
   </FlowShell>;
 }

@@ -45,8 +45,8 @@ export const areas: Area[] = [
 ];
 export const fishingFields: FishingField[] = [
   { id: 'pier', name: '堤防・海釣り施設', supported: true },
-  { id: 'surf', name: 'サーフ', supported: false },
-  { id: 'rock', name: '磯', supported: false },
+  { id: 'surf', name: '砂浜（サーフ）', supported: false },
+  { id: 'rock', name: '岩場（磯）', supported: false },
 ];
 const fishSource = 'https://www.honda.co.jp/fishing/enjoy/season/season-201707/';
 export const fishSpecies: FishSpecies[] = targetFish;
@@ -54,9 +54,9 @@ export const fishSpecies: FishSpecies[] = targetFish;
 export const seasonality: Seasonality[] = ['aji','iwashi','saba'].map(id => fishSpecies.find(f => f.id === id)!).map(fish => ({ fishId: fish.id, areaId: 'tokyo-bay', fieldId: 'pier', months: fish.months, sourceUrl: fishSource, note: '関東の一般的な季節傾向を東京湾の試作シナリオに限定して使用。直近の釣果予測ではありません。' }));
 export const methods: FishingMethod[] = targetMethods;
 export const categories: EquipmentCategory[] = [
-  { id: 'rod', label: 'ロッド', necessity: 'required', description: '釣り竿。重さの合うカゴを使います。' },
+  { id: 'rod', label: '釣り竿（ロッド）', necessity: 'required', description: '釣り竿。重さの合うカゴを使います。' },
   { id: 'reel', label: 'リール', necessity: 'required', description: '糸を巻いて魚を引き寄せる道具です。' },
-  { id: 'line', label: 'メインライン', necessity: 'required', description: 'リールに巻く糸。150mを巻く想定です。' },
+  { id: 'line', label: 'リールに巻く糸（道糸）', necessity: 'required', description: 'リールに巻く糸。150mを巻く想定です。' },
   { id: 'rig', label: 'サビキ仕掛け', necessity: 'required', description: '小さな針が並んだ、魚を掛ける部分です。' },
   { id: 'basket', label: 'サビキカゴ', necessity: 'required', description: 'エサを入れて魚を寄せます。オモリ付きです。' },
   { id: 'bait', label: 'エサ・コマセ', necessity: 'required', description: 'カゴに入れるエサ。現地の釣具店でも調達できます。' },
@@ -78,7 +78,7 @@ export const allCategories: EquipmentCategory[] = [...categories,
     ['burakuri','ブラクリ','オモリ・短いハリス・針が一体の穴釣り仕掛けです。'],
     ['cushion','保護ゴム','オモリから結び目を保護する部品です。'],
     ['shock','力糸','投げる負荷に備える糸。道糸との接続を確認します。'],
-    ['net','玉網','魚と釣り場の高さに合う取り込み用具を準備します。'],
+    ['net','魚をすくう網（玉網）','水面の魚をすくう網と柄。釣り場の高さと持ち運びに合う物を準備します。'],
     ['pliers','針外し・プライヤー','針を安全に外すための道具です。'],
     ['cooler','保冷用品','持ち帰る魚を冷やす容器。氷も準備します。'],
     ['chum','コマセ','魚を寄せるエサ。針に付けるエサとは別に準備します。'],
@@ -92,7 +92,7 @@ const source = {
 };
 /** Individual ASINs were checked in the Amazon browser UI, including selected variants. */
 export function amazonLinkLabel(product: Product): string {
-  return product.offer.retailer === 'Amazon.co.jp' ? 'Amazonで価格を確認' : '購入先で確認';
+  return product.offer.retailer === 'Amazon.co.jp' ? 'Amazonの商品ページへ' : '購入先の商品ページへ';
 }
 function product(data: Omit<Product, 'price' | 'amazonPrice' | 'verification' | 'record' | 'offer'> & { verification?: VerificationStatus; note?: string }): Product {
   const { note = 'メーカー公式の型番・仕様を確認。価格・在庫はAmazonのリンク先で確認してください。', verification = 'verified', ...rest } = data;

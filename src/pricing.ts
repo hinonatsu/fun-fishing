@@ -19,8 +19,8 @@ export function productPriceLabel(build: Pick<FishingBuild, 'prices'>, product: 
   if (price !== null && row?.fetchedAt) return `${yen(price)}（Amazon・${date(row.fetchedAt)}取得・送料別）`;
   if (row?.status === 'unavailable') return 'Amazonで現在購入できる価格がありません';
   if (row?.price !== null && row?.price !== undefined && row.fetchedAt) {
-    return `前回 ${yen(row.price)}（${date(row.fetchedAt)}取得・${row.status === 'ok' ? '更新待ち' : '取得失敗'}・集計対象外）`;
+    return `${row.status === 'ok' ? '最新価格は未確認' : '最新価格の取得に失敗'}。前回${yen(row.price)}（${date(row.fetchedAt)}確認・今回は合計に含めません）`;
   }
   if (row?.status === 'blocked' || row?.status === 'error') return 'Amazon価格を取得できませんでした。購入先で確認';
-  return '価格は購入先で確認（自動取得待ち）';
+  return '最新の価格情報がありません。購入先で確認してください';
 }

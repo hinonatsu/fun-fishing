@@ -33,7 +33,7 @@ export async function chooseAll(page: Page) {
     await page.getByRole('button',{name:`この商品を選ぶ：${p.name}`,exact:true}).click();
   }
   await expect(page).toHaveURL(/#builder$/);
-  await page.getByRole('button',{name:'この構成を確認する',exact:true}).click();
+  await page.getByRole('button',{name:'選んだ道具を確認する',exact:true}).click();
   await expect(page).toHaveURL(/#review$/);
 }
 export async function complete(page: Page) { await builder(page); await chooseAll(page); }
@@ -43,4 +43,9 @@ export function completedBuild() {
 export async function noOverflow(page: Page) {
   const width = await page.evaluate(()=>({actual:document.documentElement.scrollWidth,viewport:innerWidth}));
   expect(width.actual).toBeLessThanOrEqual(width.viewport);
+}
+
+export async function openOverview(page: Page) {
+  const toggle=page.getByRole('region',{name:'道具の全体像'}).getByRole('button',{name:'選んだ道具の全体図を開く',exact:true});
+  if(await toggle.isVisible()) await toggle.click();
 }

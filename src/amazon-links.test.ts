@@ -16,7 +16,7 @@ describe('Amazon purchase destinations', () => {
       expect(product.price).toBe(currentAmazonPrice(product.amazonPrice));
       expect(url.pathname).toMatch(/^\/dp\/[A-Z0-9]{10}$/);
       expect(url.searchParams.get('psc')).toBe('1');
-      expect(amazonLinkLabel(product)).toBe('Amazonで価格を確認');
+      expect(amazonLinkLabel(product)).toBe('Amazonの商品ページへ');
     });
   }
   it('requires a confirmed individual Amazon listing for every proposed product', () => {

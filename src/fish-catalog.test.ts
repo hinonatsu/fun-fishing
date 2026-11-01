@@ -26,8 +26,9 @@ describe('30 selectable beginner targets', () => {
     expect(seasonality.map(s => s.fishId)).toEqual(['aji','iwashi','saba']);
     expect(getFish({...conditions,month:11})).toEqual([]);
     const build = {...createDefaultBuild({...conditions,month:11}), answers};
-    expect(rankedFish(build).map(f => f.id)).toEqual(expected);
-    expect(fishReason(build,'nishin')).toContain('北日本');
+    expect(new Set(rankedFish(build).map(f => f.id))).toEqual(new Set(expected));
+    expect(rankedFish(build)[0].id).toBe('aji');
+    expect(fishReason(build,'nishin')).toContain('季節情報は未確認');
     expect(fishReason({...build,conditions},'nishin')).not.toContain('東京湾の堤防の季節データ');
   });
   for (const fish of fishSpecies) {

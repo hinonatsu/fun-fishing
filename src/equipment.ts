@@ -31,9 +31,10 @@ export function equipmentFor(build: EquipmentContext): EquipmentCategory[] {
   return ids.map(id=>{
     const c={...allCategories.find(c=>c.id===id)!};
     if(['bucket','pliers','net','cooler'].includes(id)) c.necessity='recommended';
+    if(id==='cooler'&&build.answers.keep==='eat') c.necessity='required';
     if(id==='net' && (['hechi','kago'].includes(build.methodId)||['buri','hirame','suzuki','madai'].includes(build.fishId))) c.necessity='required';
-    if(id==='rod') c.description='釣り方・対象魚に合う竿。適合する重量・糸を確認します。';
-    if(id==='line') c.description='道糸の素材・太さ・巻く長さを、釣り方とリールに合わせます。';
+    if(id==='rod') c.description='釣り竿。使う仕掛けの重さと、持ち運ぶときの長さを確認します。';
+    if(id==='line') c.description='リールに巻く糸（道糸）。付属する糸を使うか、別に用意するか選びます。';
     if(id==='rig' && build.methodId!=='sabiki' && build.methodId!=='uki-sabiki') {c.label=build.methodId==='dozuki'?'胴付き仕掛け':'投げ仕掛け';c.description='対象魚に合う針・ハリスの完成仕掛けを選びます。';}
     if(id==='rig'&&build.fishId==='kamasu'&&build.methodId==='sabiki') {c.label='カマス専用サビキ';c.description='カマス用の投げサビキ。カゴやコマセは使いません。';}
     if(id==='sinker'&&build.fishId==='kamasu'&&build.methodId==='sabiki') c.label='棒状オモリ';

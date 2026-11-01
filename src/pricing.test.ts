@@ -25,8 +25,8 @@ describe('daily Amazon price snapshots', () => {
   it('labels the source, Japan time and stale history truthfully', () => {
     expect(productPriceLabel(build,product,now)).toContain('Amazon・10/31 07:17取得・送料別');
     expect(productPriceLabel({...build,prices:{[product.id]:500}},product,now)).toBe('500円（手入力）');
-    expect(productPriceLabel(build,{...product,amazonPrice:{...record,status:'blocked'}},now)).toContain('取得失敗・集計対象外');
-    expect(productPriceLabel(build,product,now + MAX_PRICE_AGE_MS + 1)).toContain('更新待ち・集計対象外');
+    expect(productPriceLabel(build,{...product,amazonPrice:{...record,status:'blocked'}},now)).toContain('最新価格の取得に失敗');
+    expect(productPriceLabel(build,product,now + MAX_PRICE_AGE_MS + 1)).toContain('今回は合計に含めません');
   });
   it('rejects a corrupt snapshot, wrong ASIN, currency, timestamp and missing price', () => {
     const wrap = (row: unknown) => ({schemaVersion:1,products:{[product.id]:row}});

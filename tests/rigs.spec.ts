@@ -3,16 +3,16 @@ import AxeBuilder from '@axe-core/playwright';
 import { decodeBuild, encodeBuild } from '../src/domain';
 import { categories } from '../src/catalog';
 import { rigs } from '../src/rigs';
-import { builder, completedBuild, noOverflow } from './helpers';
+import { builder, completedBuild, noOverflow, openOverview } from './helpers';
 
 test('all twelve rig diagrams are reachable and show every labeled component', async ({ page }, info) => {
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.goto('./#rigs/sabiki');
-  const choices = page.getByRole('group', { name: '12種類の釣り方' });
-  await expect(choices.getByRole('button')).toHaveCount(12);
+  const choices = page.getByRole('combobox',{name:'図解の釣り方を切り替える'});
+  await expect(choices.locator('option')).toHaveCount(12);
   for (const rig of rigs) {
-    await choices.getByRole('button', { name: `${rig.name}の仕掛けを見る`, exact: true }).click();
+    await choices.selectOption(rig.id);
     await expect(page).toHaveURL(new RegExp(`#rigs/${rig.id}$`));
     const detail = page.getByRole('article', { name: `${rig.name}の仕掛け図解` });
     await expect(detail.getByRole('img', { name: new RegExp(`${rig.name}の道具全体図`) })).toBeVisible();
@@ -31,22 +31,27 @@ test('all twelve rig diagrams are reachable and show every labeled component', a
 
 test('choosing a product colors its part while the current unselected part stays grey', async ({ page }, info) => {
   await builder(page);
+  await openOverview(page);
   const overview = () => page.getByRole('region', { name: '道具の全体像' });
   await expect(overview().locator('[data-part][data-state="missing"]')).toHaveCount(8);
   const mobileKey = overview().locator('.tackle-mobile-key');
   if (await mobileKey.isVisible()) await mobileKey.locator('summary').click();
   await overview().getByRole('button', { name: '全体図から商品を選ぶ：1 ロッド 未選択', exact: true }).click();
+  await openOverview(page);
   await expect(overview().locator('[data-part="rod"]')).toHaveClass(/is-missing is-current/);
   await page.getByRole('button', { name: 'この商品を選ぶ：リバティクラブ 小継 磯 3-300', exact: true }).click();
+  await openOverview(page);
   await expect(overview().locator('[data-part="rod"]')).toHaveAttribute('data-state', 'selected');
   await expect(overview().locator('[data-part="reel"]')).toHaveAttribute('data-state', 'missing');
   await expect(page.getByRole('status').filter({ hasText: 'ロッドを反映しました。' })).toBeVisible();
   await overview().screenshot({ path: info.outputPath('setup-one-selected.png'), animations: 'disabled' });
   await page.getByRole('button', { name: 'リールの商品を選ぶ', exact: true }).click();
+  await openOverview(page);
   await expect(overview().locator('[data-part="rod"]')).toHaveAttribute('data-state', 'selected');
   await expect(overview().locator('[data-part="reel"]')).toHaveClass(/is-missing is-current/);
   await overview().screenshot({ path: info.outputPath('setup-current-reel.png'), animations: 'disabled' });
   await page.reload();
+  await openOverview(page);
   await expect(overview().locator('[data-part="reel"]')).toHaveClass(/is-missing is-current/);
   await noOverflow(page);
   await page.getByRole('button', { name: '12種類の仕掛けを見る', exact: true }).click();
@@ -65,6 +70,7 @@ test('owned and included components keep distinct labels and restore from a shar
   build.selection.line = '';
   build.included = ['line'];
   await page.goto(`./?build=${encodeBuild(build)}#builder`);
+  await openOverview(page);
   const overview = page.getByRole('region', { name: '道具の全体像' });
   await expect(overview.locator('[data-part="rod"]')).toHaveAttribute('data-state', 'owned');
   await expect(overview.locator('[data-part="line"]')).toHaveAttribute('data-state', 'included');
@@ -80,6 +86,7 @@ test('hovering a gear cell previews only that tool and restores the actual choic
   const build = completedBuild();
   build.selection.reel = '';
   await page.goto(`./?build=${encodeBuild(build)}#builder`);
+  await openOverview(page);
   await page.getByRole('button', { name: '通知を閉じる', exact: true }).click();
   await page.mouse.move(0, 0);
   const diagram = page.getByRole('region', { name: '道具の全体像' }).locator('svg.rig-diagram');
@@ -93,6 +100,7 @@ test('hovering a gear cell previews only that tool and restores the actual choic
     await expect(page).toHaveURL(/#builder\/reel$/);
     await page.getByRole('button',{name:'戻る',exact:true}).click();
     await expect(page).toHaveURL(/#builder$/);
+    await openOverview(page);
     await expect(diagram).not.toHaveAttribute('data-highlighted-part');
     await expect(page.getByRole('tooltip')).toHaveCount(0);
   } else {
@@ -112,6 +120,7 @@ test('hovering a gear cell previews only that tool and restores the actual choic
     await page.screenshot({ path: info.outputPath('hover-name-tooltip.png'), animations: 'disabled' });
     await page.getByRole('region', { name: '道具の全体像' }).screenshot({ path: info.outputPath('hover-reel.png'), animations: 'disabled' });
     await page.getByRole('heading', { level: 1 }).hover();
+    await openOverview(page);
     await expect(diagram).not.toHaveAttribute('data-highlighted-part');
     await expect(page.getByRole('tooltip')).toHaveCount(0);
   }
@@ -122,8 +131,10 @@ test('hovering a gear cell previews only that tool and restores the actual choic
 
 test('illustration parts, legend cells and keyboard focus highlight the matching tool', async ({ page, isMobile }) => {
   await page.goto(`./?build=${encodeBuild(completedBuild())}#builder`);
+  await openOverview(page);
   await page.getByRole('button', { name: '通知を閉じる', exact: true }).click();
   await page.mouse.move(0, 0);
+  await openOverview(page);
   const overview = page.getByRole('region', { name: '道具の全体像' });
   const diagram = overview.locator('svg.rig-diagram');
   if (!isMobile) {

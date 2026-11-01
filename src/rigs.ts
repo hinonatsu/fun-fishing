@@ -4,7 +4,7 @@ import { coveringProduct, equipmentFor, equipmentProfile } from './equipment';
 
 export type RigId = 'sabiki' | 'float' | 'lure' | 'hole' | 'bukkomi' | 'nage' | 'choi-nage' | 'dozuki' | 'uki-sabiki' | 'eging' | 'hechi' | 'kago';
 export type RigPartId = CategoryId | 'float' | 'stopper' | 'sinker' | 'leader' | 'swivel' | 'hook' | 'tenbin' | 'snap' | 'lure' | 'egi' | 'burakuri' | 'cushion' | 'shock';
-export type PartState = 'missing' | 'selected' | 'owned' | 'included';
+export type PartState = 'missing' | 'selected' | 'owned' | 'included' | 'planned';
 export interface RigPart { id: RigPartId; label: string; description: string; category?: CategoryId }
 export interface RigDefinition {
   id: RigId; name: string; variant: string; summary: string; connection: string[];
@@ -71,11 +71,11 @@ export function rigForBuild(build:FishingBuild):RigDefinition {
   if(build.methodId==='kago') {components=[...components.filter(p=>p.id!=='bait'),part('chum','コマセ','カゴに入れる寄せエサです。'),bait];sources=[{title:'HAYABUSA｜HA240 天秤カゴ釣りセット',url:'https://www.hayabusa.co.jp/hayabusa/products/HA240/'},...sources];}
   return {...rig,variant,connection,summary,sources,parts:components.map(p=>({...p,label:p.id==='safety'?p.label:equipment.find(c=>c.id===p.category)?.label||p.label}))};
 }
-export const partStateLabel: Record<PartState, string> = { missing: '未選択', selected: '選択済み', owned: '手持ち', included: '付属品' };
+export const partStateLabel: Record<PartState, string> = { missing: '未選択', selected: '選択済み', owned: '手持ち', included: '付属品', planned:'準備先を確認' };
 export function buildPartStates(build: FishingBuild, rig: RigDefinition): Partial<Record<RigPartId, PartState>> {
   return Object.fromEntries(rig.parts.map(p => {
     const category = p.category;
-    const state: PartState = !category ? 'missing' : build.owned.includes(category) ? 'owned' : build.included.includes(category)||!!coveringProduct(build,category) ? 'included' : products.some(product => product.id === build.selection[category] && product.category === category) ? 'selected' : 'missing';
+    const state: PartState = !category ? 'missing' : build.preparation?.arrangements?.[category] ? 'planned' : build.owned.includes(category) ? 'owned' : build.included.includes(category)||!!coveringProduct(build,category) ? 'included' : products.some(product => product.id === build.selection[category] && product.category === category) ? 'selected' : 'missing';
     return [p.id, state];
   }));
 }
