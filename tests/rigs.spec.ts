@@ -107,7 +107,7 @@ test('hovering a gear cell previews only that tool and restores the actual choic
     for (const category of categories) {
       await page.locator(`.equipment-table tr[data-category="${category.id}"]`).hover();
       await expect(diagram).toHaveAttribute('data-highlighted-part', category.id);
-      await expect(page.getByRole('tooltip')).toHaveText(rigs.find(r => r.id === 'sabiki')!.parts.find(p => p.category === category.id)!.label);
+      await expect(page.getByRole('tooltip')).toHaveText(category.label);
       const colors = await diagram.locator('[data-part]').evaluateAll(parts => parts.map(el => ({ id: el.getAttribute('data-part'), color: getComputedStyle(el).getPropertyValue('--rig-fill') })));
       expect(colors.filter(p => p.color === selectedColor).map(p => p.id)).toEqual([category.id]);
       expect(colors.filter(p => p.color === missingColor)).toHaveLength(7);
@@ -144,7 +144,7 @@ test('illustration parts, legend cells and keyboard focus highlight the matching
     for (const [category, [x, y]] of Object.entries(targets)) {
       await page.mouse.move(box.x + box.width * x / 430, box.y + box.height * y / 420);
       await expect(diagram).toHaveAttribute('data-highlighted-part', category);
-      await expect(page.getByRole('tooltip')).toHaveText(rigs.find(r => r.id === 'sabiki')!.parts.find(p => p.id === category)!.label);
+      await expect(page.getByRole('tooltip')).toHaveText(categories.find(c=>c.id===category)!.label);
       await expect(page.locator(`.equipment-table tr[data-category="${category}"]`)).toHaveClass(/is-highlighted/);
     }
     await diagram.locator('[data-part-label="reel"]').hover();

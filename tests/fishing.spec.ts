@@ -108,7 +108,7 @@ test('manual purchase prices and shipping compare complete costs without inventi
   await page.goto(`./?build=${encodeBuild(build)}#review`);
   const cost=page.getByLabel('今回の購入費用');
   await expect(cost).toContainText('確認済み分 7,000円');
-  await page.getByRole('button',{name:'バケツの価格を入力',exact:true}).click();
+  await page.getByRole('button',{name:'バケツ：価格をまとめて確認',exact:true}).click();
   await page.getByRole('spinbutton',{name:'アクティブバケツ ホワイト 8Lの税込価格',exact:true}).fill('500');
   await page.getByRole('button',{name:'価格を保存して戻る',exact:true}).click();
   await cost.getByText('別の道具一式と比較する（任意）',{exact:true}).click();
@@ -261,7 +261,7 @@ test('automated accessibility across all decision types',async({page})=>{
   await page.getByRole('button',{name:'釣り竿（ロッド）の商品を選ぶ',exact:true}).click(); await check();
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await chooseAll(page); await check();
-  await page.getByRole('button',{name:'釣り竿（ロッド）の価格を入力',exact:true}).click(); await check();
+  await page.getByRole('button',{name:'釣り竿（ロッド）：価格をまとめて確認',exact:true}).click(); await check();
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await page.getByRole('button',{name:'購入先の確認・リストの保存へ',exact:true}).click(); await check();
   await page.getByRole('button',{name:/リストのリンクを保管・共有する/}).click(); await check();

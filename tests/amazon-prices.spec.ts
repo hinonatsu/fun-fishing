@@ -17,12 +17,12 @@ test('daily prices appear in the review, manual overrides and shopping checklist
   const rod = page.getByRole('article').filter({has:page.getByRole('heading',{name:'リバティクラブ 小継 磯 3-300',exact:true})});
   await expect(rod).toContainText('1,000円（Amazon・');
   await noOverflow(page);
-  await page.getByRole('button',{name:'釣り竿（ロッド）の価格を入力',exact:true}).click();
+  await page.getByRole('button',{name:'釣り竿（ロッド）：価格をまとめて確認',exact:true}).click();
   await page.getByRole('spinbutton',{name:'リバティクラブ 小継 磯 3-300の税込価格',exact:true}).fill('500');
   await page.getByRole('button',{name:'価格を保存して戻る',exact:true}).click();
   await expect(rod).toContainText('500円（手入力）');
   await expect(page.getByLabel('今回の購入費用')).toContainText('7,500円');
-  await page.getByRole('button',{name:'釣り竿（ロッド）の価格を入力',exact:true}).click();
+  await page.getByRole('button',{name:'釣り竿（ロッド）：価格をまとめて確認',exact:true}).click();
   await page.getByRole('spinbutton',{name:'リバティクラブ 小継 磯 3-300の税込価格',exact:true}).fill('');
   await page.getByRole('button',{name:'価格を保存して戻る',exact:true}).click();
   await expect(page.getByLabel('今回の購入費用')).toContainText('8,000円');

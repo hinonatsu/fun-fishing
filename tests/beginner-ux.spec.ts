@@ -1,11 +1,12 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import {decodeBuild,encodeBuild} from '../src/domain';
+import {decodeBuild,encodeBuild,type FishingBuild} from '../src/domain';
 import {completedBuild,noOverflow} from './helpers';
 
 test('editing conditions preserves the plan, and an unsuitable M can use another preparation method',async({page})=>{
-  const build=completedBuild();
+  const build:FishingBuild=completedBuild();
   build.preparation={tripDate:'2026-10-30'};
+  build.answers.water='tap';
   await page.goto(`./?build=${encodeBuild(build)}#builder`);
   await page.getByRole('button',{name:'10月 変更（釣行月）',exact:true}).click();
   await page.getByRole('button',{name:/^11月/}).click();
@@ -14,7 +15,8 @@ test('editing conditions preserves the plan, and an unsuitable M can use another
   await page.getByRole('button',{name:'安全用品を変更する',exact:true}).click();
   await page.getByLabel('身長（cm・任意）',{exact:true}).fill('185');
   await page.getByLabel('胸囲（cm・任意）',{exact:true}).fill('105');
-  await expect(page.getByRole('button',{name:'この商品を選ぶ：トカラウ BSJ-201ARS レッド M',exact:true})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'別サイズ・準備方法を確認してください：トカラウ BSJ-201ARS レッド M',exact:true})).toBeDisabled();
+  expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']).analyze()).violations).toEqual([]);
   await page.getByText('掲載商品以外の準備方法を選ぶ',{exact:true}).click();
   await page.getByRole('button',{name:'施設の貸出を確認して用意する',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
@@ -24,13 +26,15 @@ test('editing conditions preserves the plan, and an unsuitable M can use another
   expect(saved.preparation?.tripDate).toBeUndefined();
   expect(saved.preparation?.arrangements?.safety).toBe('rental');
   expect(JSON.stringify(saved)).not.toContain('185');
+  await page.getByRole('button',{name:'バケツを変更する',exact:true}).click();
+  expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']).analyze()).violations).toEqual([]);
   await noOverflow(page);
 });
 
 test('partial prices, optional removal, quantities, shipping, preparation and sharing remain consistent',async({page,context})=>{
   test.setTimeout(120_000);
   await page.route('**/src/data/amazon-prices.json*',r=>r.fulfill({contentType:'application/javascript',body:'export default {schemaVersion:1,updatedAt:null,products:{}};'}));
-  const build=completedBuild();
+  const build:FishingBuild=completedBuild();
   build.answers.budget='20000';
   build.prices=Object.fromEntries(Object.values(build.selection).filter(Boolean).map(id=>[id,3000]));
   delete build.prices[build.selection.rod];
