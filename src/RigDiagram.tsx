@@ -104,8 +104,7 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
     if (rig.id === 'bukkomi') return <Worm x={110} y={301} />;
     return <Chum y={rig.id === 'uki-sabiki' ? 286 : 277} />;
   };
-  return <><svg ref={diagram} xmlns="http://www.w3.org/2000/svg" className={`rig-diagram${miniature ? ' miniature' : ''}${highlight ? ' has-highlight' : ''}`} viewBox="0 0 430 420" fill="none" role={miniature ? undefined : 'img'} aria-hidden={miniature || undefined} aria-labelledby={miniature ? undefined : `${id}-title ${id}-description`} focusable="false" data-rig={rig.id} data-highlighted-part={highlight} onPointerLeave={miniature ? undefined : () => hoverPart(undefined)}>
-    <title id={`${id}-title`}>{`${rig.name}の道具全体図`}</title>
+  return <><svg ref={diagram} xmlns="http://www.w3.org/2000/svg" className={`rig-diagram${miniature ? ' miniature' : ''}${highlight ? ' has-highlight' : ''}`} viewBox="0 0 430 420" fill="none" role={miniature ? undefined : 'img'} aria-hidden={miniature || undefined} aria-label={miniature ? undefined : `${rig.name}の道具全体図`} aria-describedby={miniature ? undefined : `${id}-description`} focusable="false" data-rig={rig.id} data-highlighted-part={highlight} onPointerLeave={miniature ? undefined : () => hoverPart(undefined)}>
     <desc id={`${id}-description`}>{rig.variant}。{rig.connection.join('、')}の順につながります。{activePart ? `いま選ぶ部分は${rig.parts.find(p => p.id === activePart)?.label}です。` : ''}番号は下の道具名と対応します。</desc>
     <g className="rig-scene" aria-hidden="true"><circle cx="219" cy="180" r="153" fill="#edf3ec" /><circle cx="216" cy="174" r="129" fill="#f5f8f2" /><path d="M43 326h342" stroke="#dce6da" strokeDasharray="3 7" /><text x="219" y="343" textAnchor="middle">いっしょに準備するもの</text><ellipse cx="108" cy="397" rx="31" ry="3" fill="#dfe8dc" /><ellipse cx="249" cy="397" rx="35" ry="3" fill="#dfe8dc" /><ellipse cx="379" cy="397" rx="29" ry="3" fill="#dfe8dc" /></g>
     {part('rod', <Rod />)}
