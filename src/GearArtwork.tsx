@@ -12,7 +12,8 @@ export function GearIllustration({ category, variant, shadow = true, className =
   const id = `gear-shadow-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const vertical = variant === 'vertical-rod';
   const file = vertical ? 'rod-vertical' : variant === 'drum' ? 'reel-drum' : category;
-  const source = `${import.meta.env.BASE_URL}images/gear/${encodeURIComponent(file)}.svg`;
+  const revision = category === 'reel' || category === 'safety' ? '?v=realistic-20261101' : '';
+  const source = `${import.meta.env.BASE_URL}images/gear/${encodeURIComponent(file)}.svg${revision}`;
   return <svg viewBox={vertical ? '-14 -2 28 300' : '0 0 240 180'} fill="none" {...props} className={`gear-artwork ${className}`} data-gear-artwork={category} aria-hidden="true" focusable="false">
     {shadow && !vertical && <>
       <defs><radialGradient id={id}><stop stopColor="#173743" stopOpacity=".2"/><stop offset="1" stopColor="#173743" stopOpacity="0"/></radialGradient></defs>
