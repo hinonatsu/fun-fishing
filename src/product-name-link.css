@@ -1,0 +1,9 @@
+.product-name-link {
+  color: var(--teal-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  overflow-wrap: anywhere;
+}
+.product-name-link:hover { text-decoration-thickness: 2px; }
+.product-name-link > svg { display: inline; vertical-align: -.1em; margin-inline-start: .3em; }
