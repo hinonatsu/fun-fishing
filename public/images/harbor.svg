@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="850" viewBox="0 0 1600 850" fill="none">
   <title>穏やかな朝の港と堤防のオリジナルイラスト</title>
   <defs>
-    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#C9DFE6"/><stop offset=".72" stop-color="#EAF0E8"/><stop offset="1" stop-color="#F8F2DC"/></linearGradient>
-    <linearGradient id="sea" x1="800" y1="355" x2="800" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#7EAFBD"/><stop offset=".25" stop-color="#6296AA"/><stop offset=".65" stop-color="#36758C"/><stop offset="1" stop-color="#225C74"/></linearGradient>
-    <linearGradient id="light" x1="1020" y1="344" x2="895" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#FCF1CF" stop-opacity=".54"/><stop offset="1" stop-color="#D9E7D9" stop-opacity="0"/></linearGradient>
-    <linearGradient id="pier" x1="1430" y1="495" x2="1280" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#DAD8C7"/><stop offset="1" stop-color="#E5DFCA"/></linearGradient>
+    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#B9F0EA"/><stop offset=".72" stop-color="#E8F9E0"/><stop offset="1" stop-color="#FFF9D8"/></linearGradient>
+    <linearGradient id="sea" x1="800" y1="355" x2="800" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#71DFD5"/><stop offset=".25" stop-color="#3BD3D4"/><stop offset=".65" stop-color="#1DCED8"/><stop offset="1" stop-color="#079AA9"/></linearGradient>
+    <linearGradient id="light" x1="1020" y1="344" x2="895" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#FFCD8F" stop-opacity=".54"/><stop offset="1" stop-color="#D9F4CA" stop-opacity="0"/></linearGradient>
+    <linearGradient id="pier" x1="1430" y1="495" x2="1280" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#F1DDB6"/><stop offset="1" stop-color="#FFF0CE"/></linearGradient>
     <linearGradient id="pierSide" x1="1380" y1="520" x2="1280" y2="850" gradientUnits="userSpaceOnUse"><stop stop-color="#858D86"/><stop offset="1" stop-color="#576D6D"/></linearGradient>
     <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".065"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter>
     <filter id="haze"><feGaussianBlur stdDeviation="8"/></filter>
@@ -13,9 +13,9 @@
   </defs>
   <g clip-path="url(#frame)">
     <path fill="url(#sky)" d="M0 0h1600v465H0z"/>
-    <circle cx="1049" cy="285" r="56" fill="#FAF4DD" opacity=".88"/>
-    <ellipse cx="1050" cy="341" rx="260" ry="24" fill="#F7F0D6" opacity=".28" filter="url(#haze)"/>
-    <g stroke="#F4F6ED" stroke-linecap="round" opacity=".55">
+    <circle cx="1049" cy="285" r="56" fill="#FF9D50" opacity=".88"/>
+    <ellipse cx="1050" cy="341" rx="260" ry="24" fill="#FFD6A5" opacity=".28" filter="url(#haze)"/>
+    <g stroke="#FFFEF5" stroke-linecap="round" opacity=".55">
       <path d="M56 174h341m-283 15h194m406-58h116m-90 12h204m268 45h265" stroke-width="3"/>
       <path d="M306 97h148m852 11h149m-735 97h118"/>
     </g>
@@ -23,13 +23,13 @@
     <path d="M0 365h1600v485H0z" fill="url(#sea)"/>
     <path d="m1008 369 63 0 194 481H704z" fill="url(#light)" opacity=".34" filter="url(#reflection)"/>
     <path d="M0 370h1600" stroke="#DCE3D5" stroke-width="2" opacity=".8"/>
-    <g stroke="#C5D9D6" stroke-linecap="round" opacity=".4">
+    <g stroke="#C0F4E8" stroke-linecap="round" opacity=".4">
       <path d="M30 397h98m43-2h70m34 10h128m49-11h180m99 7h134m47-11h173m36 8h109m80 10h141m-1153 25h159m85 10h119m64-13h197m-751 39h121m48-10h154m56 18h249m66-8h157m61 20h161m-1014 21h169m54-7h84m69 15h145m50-2h189m67-7h132m-874 48h141m107-12h119m96 16h187m52-9h151m-999 42h86m67-6h182m76 26h160m109-16h133m-811 44h173m77 21h213m92-13h175m-777 47h115m84 26h180m104-10h201m-615 63h165m75 20h182"/>
     </g>
-    <g stroke="#A9CED0" stroke-linecap="round" opacity=".29" stroke-width="2">
+    <g stroke="#9AEADB" stroke-linecap="round" opacity=".29" stroke-width="2">
       <path d="M40 566h155m42 18h101m-67 63h183m69-37h121m97 35h189m-861 68h184m89 23h164m-361 56h201m98-22h139m75 37h179m53-38h136m-174-73h165"/>
     </g>
-    <g stroke="#F5E9C8" stroke-linecap="round" opacity=".55">
+    <g stroke="#FFF9D8" stroke-linecap="round" opacity=".55">
       <path d="M1003 380h79m-95 10h91m-112 13h129m-141 15h151m-165 15h177m-182 18h199m-217 21h228m-249 25h263m-279 28h285m-304 32h311"/>
     </g>
     <!-- Far working harbour: understated silhouettes softened by the morning air. -->
@@ -84,10 +84,10 @@
     <!-- Two small anglers, drawn as gestures, lend a human scale. -->
     <g transform="translate(1248 487)">
       <path d="m0 2-5 29m10-29 5 28" stroke="#405D63" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-1-27q8-1 10 5l2 23H-5l1-22z" fill="#5E7D80"/>
+      <path d="M-1-27q8-1 10 5l2 23H-5l1-22z" fill="#008B91"/>
       <circle cx="2" cy="-35" r="7" fill="#BBAD8F"/>
       <path d="M-5-39h14v4H-8" fill="#D2C9AD"/>
-      <path d="m-1-20-12 13-16-7" stroke="#5E7D80" stroke-width="4" stroke-linecap="round"/>
+      <path d="m-1-20-12 13-16-7" stroke="#008B91" stroke-width="4" stroke-linecap="round"/>
       <path d="m-29-14-66-65" stroke="#3A626D" stroke-width="1.5"/>
       <path d="M1153 408q-17 19-15 58" stroke="#BCD2CA" stroke-width=".8" transform="translate(-1248 -487)"/>
       <path d="M15 20h10v11H15z" fill="#CFD8CA"/>
@@ -96,19 +96,19 @@
     </g>
     <g transform="translate(1167 614)">
       <path d="m0 3-6 35m12-35 7 34" stroke="#354F59" stroke-width="5" stroke-linecap="round"/>
-      <path d="M-4-27q9-3 15 5l2 26H-7l1-25z" fill="#D5C6A0"/>
+      <path d="M-4-27q9-3 15 5l2 26H-7l1-25z" fill="#FF9D50"/>
       <circle cx="2" cy="-36" r="8" fill="#B7A789"/>
       <path d="M-7-40h19v5H-11" fill="#5B7473"/>
-      <path d="m-3-19-15 14-16-3" stroke="#D5C6A0" stroke-width="5" stroke-linecap="round"/>
+      <path d="m-3-19-15 14-16-3" stroke="#FF9D50" stroke-width="5" stroke-linecap="round"/>
       <path d="m-34-9-73-75" stroke="#3A626D" stroke-width="1.6"/>
       <path d="M1060 530q-20 34-17 79" stroke="#BDD1C9" stroke-width=".8" transform="translate(-1167 -614)"/>
-      <path d="M21 23h17v15H21z" fill="#5D888E"/>
+      <path d="M21 23h17v15H21z" fill="#55E07E"/>
       <path d="M23 23q6-11 12 0" stroke="#738E86" stroke-width="1.5"/>
       <ellipse cx="5" cy="42" rx="34" ry="4" fill="#64796F" opacity=".15"/>
     </g>
     <g stroke="#5A7D83" stroke-width="1.7" stroke-linecap="round" opacity=".75">
       <path d="M678 219q7-5 13 0 7-6 14-1m129-57q5-4 10 0 6-4 10 0m287 46q8-6 15 0 8-6 16-1"/>
     </g>
-    <path fill="#D5E1D5" opacity=".1" d="M0 0h1600v850H0z" filter="url(#grain)"/>
+    <path fill="#D0F3D3" opacity=".1" d="M0 0h1600v850H0z" filter="url(#grain)"/>
   </g>
 </svg>

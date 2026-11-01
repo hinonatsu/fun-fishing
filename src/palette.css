@@ -1,0 +1,261 @@
+/* Coastal palette, sampled from the supplied reference. Load after component CSS.
+   Bright colors carry surfaces and state; their dark tones keep small text legible. */
+:root {
+  --orange: #ff9d50;
+  --cream: #fff9d8;
+  --aqua: #1dced8;
+  --green: #55e07e;
+  --ink: #153f43;
+  --muted: #4d6665;
+  --teal: #007681;
+  --teal-dark: #005b64;
+  --line: #c9ddd4;
+  --mist: #edf9ed;
+  --paper: #fffef5;
+  --aqua-soft: #e0f8f5;
+  --green-soft: #e3f9df;
+  --orange-soft: #fff0d8;
+  --orange-ink: #813c19;
+  --green-ink: #17613c;
+  --text-muted: var(--muted);
+  color: var(--ink);
+  background: var(--cream);
+}
+
+body { background: var(--cream); }
+::selection { color: var(--ink); background: var(--aqua); }
+:focus-visible { outline-color: var(--teal-dark); }
+input, select { accent-color: var(--teal-dark); }
+input::placeholder { color: var(--muted); opacity: 1; }
+
+/* A warm canvas, clear white cards, and a small ribbon of all four colors. */
+.site-header {
+  background: linear-gradient(90deg, var(--orange) 0% 30%, var(--cream) 30% 50%, var(--aqua) 50% 80%, var(--green) 80% 100%) 0 0 / 100% 5px no-repeat, var(--paper);
+  border-bottom-color: var(--line);
+  padding-top: 5px;
+}
+.brand-mark { color: var(--teal-dark); }
+.header-nav .nav-plan { background: var(--green-soft); border-color: var(--green); }
+.header-nav .nav-plan:hover { background: var(--green); color: var(--ink); }
+.header-nav.expanded, .skip-link { background: var(--paper); }
+.journey-progress, .stepbar { background: var(--cream); border-color: var(--line); }
+.journey-progress li, .step-item, .step-item:disabled { color: var(--muted); }
+.journey-progress li > span, .journey-progress li > button > span, .step-num { border-color: #93b9b3; }
+.journey-progress .current > span, .journey-progress .current > button > span,
+.step-item.current .step-num, .gear-steps [aria-current='step'] > span {
+  color: var(--ink); background: var(--aqua); border-color: var(--teal);
+}
+.journey-progress .completed > span, .journey-progress .completed > button > span,
+.step-item.completed .step-num { color: var(--ink); background: var(--green); border-color: var(--green); }
+.step-line { background: var(--line); }
+
+/* Orange always means the next action. It uses dark text, including on hover. */
+.button.primary, .search-submit {
+  color: var(--ink); background: var(--orange); border-color: var(--orange);
+  box-shadow: 0 4px 0 #b45e2820;
+}
+.button.primary:hover:not(:disabled), .search-submit:hover {
+  color: var(--ink); background: #ffb273; border-color: #ffb273;
+  box-shadow: 0 5px 14px #813c191c;
+}
+.button.secondary, .sample-button, .buy-link {
+  color: var(--teal-dark); background: var(--paper); border-color: #8bbab8;
+}
+.button.secondary:hover, .sample-button:hover, .buy-link:hover { background: var(--aqua-soft); }
+.icon-button:hover, .modal-heading .icon-button { background: var(--aqua-soft); }
+.text-button, .external-link, .back-button { color: var(--teal-dark); }
+
+/* The harbor artwork continues the same cream, orange and turquoise palette. */
+.welcome-page, .home-hero { background: var(--cream); }
+.welcome-ocean::after {
+  background: linear-gradient(90deg, var(--cream) 0%, #fff9d8e6 12%, #fff9d800 48%);
+}
+.welcome-content h1, .hero-copy h1 { color: var(--ink); }
+.hero-copy h1 span { color: var(--teal-dark); }
+.welcome-description, .hero-description { color: #355a5b; }
+.welcome-caption, .hero-note { background: #fffef5f5; border-color: var(--line); box-shadow: 0 8px 30px #153f4310; }
+.welcome-caption > svg, .note-icon { color: var(--ink); background: var(--green); }
+.welcome-caption > svg { box-sizing: content-box; padding: 10px; border-radius: 50%; }
+.welcome-start { box-shadow: 0 5px 0 #d1743329; }
+.search-bar, .search-popover { background: var(--paper); border-color: var(--line); box-shadow: 0 10px 32px #153f4310; }
+.search-trigger:hover, .search-trigger.is-open, .choice:hover { background: var(--aqua-soft); }
+.choice[aria-pressed='true'] { color: var(--green-ink); background: var(--green-soft); border-color: var(--green); }
+.how-card { background: var(--aqua-soft); }
+.how-card:nth-child(2) { background: var(--orange-soft); }
+.how-card:nth-child(3) { background: var(--green-soft); }
+.sample-section { background: var(--aqua); color: var(--ink); }
+.sample-art { background: var(--green-soft); }
+.sample-art::before, .sample-art::after { border-color: #9bd8ba; }
+.sample-tag, .sample-content > p, .sample-meta { color: var(--ink); }
+
+/* Consistent text colors, including the small labels in later planning screens. */
+.hero-benefits, .hero-note div > span, .welcome-assurance, .welcome-caption p > span,
+.focused-header-links, .focused-footer, .quiet-note, .condition-context,
+.field-icon, .field-label, .field-value, .search-trigger > svg, .search-caption, .choice small,
+.how-num, .how-card p, .home-disclosure, .home-disclosure p, .sample-art-label,
+.source-note, .fish-body h2 svg, .fish-body .fish-personal-reason,
+.month-decisions button > span, .decision-copy > span, .diagnosis-ready p,
+.selected-indicator, .gear-price, .gear-steps li, .comparison-pending,
+.equipment-product-brand, .equipment-choice p, .equipment-empty, .equipment-cost, .equipment-remaining,
+.equipment-health p, .included-choice p, .reference-details p, .reference-details ul,
+.purchase-unit, .gear-image small, .trip-facts span, .regional-info p, .style-facts small,
+.fish-season-state, .quantity-row p, .price-batch-row p, .budget-row p,
+.glossary-list summary span, .fish-result-count span, .fish-difficulty-caption,
+.fish-difficulty-label, .fish-difficulty-legend strong, .fish-difficulty-legend p, .fish-members,
+.fish-target-summary p, .fish-guide-section p, .fish-search-input svg,
+.tackle-diagram-caption, .tackle-color-key, .tackle-part-copy small, .tackle-figure-note,
+.tackle-price-details summary, .rig-library-choices small, .rig-library-visual-heading > span,
+.rig-library-visual > p, .rig-library-summary, .rig-references summary, .rig-references > p,
+.rig-library-scope, .equipment-method-title span, .equipment-necessity,
+.compatibility-overview, .compatibility-rule p, .compatibility-panel > .tiny,
+.summary-price > span, .summary-price > p, .summary-footnote, .prose,
+.product-details > summary, .product-details p, .shopping-category, .local-instruction,
+.list-disclosure, .list-sidebar .reset-button, .trip-guide .eyebrow, .guide-icon,
+.trip-guide li > span, .trip-guide li p, .finish-note, .finish-note h2, .finish-note p,
+.share-preview p, .input-label, .footer-top p, .footer-links, .footer-bottom,
+.list-plan-banner .small, .list-progress strong > span, .list-progress > span, .ready-number > span,
+.mobile-summary > div > span, .shopping-info .price-note { color: var(--muted); }
+.fish-result-count, .fish-target-summary strong, .fish-guide-section h2,
+.fish-guide-section li, .focused-page label, .fish-toolbar label, .input-label,
+.focused-page details > summary, .rig-part-explanation strong { color: var(--ink); }
+
+/* Aqua marks information and choices; green marks recommendations and completion. */
+.month-decisions button, .decision-option, .fish-card, .method-card, .style-choice,
+.gear-card, .candidate-card, .price-input-card, .shipping-order, .supplies-checklist,
+.answer-review, .owned-choice, .reference-details, .review-compatibility,
+.rig-library-detail, .rig-part-explanation, .fish-guide-section {
+  background: var(--paper); border-color: var(--line);
+}
+.month-decisions button:hover, .decision-option:hover, .fish-card:hover {
+  background: var(--aqua-soft); border-color: var(--teal); box-shadow: 0 4px 16px #00768112;
+}
+.decision-option[aria-pressed='true'], .method-card.selected, .candidate-card.selected {
+  background: var(--green-soft); border-color: var(--green-ink);
+}
+.fish-card.selected { border-color: var(--teal-dark); box-shadow: 0 0 0 1px var(--teal-dark); }
+.decision-symbol, .method-icon, .ready-illustration, .save-symbol, .list-plan-icon {
+  background: var(--aqua); color: var(--ink);
+}
+.decision-option:nth-child(3n + 2) .decision-symbol { background: var(--orange); }
+.decision-option:nth-child(3n) .decision-symbol { background: var(--green); }
+.question-progress > span:not(.extra-question-count), .progress-track { background: #d4e8d7; }
+.question-progress .filled { background: var(--aqua) !important; }
+.progress-track > span { background: var(--green); }
+.diagnosis-ready, .review-plan, .shopping-progress, .list-plan-banner, .share-preview,
+.equipment-health, .included-choice, .saving-result {
+  color: var(--green-ink); background: var(--green-soft); border-color: #8dcc9e;
+}
+.equipment-state.chosen, .recommended-tag, .status-badge.recommended, .fish-recommend,
+.fish-method-tag, .gear-reason, .product-reason, .method-personal-reason, .ready-label {
+  color: var(--green-ink); background: var(--green-soft);
+}
+.fish-recommend, .recommended-tag { background: var(--green); color: var(--ink); }
+.equipment-state, .neutral-tag { color: var(--muted); background: #eaf0e7; }
+.gear-card.is-recommended { border-color: #79b88d; box-shadow: 0 3px 20px #17613c08; }
+.selection-mark, .radio-mark { background: var(--paper); border-color: #87b9b0; }
+.selected .selection-mark { background: var(--green); color: var(--ink); border-color: var(--green-ink); }
+.selected .radio-mark { border-color: var(--teal-dark); }
+.radio-mark > span { background: var(--teal-dark); }
+.checklist-checkbox > span { border-color: #87b9b0; background: var(--paper); }
+.checklist-checkbox input:checked + span { background: var(--green); border-color: var(--green-ink); color: var(--ink); }
+.checklist-checkbox input:focus-visible + span { outline-color: var(--teal-dark); }
+.shopping-item.done { background: var(--green-soft); }
+.fish-difficulty-stars { color: var(--muted); }
+.fish-difficulty-stars .filled { color: var(--orange-ink); }
+
+/* Keep the fish and gear artwork distinct from their surrounding controls. */
+.fish-grid .fish-art, .fish-art, .fish-art.saba {
+  background: radial-gradient(ellipse at 48% 38%, var(--paper), #e3f9df 65%, #c6edce);
+}
+.fish-grid .fish-art:is(.saba, .iwashi, .nishin, .sawara, .tachiuo, .sayori), .fish-art.iwashi {
+  background: radial-gradient(ellipse at 48% 38%, var(--paper), #d6f6f3 65%, #b7ece9);
+}
+.fish-grid .fish-art:is(.madai, .kasago) {
+  background: radial-gradient(ellipse at 48% 38%, var(--paper), var(--orange-soft) 65%, #ffe0b5);
+}
+.gear-image, .candidate-art, .slot-art, .shopping-art, .review-item-icon { background: var(--aqua-soft); }
+.fish-toolbar, .fish-target-summary, .trip-facts, .regional-info, .fit-guide, .product-use-help,
+.question-copy, .thread-guide, .rig-connection { background: var(--aqua-soft); border-color: var(--line); }
+.fish-target-summary { background: var(--green-soft); }
+.fish-toolbar input, .fish-toolbar select, .focused-page input:not([type=checkbox]),
+.focused-page select, .price-input-card input, .share-input, .glossary-list input {
+  color: var(--ink); background: var(--paper); border-color: #8cb5ae;
+}
+.focused-page input[type=checkbox] { accent-color: var(--teal-dark); }
+.condition-chip-edit, .condition-chips > span, .list-plan-banner .condition-chips > span {
+  color: var(--teal-dark); background: var(--paper); border-color: #a4c8c0;
+}
+.condition-chip-edit small { color: var(--muted); border-color: var(--line); }
+.equipment-overview-summary, .equipment-cost-summary, .gear-progress, .review-sidebar,
+.build-summary, .list-summary, .save-card, .has-tackle > .tackle-overview {
+  background: var(--aqua-soft); border-color: #a5d5ce;
+}
+.gear-steps li > span, .tackle-part-number { color: var(--muted); border-color: #93b9b3; }
+.equipment-table thead th, .comparison-table th { color: var(--ink); background: #e3f5df; border-color: var(--line); }
+.equipment-table tbody tr { background: var(--paper); }
+.equipment-table tr.is-highlighted > th, .equipment-table tr.is-highlighted > td { background: var(--green-soft); }
+.gear-mobile-progress, .mobile-summary { background: #fff9d8f5; border-color: var(--line); box-shadow: 0 -4px 20px #153f430d; }
+.budget-offer, .undo-action, .trip-guide { background: var(--green-soft); border-color: #acd8ad; }
+.arrangement-choice, .owned-choice, .replacement-options, .quantity-row, .price-batch-row,
+.budget-row, .budget-category, .price-data-details, .confirmation-item,
+.supplies-checklist > label, .glossary-list > details, .has-tackle > .tackle-overview,
+.fish-body .fish-personal-reason, .trip-guide li, .footer-bottom { border-color: var(--line); }
+
+/* Orange also flags an item that needs attention, accompanied by its text label. */
+.notice.info { color: var(--teal-dark); background: var(--aqua-soft); }
+.notice.warning, .generic-conditions, .candidate-warning, .blocking-message,
+.saving-result.over-budget, .equipment-health.has-conflict, .equipment-table .row-conflict,
+.equipment-table .row-conflict .equipment-state, .status-badge.check,
+.status-badge.avoid, .rig-library-note {
+  color: var(--orange-ink); background: var(--orange-soft); border-color: var(--orange);
+}
+.text-danger, .compatibility-rule.avoid p, .compatibility-rule.check p { color: var(--orange-ink); }
+
+/* Diagram states retain their meaning: gray missing, aqua selected, orange current. */
+.rig-part, .rig-diagram.has-highlight .rig-part.is-highlighted {
+  --rig-ink: #005b64; --rig-fill: var(--aqua); --rig-soft: #e0f8f5;
+  --rig-metal: #438e91; --rig-cork: var(--orange); --rig-accent: var(--orange); --rig-bait: #df7b45;
+}
+.rig-part.is-missing {
+  --rig-ink: #8d9f9a; --rig-fill: #dfe7df; --rig-soft: #f0f3eb;
+  --rig-metal: #c4cfca; --rig-cork: #d6ded5; --rig-accent: #cdd7ce; --rig-bait: #bdc9c0;
+}
+.rig-part.is-planned { --rig-ink: var(--orange-ink); --rig-fill: #ffd3a4; --rig-soft: var(--orange-soft); --rig-metal: #b37b4f; }
+.rig-part.is-current { filter: drop-shadow(0 0 3px #ff9d50b3) drop-shadow(0 0 6px #ff9d5055); }
+.rig-scene > circle:first-child { fill: #c8f0df; }
+.rig-scene > circle:nth-child(2) { fill: var(--aqua-soft); }
+.rig-scene text, .thread-guide text { fill: var(--ink); }
+.rig-marker > circle:not(.rig-marker-halo) { fill: var(--paper); stroke: #89aba3; }
+.rig-marker text { fill: var(--muted); }
+.rig-marker:not(.is-missing) > circle:not(.rig-marker-halo),
+.rig-diagram.has-highlight .rig-marker.is-highlighted > circle:not(.rig-marker-halo) { fill: var(--green); stroke: var(--green-ink); }
+.rig-marker:not(.is-missing) text, .rig-diagram.has-highlight .rig-marker.is-highlighted text { fill: var(--ink); }
+.rig-marker .rig-marker-halo { fill: #ff9d5059; stroke: var(--orange-ink); }
+.rig-marker.is-current > circle:not(.rig-marker-halo), .rig-marker.is-current .rig-callout { stroke: var(--orange-ink); }
+.rig-callout { stroke: #90b8ad; }
+.rig-name-tooltip { color: var(--paper); background: var(--teal-dark); }
+.key-selected { background: var(--aqua); border: 1px solid var(--teal); }
+.key-missing { background: #dfe7df; border-color: #8d9f9a; }
+.key-current { background: var(--orange); border-color: var(--orange-ink); }
+.tackle-part-number.is-ready { color: var(--ink); background: var(--green); border-color: var(--green-ink); }
+.tackle-part-list li.is-highlighted, .tackle-part-list li > button:hover { background: var(--green-soft); box-shadow: inset 0 0 0 1px #a9d6ad; }
+.tackle-part-list li.is-current, .tackle-current-note, .rig-library-parts button[aria-pressed=true] { color: var(--orange-ink); background: var(--orange-soft); border-color: var(--orange); }
+.tackle-current-note > span { color: var(--orange-ink); }
+.rig-library-choices > button { background: var(--paper); border-color: var(--line); }
+.rig-library-choices > button:hover, .rig-library-parts button:hover { background: var(--aqua-soft); border-color: var(--teal); }
+.rig-library-choices > button.is-active { background: var(--green-soft); border-color: var(--green-ink); box-shadow: inset 0 0 0 1px var(--green-ink); }
+.rig-library-visual { background: var(--aqua-soft); }
+.rig-part-explanation { color: var(--muted); }
+
+.modal, .modal-heading { color: var(--ink); background: var(--paper); }
+.modal { box-shadow: 0 24px 80px #153f4340; }
+.modal::backdrop { background: #153f4366; }
+.drawer-intro { background: var(--cream); }
+.toast { background: var(--paper); color: var(--teal-dark); border-color: var(--aqua); box-shadow: 0 6px 30px #153f431c; }
+.site-footer { background: var(--aqua-soft); border-color: #aedbd1; }
+.footer-brand svg { color: var(--teal-dark); }
+.focused-footer { background: transparent; }
+
+@media (max-width: 760px) {
+  .welcome-ocean::after { background: linear-gradient(180deg, var(--cream) 0%, #fff9d8b3 26%, #fff9d800 70%); }
+}

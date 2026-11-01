@@ -4,6 +4,7 @@ import App from "./App";
 import { initializeAnalytics } from "./analytics";
 import "./styles.css";
 import "./usability.css";
+import "./palette.css";
 
 initializeAnalytics();
 
