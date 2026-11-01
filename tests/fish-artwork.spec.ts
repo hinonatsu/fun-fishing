@@ -3,86 +3,78 @@ import { fishSpecies } from '../src/catalog';
 import { createDefaultBuild, encodeBuild } from '../src/domain';
 import { noOverflow } from './helpers';
 
-test('all 30 fish render distinct artwork and share it with method summaries', async ({ page, isMobile }, info) => {
+test('all 30 realistic illustrations load and remain visible in fish cards and summaries', async ({ page, isMobile }, info) => {
   test.setTimeout(120_000);
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   const build = { ...createDefaultBuild({ month: 10, area: 'tokyo-bay', field: 'pier' }), answers: { goal: 'food', pace: 'calm', budget: '30000' } };
-  const url = `./?build=${encodeBuild(build)}#discover`;
-  await page.goto(url);
-  await expect(page.locator('.fish-card').first()).toBeVisible({ timeout: 15_000 });
+  await page.goto(`./?build=${encodeBuild(build)}#discover`);
+  const cards = page.locator('.fish-card');
+  await expect(cards.first()).toBeVisible({ timeout: 15_000 });
   const expand = page.getByRole('button', { name: '全国の30項目をすべて見る', exact: true });
   if (await expand.isVisible()) await expand.click();
-  const cards = page.locator('.fish-card');
   await expect(cards).toHaveCount(fishSpecies.length);
-  await expect(page.locator('.fish-art > svg[data-artwork-species]')).toHaveCount(fishSpecies.length);
-
-  const audit = await page.locator('.fish-art > svg').evaluateAll(nodes => nodes.map(svg => {
-    const bounds = svg instanceof SVGGraphicsElement ? svg.getBBox() : null;
-    const missing = [...svg.querySelectorAll('[fill], [clip-path]')].flatMap(node => {
-      const refs = `${node.getAttribute('fill')} ${node.getAttribute('clip-path')}`.matchAll(/url\(#([^)]+)\)/g);
-      return [...refs].filter(([, id]) => ![...svg.querySelectorAll('[id]')].some(def => def.id === id)).map(([, id]) => id);
-    });
-    return {
-      species: svg.getAttribute('data-artwork-species'),
-      model: svg.querySelector('title')?.textContent,
-      body: svg.querySelector('[data-fish-body]')?.getAttribute('d'),
-      hidden: svg.getAttribute('aria-hidden'),
-      missing,
-      bounds: bounds && { x: bounds.x, y: bounds.y, right: bounds.x + bounds.width, bottom: bounds.y + bounds.height },
-    };
-  }));
-  expect(audit.map(item => item.species).sort()).toEqual(fishSpecies.map(fish => fish.id).sort());
-  expect(new Set(audit.map(item => item.body)).size).toBe(fishSpecies.length);
+  const images = page.locator('.fish-art > img.fish-artwork');
+  await expect(images).toHaveCount(fishSpecies.length);
+  const audit = await images.evaluateAll(async nodes => {
+    nodes.forEach(image => { image.loading = 'eager'; });
+    return Promise.all(nodes.map(async image => {
+      await image.decode();
+      const bounds = image.getBoundingClientRect();
+      const frame = image.parentElement!.getBoundingClientRect();
+      return {
+        id: image.dataset.artworkSpecies, model: image.dataset.artworkModel,
+        src: image.currentSrc, width: image.naturalWidth, height: image.naturalHeight,
+        hidden: image.getAttribute('aria-hidden'), alt: image.alt,
+        fit: getComputedStyle(image).objectFit,
+        fits: bounds.left >= frame.left && bounds.right <= frame.right + 1 && bounds.top >= frame.top && bounds.bottom <= frame.bottom + 1,
+      };
+    }));
+  });
+  expect(audit.map(item => item.id).sort()).toEqual(fishSpecies.map(fish => fish.id).sort());
+  expect(new Set(audit.map(item => item.src)).size).toBe(30);
   for (const item of audit) {
-    expect(item.model, item.species!).toBeTruthy();
-    expect(item.body, item.species!).toBeTruthy();
+    expect(item.model, item.id).toBeTruthy();
+    expect(item.src).toMatch(/\/fun-fishing\/images\/fish\/[a-z]+\.webp$/);
+    expect([item.width, item.height], item.id).toEqual([1200, 800]);
+    expect(item.fit, item.id).toBe('contain');
+    expect(item.fits, item.id).toBe(true);
     expect(item.hidden).toBe('true');
-    expect(item.missing, item.species!).toEqual([]);
-    if (item.bounds) {
-      expect(item.bounds.x, item.species!).toBeGreaterThan(0);
-      expect(item.bounds.y, item.species!).toBeGreaterThan(0);
-      expect(item.bounds.right, item.species!).toBeLessThan(290);
-      expect(item.bounds.bottom, item.species!).toBeLessThan(170);
-    }
-  }
-  const ids = await page.locator('.fish-art svg [id]').evaluateAll(nodes => nodes.map(node => node.id));
-  expect(new Set(ids).size).toBe(ids.length);
-  for (const id of ['tsutsuika', 'aoriika', 'kouika']) {
-    const svg = page.locator(`.fish-art svg[data-artwork-species="${id}"]`);
-    await expect(svg.locator('[data-squid-arms] > path')).toHaveCount(8);
-    await expect(svg.locator('[data-squid-tentacles] > path')).toHaveCount(2);
+    expect(item.alt).toBe('');
   }
   await noOverflow(page);
-  await page.screenshot({ path: info.outputPath('fish-cards.png'), fullPage: true, scale: 'css' });
-
-  // Capture the actual application SVGs at readable comparison size for visual QA.
-  const gallery = await cards.evaluateAll(nodes => nodes.map(card => ({
-    name: card.querySelector('h2')!.textContent!, svg: card.querySelector('.fish-art > svg')!.outerHTML,
-  })));
-  const summaryTargets = ['aji', 'hirame', 'karei', 'kawahagi', 'tachiuo', 'aoriika'];
-  for (const fish of fishSpecies.filter(fish => summaryTargets.includes(fish.id))) {
+  await page.screenshot({ path: info.outputPath('realistic-fish-cards.png'), fullPage: true, scale: 'css' });
+  const gallery = fishSpecies.map(fish => ({ ...audit.find(item => item.id === fish.id)!, name: fish.name }));
+  for (const id of ['aji', 'hirame', 'karei', 'kawahagi', 'tachiuo', 'aoriika']) {
+    const fish = fishSpecies.find(fish => fish.id === id)!;
     await cards.filter({ has: page.getByRole('heading', { name: fish.name, exact: true }) }).click();
-    await expect(page.locator(`.fish-target-summary > svg[data-artwork-species="${fish.id}"]`)).toBeVisible();
+    const image = page.locator(`.fish-target-summary > img[data-artwork-species="${id}"]`);
+    await expect(image).toBeVisible();
+    expect(await image.evaluate(async image => { await image.decode(); return image.naturalWidth; })).toBe(1200);
+    await noOverflow(page);
     await page.goBack();
     await expect(cards.first()).toBeVisible();
     if (await expand.isVisible()) await expand.click();
   }
   expect(errors).toEqual([]);
-
   if (!isMobile) {
-    await page.setViewportSize({ width: 1500, height: 1320 });
-    await page.setContent('<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>魚のイラスト 30種類</title><style>body{margin:0;padding:24px;background:#fcfbf5;color:#344f47;font-family:Meiryo,sans-serif}h1{font-size:22px;margin:0 0 18px}main{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}article{background:#f0f3e9;border:1px solid #dce4d7;border-radius:10px;overflow:hidden}svg{display:block;width:100%;height:150px}h2{font-size:14px;text-align:center;margin:0;padding:0 0 13px;font-weight:600}</style></head><body><h1>FUN FISHING · 魚種別イラスト 30種類</h1><main></main></body></html>');
+    await page.setViewportSize({ width: 1800, height: 1640 });
+    await page.setContent('<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>魚の写実イラスト30種類</title><style>*{box-sizing:border-box}body{margin:0;padding:32px;background:#f9faf5;color:#193f3e;font-family:Meiryo,sans-serif}header{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px}h1{font-size:26px;letter-spacing:.03em;margin:0}header p{font-size:13px;letter-spacing:.15em;color:#6c8179;margin:0}main{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}article{background:radial-gradient(ellipse at 50% 40%,#fff 0%,#eff5ed 80%);border:1px solid #e1e9dc;border-radius:14px;overflow:hidden;text-align:center}img{display:block;width:100%;height:190px;object-fit:contain;filter:drop-shadow(0 7px 6px #24413718)}h2{font-size:16px;margin:0 0 4px;font-weight:700}small{display:block;font-size:11px;color:#6c8179;min-height:17px;margin-bottom:13px}</style></head><body><header><h1>FUN FISHING · 海で出会いたい30種類</h1><p>REALISTIC FISH ILLUSTRATIONS</p></header><main></main></body></html>');
     await page.locator('main').evaluate((main, items) => {
       for (const item of items) {
-        const article = document.createElement('article');
-        article.innerHTML = item.svg;
+        const card = document.createElement('article');
+        const image = document.createElement('img');
+        image.src = item.src;
+        image.alt = item.name;
         const heading = document.createElement('h2');
         heading.textContent = item.name;
-        article.append(heading);
-        main.append(article);
+        const model = document.createElement('small');
+        model.textContent = item.name === item.model ? '' : item.model!;
+        card.append(image, heading, model);
+        main.append(card);
       }
     }, gallery);
-    await page.screenshot({ path: 'artifacts/screenshots/fish-artwork-30.png', fullPage: true, scale: 'css' });
+    await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+    await page.screenshot({ path: 'artifacts/screenshots/fish-artwork-realistic-30.png', fullPage: true, scale: 'css' });
   }
 });
