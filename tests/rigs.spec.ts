@@ -82,7 +82,7 @@ test('owned and included components keep distinct labels and restore from a shar
   await expect(overview.locator('[data-part="line"]')).toHaveAttribute('data-state', 'missing');
 });
 
-test('hovering a gear cell previews only that tool and restores the actual choices', async ({ page, isMobile }, info) => {
+test('hover previews unselected gear while chosen tools stay colored', async ({ page, isMobile }, info) => {
   const build = completedBuild();
   build.selection.reel = '';
   await page.goto(`./?build=${encodeBuild(build)}#builder`);
@@ -108,11 +108,14 @@ test('hovering a gear cell previews only that tool and restores the actual choic
       await page.locator(`.equipment-table tr[data-category="${category.id}"]`).hover();
       await expect(diagram).toHaveAttribute('data-highlighted-part', category.id);
       await expect(page.getByRole('tooltip')).toHaveText(category.label);
-      const colors = await diagram.locator('[data-part]').evaluateAll(parts => parts.map(el => ({ id: el.getAttribute('data-part'), color: getComputedStyle(el).getPropertyValue('--rig-fill') })));
-      expect(colors.filter(p => p.color === selectedColor).map(p => p.id)).toEqual([category.id]);
-      expect(colors.filter(p => p.color === missingColor)).toHaveLength(7);
+      const colors = await diagram.locator('[data-part]').evaluateAll(parts => parts.map(el => ({ id: el.getAttribute('data-part'), state: el.getAttribute('data-state'), color: getComputedStyle(el).getPropertyValue('--rig-fill') })));
+      for (const part of colors) expect(part.color).toBe(part.state !== 'missing' || part.id === category.id ? selectedColor : missingColor);
+      await expect(diagram.locator('[data-part="rod"]')).toHaveCSS('--rig-fill', selectedColor);
     }
     await page.locator('.equipment-table tr[data-category="reel"]').hover();
+    await expect(diagram.locator('[data-part="rod"]')).toHaveCSS('--rig-fill', selectedColor);
+    await expect(diagram.locator('[data-part="reel"]')).toHaveCSS('--rig-fill', selectedColor);
+    await expect(diagram.locator('[data-part-label="rod"] > circle')).toHaveCSS('fill', 'rgb(32, 118, 109)');
     await expect(page.getByRole('tooltip')).toBeVisible();
     const nameBox = (await page.getByRole('tooltip').boundingBox())!;
     expect(nameBox.x).toBeGreaterThanOrEqual(8);
