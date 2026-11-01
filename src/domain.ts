@@ -102,9 +102,9 @@ export function evaluateCompatibility(selection: Record<CategoryId,string>, owne
   if (available('rig') && (selected.rig!.technical.hookSize ?? 0) >= 8) add('hook-size','check','魚の大きさに合う針か確認','8号の針は小さなアジ・イワシには大きいことがあります。現地の魚の大きさや釣果情報で選んでください。',['rig']);
   if (available('bucket')) {
     if (selected.bucket!.generic) add('bucket-use','check','汎用バケツは地上での用途限定','地上で水を入れる容器としてのみ比較しています。取っ手の吊り下げ強度・海水への長期耐久性は未確認。海に下ろす水くみ用途には使わないでください。',['bucket']);
-    else add('bucket-use','recommended','水くみ用のロープ付き','メーカーが水くみ用途として販売するEVAバケツです。8mロープが届かない高さや、禁止された場所では使わないでください。',['bucket']);
+    else add('bucket-use','recommended','水くみ用のロープ付き','メーカーが水くみ用途として販売するEVAバケツです。付属ロープの長さが届かない高さや、禁止された場所では使わないでください。',['bucket']);
   }
-  if (available('safety')) add('safety-fit','check','ライフジャケットのサイズ・使用環境','Mサイズの候補です。着用者の体格・固定状態とType Dの使用環境は未確認。施設や販売店で確認し、股ベルトも装着してください。',['safety']);
+  if (available('safety')) add('safety-fit','check','ライフジャケットのサイズ・使用環境','着用者の体格・固定状態と、選んだ製品の使用環境は未確認。各商品のサイズ・使用区分・装着方法を施設や販売店で確認してください。',['safety']);
   return results;
 }
 
