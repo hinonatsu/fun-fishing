@@ -755,6 +755,14 @@ summary { cursor:pointer; }
 
 /* Layered, original rig drawings. Each part follows the existing choice state. */
 .rig-diagram { display:block; width:100%; height:auto; overflow:visible; }
+.rig-tune-panel { display:grid; gap:8px; margin:12px auto 0; max-width:470px; padding:13px; border:1px dashed #8cae9a; border-radius:9px; background:#f6fbf5; color:#365847; font-size:11px; }
+.rig-tune-panel strong { color:var(--teal-dark); font-size:12px; }
+.rig-tune-panel p { margin:3px 0 0; color:#5d7566; }
+.rig-tune-panel label { display:grid; grid-template-columns:42px 34px minmax(0,1fr); align-items:center; gap:8px; }
+.rig-tune-panel output { color:#1f665e; font-variant-numeric:tabular-nums; text-align:right; }
+.rig-tune-panel input { width:100%; accent-color:#20766d; }
+.rig-tune-panel button { justify-self:start; padding:5px 9px; border:1px solid #9ebcac; border-radius:5px; background:white; color:#315d4d; font:inherit; cursor:pointer; }
+.rig-tune-panel button:hover { background:#e9f4e8; }
 .rig-name-tooltip { position:fixed; z-index:120; pointer-events:none; max-width:min(240px,calc(100vw - 16px)); padding:5px 9px; border:1px solid #ffffff35; border-radius:6px; background:#175d56; color:#fff; box-shadow:0 3px 12px #193b4926; font-size:11px; font-weight:500; line-height:1.6; overflow-wrap:anywhere; }
 .rig-part,.rig-diagram.has-highlight .rig-part.is-highlighted { --rig-ink:#1e6261; --rig-fill:#74bba4; --rig-soft:#e4f3dd; --rig-metal:#3f8e88; --rig-cork:#dbaa58; --rig-accent:#db8759; --rig-bait:#d7815b; stroke:var(--rig-ink); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:filter .25s; }
 .rig-part.is-missing { --rig-ink:#9ba6a2; --rig-fill:#dfe5df; --rig-soft:#f0f2ed; --rig-metal:#c4ceca; --rig-cork:#d6ddd6; --rig-accent:#ccd5ce; --rig-bait:#bdc8c1; }
