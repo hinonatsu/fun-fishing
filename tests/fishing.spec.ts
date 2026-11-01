@@ -137,7 +137,7 @@ test('owned gear is an explicit decision and excluded from purchase links',async
   await page.getByRole('button',{name:'選んだ道具を確認する',exact:true}).click();
   await page.getByRole('button',{name:'購入先の確認・リストの保存へ',exact:true}).click();
   await page.getByRole('button',{name:/購入先と当日の持ち物を確認する/}).click();
-  const owned = page.getByRole('article').filter({hasText:'手持ちの道具を使う'});
+  const owned = page.getByRole('article').filter({has:page.getByRole('checkbox',{name:'釣り竿（ロッド）を準備済みにする',exact:true})});
   await expect(owned.getByRole('link')).toHaveCount(0);
   await expect(owned.getByRole('checkbox')).toBeDisabled();
 });

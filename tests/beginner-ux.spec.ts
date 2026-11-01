@@ -5,8 +5,9 @@ import {completedBuild,noOverflow} from './helpers';
 
 test('editing conditions preserves the plan, and an unsuitable M can use another preparation method',async({page})=>{
   const build=completedBuild();
+  build.preparation={tripDate:'2026-10-30'};
   await page.goto(`./?build=${encodeBuild(build)}#builder`);
-  await page.getByRole('button',{name:'釣行月を変更：10月',exact:true}).click();
+  await page.getByRole('button',{name:'10月 変更（釣行月）',exact:true}).click();
   await page.getByRole('button',{name:/^11月/}).click();
   await expect(page).toHaveURL(/#builder$/);
   await expect(page.locator('tr[data-category="rod"]')).toContainText('3-300');
@@ -20,6 +21,7 @@ test('editing conditions preserves the plan, and an unsuitable M can use another
   await expect(page.locator('tr[data-category="safety"]')).toContainText('準備先を選択');
   await expect(page.getByLabel('今回の購入費用')).toContainText('費用は別途未確定');
   const saved=decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!))!;
+  expect(saved.preparation?.tripDate).toBeUndefined();
   expect(saved.preparation?.arrangements?.safety).toBe('rental');
   expect(JSON.stringify(saved)).not.toContain('185');
   await noOverflow(page);

@@ -121,7 +121,9 @@ export default function App() {
     const field = screen.split('/')[1] as 'month'|'area'|'field';
     const conditions = {...build.conditions,[field]:field === 'month' ? Number(value) : value};
     const validFish = fishSpecies.some(f=>f.id === build.fishId);
-    const next = {...build,conditions,fishId:validFish ? build.fishId : '',methodId:validFish ? build.methodId : ''};
+    const clearTripDate=field==='month'&&!!build.preparation?.tripDate&&Number(build.preparation.tripDate.slice(5,7))!==Number(value);
+    const next = {...build,conditions,fishId:validFish ? build.fishId : '',methodId:validFish ? build.methodId : '',...(clearTripDate?{preparation:{...build.preparation,tripDate:undefined}}:{})};
+    if(clearTripDate)setToast('釣行月を変更したため、以前の釣行日は未定に戻しました。人数・日程から登録できます。');
     const target=editReturn.current;
     if(target){editReturn.current=undefined;navigate(target,next,true);}
     else navigate(field === 'month' ? 'conditions/area' : field === 'area' ? 'conditions/field' : 'diagnosis/goal',next);
@@ -155,7 +157,7 @@ export default function App() {
   return <>
     <a className="skip-link" href="#main-content" onClick={e=>{e.preventDefault();document.getElementById('main-content')?.focus();}}>本文へスキップ</a>
     <header className="site-header"><div className="header-inner"><button className="brand" onClick={()=>navigate('search')} aria-label="FUN FISHING その一投を、もっと気軽に。 トップへ"><span className="brand-mark"><Fish size={26} strokeWidth={1.7} /><Waves size={20} strokeWidth={1.5} /></span><span>FUN FISHING<span className="brand-caption">その一投を、もっと気軽に。</span></span></button><div className="focused-header-links"><button onClick={()=>setInfo('about')}>使い方</button><button onClick={()=>setInfo('glossary')}>用語</button>{hasProgress && screen === 'search' ? <button className="text-button" onClick={()=>navigate('builder')}>プランの続きへ<ArrowRight size={15} /></button> : <span title="このブラウザーに自動保存します"><Check size={13} />自動保存</span>}</div></div></header>
-    {screen !== 'search' && !screen.startsWith('rigs') && <div className="journey-progress" role="navigation" aria-label="準備の進み具合"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><button aria-label={label} disabled={i>stage} onClick={()=>navigate(['conditions/month','diagnosis/ready','discover','builder','review'][i])}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></button></li>)}</ol></div>}
+    {screen !== 'search' && !screen.startsWith('rigs') && <div className="journey-progress" role="navigation" aria-label="準備の進み具合"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><button aria-label={i<stage?label:`${i+1} ${label}`} disabled={i>stage} onClick={()=>navigate(['conditions/month','diagnosis/ready','discover','builder','review'][i])}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></button></li>)}</ol></div>}
     <main id="main-content" tabIndex={-1}>
       {screen === 'search' && <SearchPage onStart={start} onSample={sample} />}
       {screen.startsWith('conditions/') && <ConditionsPage key={screen} conditions={build.conditions} field={segment as 'month'|'area'|'field'} onChoose={condition} onBack={()=>navigate(segment === 'month' ? 'search' : segment === 'area' ? 'conditions/month' : 'conditions/area')} />}

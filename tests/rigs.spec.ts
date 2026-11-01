@@ -36,14 +36,14 @@ test('choosing a product colors its part while the current unselected part stays
   await expect(overview().locator('[data-part][data-state="missing"]')).toHaveCount(8);
   const mobileKey = overview().locator('.tackle-mobile-key');
   if (await mobileKey.isVisible()) await mobileKey.locator('summary').click();
-  await overview().getByRole('button', { name: '全体図から商品を選ぶ：1 ロッド 未選択', exact: true }).click();
+  await overview().getByRole('button', { name: '全体図から商品を選ぶ：1 釣り竿（ロッド） 未選択', exact: true }).click();
   await openOverview(page);
   await expect(overview().locator('[data-part="rod"]')).toHaveClass(/is-missing is-current/);
   await page.getByRole('button', { name: 'この商品を選ぶ：リバティクラブ 小継 磯 3-300', exact: true }).click();
   await openOverview(page);
   await expect(overview().locator('[data-part="rod"]')).toHaveAttribute('data-state', 'selected');
   await expect(overview().locator('[data-part="reel"]')).toHaveAttribute('data-state', 'missing');
-  await expect(page.getByRole('status').filter({ hasText: 'ロッドを反映しました。' })).toBeVisible();
+  await expect(page.getByRole('status').filter({ hasText: '釣り竿（ロッド）を反映しました。' })).toBeVisible();
   await overview().screenshot({ path: info.outputPath('setup-one-selected.png'), animations: 'disabled' });
   await page.getByRole('button', { name: 'リールの商品を選ぶ', exact: true }).click();
   await openOverview(page);

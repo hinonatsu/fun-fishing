@@ -31,7 +31,7 @@ function DifficultyStars({ level, compact = false }: { level: FishDifficulty; co
 
 export function ConditionChips({ build,onNavigate }: { build: FishingBuild;onNavigate?:(s:string)=>void }) {
   const items=[{field:'month',text:`${build.conditions.month}月`,label:'釣行月',icon:<CalendarDays size={14}/>},{field:'area',text:areas.find(a=>a.id===build.conditions.area)?.name,label:'エリア',icon:<MapPin size={14}/>},{field:'field',text:build.conditions.field==='pier'?'堤防・施設':build.conditions.field==='surf'?'砂浜（サーフ）':'岩場（磯）',label:'釣り場の種類',icon:<Waves size={14}/>}];
-  return <div className="condition-chips">{items.map(item=>onNavigate?<button key={item.field} className="condition-chip-edit" aria-label={`${item.label}を変更：${item.text}`} onClick={()=>onNavigate(`conditions/${item.field}`)}>{item.icon}{item.text}<small>変更</small></button>:<span key={item.field}>{item.icon}{item.text}</span>)}</div>;
+  return <div className="condition-chips">{items.map(item=>onNavigate?<button key={item.field} className="condition-chip-edit" aria-label={`${item.text} 変更（${item.label}）`} onClick={()=>onNavigate(`conditions/${item.field}`)}>{item.icon}{item.text}<small>変更</small></button>:<span key={item.field}>{item.icon}{item.text}</span>)}</div>;
 }
 
 export function DiagnosisPage({ build, questionId, onAnswer, onNavigate,onFinish }: { build: FishingBuild; questionId: string; onAnswer: (id: string, value: string) => void; onNavigate: (screen: string) => void;onFinish?:()=>void }) {

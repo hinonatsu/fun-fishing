@@ -66,7 +66,7 @@ test('every target reaches its selected style and survives reload', async ({page
     await expect(page).toHaveURL(/#builder$/);
     {
       await expect(page.getByRole('table',{name:'必要な道具と選択中の商品',exact:true})).toBeVisible();
-      await expect(page.locator('.equipment-method-title')).toContainText(fish.name);
+      await expect(page.locator('.trip-facts strong')).toContainText(fish.name);
       if(!['sabiki','uki-sabiki'].includes(firstMethod.id)) await expect(page.getByRole('button',{name:'サビキ仕掛けの商品を選ぶ',exact:true})).toHaveCount(0);
     }
   }
@@ -81,7 +81,7 @@ test('November and other regions allow selection without claiming local seasonal
   await page.getByRole('button',{name:'全国の30項目をすべて見る',exact:true}).click();
   await page.getByRole('button').filter({has:page.getByRole('heading',{name:'アオリイカ',exact:true})}).click();
   await page.getByRole('button',{name:'この釣り方の道具を選ぶ',exact:true}).click();
-  await expect(page.locator('.equipment-method-title')).toContainText('アオリイカ · エギング');
+  await expect(page.locator('.trip-facts strong')).toContainText('アオリイカ エギング');
   if(!isMobile) await page.locator('tr[data-category="rod"]').hover();
   await noOverflow(page);
   expect((await new AxeBuilder({page}).analyze()).violations).toEqual([]);
@@ -89,5 +89,5 @@ test('November and other regions allow selection without claiming local seasonal
   await page.goBack();
   await expect(page).toHaveURL(/#method$/);
   await page.goForward();
-  await expect(page.locator('.equipment-method-title')).toContainText('アオリイカ · エギング');
+  await expect(page.locator('.trip-facts strong')).toContainText('アオリイカ エギング');
 });

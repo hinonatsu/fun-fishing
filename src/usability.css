@@ -116,3 +116,7 @@
   .rig-library-visual .rig-diagram { max-height:320px;width:auto;max-width:100%; }.rig-library-visual { padding:14px; }.rig-library-explanation { padding:20px 16px; }.rig-library-summary { font-size:14px; }
   .save-card { padding:20px 16px; }.share-qr img { width:100%; }.month-decisions button>span { font-size:10px; }.focused-footer>div { gap:5px 12px; }
 }
+@media (max-width:850px) {
+  .gear-card .gear-reason,.gear-card .candidate-rule,.gear-card .gear-description>p:not(.product-brand),.gear-card .external-link { font-size:14px; }
+  .gear-card .status-badge { font-size:12px; }
+}
