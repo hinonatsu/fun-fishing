@@ -1,10 +1,17 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, ExternalLink, Info, X } from "lucide-react";
 import { safeExternalUrl, type CompatibilityResult } from "./domain";
+import type { Product } from './catalog';
+import { productParameters } from './analytics';
+import { useAnalytics } from './AnalyticsTracking';
 
-export function ExternalLinkButton({ href, children, className = "" }: { href?: string; children: ReactNode; className?: string }) {
+export function ExternalLinkButton({ href, children, className = "", product, linkPosition = 'product_details' }: { href?: string; children: ReactNode; className?: string; product?: Product; linkPosition?: string }) {
+  const track = useAnalytics();
   const safe = href ? safeExternalUrl(href) : null;
-  return safe ? <a className={`external-link ${className}`} href={safe} target="_blank" rel="noopener noreferrer">{children}<ExternalLink size={14} aria-hidden="true" /><span className="sr-only">（新しいタブで開く）</span></a> : <span className="muted small">購入先を未確認</span>;
+  const clicked = () => {
+    if (product && safe && new URL(safe).hostname === 'www.amazon.co.jp') track('amazon_click', { ...productParameters(product), link_position: linkPosition, link_url: safe });
+  };
+  return safe ? <a className={`external-link ${className}`} href={safe} target="_blank" rel="noopener noreferrer" onClick={clicked} onAuxClick={e => { if (e.button === 1) clicked(); }}>{children}<ExternalLink size={14} aria-hidden="true" /><span className="sr-only">（新しいタブで開く）</span></a> : <span className="muted small">購入先を未確認</span>;
 }
 
 export function Modal({ title, children, onClose, className = "" }: { title: string; children: ReactNode; onClose: () => void; className?: string }) {

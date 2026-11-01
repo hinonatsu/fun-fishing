@@ -11,6 +11,7 @@ import { BuilderPage, EquipmentListPage, ChecklistPage, CheckoutPage, PricePage,
 import { Modal } from './ui';
 import { RigLibraryPage } from './RigLibraryPage';
 import { rigById } from './rigs';
+import { AnalyticsProvider } from './AnalyticsTracking';
 import { BatchPricePage, BudgetPage, TripPage } from './PlanningPages';
 import { GlossaryList } from './Support';
 
@@ -154,7 +155,7 @@ export default function App() {
   const category = segment as CategoryId;
   const backTo=(key:string,fallback='review')=>()=>navigate(returnPaths.current[key]||fallback,build,true);
 
-  return <>
+  return <AnalyticsProvider screen={screen} fishId={build.fishId} methodId={build.methodId}>
     <a className="skip-link" href="#main-content" onClick={e=>{e.preventDefault();document.getElementById('main-content')?.focus();}}>本文へスキップ</a>
     <header className="site-header"><div className="header-inner"><button className="brand" onClick={()=>navigate('search')} aria-label="FUN FISHING その一投を、もっと気軽に。 トップへ"><span className="brand-mark"><Fish size={26} strokeWidth={1.7} /><Waves size={20} strokeWidth={1.5} /></span><span>FUN FISHING<span className="brand-caption">その一投を、もっと気軽に。</span></span></button><div className="focused-header-links"><button onClick={()=>setInfo('about')}>使い方</button><button onClick={()=>setInfo('glossary')}>用語</button>{hasProgress && screen === 'search' ? <button className="text-button" onClick={()=>navigate('builder')}>プランの続きへ<ArrowRight size={15} /></button> : <span title="このブラウザーに自動保存します"><Check size={13} />自動保存</span>}</div></div></header>
     {screen !== 'search' && !screen.startsWith('rigs') && <div className="journey-progress" role="navigation" aria-label="準備の進み具合"><ol className="container" aria-label="準備のステップ">{stages.map((label,i)=><li key={label} className={i === stage ? 'current' : i < stage ? 'completed' : ''} aria-current={i === stage ? 'step' : undefined}><button aria-label={i<stage?label:`${i+1} ${label}`} disabled={i>stage} onClick={()=>navigate(['conditions/month','diagnosis/ready','discover','builder','review'][i])}><span>{i < stage ? <Check size={12} /> : i+1}</span><strong>{label}</strong></button></li>)}</ol></div>}
@@ -183,7 +184,7 @@ export default function App() {
     {info === 'glossary' && <Modal title="釣りの言葉と道具の役割" onClose={()=>setInfo(null)}><div className="modal-body"><GlossaryList/></div></Modal>}
     {info === 'areas' && <Modal title="対応エリアとデータについて" onClose={()=>setInfo(null)}><div className="modal-body prose"><p>海の岸釣りで狙える30項目（イカ類を含む）から、魚と釣り方を選べます。地域・月ごとの回遊や釣果を保証する一覧ではありません。全12釣法で必要な道具を選べます。地域・月の季節データは東京湾・堤防のイワシ・小サバが4〜10月、アジが5〜10月の目安です。商品が選べることは、その地域・月の釣果を示しません。</p><p>商品は{products.length}点。必要な道具は対象魚・釣り方で切り替わります。Amazon価格を毎朝取得し、取得日時とともに表示します。取得した購入単位の税込金額で比較でき、手入力した価格があれば優先します。取得失敗や36時間を超えた価格は合計に使いません。送料・在庫は購入先で確認してください。未入力を0円と扱ったり、実測していない節約額を表示したりしません。</p><p>組み合わせは公開仕様の範囲で確認します。現物装着や総重量、結束強度、体格への適合には未確認の項目があります。季節データは直近の釣果を保証するものではありません。</p><p>画像はオリジナルのイラストです。購入先はAmazonの個別商品ページです。</p></div></Modal>}
     {info === 'reset' && <Modal title="新しいプランをつくりますか？" onClose={()=>setInfo(null)}><div className="modal-body"><p>現在の選択を残す場合は、先に完成したリストの構成URLを保存してください。</p><div className="button-row"><button className="button secondary" onClick={()=>setInfo(null)}>今のプランに戻る</button><button className="button primary" onClick={reset}>最初からはじめる<ArrowRight size={16} /></button></div></div></Modal>}
-  </>;
+  </AnalyticsProvider>;
 }
 
 function InfoIcon() { return <Check size={17} />; }
