@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
 import type { CategoryId } from './catalog';
 import type { PartState, RigDefinition, RigPartId } from './rigs';
 import { RigHoverLabel } from './RigHoverLabel';
@@ -11,23 +11,6 @@ type Props = {
   highlightedPart?: RigPartId; onPartHover?: (part?: RigPartId) => void; onPartSelect?: (part:RigPartId)=>void;
 };
 const lineEnd = { sabiki: 116, float: 190, lure: 165, hole: 160, bukkomi: 145, nage: 130, 'choi-nage': 165, dozuki: 116, 'uki-sabiki': 174, eging: 165, hechi: 165, kago: 186 };
-type ReelTune = { angle: number; x: number; y: number };
-const defaultReelTune: ReelTune = { angle: 54, x: -20, y: -4 };
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-const reelTuneParam = (params: URLSearchParams, name: keyof ReelTune, min: number, max: number) => {
-  const rawValue = params.get(`reel${name[0].toUpperCase()}${name.slice(1)}`);
-  if (rawValue === null) return defaultReelTune[name];
-  const value = Number(rawValue);
-  return Number.isFinite(value) ? clamp(value, min, max) : defaultReelTune[name];
-};
-function readReelTune(): ReelTune {
-  if (typeof window === 'undefined') return defaultReelTune;
-  const params = new URLSearchParams(window.location.search);
-  return { angle: reelTuneParam(params, 'angle', -10, 70), x: reelTuneParam(params, 'x', -50, 50), y: reelTuneParam(params, 'y', -50, 50) };
-}
-function isReelTuneMode() {
-  return typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('tuneRig') === '1';
-}
 const commonAnchors: Partial<Record<RigPartId, Point>> = { rod: [331, 150], reel: [346, 274], line: [189, 58], bait: [63, 367], bucket: [209, 367], safety: [344, 367] };
 const terminalAnchors: Record<RigDefinition['id'], Partial<Record<RigPartId, Point>>> = {
   sabiki: { rig: [61, 192], basket: [63, 293] },
@@ -83,10 +66,10 @@ function Chum({ y, x = 112 }: { y: number; x?: number }) {
 function Rod() {
   return <g transform="translate(245 28) rotate(-21)"><GearIllustration category="rod" variant="vertical-rod" x="-14" y="-2" width="28" height="300" shadow={false}/></g>;
 }
-function Reel({ drum, tune }: { drum: boolean; tune: ReelTune }) {
+function Reel({ drum }: { drum: boolean }) {
   if (drum) return <g><GearIllustration category="reel" variant="drum" x="272" y="226" width="94" height="82" viewBox="60 27 140 125" shadow={false}/></g>;
   // The catalogue image is level; turn only the rig-diagram instance so its reel foot follows the rod.
-  return <g transform={`translate(${tune.x} ${tune.y}) rotate(${tune.angle} 322 266)`}><GearIllustration category="reel" x="267" y="221" width="110" height="90" shadow={false}/></g>;
+  return <g transform="translate(-20 -4) rotate(54 322 266)"><GearIllustration category="reel" x="267" y="221" width="110" height="90" shadow={false}/></g>;
 }
 function Accessories({ part }: { part: 'bait' | 'bucket' | 'safety' }) {
   const frames = { bait: [65, 333, 72, 68], bucket: [206, 325, 84, 76], safety: [345, 332, 72, 69] };
@@ -100,17 +83,6 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
   const id = useId().replaceAll(':', '');
   const diagram = useRef<SVGSVGElement>(null);
   const [hoveredPart, setHoveredPart] = useState<RigPartId>();
-  const tuneMode = isReelTuneMode();
-  const [reelTune, setReelTune] = useState<ReelTune>(readReelTune);
-  useEffect(() => {
-    if (!tuneMode) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set('tuneRig', '1');
-    url.searchParams.set('reelAngle', String(reelTune.angle));
-    url.searchParams.set('reelX', String(reelTune.x));
-    url.searchParams.set('reelY', String(reelTune.y));
-    window.history.replaceState(window.history.state, '', url);
-  }, [reelTune, tuneMode]);
   const highlight = onPartHover ? highlightedPart : hoveredPart;
   const hoverPart = onPartHover || setHoveredPart;
   const part = (partId: RigPartId, children: ReactNode) => {
@@ -142,7 +114,7 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
     <desc id={`${id}-description`}>{rig.variant}。{rig.connection.join('、')}の順につながります。{activePart ? `いま選ぶ部分は${rig.parts.find(p => p.id === activePart)?.label}です。` : ''}番号は下の道具名と対応します。</desc>
     <g className="rig-scene" aria-hidden="true"><circle cx="219" cy="180" r="153" fill="#edf3ec" /><circle cx="216" cy="174" r="129" fill="#f5f8f2" /><path d="M43 326h342" stroke="#dce6da" strokeDasharray="3 7" /><text x="219" y="343" textAnchor="middle">いっしょに準備するもの</text><ellipse cx="108" cy="397" rx="31" ry="3" fill="#dfe8dc" /><ellipse cx="249" cy="397" rx="35" ry="3" fill="#dfe8dc" /><ellipse cx="379" cy="397" rx="29" ry="3" fill="#dfe8dc" /></g>
     {part('rod', <Rod />)}
-    {part('reel', <Reel drum={rig.id === 'hechi'} tune={reelTune} />)}
+    {part('reel', <Reel drum={rig.id === 'hechi'} />)}
     {part('line', <Thread d={`M299 250 314 231 295 177 277 128 261 84 246 46 245 28C205 3 112 25 112 75V${sayori?85:lineEnd[rig.id]}`} />)}
     {part('stopper', <><Stopper inline={rig.id==='float'&&!tachiuo} />{tachiuo&&<rect x="117" y="174" width="6" height="20" rx="3" className="rig-accent"/>}</>)}
     {part('float', sayori?<><Float y={112} inline/><Thread d="M112 141v9M112 223v45"/>{[226,243,260].map(y=><ellipse key={y} cx="112" cy={y} rx="5" ry="7" className="rig-accent"/>)}<rect x="109" y="269" width="6" height="5" className="rig-metal"/></>:<Float inline={rig.id==='float'&&!tachiuo} />)}
@@ -216,11 +188,5 @@ export function RigDiagram({ rig, states, activePart, recentCategory, miniature 
       const dx = target[0] - point[0], dy = target[1] - point[1], distance = Math.hypot(dx, dy);
       return <g key={p.id} data-part-label={p.id} transform={`translate(${point[0]} ${point[1]})`} className={`rig-marker is-${state}${current ? ' is-current' : ''}${highlight === p.id ? ' is-highlighted' : ''}`} aria-hidden="true" onPointerEnter={e => { if (e.pointerType !== 'touch') hoverPart(p.id); }} onPointerLeave={() => hoverPart(undefined)}>{distance > 22 && <path d={`M${dx / distance * 12} ${dy / distance * 12}L${dx} ${dy}`} className="rig-callout" />}{current && <circle r="16" className="rig-marker-halo" />}<circle r="11" /><text textAnchor="middle" dy=".36em">{index + 1}</text></g>;
     })}
-  </svg>{!miniature && <RigHoverLabel parts={rig.parts} diagram={diagram} />}{tuneMode && !miniature && rig.id !== 'hechi' && <section className="rig-tune-panel" aria-label="リール位置の調整">
-    <div><strong>リールの表示を調整</strong><p>スライダーで見ながら合わせてください。値はこのURLに保存されます。</p></div>
-    <label>角度 <output>{reelTune.angle}°</output><input type="range" min="-10" max="70" value={reelTune.angle} onChange={event => setReelTune(tune => ({ ...tune, angle: Number(event.target.value) }))} /></label>
-    <label>左右 <output>{reelTune.x}</output><input type="range" min="-50" max="50" value={reelTune.x} onChange={event => setReelTune(tune => ({ ...tune, x: Number(event.target.value) }))} /></label>
-    <label>上下 <output>{reelTune.y}</output><input type="range" min="-50" max="50" value={reelTune.y} onChange={event => setReelTune(tune => ({ ...tune, y: Number(event.target.value) }))} /></label>
-    <button type="button" onClick={() => setReelTune(defaultReelTune)}>初期値に戻す</button>
-  </section>}</>;
+  </svg>{!miniature && <RigHoverLabel parts={rig.parts} diagram={diagram} />}</>;
 }
