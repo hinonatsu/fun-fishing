@@ -10,7 +10,7 @@ function plan(month = 10) {
 
 test('all 30 groups can be searched by aliases, sorted and filtered accessibly', async ({page}, info) => {
   await page.goto(`./?build=${encodeBuild(plan())}#discover`);
-  await page.getByRole('button',{name:'全国の30項目をすべて見る',exact:true}).click();
+  await page.getByRole('button',{name:'すべての魚・イカを見る',exact:true}).click();
   await page.getByText('魚の検索・絞り込み',{exact:true}).click();
   const cards = page.getByRole('group',{name:'狙う魚を選ぶ'}).getByRole('button');
   await expect(cards).toHaveCount(30);
@@ -51,7 +51,7 @@ test('every target reaches its selected style and survives reload', async ({page
   page.on('pageerror',e => errors.push(e.message));
   for (const fish of fishSpecies) {
     await page.goto(`./?build=${encodeBuild(plan())}#discover`);
-    await page.getByRole('button',{name:'全国の30項目をすべて見る',exact:true}).click();
+    await page.getByRole('button',{name:'すべての魚・イカを見る',exact:true}).click();
     await page.getByRole('button').filter({has:page.getByRole('heading',{name:fish.name,exact:true})}).click();
     await expect(page).toHaveURL(/#method$/);
     await expect(page.getByRole('heading',{level:1})).toContainText(fish.name);
@@ -76,9 +76,9 @@ test('every target reaches its selected style and survives reload', async ({page
 test('November and other regions allow selection without claiming local seasonality', async ({page,isMobile}, info) => {
   const build = {...plan(11),conditions:{month:11,area:'osaka-bay',field:'surf'}};
   await page.goto(`./?build=${encodeBuild(build)}#discover`);
-  await expect(page.getByText(/季節情報は未整備です/)).toBeVisible();
+  await expect(page.getByText(/この地域の情報は、まだ掲載していません/)).toBeVisible();
   await expect(page.getByRole('group',{name:'狙う魚を選ぶ'}).getByRole('button')).toHaveCount(3);
-  await page.getByRole('button',{name:'全国の30項目をすべて見る',exact:true}).click();
+  await page.getByRole('button',{name:'すべての魚・イカを見る',exact:true}).click();
   await page.getByRole('button').filter({has:page.getByRole('heading',{name:'アオリイカ',exact:true})}).click();
   await page.getByRole('button',{name:'この釣り方の道具を選ぶ',exact:true}).click();
   await expect(page.locator('.trip-facts strong')).toContainText('アオリイカ エギング');

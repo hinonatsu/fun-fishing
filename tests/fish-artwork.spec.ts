@@ -11,7 +11,7 @@ test('all 30 realistic illustrations load and remain visible in fish cards and s
   await page.goto(`./?build=${encodeBuild(build)}#discover`);
   const cards = page.locator('.fish-card');
   await expect(cards.first()).toBeVisible({ timeout: 15_000 });
-  const expand = page.getByRole('button', { name: '全国の30項目をすべて見る', exact: true });
+  const expand = page.getByRole('button', { name: 'すべての魚・イカを見る', exact: true });
   if (await expand.isVisible()) await expand.click();
   await expect(cards).toHaveCount(fishSpecies.length);
   const images = page.locator('.fish-art > img.fish-artwork');

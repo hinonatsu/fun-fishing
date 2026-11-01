@@ -28,8 +28,8 @@ describe('30 selectable beginner targets', () => {
     const build = {...createDefaultBuild({...conditions,month:11}), answers};
     expect(new Set(rankedFish(build).map(f => f.id))).toEqual(new Set(expected));
     expect(rankedFish(build)[0].id).toBe('aji');
-    expect(fishReason(build,'nishin')).toContain('季節情報は未確認');
-    expect(fishReason({...build,conditions},'nishin')).not.toContain('東京湾の堤防の季節データ');
+    expect(fishReason(build,'nishin')).toContain('釣れる時期の情報は、まだ掲載していません');
+    expect(fishReason({...build,conditions},'nishin')).not.toContain('東京湾の堤防で');
   });
   for (const fish of fishSpecies) {
     it(`restores ${fish.name} and each valid style with a separate product guide`, () => {

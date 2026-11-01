@@ -33,7 +33,7 @@ function initialize() {
     try {
       const saved = history.state?.fishingBuild || localStorage.getItem(storageKey);
       if (saved) { build = decodeBuild(saved); if (!build) message = '保存データを読み込めなかったため、新しいプランを用意しました。'; }
-    } catch { message = '自動保存が使えません。完成したリストは構成URLで保存できます。'; }
+    } catch { message = '自動保存が使えません。完成したリストはリストのURLで保存できます。'; }
   }
   if (build?.replacedCategories?.length) message = '掲載商品を更新しました。変更した商品の仕様をご確認ください。';
   const restored = build || createDefaultBuild();
@@ -60,7 +60,7 @@ export default function App() {
     const encoded = encodeBuild(build);
     cache.current.set(planId.current,build);
     try { localStorage.setItem(storageKey,encoded); }
-    catch { if (!savedError.current) { savedError.current = true; setToast('自動保存が使えません。完成したリストは構成URLをコピーして保存してください。'); } }
+    catch { if (!savedError.current) { savedError.current = true; setToast('自動保存が使えません。完成したリストはリストのURLをコピーして保存してください。'); } }
     const params = new URLSearchParams(location.search);
     if (params.has('build')) params.set('build',encoded);
     history.replaceState({fishingBuild:encoded,planId:planId.current,rigGalleryReturn:galleryReturn.current,returnPaths:returnPaths.current},'',`${location.pathname}${params.size ? `?${params}` : ''}#${screen}`);
@@ -145,7 +145,7 @@ export default function App() {
     const fresh = createDefaultBuild();
     history.pushState({fishingBuild:encodeBuild(fresh),planId:planId.current},'',`${location.pathname}#search`);
     setBuild(fresh); setScreen('search'); setInfo(null);
-    setToast('新しいプランをはじめましょう。');
+    setToast('新しいプランを作成しました。');
   }
   const stage = stageFor(screen);
   const hasProgress = chosenCount(build) > 0 || Object.keys(build.answers).length > 0;
@@ -180,10 +180,10 @@ export default function App() {
     </main>
     <footer className="site-footer"><div className="container focused-footer"><span>© {new Date().getFullYear()} FUN FISHING</span><div><button onClick={()=>navigate('rigs/sabiki')}>仕掛け図鑑</button><button onClick={()=>setInfo('areas')}>対応エリア・データ</button>{screen !== 'search' && <button onClick={()=>setInfo('reset')}>新しいプランをつくる</button>}</div></div></footer>
     {toast && <div className="toast" role="status"><InfoIcon /><span>{toast}</span><button className="icon-button" aria-label="通知を閉じる" onClick={()=>setToast('')}><X size={16} /></button></div>}
-    {info === 'about' && <Modal title="一画面ずつ、あなたの釣りを。" onClose={()=>setInfo(null)}><div className="modal-body prose"><ol><li>時期・エリア・場所を、ひとつずつ選びます。</li><li>まず3問に回答。もっと答えることもできます。</li><li>魚と釣り方を、それぞれ選びます。</li><li>おすすめを参考に、釣り方ごとに必要な道具を自分で選びます。</li><li>価格を比べて、購入先の確認やリストの保存へ。</li></ol><p>商品は自動選択しません。公開仕様の確認範囲は商品ごとに表示します。内容はこのブラウザーに自動保存します。別の端末で開くには、リストのURLをコピーしてメモなどに保管するか、QRコード・共有機能を使います。会員登録は不要です。</p></div></Modal>}
+    {info === 'about' && <Modal title="このサイトの使い方" onClose={()=>setInfo(null)}><div className="modal-body prose"><ol><li>時期・エリア・場所を、ひとつずつ選びます。</li><li>楽しみ方・過ごし方・予算の3問に答えます。追加の質問は任意です。</li><li>魚と釣り方を、それぞれ選びます。</li><li>釣り方に必要な道具を、商品ごとに比較して選びます。</li><li>数量と費用を確認し、買い物リストを保存・共有できます。</li></ol><p>選んだ内容は、このブラウザーに自動保存されます。別の端末で開くには、リストのURLをメモなどに保存するか、QRコードや共有機能を使ってください。会員登録は不要です。道具の組み合わせについて、メーカーの仕様で確認できたことと、購入前に確認が必要なことを表示します。</p></div></Modal>}
     {info === 'glossary' && <Modal title="釣りの言葉と道具の役割" onClose={()=>setInfo(null)}><div className="modal-body"><GlossaryList/></div></Modal>}
-    {info === 'areas' && <Modal title="対応エリアとデータについて" onClose={()=>setInfo(null)}><div className="modal-body prose"><p>海の岸釣りで狙える30項目（イカ類を含む）から、魚と釣り方を選べます。地域・月ごとの回遊や釣果を保証する一覧ではありません。全12釣法で必要な道具を選べます。地域・月の季節データは東京湾・堤防のイワシ・小サバが4〜10月、アジが5〜10月の目安です。商品が選べることは、その地域・月の釣果を示しません。</p><p>商品は{products.length}点。必要な道具は対象魚・釣り方で切り替わります。Amazon価格を毎朝取得し、取得日時とともに表示します。取得した購入単位の税込金額で比較でき、手入力した価格があれば優先します。取得失敗や36時間を超えた価格は合計に使いません。送料・在庫は購入先で確認してください。未入力を0円と扱ったり、実測していない節約額を表示したりしません。</p><p>組み合わせは公開仕様の範囲で確認します。現物装着や総重量、結束強度、体格への適合には未確認の項目があります。季節データは直近の釣果を保証するものではありません。</p><p>画像はオリジナルのイラストです。購入先はAmazonの個別商品ページです。</p></div></Modal>}
-    {info === 'reset' && <Modal title="新しいプランをつくりますか？" onClose={()=>setInfo(null)}><div className="modal-body"><p>現在の選択を残す場合は、先に完成したリストの構成URLを保存してください。</p><div className="button-row"><button className="button secondary" onClick={()=>setInfo(null)}>今のプランに戻る</button><button className="button primary" onClick={reset}>最初からはじめる<ArrowRight size={16} /></button></div></div></Modal>}
+    {info === 'areas' && <Modal title="対応エリアとデータについて" onClose={()=>setInfo(null)}><div className="modal-body prose"><p>岸から狙える魚やイカを紹介しています。12種類の釣り方から、それぞれに必要な道具を選べます。釣れる時期の目安を掲載しているのは、東京湾の堤防で狙うイワシ・小サバ（4〜10月）とアジ（5〜10月）です。ほかの地域・時期も道具選びに使えますが、実際に何が釣れているかは施設や釣具店で確認してください。</p><p>商品は{products.length}点。必要な道具は対象魚・釣り方で切り替わります。Amazon価格を毎朝取得し、取得日時とともに表示します。商品ページに表示された税込価格で比較します。手入力した価格があれば、そちらを使います。取得できなかった価格や、取得から36時間を超えた価格は合計に含めず、価格が分かる商品の小計を表示します。送料・在庫は購入先で確認してください。</p><p>道具の組み合わせはメーカーなどの公開情報で確認しています。竿へのリールの取り付け、エサを含む仕掛け全体の重さ、糸の結び目の強さ、ライフジャケットのサイズなどは、実物や使い方に合わせて販売店で確認してください。</p><p>画像はオリジナルのイラストです。購入先はAmazonの個別商品ページです。</p></div></Modal>}
+    {info === 'reset' && <Modal title="新しいプランをつくりますか？" onClose={()=>setInfo(null)}><div className="modal-body"><p>現在の選択を残す場合は、先に完成したリストのリストのURLを保存してください。</p><div className="button-row"><button className="button secondary" onClick={()=>setInfo(null)}>今のプランに戻る</button><button className="button primary" onClick={reset}>最初からはじめる<ArrowRight size={16} /></button></div></div></Modal>}
   </AnalyticsProvider>;
 }
 

@@ -39,8 +39,8 @@ export function DiagnosisPage({ build, questionId, onAnswer, onNavigate,onFinish
   if (!question) {
     const next = nextQuestion(build);
     const answered = questions.filter(q => build.answers[q.id]);
-    return <FlowShell eyebrow="YOUR PREFERENCES" title={next?'あなたの釣りを、見つけにいこう。':'診断が完了しました。'} description={next?`${answered.length}問に回答しました。結果を見るか、任意の質問に進めます。`:'すべての質問に回答しました。好みに合う候補を見るか、回答を見直せます。'} onBack={() => onNavigate(`diagnosis/${answered.at(-1)?.id || 'goal'}`)}>
-      <div className="diagnosis-ready"><span className="ready-illustration"><Sparkles size={32} /></span><h2>{next?'3問の回答がそろいました。':'すべての質問に回答しました。'}</h2><p>追加の質問は任意です。途中でも、いつでも結果に進めます。</p><button className="button primary" onClick={() => onNavigate('discover')}>おすすめの魚を見る<ArrowRight size={17} /></button>{next ? <button className="text-button" onClick={() => onNavigate(`diagnosis/${next.id}`)}>もっと質問に答える<ArrowRight size={15} /></button> : <p className="small muted">用意している質問への回答がそろいました。回答は下から見直せます。</p>}</div>
+    return <FlowShell eyebrow="YOUR PREFERENCES" title={next?'回答をもとに、おすすめの魚を紹介します。':'すべての質問に回答しました。'} description={next?`${answered.length}問に回答しました。結果を見るか、任意の質問に進めます。`:'すべての質問に回答しました。好みに合う候補を見るか、回答を見直せます。'} onBack={() => onNavigate(`diagnosis/${answered.at(-1)?.id || 'goal'}`)}>
+      <div className="diagnosis-ready"><span className="ready-illustration"><Sparkles size={32} /></span><h2>{next?'3問に回答しました。':'すべての質問に回答しました。'}</h2><p>このままおすすめを見られます。追加の質問に答えると、好みをさらに伝えられます。</p><button className="button primary" onClick={() => onNavigate('discover')}>おすすめの魚を見る<ArrowRight size={17} /></button>{next ? <button className="text-button" onClick={() => onNavigate(`diagnosis/${next.id}`)}>もっと質問に答える<ArrowRight size={15} /></button> : <p className="small muted">回答を変更する場合は、下の一覧から選んでください。</p>}</div>
       <details className="answer-review"><summary>これまでの回答を見直す（{answered.length}問）</summary>{answered.map(q => <button key={q.id} onClick={() => onNavigate(`diagnosis/${q.id}`)}><span>{q.title}<strong>{q.options.find(o => o.value === build.answers[q.id])?.label}</strong></span><ArrowRight size={15} /></button>)}</details>
       {onFinish&&<button className="button secondary" onClick={onFinish}>回答の編集を終えて元の画面に戻る</button>}
     </FlowShell>;
@@ -65,35 +65,35 @@ export function DiscoverPage({ build, onSelect, onBack,onNavigate }: { build: Fi
   const expanded=all||!!query||!!methodId||!!feature;
   const fish=expanded?filtered:filtered.slice(0,3);
   const seasonal = getFish(build.conditions);
-  return <FlowShell wide eyebrow="FIND YOUR FISH · 30 TARGETS" title="どの魚に、出会いたい？" description="初心者が岸から狙える30項目。気になる魚を選んで、釣り方を見つけましょう。" onBack={onBack}>
+  return <FlowShell wide eyebrow="FIND YOUR FISH · 30 TARGETS" title="どの魚を釣ってみたい？" description="岸から狙える魚やイカを紹介しています。気になるものを選んでください。" onBack={onBack}>
     <ConditionChips build={build} onNavigate={onNavigate}/>
-    <p className="fish-context-note">{seasonal.length ? `季節の目安がある魚：${seasonal.map(f => f.name).join('・')}。直近の釣果は施設で確認します。` : `${build.conditions.month}月・選んだ地域の季節情報は未整備です。以下は好みから比較する候補で、現地で狙えることは未確認です。`}</p>
+    <p className="fish-context-note">{seasonal.length ? `この時期に狙う目安を掲載している魚：${seasonal.map(f => f.name).join('・')}。最近の釣果は施設で確認してください。` : `${build.conditions.month}月のこの地域の情報は、まだ掲載していません。下の魚は回答をもとに選んでいます。実際に狙えるかは、施設や釣具店で確認してください。`}</p>
     <details className="fish-filters"><summary>魚の検索・絞り込み</summary><div className="fish-toolbar">
       <label className="fish-search"><span>魚の名前・別名で検索</span><span className="fish-search-input"><Search size={17} aria-hidden="true" /><input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="アジ、ガシラ、ヤリイカ…" /></span></label>
       <label><span>釣り方で絞り込む</span><select value={methodId} onChange={e => setMethodId(e.target.value)}><option value="">すべての釣り方</option>{methods.filter(m => m.supported).map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select></label>
       <label><span>並び順</span><select value={sort} onChange={e => setSort(e.target.value)}><option value="recommended">あなたへのおすすめ順</option><option value="popular">有名順</option></select></label>
-      <label><span>分かりやすい条件から探す</span><select value={feature} onChange={e=>setFeature(e.target.value)}><option value="">すべて</option><option value="easy">難易度の目安が簡単</option><option value="no-bait">生きたエサを使わない釣り方あり</option><option value="few-parts">必要な道具が少なめの釣り方あり</option></select></label>
+      <label><span>特徴で絞り込む</span><select value={feature} onChange={e=>setFeature(e.target.value)}><option value="">すべて</option><option value="easy">難易度が低め</option><option value="no-bait">生きたエサを使わない釣り方あり</option><option value="few-parts">少ない道具で始められる釣り方あり</option></select></label>
     </div>
     <div className="fish-difficulty-legend">
       <strong>難易度の目安</strong>
       <div className="fish-difficulty-scale">{([1,2,3] as const).map(level => <DifficultyStars key={level} level={level} compact />)}</div>
       <p>初心者が岸から1匹を狙う目安です。場所・時期・釣り方で変わります。</p>
     </div>
-    </details><p className="fish-result-count" role="status">{expanded?`${fish.length} / ${fishSpecies.length}項目を表示`:'好みから比べる3候補'}<span>季節情報がある候補を優先。難易度は場所・時期で変わります。</span></p>
+    </details><p className="fish-result-count" role="status">{expanded?`${fish.length} / ${fishSpecies.length}件を表示`:'回答をもとに選んだ3つの候補'}<span>釣れる時期の情報を掲載している魚を先に表示します。難易度は場所や時期で変わります。</span></p>
     {fish.length ? <div className="fish-grid" role="group" aria-label="狙う魚を選ぶ">{fish.map((f,i) =>
       <button className="fish-card" key={f.id} onClick={() => onSelect(f.id)}>
-        <div className={`fish-art ${f.id}`}><FishArtwork species={f.id} />{sort === 'recommended' && i === 0 && <span className="fish-recommend"><Sparkles size={12} />{seasonal.some(s=>s.id===f.id)?'季節の目安あり':'好みから比べる候補'}</span>}</div>
+        <div className={`fish-art ${f.id}`}><FishArtwork species={f.id} />{sort === 'recommended' && i === 0 && <span className="fish-recommend"><Sparkles size={12} />{seasonal.some(s=>s.id===f.id)?'釣れる時期の目安あり':'回答をもとに選んだ魚'}</span>}</div>
         <div className="fish-body">
           <DifficultyStars level={f.difficulty} />
           <h2>{f.name}<ArrowRight size={19} /></h2>
           {f.members.length > 0 && <span className="fish-members">{f.members.join('・')}</span>}
-          <p>{f.description}</p><p className="fish-personal-reason">{fishReason(build,f.id)}</p><span className="fish-season-state">{seasonal.some(s=>s.id===f.id)?'この条件の季節目安あり':'この月・地域での適性は未確認'}</span>
+          <p>{f.description}</p><p className="fish-personal-reason">{fishReason(build,f.id)}</p><span className="fish-season-state">{seasonal.some(s=>s.id===f.id)?'この月・地域の情報あり':'この月・地域で狙えるかは現地で確認'}</span>
           <span className="fish-method-tag">この魚の釣り方を見る →</span>
         </div>
       </button>
     )}</div> : <div className="empty-state"><Search size={32} /><h2>一致する魚が見つかりませんでした。</h2><p>名前や釣り方を変えて探してみましょう。</p><button className="button secondary" onClick={() => {setQuery(''); setMethodId('');}}>検索・絞り込みを解除する</button></div>}
-    {!expanded&&<button className="button secondary full-width" onClick={()=>setAll(true)}>全国の30項目をすべて見る</button>}{expanded&&<button className="text-button" onClick={()=>{setAll(false);setQuery('');setMethodId('');setFeature('');setSort('recommended');}}>最初の3候補に戻る</button>}<RegionalInfo build={build}/><TermHelp/>
-    <p className="quiet-note">全国一覧は、すべての魚が選択した場所で釣れることを示すものではありません。有名順は掲載上の目安です。</p>
+    {!expanded&&<button className="button secondary full-width" onClick={()=>setAll(true)}>すべての魚・イカを見る</button>}{expanded&&<button className="text-button" onClick={()=>{setAll(false);setQuery('');setMethodId('');setFeature('');setSort('recommended');}}>最初の3つの候補に戻る</button>}<RegionalInfo build={build}/><TermHelp/>
+    <p className="quiet-note">掲載している魚が、すべて選んだ場所で釣れるわけではありません。「有名順」は、このサイトで決めた並び順です。</p>
     <button className="text-button" onClick={onBack}>質問に戻って、好みを追加する<ArrowRight size={15} /></button>
   </FlowShell>;
 }
@@ -103,7 +103,7 @@ export function MethodPage({ build, onSelect, onBack }: { build: FishingBuild; o
   const available = methods.filter(m => fish?.methodIds.includes(m.id));
   const preferred = build.answers.bait==='avoid'?available.find(m=>['lure','eging'].includes(m.id))?.id:build.answers.pace==='active'?available.find(m=>['lure','eging','hole'].includes(m.id))?.id:available.find(m=>['sabiki','float','choi-nage','dozuki'].includes(m.id))?.id;
   available.sort((a,b)=>Number(b.id===preferred)-Number(a.id===preferred));
-  return <FlowShell eyebrow="CHOOSE YOUR STYLE" title={`${fish?.name}、どうやって釣る？`} description="楽しみ方を確かめて、釣り方をひとつ選びましょう。" onBack={onBack}>
+  return <FlowShell eyebrow="CHOOSE YOUR STYLE" title={`${fish?.name}、どうやって釣る？`} description="釣り方ごとの動作や準備を比べて選んでください。" onBack={onBack}>
     {fish && <div className="fish-target-summary"><FishArtwork species={fish.id} /><div><strong>{fish.habitat}</strong><p>{fish.tip}</p></div></div>}
     <div className="decision-options">{available.map(m => {
       const context={...build,methodId:m.id};
@@ -113,7 +113,7 @@ export function MethodPage({ build, onSelect, onBack }: { build: FishingBuild; o
       const seen=new Set<string>();
       const estimate=requiredEquipment(context).flatMap(c=>{const p=referenceProduct(context,c.id);if(!p)return[{price:null}];if(seen.has(p.id))return[];seen.add(p.id);const price=productPrice(build,p);return[{price:price===null?null:price*purchaseQuantity(build,c.id)}];});
       const unknown=estimate.filter(r=>r.price===null).length,subtotal=estimate.reduce((sum,r)=>sum+(r.price??0),0);
-      return <div key={m.id} className="style-choice"><span className="style-art"><RigDiagram rig={rigForBuild(context)} miniature/></span><div>{m.id===preferred&&<span className="recommended-tag">希望する過ごし方からの候補</span>}<h2>{m.name}</h2><p>{guide?.action||description}</p>{m.id===preferred&&<p className="method-personal-reason">{guide?.reason}</p>}<dl className="style-facts"><div><dt>準備・操作</dt><dd>{guide?.effort}</dd></div><div><dt>エサ</dt><dd>{guide?.bait}</dd></div><div><dt>道具</dt><dd>必須{requiredEquipment(context).length}項目・全{equipmentFor(context).length}項目</dd></div><div><dt>商品代目安</dt><dd>{unknown?`確認済み分${yen(subtotal)}＋価格未確認${unknown}商品`:`基本候補で${yen(subtotal)}`}<small>掲載の基本候補・現在の人数分。送料・未確認費用は別。商品の選択と数量で変わります。</small></dd></div></dl><button className="button primary full-width" onClick={() => onSelect(m.id)}>{productsAvailable ? 'この釣り方の道具を選ぶ' : 'この釣り方で準備する'}<ArrowRight size={17} /></button></div></div>;
+      return <div key={m.id} className="style-choice"><span className="style-art"><RigDiagram rig={rigForBuild(context)} miniature/></span><div>{m.id===preferred&&<span className="recommended-tag">好みに合いそうな釣り方</span>}<h2>{m.name}</h2><p>{guide?.action||description}</p>{m.id===preferred&&<p className="method-personal-reason">{guide?.reason}</p>}<dl className="style-facts"><div><dt>準備・操作</dt><dd>{guide?.effort}</dd></div><div><dt>エサ</dt><dd>{guide?.bait}</dd></div><div><dt>道具</dt><dd>必須{requiredEquipment(context).length}項目・全{equipmentFor(context).length}項目</dd></div><div><dt>商品代目安</dt><dd>{unknown?`確認済み分${yen(subtotal)}＋価格未確認${unknown}商品`:`掲載商品でそろえると${yen(subtotal)}`}<small>掲載商品を今の人数分そろえた目安です。送料と未確認の費用は含みません。商品や数量を変えると金額も変わります。</small></dd></div></dl><button className="button primary full-width" onClick={() => onSelect(m.id)}>{productsAvailable ? 'この釣り方の道具を選ぶ' : 'この釣り方で準備する'}<ArrowRight size={17} /></button></div></div>;
     })}</div><RegionalInfo build={build}/><TermHelp/>
   </FlowShell>;
 }
@@ -121,7 +121,7 @@ export function MethodPage({ build, onSelect, onBack }: { build: FishingBuild; o
 export function FishGuidePage({ build, onBack }: { build: FishingBuild; onBack: () => void }) {
   const fish = fishSpecies.find(f => f.id === build.fishId)!;
   const method = methods.find(m => m.id === build.methodId)!;
-  return <FlowShell eyebrow="GET READY" title={`${fish.name}を、${method.name}で。`} description="必要な道具と基本の手順を確認して、釣りの準備を進めましょう。" onBack={onBack}>
+  return <FlowShell eyebrow="GET READY" title={`${fish.name}を${method.name}で釣る準備`} description="必要な道具と基本の手順を確認して、釣りの準備を進めましょう。" onBack={onBack}>
     <ConditionChips build={build} />
     <div className="fish-target-summary"><FishArtwork species={fish.id} /><div><strong>{fish.habitat}</strong><p>{fish.tip}</p></div></div>
     <section className="fish-guide-section" aria-labelledby="fish-guide-supplies"><h2 id="fish-guide-supplies">準備する道具</h2><ul>{method.supplies.map(item => <li key={item}>{item}</li>)}</ul><p>共通の準備：体に合うライフジャケット、針外し、魚ばさみ、タオル、ゴミ袋。</p></section>

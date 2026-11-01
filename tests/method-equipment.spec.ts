@@ -18,7 +18,7 @@ for(const [fishId,methodId] of examples) test(`${fishId}/${methodId}: choose eve
     if(hasChoice(saved,c.id)) continue;
     await page.getByRole('button',{name:`${c.label}の商品を選ぶ`,exact:true}).click();
     await expect(page).toHaveURL(new RegExp(`#builder/${c.id}$`));
-    const recommended=page.getByRole('article').filter({hasText:'好み・用途からの候補'});
+    const recommended=page.getByRole('article').filter({hasText:'この用途のおすすめ'});
     await expect(recommended).toHaveCount(1);
     await recommended.getByRole('button',{name:/^この商品を選ぶ：/}).click();
     await expect(page).toHaveURL(/#builder$/);
@@ -41,7 +41,7 @@ for(const [fishId,methodId] of examples) test(`${fishId}/${methodId}: choose eve
   await expect(links.first()).toBeVisible();
   expect(await links.count()).toBeGreaterThan(0);
   for(const href of await links.evaluateAll(els=>els.map(e=>(e as HTMLAnchorElement).href))) expect(href).toMatch(/^https:\/\/www\.amazon\.co\.jp\/dp\/[A-Z0-9]{10}\?/);
-  await page.getByRole('button',{name:'このチェックリストを保管・共有',exact:true}).click();
+  await page.getByRole('button',{name:'このチェックリストを保存・共有',exact:true}).click();
   await page.getByText('リンクの文字列を表示・手動コピー',{exact:true}).click();
   const url=await page.getByLabel('この買い物リストを開くリンク',{exact:true}).inputValue();
   const saved=decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!));
@@ -62,7 +62,7 @@ test('switching methods restores each explicit setup after reload',async({page})
   await choose('浮き釣り');
   await expect(page.locator('tr[data-category="rod"]')).toContainText('まだ選んでいません');
   await page.getByRole('button',{name:'ウキ・完成仕掛けの商品を選ぶ',exact:true}).click();
-  await page.getByRole('article').filter({hasText:'好み・用途からの候補'}).getByRole('button',{name:/^この商品を選ぶ：/}).click();
+  await page.getByRole('article').filter({hasText:'この用途のおすすめ'}).getByRole('button',{name:/^この商品を選ぶ：/}).click();
   await expect(page.locator('tr[data-category="hook"]')).toContainText('付属品');
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await choose('サビキ釣り');
@@ -78,7 +78,7 @@ test('optional cooler selection fits the larger-fish context and adds an Amazon 
   let build={...createDefaultBuild(),fishId:'suzuki',methodId:'lure',answers:{goal:'first',pace:'calm',budget:'30000',keep:'eat'}};
   for(const c of requiredEquipment(build)) if(!hasChoice(build,c.id)) build=chooseProduct(build,c.id,recommendedProduct(build,c.id)!.id) as typeof build;
   await page.goto(`./?build=${encodeBuild(build)}#builder/cooler`);
-  const recommended=page.getByRole('article').filter({hasText:'好み・用途からの候補'});
+  const recommended=page.getByRole('article').filter({hasText:'この用途のおすすめ'});
   await expect(recommended).toContainText('ライトトランクα S3200');
   await recommended.getByRole('button',{name:/^この商品を選ぶ：/}).click();
   await expect(page.locator('tr[data-category="cooler"]')).toContainText('S3200');

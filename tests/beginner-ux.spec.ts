@@ -13,6 +13,7 @@ test('editing conditions preserves the plan, and an unsuitable M can use another
   await expect(page).toHaveURL(/#builder$/);
   await expect(page.locator('tr[data-category="rod"]')).toContainText('3-300');
   await page.getByRole('button',{name:'安全用品を変更する',exact:true}).click();
+  await page.getByText('トカラウ Mのサイズ目安を確認する',{exact:true}).click();
   await page.getByLabel('身長（cm・任意）',{exact:true}).fill('185');
   await page.getByLabel('胸囲（cm・任意）',{exact:true}).fill('105');
   await expect(page.getByRole('button',{name:'別サイズ・準備方法を確認してください：トカラウ BSJ-201ARS レッド M',exact:true})).toBeDisabled();
@@ -21,7 +22,7 @@ test('editing conditions preserves the plan, and an unsuitable M can use another
   await page.getByRole('button',{name:'施設の貸出を確認して用意する',exact:true}).click();
   await expect(page).toHaveURL(/#builder$/);
   await expect(page.locator('tr[data-category="safety"]')).toContainText('準備先を選択');
-  await expect(page.getByLabel('今回の購入費用')).toContainText('費用は別途未確定');
+  await expect(page.getByLabel('今回の購入費用')).toContainText('費用は含んでいません');
   const saved=decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!))!;
   expect(saved.preparation?.tripDate).toBeUndefined();
   expect(saved.preparation?.arrangements?.safety).toBe('rental');
@@ -44,7 +45,7 @@ test('partial prices, optional removal, quantities, shipping, preparation and sh
   await expect(cost).toContainText('1,000円超過');
   await page.getByRole('button',{name:'バケツは今回は買わない',exact:true}).click();
   await expect(cost).toContainText('確認済み分 18,000円');
-  await expect(cost).toContainText('一式の予算判定は未確定');
+  await expect(cost).toContainText('費用が分からない物があるため、予算内に収まるかはまだ分かりません');
   await page.getByRole('button',{name:'元に戻す',exact:true}).click();
   await page.getByRole('button',{name:'価格をまとめて確認・入力',exact:true}).click();
   await page.getByRole('spinbutton',{name:'リバティクラブ 小継 磯 3-300の税込価格',exact:true}).fill('1000');
@@ -61,7 +62,7 @@ test('partial prices, optional removal, quantities, shipping, preparation and sh
   await page.getByRole('button',{name:'購入先の確認・リストの保存へ',exact:true}).click();
   await page.getByRole('button',{name:/購入先と当日の持ち物を確認する/}).click();
   await page.getByRole('checkbox',{name:/タオル/}).check();
-  await page.getByRole('button',{name:'このチェックリストを保管・共有',exact:true}).click();
+  await page.getByRole('button',{name:'このチェックリストを保存・共有',exact:true}).click();
   await expect(page.getByRole('img',{name:'この買い物リストを開くQRコード',exact:true})).toBeVisible();
   await page.getByText('リンクの文字列を表示・手動コピー',{exact:true}).click();
   const url=await page.getByLabel('この買い物リストを開くリンク',{exact:true}).inputValue();

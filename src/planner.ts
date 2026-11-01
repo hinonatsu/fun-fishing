@@ -123,15 +123,15 @@ export function rankedFish(build: FishingBuild) {
 export function fishReason(build: FishingBuild, fishId: string) {
   const fish = fishSpecies.find(f=>f.id===fishId);
   if (!getFish(build.conditions).some(f => f.id === fishId)) {
-    if (build.answers.goal === 'first' && fish?.difficulty === 1) return '「まずは一匹」という希望に合わせ、入門向けの魚を候補にしています。この月・地域で狙えるかは現地情報の確認が必要です。';
-    if (build.answers.goal === 'food') return '「釣った魚を食べたい」という希望に合わせて比較する候補です。この月・地域の季節情報は未確認です。';
-    if (build.answers.pace === 'calm' && fish?.methodIds.some(id=>['sabiki','float','bukkomi','choi-nage','dozuki'].includes(id))) return '「のんびり過ごす」という希望から、待つ釣り方がある魚を比較できます。地域・季節への適性は別に確認します。';
-    return '好みと釣り方を比較するための候補です。この月・地域で狙えるかは現地情報を確認しましょう。';
+    if (build.answers.goal === 'first' && fish?.difficulty === 1) return '初めての一匹を目指す人が挑戦しやすい魚です。この月・地域で狙えるかは、施設や釣具店で確認してください。';
+    if (build.answers.goal === 'food') return '釣った魚を食べたい人に紹介しています。この月・地域で釣れる時期の情報は、まだ掲載していません。';
+    if (build.answers.pace === 'calm' && fish?.methodIds.some(id=>['sabiki','float','bukkomi','choi-nage','dozuki'].includes(id))) return '仕掛けを入れて、魚の反応を待つ釣り方で狙えます。実際に狙える場所や時期は、施設や釣具店で確認してください。';
+    return '釣り方を見て、やってみたいか比べてください。この月・地域で狙えるかは、施設や釣具店で確認してください。';
   }
-  if (fishId === 'saba' && build.answers.goal === 'fight') return '「魚とのやり取りを楽しみたい」という回答から、小サバの元気な引きを提案します。';
-  if (fishId === 'iwashi' && build.answers.goal === 'first') return '「まずは一匹」という回答から、群れとの出会いを楽しむ釣りを提案します。';
-  if (fishId === 'aji' && build.answers.goal === 'food') return '「おいしく食べたい」という回答から、食卓でも楽しめるアジを提案します。';
-  return `${build.conditions.month}月・東京湾の堤防の季節データに含まれる魚です。回遊の状況は釣り場で確認しましょう。`;
+  if (fishId === 'saba' && build.answers.goal === 'fight') return '小サバは、魚が掛かったときの引きを楽しみたい人におすすめです。';
+  if (fishId === 'iwashi' && build.answers.goal === 'first') return 'イワシは、群れが来ているときに最初の一匹を狙いやすい魚です。';
+  if (fishId === 'aji' && build.answers.goal === 'food') return 'アジは、釣った魚を料理して食べたい人におすすめです。';
+  return `${build.conditions.month}月の東京湾の堤防で、狙う時期の目安を掲載している魚です。最近の釣果は釣り場で確認してください。`;
 }
 
 export interface PriceRow { category: CategoryId; product: Product; reference: Product; quantity: number; selected: number | null; baseline: number | null; comparable: boolean }

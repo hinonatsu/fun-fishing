@@ -61,7 +61,7 @@ test('every gear slot requires an explicit choice and recommendations do not pre
     await expect(page.getByRole('heading',{level:1})).toHaveText(`${c.label}を選ぼう。`);
     const stored = decodeBuild(await page.evaluate(()=>localStorage.getItem('fun-fishing-build-v1')!))!;
     expect(Object.values(stored.selection).filter(Boolean)).toHaveLength(i);
-    const recommended = page.getByRole('article').filter({hasText:'好み・用途からの候補'});
+    const recommended = page.getByRole('article').filter({hasText:'この用途のおすすめ'});
     await expect(recommended).toHaveCount(1);
     if (i === 0) await page.screenshot({path:info.outputPath('gear.png'),fullPage:true});
     await recommended.getByRole('button',{name:/^この商品を選ぶ：/}).click();
@@ -70,7 +70,7 @@ test('every gear slot requires an explicit choice and recommendations do not pre
   await page.screenshot({path:info.outputPath('overview-complete.png'),fullPage:true,scale:'css'});
   await page.getByRole('button',{name:'選んだ道具を確認する',exact:true}).click();
   await expect(page).toHaveURL(/#review$/);
-  await expect(page.getByRole('heading',{level:1})).toHaveText('選んだ道具と、購入前の確認。');
+  await expect(page.getByRole('heading',{level:1})).toHaveText('選んだ道具と購入前の確認');
   await page.screenshot({path:info.outputPath('review.png'),fullPage:true});
   await noOverflow(page);
 });
@@ -132,7 +132,7 @@ test('owned gear is an explicit decision and excluded from purchase links',async
   await page.getByRole('button',{name:'釣り竿（ロッド）は手持ちの道具を使う',exact:true}).click();
   for (const c of categories.slice(1)) {
     await page.getByRole('button',{name:`${c.label}の商品を選ぶ`,exact:true}).click();
-    await page.getByRole('article').filter({hasText:'好み・用途からの候補'}).getByRole('button',{name:/^この商品を選ぶ：/}).click();
+    await page.getByRole('article').filter({hasText:'この用途のおすすめ'}).getByRole('button',{name:/^この商品を選ぶ：/}).click();
   }
   await page.getByRole('button',{name:'選んだ道具を確認する',exact:true}).click();
   await page.getByRole('button',{name:'購入先の確認・リストの保存へ',exact:true}).click();
@@ -150,7 +150,7 @@ test('checklist, share, reload, reset and browser back restore the same plan',as
   const checkbox = page.getByRole('checkbox',{name:'釣り竿（ロッド）を準備済みにする',exact:true});
   await checkbox.check();
   await page.reload(); await expect(checkbox).toBeChecked();
-  await page.getByRole('button',{name:'このチェックリストを保管・共有',exact:true}).click();
+  await page.getByRole('button',{name:'このチェックリストを保存・共有',exact:true}).click();
   await page.getByText('リンクの文字列を表示・手動コピー',{exact:true}).click();
   const url = await page.getByLabel('この買い物リストを開くリンク',{exact:true}).inputValue();
   expect(url).toMatch(/\?build=.+#list$/);
@@ -223,9 +223,9 @@ test('unsupported conditions, malformed sharing and direct skips recover',async(
   await page.getByRole('button',{name:/のんびり、魚の反応を待つ/}).click();
   await page.getByRole('button',{name:/相場を見ながら決めたい/}).click();
   await page.getByRole('button',{name:'おすすめの魚を見る',exact:true}).click();
-  await expect(page.getByRole('heading',{level:1})).toHaveText('どの魚に、出会いたい？');
+  await expect(page.getByRole('heading',{level:1})).toHaveText('どの魚を釣ってみたい？');
   await expect(page.getByRole('group',{name:'狙う魚を選ぶ'}).getByRole('button')).toHaveCount(3);
-  await expect(page.getByText(/季節情報は未整備です/)).toBeVisible();
+  await expect(page.getByText(/この地域の情報は、まだ掲載していません/)).toBeVisible();
 });
 
 test('keyboard operation, focus and Escape remain usable',async({page})=>{
@@ -264,5 +264,5 @@ test('automated accessibility across all decision types',async({page})=>{
   await page.getByRole('button',{name:'釣り竿（ロッド）：価格をまとめて確認',exact:true}).click(); await check();
   await page.getByRole('button',{name:'戻る',exact:true}).click();
   await page.getByRole('button',{name:'購入先の確認・リストの保存へ',exact:true}).click(); await check();
-  await page.getByRole('button',{name:/リストのリンクを保管・共有する/}).click(); await check();
+  await page.getByRole('button',{name:/リストのリンクを保存・共有する/}).click(); await check();
 });

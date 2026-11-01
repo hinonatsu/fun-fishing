@@ -2,18 +2,18 @@ export interface DiagnosisOption { value: string; label: string; description: st
 export interface DiagnosisQuestion { id: string; title: string; description: string; options: DiagnosisOption[] }
 
 export const questions: DiagnosisQuestion[] = [
-  { id: 'goal', title: 'どんな楽しみを見つけたい？', description: 'いま、一番わくわくするものを選んでください。', options: [
+  { id: 'goal', title: '釣りで何を楽しみたい？', description: '一番やってみたいことを選んでください。', options: [
     { value: 'food', label: '釣った魚をおいしく食べたい', description: '自分で釣った一匹を、食卓へ。', icon: '🍽️' },
     { value: 'fight', label: '魚とのやり取りを楽しみたい', description: '竿に伝わる引きに、わくわくしたい。', icon: '🎣' },
     { value: 'first', label: 'まずは一匹、釣ってみたい', description: 'はじめての「釣れた！」を体験したい。', icon: '🐟' },
     { value: 'either', label: 'どれも楽しそう', description: 'おすすめを見ながら決めたい。', icon: '✨' },
   ] },
-  { id: 'pace', title: '海では、どう過ごしたい？', description: '理想の休日をイメージしてみましょう。', options: [
+  { id: 'pace', title: '海では、どう過ごしたい？', description: '釣り場での過ごし方に近いものを選んでください。', options: [
     { value: 'calm', label: 'のんびり、魚の反応を待つ', description: '景色や会話も楽しみたい。', icon: '☕' },
     { value: 'active', label: '動きながら、魚を探す', description: '自分から魚に近づく釣りが気になる。', icon: '🏃' },
     { value: 'either', label: 'どちらも気になる', description: '自分に合うスタイルを知りたい。', icon: '🌊' },
   ] },
-  { id: 'budget', title: '道具一式の予算は？', description: '道具選びの目安にします。価格が未確認の候補もあるため、予算内の保証ではありません。', options: [
+  { id: 'budget', title: '道具一式の予算は？', description: '道具選びの目安にします。価格が分からない商品もあるため、最後に合計を確認してください。', options: [
     { value: '20000', label: '2万円以内を目指したい', description: '必要なものを、できるだけ手頃に。', icon: '👛' },
     { value: '30000', label: '3万円以内を目指したい', description: '扱いやすさとのバランスを大切に。', icon: '⚖️' },
     { value: 'flexible', label: '使いやすさを優先したい', description: '納得できるものを選びたい。', icon: '🌱' },
@@ -24,12 +24,12 @@ export const questions: DiagnosisQuestion[] = [
     { value: 'some', label: '経験はあるが、道具の準備は初めて', description: '一度だけ連れていってもらった人もこちら。', icon: '🎣' },
     { value: 'experienced', label: '自分で準備したことがある', description: '仕様を見ながら比較したい。', icon: '🧰' },
   ] },
-  { id: 'bait', title: 'エサを使う釣りはどうですか？', description: '苦手なことも、選ぶための大切なヒントです。', options: [
+  { id: 'bait', title: 'エサを使う釣りはどうですか？', description: 'エサを触るのが苦手な場合は、使わない釣り方も探せます。', options: [
     { value: 'okay', label: 'エサを使っても大丈夫', description: '釣り方に合わせて準備したい。', icon: '🦐' },
-    { value: 'avoid', label: 'なるべく触りたくない', description: '手が汚れにくい準備がうれしい。', icon: '🧤' },
+    { value: 'avoid', label: 'なるべく触りたくない', description: '手を汚さずに準備したい。', icon: '🧤' },
     { value: 'unsure', label: 'まだわからない', description: 'どんなエサか見てから決めたい。', icon: '💭' },
   ] },
-  { id: 'transport', title: '釣り場へは、どうやって？', description: '持ち運びやすさの参考にします。', options: [
+  { id: 'transport', title: '釣り場までの移動手段は？', description: '持ち運びやすさの参考にします。', options: [
     { value: 'train', label: '電車やバス', description: 'コンパクトに持ち歩きたい。', icon: '🚃' },
     { value: 'car', label: '車', description: '荷物をまとめて運べる。', icon: '🚗' },
     { value: 'walk', label: '徒歩や自転車', description: '身軽に、近くの海へ。', icon: '🚲' },
@@ -39,7 +39,7 @@ export const questions: DiagnosisQuestion[] = [
     { value: 'family', label: '家族と一緒に', description: 'みんなで過ごす時間にしたい。', icon: '👨‍👩‍👧' },
     { value: 'friends', label: '友人やパートナーと', description: '初めての体験を共有したい。', icon: '🤝' },
   ] },
-  { id: 'priority', title: '道具選びで一番大切なのは？', description: 'おすすめを並べるときの優先順位にします。', options: [
+  { id: 'priority', title: '道具選びで一番大切なのは？', description: '商品のおすすめ順に反映します。', options: [
     { value: 'easy', label: '扱いやすさ', description: '準備がわかりやすいものを選びたい。', icon: '👌' },
     { value: 'cost', label: '購入費用', description: '確認できた価格を比べて選びたい。', icon: '👛' },
     { value: 'specs', label: '仕様を確認できること', description: '用途や素材に納得して選びたい。', icon: '🔎' },
@@ -49,13 +49,13 @@ export const questions: DiagnosisQuestion[] = [
     { value: 'sea', label: '海からロープで水をくむ', description: '水くみ用の釣り専用品が必要。', icon: '🪣' },
     { value: 'unsure', label: '釣り場が決まってから確認する', description: '水道の有無と、水くみができる場所を施設に聞きます。', icon: '💭' },
   ] },
-  { id: 'time', title: 'どの時間帯に出かけたい？', description: '釣果を予測する質問ではありません。釣行メモとして保存します。', options: [
+  { id: 'time', title: 'どの時間帯に出かけたい？', description: '出かけたい時間帯を、釣りの予定として保存します。', options: [
     { value: 'morning', label: '朝から', description: '早起きして、海で一日を始めたい。', icon: '🌅' },
     { value: 'day', label: '明るい日中に', description: '無理のない時間に出かけたい。', icon: '☀️' },
     { value: 'unsure', label: 'まだ決めていない', description: '釣り場の営業時間を見て決める。', icon: '🕐' },
   ] },
-  { id: 'cleanup', title: '準備や片づけは？', description: '使う日のこともイメージしてみましょう。', options: [
-    { value: 'simple', label: 'できるだけ手軽にしたい', description: '準備の少ない候補がうれしい。', icon: '🧺' },
+  { id: 'cleanup', title: '準備や片づけは？', description: '準備や道具の手入れにかけたい手間を教えてください。', options: [
+    { value: 'simple', label: 'できるだけ手軽にしたい', description: '準備にかかる手間を減らしたい。', icon: '🧺' },
     { value: 'okay', label: '道具の手入れも楽しみたい', description: '使い方を覚えていきたい。', icon: '🧽' },
     { value: 'unsure', label: '使いながら考えたい', description: 'まずは基本の道具から。', icon: '🌱' },
   ] },

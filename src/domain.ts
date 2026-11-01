@@ -64,7 +64,7 @@ export function evaluateCompatibility(selection: Record<CategoryId,string>, owne
     else if (!selected[category.id] || selected[category.id]?.category !== category.id) add(`missing-${category.id}`,'check',`${category.label}が未選択`,category.necessity === 'required' ? '釣行に必要な道具です。商品を選ぶか、持っている道具として登録してください。' : '必要に応じて準備してください。',[category.id]);
   }
   if (available('rod','reel')) {
-    add('rod-reel','check','竿とリールの取り付け','スピニング用の候補ですが、リール脚と竿の固定部分の寸法照合・現物装着は未実施です。購入先で取り付けを確認してください。',['rod','reel']);
+    add('rod-reel','check','竿とリールの取り付け','どちらもスピニング用ですが、実物での取り付けは未確認です。リール脚が竿の固定部分に収まるか、購入先で確認してください。',['rod','reel']);
   }
   if (available('reel','line')) {
     const reel = selected.reel!.technical;
@@ -96,7 +96,7 @@ export function evaluateCompatibility(selection: Record<CategoryId,string>, owne
     const rod=selected.rod!.technical;
     const leader=selected.rig!.technical.rigBranchSize;
     if (leader === undefined || rod.rodMinLeader === undefined || rod.rodMaxLeader === undefined) add('rod-rig','check','竿と仕掛けのハリス仕様を確認','竿の適合ハリスと仕掛けの枝糸の仕様を照合できません。販売店で確認してください。',['rod','rig']);
-    else if (leader < rod.rodMinLeader || leader > rod.rodMaxLeader) add('rod-rig','check','ハリスが竿の適合表記の範囲外',`仕掛けのハリス${leader}号に対し、竿の適合ハリス表記は${rod.rodMinLeader}〜${rod.rodMaxLeader}号です。サビキの枝糸への適用は一律に断定せず、ドラグ調整や取り込み方を販売店へ確認してください。`,['rod','rig']);
+    else if (leader < rod.rodMinLeader || leader > rod.rodMaxLeader) add('rod-rig','check','ハリスが竿の適合表記の範囲外',`仕掛けのハリス${leader}号に対し、竿の適合ハリス表記は${rod.rodMinLeader}〜${rod.rodMaxLeader}号です。この表記をサビキの枝糸にも当てはめてよいか、ドラグの調整や魚の取り込み方と合わせて販売店に確認してください。`,['rod','rig']);
     else add('rod-rig','recommended','ハリスの号数は竿の記載範囲内',`ハリス${leader}号は竿の適合表記${rod.rodMinLeader}〜${rod.rodMaxLeader}号の範囲内です。結び目や実際の強度は別途確認してください。`,['rod','rig']);
   }
   if (available('rig') && (selected.rig!.technical.hookSize ?? 0) >= 8) add('hook-size','check','魚の大きさに合う針か確認','8号の針は小さなアジ・イワシには大きいことがあります。現地の魚の大きさや釣果情報で選んでください。',['rig']);
@@ -123,7 +123,7 @@ export function evaluateMethodCompatibility(build:FishingBuild):CompatibilityRes
   }
   if(rod&&reel) {
     const mismatch=rod.rodType&&reel.reelType&&rod.rodType!==reel.reelType;
-    add('rod-reel',mismatch?'avoid':'check',mismatch?'竿とリールの方式が異なります':'竿とリールの取り付けを確認',mismatch?'ヘチ用とスピニング用を混在させないでください。':'リール脚の寸法・竿への現物装着は未確認です。',['rod','reel']);
+    add('rod-reel',mismatch?'avoid':'check',mismatch?'竿とリールの方式が異なります':'竿とリールの取り付けを確認',mismatch?'ヘチ用とスピニング用を混在させないでください。':'実物での取り付けは未確認です。リール脚が竿の固定部分に収まるか、購入先で確認してください。',['rod','reel']);
   }
   if(reel&&line) {
     const material=line.lineMaterial||'nylon', capacity=line.lineSize===undefined?undefined:(material==='pe'?reel.peCapacity:material==='nylon'?reel.nylonCapacity:undefined)?.[line.lineSize];
@@ -145,7 +145,7 @@ export function evaluateMethodCompatibility(build:FishingBuild):CompatibilityRes
   const ballastSize=ballast?.basketWeight??ballast?.sinkerSize;
   if(float&&ballast) add('float-load',float.floatLoadSize!==undefined&&ballastSize!==undefined&&ballastSize>float.floatLoadSize?'avoid':'check','ウキの浮力と仕掛けの負荷',`ウキの適合負荷${float.floatLoadSize??'未確認'}号、オモリの公称${ballastSize??'未確認'}号。カゴ本体・エサ・金具を含めて浮くか現物で調整してください。`,['float',ids.includes('basket')?'basket':'sinker','bait']);
   if(selected('leader')||selected('shock')) add('leader-knot','check','糸の接続・結束と耐摩耗性','素材が異なる糸の号数を同じ強度として扱いません。対象魚・根の荒さに合う太さ、傷、結び目とドラグを確認してください。',['line',ids.includes('shock')?'shock':'leader']);
-  if(build.methodId==='kago'||build.methodId==='nage'||build.methodId==='uki-sabiki') add('casting-load','check','投げる総重量と周囲を確認','オモリ号数だけで遠投への適合を断定しません。エサ入り仕掛け・ウキを含む総重量、結束、投げ方と釣り場のルールを確認してください。',['rod','line',...(build.methodId==='nage'?['shock'] as CategoryId[]:['basket','float'] as CategoryId[])]);
+  if(build.methodId==='kago'||build.methodId==='nage'||build.methodId==='uki-sabiki') add('casting-load','check','投げる総重量と周囲を確認','エサを入れた仕掛けやウキを含む全体の重さを確認してください。オモリの号数だけでは、遠くへ投げられるか判断できません。糸の結び方、投げ方、釣り場のルールも確認してください。',['rod','line',...(build.methodId==='nage'?['shock'] as CategoryId[]:['basket','float'] as CategoryId[])]);
   if(selected('safety')) add('safety-fit','check','ライフジャケットのサイズ・使用環境','着用者の体格・製品の使用環境を確認し、適切に装着してください。',['safety']);
   if(selected('bucket')?.generic) add('bucket-use','check','汎用バケツは地上での用途限定','海に下ろす水くみ用途には使わないでください。',['bucket']);
   return results;

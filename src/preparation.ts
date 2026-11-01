@@ -40,7 +40,7 @@ export function purchaseUnit(p: Product): string {
   if (p.id==='basket-riseway-6') return '販売店の同型番は3個入りの表示。購入先でも入り数を確認し、必要なカゴと予備の数を決めます。';
   if (p.category === 'bait' || p.category === 'chum') return p.specs.find(s => /内容量|容量|[g㎏]/.test(s)) || '内容量・1袋で使える量を購入先で確認';
   if (p.category === 'line') return p.technical.spoolLength ? `1巻${p.technical.spoolLength}m。巻く長さはリールの容量に合わせます。` : '1巻の長さを仕様と購入先で確認';
-  return p.specs.find(s => /\d+(個|本|セット|パック|枚|組).*入|1セット|1個/.test(s)) || '表示価格は1販売単位。入り数・サイズは商品ページで確認';
+  return p.specs.find(s => /\d+(個|本|セット|パック|枚|組).*入|1セット|1個/.test(s)) || 'セット内容・入り数・サイズは商品ページで確認してください';
 }
 export function setArrangement(build: FishingBuild, id: CategoryId, arrangement: Arrangement): FishingBuild {
   return {

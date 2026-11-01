@@ -41,8 +41,8 @@ export function TackleOverview({ build, currentCategory, recentCategory, onNavig
   })}</ol>;
   return <section className={`tackle-overview ${currentCategory ? 'is-product-view' : ''}`} aria-label="道具の全体像">
     <button type="button" className="tackle-toggle" aria-expanded={expanded} aria-controls={bodyId} onClick={()=>setExpanded(!expanded)}><Map size={18}/>{expanded?'全体図を閉じる':'選んだ道具の全体図を開く'}</button><div id={bodyId} hidden={!expanded}>
-    <div className="tackle-overview-heading"><div><p className="eyebrow">YOUR SETUP, COMING TO LIFE</p><h2>あなたの釣りの全体図</h2></div><Map size={20} aria-hidden="true" /></div>
-    <div className="tackle-diagram-caption"><span>{rig.name} · {rig.variant}</span><strong>図の部品と選択状態</strong></div>
+    <div className="tackle-overview-heading"><div><p className="eyebrow">YOUR SETUP, COMING TO LIFE</p><h2>道具の組み合わせ</h2></div><Map size={20} aria-hidden="true" /></div>
+    <div className="tackle-diagram-caption"><span>{rig.name} · {rig.variant}</span><strong>道具を選ぶと図に反映されます</strong></div>
     <RigDiagram rig={rig} states={states} activePart={currentPart?.id} recentCategory={recentCategory} highlightedPart={rig.parts.find(p => p.category === highlight)?.id} onPartHover={id => hoverCategory(rig.parts.find(p => p.id === id)?.category)} onPartSelect={interactive?id=>{const category=rig.parts.find(p=>p.id===id)?.category;if(category)onNavigate(`builder/${category}`);}:undefined} />
     <div className="tackle-color-key" aria-label="図の見方"><span><i className="key-missing" />未選択</span><span><i className="key-selected" />選択済み</span><span><i className="key-current" />いま選ぶ</span></div>
     {currentPart && <p className="tackle-current-note"><span>いま選ぶ：{currentPart.label}</span>{currentPart.description}</p>}
