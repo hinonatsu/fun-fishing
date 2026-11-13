@@ -1,96 +1,96 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T03:45:45.302Z",
+  "updatedAt": "2026-11-13T03:15:49.560Z",
   "products": {
     "rod-3-300": {
       "asin": "B06Y5DCTZD",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 11176,
       "fetchedAt": "2026-11-11T02:06:23.750Z",
-      "attemptedAt": "2026-11-12T03:19:07.558Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:00:31.208Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-2-300": {
       "asin": "B06Y57LTNK",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 9434,
       "fetchedAt": "2026-11-11T02:06:30.550Z",
-      "attemptedAt": "2026-11-12T03:19:22.874Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:00:36.274Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-cf2500": {
       "asin": "B01N7UIMFF",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:19:46.138Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:00:41.343Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-2500": {
       "asin": "B01MTAC6LF",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 3880,
       "fetchedAt": "2026-11-11T02:06:44.239Z",
-      "attemptedAt": "2026-11-12T03:20:09.435Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:00:46.410Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-3": {
       "asin": "B0BTH65BMH",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1002,
       "fetchedAt": "2026-11-11T02:06:50.918Z",
-      "attemptedAt": "2026-11-12T03:20:24.925Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:00:51.473Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-2": {
       "asin": "B0BTH41SBX",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 985,
       "fetchedAt": "2026-11-11T02:06:57.622Z",
-      "attemptedAt": "2026-11-12T03:20:40.339Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:00:56.547Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-6": {
       "asin": "B00BTNM0E6",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 506,
       "fetchedAt": "2026-11-11T02:07:04.501Z",
-      "attemptedAt": "2026-11-12T03:21:03.593Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:01.617Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-8": {
       "asin": "B00BTNM1KY",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 411,
       "fetchedAt": "2026-11-11T02:07:11.471Z",
-      "attemptedAt": "2026-11-12T03:21:26.647Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:06.682Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-amihime": {
       "asin": "B0711KFYX7",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 917,
       "fetchedAt": "2026-11-11T02:07:18.165Z",
-      "attemptedAt": "2026-11-12T03:21:49.785Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:11.755Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bucket-daiwa": {
       "asin": "B0CH3D5B2R",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 2341,
       "fetchedAt": "2026-11-11T02:07:24.874Z",
-      "attemptedAt": "2026-11-12T03:22:05.069Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:16.826Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "safety-tokarau": {
       "asin": "B08T5LXFCG",
@@ -98,134 +98,134 @@
       "status": "error",
       "price": 6190,
       "fetchedAt": "2026-11-11T02:07:31.623Z",
-      "attemptedAt": "2026-11-12T03:22:20.499Z",
+      "attemptedAt": "2026-11-13T03:01:31.081Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "basket-riseway-6": {
       "asin": "B07HFTBWBN",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 559,
       "fetchedAt": "2026-11-11T02:07:38.432Z",
-      "attemptedAt": "2026-11-12T03:22:35.923Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:36.191Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "basket-riseway-10": {
       "asin": "B07HFSRS9P",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 902,
       "fetchedAt": "2026-11-11T02:07:45.074Z",
-      "attemptedAt": "2026-11-12T03:22:51.073Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:41.263Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bucket-risu-8": {
       "asin": "B002P9A77U",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 891,
       "fetchedAt": "2026-11-11T02:07:51.878Z",
-      "attemptedAt": "2026-11-12T03:23:06.570Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:46.339Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "egi-k-30-005": {
       "asin": "B07CWXSDRX",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1325,
       "fetchedAt": "2026-11-11T02:07:59.106Z",
-      "attemptedAt": "2026-11-12T03:23:22.034Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:51.411Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-lurenist-68ls": {
       "asin": "B07CZ62TMR",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:23:45.378Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:01:56.481Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-lurenist-86ml": {
       "asin": "B07CZ6Z5TN",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:24:08.567Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:01.550Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-lurenist-86m": {
       "asin": "B07CZ67WKZ",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:24:31.694Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:06.624Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-anazuri-m110": {
       "asin": "B083SF82FD",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 5858,
       "fetchedAt": "2026-11-11T02:08:49.742Z",
-      "attemptedAt": "2026-11-12T03:24:47.151Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:11.689Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-crest-lt2500": {
       "asin": "B089NGG3LC",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:25:10.244Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:16.757Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-chinumaster90": {
       "asin": "B07MZX8H73",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 9343,
       "fetchedAt": "2026-11-11T01:57:55.824Z",
-      "attemptedAt": "2026-11-12T03:25:33.528Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:21.824Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-pe-x8-08": {
       "asin": "B06X6FR6L8",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1419,
       "fetchedAt": "2026-11-11T01:58:02.847Z",
-      "attemptedAt": "2026-11-12T03:25:48.953Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:26.890Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-pe-lure-08": {
       "asin": "B07NHCBCJ4",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1255,
       "fetchedAt": "2026-11-11T01:58:09.768Z",
-      "attemptedAt": "2026-11-12T03:26:04.358Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:31.976Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-2": {
       "asin": "B002NPHMFQ",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 390,
       "fetchedAt": "2026-11-11T01:58:16.712Z",
-      "attemptedAt": "2026-11-12T03:26:19.935Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:37.050Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "egi-k-35-005": {
       "asin": "B078ZWQHQ8",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1365,
       "fetchedAt": "2026-11-11T01:58:23.873Z",
-      "attemptedAt": "2026-11-12T03:26:43.267Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:02:42.117Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "egi-naory-18": {
       "asin": "B0DTWZPR2S",
@@ -233,161 +233,161 @@
       "status": "error",
       "price": 1079,
       "fetchedAt": "2026-11-11T01:58:30.982Z",
-      "attemptedAt": "2026-11-12T03:26:58.579Z",
+      "attemptedAt": "2026-11-13T03:02:56.399Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rod-surf-25-420": {
       "asin": "B00T4950YE",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 9490,
       "fetchedAt": "2026-11-11T01:58:37.874Z",
-      "attemptedAt": "2026-11-12T03:27:21.770Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:01.502Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-surf-20-360": {
       "asin": "B00T494M2A",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 7518,
       "fetchedAt": "2026-11-11T01:58:44.691Z",
-      "attemptedAt": "2026-11-12T03:27:45.008Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:06.571Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-isokaze-4-53": {
       "asin": "B00T4954UY",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:28:08.254Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:11.641Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-pitbull4-04": {
       "asin": "B079M5QW7Q",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 826,
       "fetchedAt": "2026-11-11T01:59:06.558Z",
-      "attemptedAt": "2026-11-12T03:28:31.549Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:16.709Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-jpm-3-glow": {
       "asin": "B00NXP6UM6",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:28:46.894Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:21.808Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "float-kit-ha176-m": {
       "asin": "B01GG5DBQM",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 540,
       "fetchedAt": "2026-11-11T01:59:20.656Z",
-      "attemptedAt": "2026-11-12T03:29:09.998Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:26.877Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "float-kit-ha176-l": {
       "asin": "B01GG5G17S",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 512,
       "fetchedAt": "2026-11-11T01:59:27.582Z",
-      "attemptedAt": "2026-11-12T03:29:25.314Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:31.946Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "burakuri-ve803-3": {
       "asin": "B002NP8ESK",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 470,
       "fetchedAt": "2026-11-11T01:59:34.448Z",
-      "attemptedAt": "2026-11-12T03:29:48.583Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:37.022Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sliding-sinker-daiichi-8": {
       "asin": "B001HNKYFA",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 595,
       "fetchedAt": "2026-11-11T01:59:41.410Z",
-      "attemptedAt": "2026-11-12T03:30:11.850Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:42.086Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sliding-sinker-daiichi-6": {
       "asin": "B000AR6VF6",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 396,
       "fetchedAt": "2026-11-11T01:59:48.410Z",
-      "attemptedAt": "2026-11-12T03:30:35.233Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:47.156Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "tenbin-jet-25": {
       "asin": "B000AQR33Q",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 717,
       "fetchedAt": "2026-11-11T01:59:55.356Z",
-      "attemptedAt": "2026-11-12T03:30:58.388Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:52.231Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "gandama-fujiwara-black": {
       "asin": "B01MFDG16V",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 812,
       "fetchedAt": "2026-11-11T02:00:02.060Z",
-      "attemptedAt": "2026-11-12T03:31:21.611Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:03:57.302Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "hook-chinu-aa302-3-15": {
       "asin": "B00J3EV6O8",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 242,
       "fetchedAt": "2026-11-11T02:00:08.847Z",
-      "attemptedAt": "2026-11-12T03:31:36.808Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:02.375Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-dozuki-d309-5": {
       "asin": "B07NVN1RCD",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 308,
       "fetchedAt": "2026-11-11T02:00:15.625Z",
-      "attemptedAt": "2026-11-12T03:31:51.931Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:07.449Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-kago-ha240-7": {
       "asin": "B00J3BEY4K",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 928,
       "fetchedAt": "2026-11-11T02:00:22.605Z",
-      "attemptedAt": "2026-11-12T03:32:07.184Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:12.521Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-uki-sabiki-ha230-8": {
       "asin": "B00D3RLNHQ",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 641,
       "fetchedAt": "2026-11-11T02:00:29.418Z",
-      "attemptedAt": "2026-11-12T03:32:22.349Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:17.592Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-sayori-ha143-35": {
       "asin": "B01HT91DIC",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 926,
       "fetchedAt": "2026-11-11T02:00:36.290Z",
-      "attemptedAt": "2026-11-12T03:32:45.457Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:22.666Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-power-isome-blue-thick": {
       "asin": "B004XV0MD2",
@@ -395,53 +395,53 @@
       "status": "error",
       "price": 572,
       "fetchedAt": "2026-11-11T02:00:43.180Z",
-      "attemptedAt": "2026-11-12T03:33:08.705Z",
+      "attemptedAt": "2026-11-13T03:04:44.735Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "bait-oki-hard-m": {
       "asin": "B00LGDBWNO",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1395,
       "fetchedAt": "2026-11-11T02:00:49.924Z",
-      "attemptedAt": "2026-11-12T03:33:31.806Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:49.825Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-hechi-bjx270": {
       "asin": "B083QHVD81",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 15169,
       "fetchedAt": "2026-11-11T02:00:56.787Z",
-      "attemptedAt": "2026-11-12T03:33:54.937Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:54.892Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-15": {
       "asin": "B002NPJP5Q",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 432,
       "fetchedAt": "2026-11-11T02:01:03.900Z",
-      "attemptedAt": "2026-11-12T03:34:18.207Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:04:59.958Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-4": {
       "asin": "B002NPFKG4",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 432,
       "fetchedAt": "2026-11-11T02:01:11.156Z",
-      "attemptedAt": "2026-11-12T03:34:33.558Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:05:05.032Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-5": {
       "asin": "B002NPHMKQ",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 440,
       "fetchedAt": "2026-11-11T02:01:18.206Z",
-      "attemptedAt": "2026-11-12T03:34:49.238Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:05:10.100Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-jps-20": {
       "asin": "B00JRT99KW",
@@ -449,17 +449,17 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:35:12.722Z",
+      "attemptedAt": "2026-11-13T03:05:33.187Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "lure-rapala-cd9": {
       "asin": "B001NXC95M",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 1414,
       "fetchedAt": "2026-11-11T02:01:39.935Z",
-      "attemptedAt": "2026-11-12T03:35:28.071Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-13T03:05:38.300Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-chinu-rise50": {
       "asin": "B08VMTLDPC",
@@ -467,7 +467,7 @@
       "status": "error",
       "price": 1155,
       "fetchedAt": "2026-11-11T02:01:46.881Z",
-      "attemptedAt": "2026-11-12T03:35:51.332Z",
+      "attemptedAt": "2026-11-13T03:06:01.233Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "snap-owner-00": {
@@ -476,7 +476,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:36:14.475Z",
+      "attemptedAt": "2026-11-13T03:06:24.216Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "net-lsfc500": {
@@ -485,7 +485,7 @@
       "status": "error",
       "price": 8046,
       "fetchedAt": "2026-11-11T02:02:08.558Z",
-      "attemptedAt": "2026-11-12T03:36:29.861Z",
+      "attemptedAt": "2026-11-13T03:06:39.398Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "cooler-minicool2-s650": {
@@ -494,7 +494,7 @@
       "status": "error",
       "price": 4951,
       "fetchedAt": "2026-11-11T02:02:15.337Z",
-      "attemptedAt": "2026-11-12T03:36:45.283Z",
+      "attemptedAt": "2026-11-13T03:06:54.415Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "reel-crest-lt2000": {
@@ -503,7 +503,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:37:08.630Z",
+      "attemptedAt": "2026-11-13T03:07:17.465Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "reel-crest-lt4000": {
@@ -512,7 +512,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:37:31.964Z",
+      "attemptedAt": "2026-11-13T03:07:40.516Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "pliers-staincore190": {
@@ -521,7 +521,7 @@
       "status": "error",
       "price": 3832,
       "fetchedAt": "2026-11-11T02:02:51.714Z",
-      "attemptedAt": "2026-11-12T03:37:47.310Z",
+      "attemptedAt": "2026-11-13T03:07:55.688Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "chum-amihime": {
@@ -530,7 +530,7 @@
       "status": "error",
       "price": 917,
       "fetchedAt": "2026-11-11T02:02:58.502Z",
-      "attemptedAt": "2026-11-12T03:38:10.492Z",
+      "attemptedAt": "2026-11-13T03:08:18.741Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-choi-k017-6": {
@@ -539,7 +539,7 @@
       "status": "error",
       "price": 440,
       "fetchedAt": "2026-11-11T02:03:05.391Z",
-      "attemptedAt": "2026-11-12T03:38:33.514Z",
+      "attemptedAt": "2026-11-13T03:08:41.644Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "lure-riseblade-10": {
@@ -548,7 +548,7 @@
       "status": "error",
       "price": 1198,
       "fetchedAt": "2026-11-11T02:03:12.244Z",
-      "attemptedAt": "2026-11-12T03:38:56.644Z",
+      "attemptedAt": "2026-11-13T03:09:04.382Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-choi-k017-10": {
@@ -557,7 +557,7 @@
       "status": "error",
       "price": 440,
       "fetchedAt": "2026-11-11T02:03:19.063Z",
-      "attemptedAt": "2026-11-12T03:39:11.836Z",
+      "attemptedAt": "2026-11-13T03:09:19.479Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-kago-ha240-9": {
@@ -566,7 +566,7 @@
       "status": "error",
       "price": 1319,
       "fetchedAt": "2026-11-11T02:03:25.906Z",
-      "attemptedAt": "2026-11-12T03:39:34.961Z",
+      "attemptedAt": "2026-11-13T03:09:42.350Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "shock-surf-caster-3-12": {
@@ -575,7 +575,7 @@
       "status": "error",
       "price": 921,
       "fetchedAt": "2026-11-11T02:03:32.602Z",
-      "attemptedAt": "2026-11-12T03:39:58.071Z",
+      "attemptedAt": "2026-11-13T03:10:05.352Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-kisu-k001-7": {
@@ -584,7 +584,7 @@
       "status": "error",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-12T03:40:13.423Z",
+      "attemptedAt": "2026-11-13T03:10:20.340Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-karei-nt364-12": {
@@ -593,7 +593,7 @@
       "status": "error",
       "price": 557,
       "fetchedAt": "2026-11-11T02:03:46.039Z",
-      "attemptedAt": "2026-11-12T03:40:36.506Z",
+      "attemptedAt": "2026-11-13T03:10:43.366Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "sinker-nasu-daiichi-5": {
@@ -602,7 +602,7 @@
       "status": "error",
       "price": 198,
       "fetchedAt": "2026-11-11T02:03:52.884Z",
-      "attemptedAt": "2026-11-12T03:40:59.639Z",
+      "attemptedAt": "2026-11-13T03:11:06.300Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "sinker-nasu-daiichi-6": {
@@ -611,7 +611,7 @@
       "status": "error",
       "price": 453,
       "fetchedAt": "2026-11-11T02:03:59.740Z",
-      "attemptedAt": "2026-11-12T03:41:22.921Z",
+      "attemptedAt": "2026-11-13T03:11:29.425Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "swivel-nt-8": {
@@ -620,7 +620,7 @@
       "status": "error",
       "price": 193,
       "fetchedAt": "2026-11-11T02:04:06.539Z",
-      "attemptedAt": "2026-11-12T03:41:46.001Z",
+      "attemptedAt": "2026-11-13T03:11:52.389Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "bait-power-crab-black-m": {
@@ -629,7 +629,7 @@
       "status": "error",
       "price": 880,
       "fetchedAt": "2026-11-11T02:04:13.711Z",
-      "attemptedAt": "2026-11-12T03:42:09.180Z",
+      "attemptedAt": "2026-11-13T03:12:15.339Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "bait-kibinago": {
@@ -638,7 +638,7 @@
       "status": "error",
       "price": 867,
       "fetchedAt": "2026-11-11T02:04:20.350Z",
-      "attemptedAt": "2026-11-12T03:42:32.303Z",
+      "attemptedAt": "2026-11-13T03:12:38.387Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "hook-owner-maruseigo-13-3": {
@@ -647,7 +647,7 @@
       "status": "error",
       "price": 169,
       "fetchedAt": "2026-11-11T02:04:27.182Z",
-      "attemptedAt": "2026-11-12T03:42:55.362Z",
+      "attemptedAt": "2026-11-13T03:13:01.357Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "float-tachiuo-l3lg": {
@@ -656,7 +656,7 @@
       "status": "error",
       "price": 2252,
       "fetchedAt": "2026-11-11T02:04:34.090Z",
-      "attemptedAt": "2026-11-12T03:43:18.472Z",
+      "attemptedAt": "2026-11-13T03:13:24.350Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-hokke-nb602-12": {
@@ -665,7 +665,7 @@
       "status": "error",
       "price": 534,
       "fetchedAt": "2026-11-11T02:04:40.825Z",
-      "attemptedAt": "2026-11-12T03:43:41.633Z",
+      "attemptedAt": "2026-11-13T03:13:47.390Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-hokkaido-hs556-6": {
@@ -674,7 +674,7 @@
       "status": "error",
       "price": 501,
       "fetchedAt": "2026-11-11T02:04:47.652Z",
-      "attemptedAt": "2026-11-12T03:43:56.813Z",
+      "attemptedAt": "2026-11-13T03:14:02.415Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "sinker-nasu25": {
@@ -683,7 +683,7 @@
       "status": "error",
       "price": 472,
       "fetchedAt": "2026-11-11T02:04:54.435Z",
-      "attemptedAt": "2026-11-12T03:44:12.163Z",
+      "attemptedAt": "2026-11-13T03:14:17.564Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "cushion-toho-2200": {
@@ -692,7 +692,7 @@
       "status": "error",
       "price": 458,
       "fetchedAt": "2026-11-11T02:05:01.400Z",
-      "attemptedAt": "2026-11-12T03:44:35.506Z",
+      "attemptedAt": "2026-11-13T03:14:40.532Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-kamasu-ha202-10": {
@@ -701,7 +701,7 @@
       "status": "error",
       "price": 660,
       "fetchedAt": "2026-11-11T02:05:08.155Z",
-      "attemptedAt": "2026-11-12T03:44:58.698Z",
+      "attemptedAt": "2026-11-13T03:15:03.490Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rig-uki-sabiki-ha230-6": {
@@ -710,7 +710,7 @@
       "status": "error",
       "price": 776,
       "fetchedAt": "2026-11-11T02:05:14.986Z",
-      "attemptedAt": "2026-11-12T03:45:21.857Z",
+      "attemptedAt": "2026-11-13T03:15:26.398Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     },
     "cooler-lighttrunk-s3200": {
@@ -719,7 +719,7 @@
       "status": "error",
       "price": 12584,
       "fetchedAt": "2026-11-11T02:05:21.876Z",
-      "attemptedAt": "2026-11-12T03:45:45.302Z",
+      "attemptedAt": "2026-11-13T03:15:49.560Z",
       "error": "Could not confirm the representative Tokyo delivery area"
     }
   },
