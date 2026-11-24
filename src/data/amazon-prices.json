@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-23T03:00:48.697Z",
+  "updatedAt": "2026-11-24T06:14:34.387Z",
   "products": {
     "rod-3-300": {
       "asin": "B06Y5DCTZD",
@@ -8,7 +8,7 @@
       "status": "blocked",
       "price": 11176,
       "fetchedAt": "2026-11-20T03:21:20.731Z",
-      "attemptedAt": "2026-11-23T02:53:49.886Z",
+      "attemptedAt": "2026-11-24T06:07:11.918Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-2-300": {
@@ -17,8 +17,8 @@
       "status": "blocked",
       "price": 9560,
       "fetchedAt": "2026-11-20T03:21:27.343Z",
-      "attemptedAt": "2026-11-23T02:53:54.980Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:17.034Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-cf2500": {
       "asin": "B01N7UIMFF",
@@ -26,7 +26,7 @@
       "status": "blocked",
       "price": 4444,
       "fetchedAt": "2026-11-20T03:21:34.013Z",
-      "attemptedAt": "2026-11-23T02:54:00.038Z",
+      "attemptedAt": "2026-11-24T06:07:22.184Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-2500": {
@@ -35,8 +35,8 @@
       "status": "blocked",
       "price": 4089,
       "fetchedAt": "2026-11-20T03:21:40.716Z",
-      "attemptedAt": "2026-11-23T02:54:05.136Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:27.275Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-3": {
       "asin": "B0BTH65BMH",
@@ -44,8 +44,8 @@
       "status": "blocked",
       "price": 1002,
       "fetchedAt": "2026-11-20T03:21:47.441Z",
-      "attemptedAt": "2026-11-23T02:54:10.234Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:32.405Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-2": {
       "asin": "B0BTH41SBX",
@@ -53,8 +53,8 @@
       "status": "blocked",
       "price": 1038,
       "fetchedAt": "2026-11-20T03:21:54.192Z",
-      "attemptedAt": "2026-11-23T02:54:15.326Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:37.542Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-6": {
       "asin": "B00BTNM0E6",
@@ -62,8 +62,8 @@
       "status": "blocked",
       "price": 411,
       "fetchedAt": "2026-11-20T03:22:00.977Z",
-      "attemptedAt": "2026-11-23T02:54:20.414Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:42.650Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-8": {
       "asin": "B00BTNM1KY",
@@ -71,8 +71,8 @@
       "status": "blocked",
       "price": 411,
       "fetchedAt": "2026-11-20T03:22:07.920Z",
-      "attemptedAt": "2026-11-23T02:54:25.523Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:47.960Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-amihime": {
       "asin": "B0711KFYX7",
@@ -80,8 +80,8 @@
       "status": "blocked",
       "price": 917,
       "fetchedAt": "2026-11-20T03:22:14.394Z",
-      "attemptedAt": "2026-11-23T02:54:30.616Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:53.062Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bucket-daiwa": {
       "asin": "B0CH3D5B2R",
@@ -89,8 +89,8 @@
       "status": "blocked",
       "price": 2467,
       "fetchedAt": "2026-11-20T03:22:21.075Z",
-      "attemptedAt": "2026-11-23T02:54:35.707Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:07:58.146Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "safety-tokarau": {
       "asin": "B08T5LXFCG",
@@ -98,7 +98,7 @@
       "status": "blocked",
       "price": 7104,
       "fetchedAt": "2026-11-20T03:22:27.738Z",
-      "attemptedAt": "2026-11-23T02:54:40.766Z",
+      "attemptedAt": "2026-11-24T06:08:03.386Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "basket-riseway-6": {
@@ -107,8 +107,8 @@
       "status": "blocked",
       "price": 559,
       "fetchedAt": "2026-11-20T03:22:34.448Z",
-      "attemptedAt": "2026-11-23T02:54:45.859Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:08.528Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "basket-riseway-10": {
       "asin": "B07HFSRS9P",
@@ -116,8 +116,8 @@
       "status": "blocked",
       "price": 902,
       "fetchedAt": "2026-11-20T03:22:40.991Z",
-      "attemptedAt": "2026-11-23T02:54:50.945Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:13.613Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bucket-risu-8": {
       "asin": "B002P9A77U",
@@ -125,7 +125,7 @@
       "status": "blocked",
       "price": 891,
       "fetchedAt": "2026-11-11T02:07:51.878Z",
-      "attemptedAt": "2026-11-23T02:54:56.000Z",
+      "attemptedAt": "2026-11-24T06:08:18.717Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "egi-k-30-005": {
@@ -134,8 +134,8 @@
       "status": "blocked",
       "price": 1310,
       "fetchedAt": "2026-11-20T03:11:48.987Z",
-      "attemptedAt": "2026-11-23T02:55:01.096Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:23.822Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-lurenist-68ls": {
       "asin": "B07CZ62TMR",
@@ -143,8 +143,8 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:55:06.183Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:28.934Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-lurenist-86ml": {
       "asin": "B07CZ6Z5TN",
@@ -152,7 +152,7 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:55:11.241Z",
+      "attemptedAt": "2026-11-24T06:08:34.019Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-lurenist-86m": {
@@ -161,8 +161,8 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:55:16.329Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:39.112Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-anazuri-m110": {
       "asin": "B083SF82FD",
@@ -170,7 +170,7 @@
       "status": "blocked",
       "price": 5858,
       "fetchedAt": "2026-11-20T03:12:39.892Z",
-      "attemptedAt": "2026-11-23T02:55:21.387Z",
+      "attemptedAt": "2026-11-24T06:08:44.231Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-crest-lt2500": {
@@ -179,8 +179,8 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:55:26.477Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:49.451Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-chinumaster90": {
       "asin": "B07MZX8H73",
@@ -188,8 +188,8 @@
       "status": "blocked",
       "price": 9343,
       "fetchedAt": "2026-11-20T03:13:01.489Z",
-      "attemptedAt": "2026-11-23T02:55:31.566Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:54.570Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-pe-x8-08": {
       "asin": "B06X6FR6L8",
@@ -197,8 +197,8 @@
       "status": "blocked",
       "price": 1439,
       "fetchedAt": "2026-11-20T03:13:08.667Z",
-      "attemptedAt": "2026-11-23T02:55:36.661Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:08:59.650Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-pe-lure-08": {
       "asin": "B07NHCBCJ4",
@@ -206,8 +206,8 @@
       "status": "blocked",
       "price": 1255,
       "fetchedAt": "2026-11-20T03:13:15.476Z",
-      "attemptedAt": "2026-11-23T02:55:41.757Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:09:04.743Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-2": {
       "asin": "B002NPHMFQ",
@@ -215,8 +215,8 @@
       "status": "blocked",
       "price": 390,
       "fetchedAt": "2026-11-20T03:13:22.253Z",
-      "attemptedAt": "2026-11-23T02:55:46.843Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:09:09.882Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "egi-k-35-005": {
       "asin": "B078ZWQHQ8",
@@ -224,8 +224,8 @@
       "status": "blocked",
       "price": 1177,
       "fetchedAt": "2026-11-20T03:13:29.434Z",
-      "attemptedAt": "2026-11-23T02:55:51.930Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:09:14.985Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "egi-naory-18": {
       "asin": "B0DTWZPR2S",
@@ -233,26 +233,26 @@
       "status": "blocked",
       "price": 1228,
       "fetchedAt": "2026-11-20T03:13:36.578Z",
-      "attemptedAt": "2026-11-23T02:55:57.024Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:09:20.110Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-surf-25-420": {
       "asin": "B00T4950YE",
       "currency": "JPY",
-      "status": "blocked",
+      "status": "error",
       "price": 9490,
       "fetchedAt": "2026-11-20T03:13:43.570Z",
-      "attemptedAt": "2026-11-23T02:56:02.081Z",
-      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:09:42.663Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rod-surf-20-360": {
       "asin": "B00T494M2A",
       "currency": "JPY",
-      "status": "blocked",
+      "status": "error",
       "price": 7518,
       "fetchedAt": "2026-11-20T03:13:50.392Z",
-      "attemptedAt": "2026-11-23T02:56:07.174Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:06.262Z",
+      "error": "Could not confirm the representative Tokyo delivery area"
     },
     "rod-isokaze-4-53": {
       "asin": "B00T4954UY",
@@ -260,7 +260,7 @@
       "status": "blocked",
       "price": 14000,
       "fetchedAt": "2026-11-20T03:13:57.305Z",
-      "attemptedAt": "2026-11-23T02:56:12.231Z",
+      "attemptedAt": "2026-11-24T06:10:11.434Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "line-pitbull4-04": {
@@ -269,8 +269,8 @@
       "status": "blocked",
       "price": 826,
       "fetchedAt": "2026-11-20T03:14:04.270Z",
-      "attemptedAt": "2026-11-23T02:56:17.323Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:18.812Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-jpm-3-glow": {
       "asin": "B00NXP6UM6",
@@ -278,7 +278,7 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:56:22.384Z",
+      "attemptedAt": "2026-11-24T06:10:23.899Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "float-kit-ha176-m": {
@@ -287,8 +287,8 @@
       "status": "blocked",
       "price": 540,
       "fetchedAt": "2026-11-20T03:14:18.113Z",
-      "attemptedAt": "2026-11-23T02:56:27.488Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:28.985Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "float-kit-ha176-l": {
       "asin": "B01GG5G17S",
@@ -296,7 +296,7 @@
       "status": "blocked",
       "price": 540,
       "fetchedAt": "2026-11-20T03:14:25.038Z",
-      "attemptedAt": "2026-11-23T02:56:32.546Z",
+      "attemptedAt": "2026-11-24T06:10:34.065Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "burakuri-ve803-3": {
@@ -305,17 +305,17 @@
       "status": "blocked",
       "price": 470,
       "fetchedAt": "2026-11-20T03:14:31.996Z",
-      "attemptedAt": "2026-11-23T02:56:37.641Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:39.159Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sliding-sinker-daiichi-8": {
       "asin": "B001HNKYFA",
       "currency": "JPY",
-      "status": "error",
+      "status": "blocked",
       "price": 390,
       "fetchedAt": "2026-11-20T03:14:38.847Z",
-      "attemptedAt": "2026-11-23T02:56:59.663Z",
-      "error": "Could not confirm the representative Tokyo delivery area"
+      "attemptedAt": "2026-11-24T06:10:44.420Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sliding-sinker-daiichi-6": {
       "asin": "B000AR6VF6",
@@ -323,8 +323,8 @@
       "status": "blocked",
       "price": 396,
       "fetchedAt": "2026-11-20T03:14:45.797Z",
-      "attemptedAt": "2026-11-23T02:57:04.806Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:49.511Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "tenbin-jet-25": {
       "asin": "B000AQR33Q",
@@ -332,8 +332,8 @@
       "status": "blocked",
       "price": 705,
       "fetchedAt": "2026-11-20T03:14:52.694Z",
-      "attemptedAt": "2026-11-23T02:57:09.891Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:54.666Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "gandama-fujiwara-black": {
       "asin": "B01MFDG16V",
@@ -341,8 +341,8 @@
       "status": "blocked",
       "price": 1100,
       "fetchedAt": "2026-11-20T03:14:59.476Z",
-      "attemptedAt": "2026-11-23T02:57:14.982Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:10:59.765Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "hook-chinu-aa302-3-15": {
       "asin": "B00J3EV6O8",
@@ -350,8 +350,8 @@
       "status": "blocked",
       "price": 242,
       "fetchedAt": "2026-11-20T03:15:06.301Z",
-      "attemptedAt": "2026-11-23T02:57:20.080Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:04.853Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-dozuki-d309-5": {
       "asin": "B07NVN1RCD",
@@ -359,8 +359,8 @@
       "status": "blocked",
       "price": 308,
       "fetchedAt": "2026-11-20T03:15:13.081Z",
-      "attemptedAt": "2026-11-23T02:57:25.173Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:09.948Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-kago-ha240-7": {
       "asin": "B00J3BEY4K",
@@ -368,8 +368,8 @@
       "status": "blocked",
       "price": 928,
       "fetchedAt": "2026-11-20T03:15:19.875Z",
-      "attemptedAt": "2026-11-23T02:57:30.259Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:15.043Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-uki-sabiki-ha230-8": {
       "asin": "B00D3RLNHQ",
@@ -377,8 +377,8 @@
       "status": "blocked",
       "price": 641,
       "fetchedAt": "2026-11-20T03:15:26.705Z",
-      "attemptedAt": "2026-11-23T02:57:35.369Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:20.126Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-sayori-ha143-35": {
       "asin": "B01HT91DIC",
@@ -386,8 +386,8 @@
       "status": "blocked",
       "price": 910,
       "fetchedAt": "2026-11-20T03:15:33.504Z",
-      "attemptedAt": "2026-11-23T02:57:40.466Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:25.222Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-power-isome-blue-thick": {
       "asin": "B004XV0MD2",
@@ -395,8 +395,8 @@
       "status": "blocked",
       "price": 572,
       "fetchedAt": "2026-11-20T03:15:40.282Z",
-      "attemptedAt": "2026-11-23T02:57:45.554Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:30.424Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-oki-hard-m": {
       "asin": "B00LGDBWNO",
@@ -404,8 +404,8 @@
       "status": "blocked",
       "price": 1395,
       "fetchedAt": "2026-11-20T03:15:47.154Z",
-      "attemptedAt": "2026-11-23T02:57:50.646Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:35.526Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rod-hechi-bjx270": {
       "asin": "B083QHVD81",
@@ -413,8 +413,8 @@
       "status": "blocked",
       "price": 15169,
       "fetchedAt": "2026-11-20T03:15:53.919Z",
-      "attemptedAt": "2026-11-23T02:57:55.741Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:40.608Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-15": {
       "asin": "B002NPJP5Q",
@@ -422,8 +422,8 @@
       "status": "blocked",
       "price": 390,
       "fetchedAt": "2026-11-20T03:16:00.705Z",
-      "attemptedAt": "2026-11-23T02:58:00.834Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:45.690Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-4": {
       "asin": "B002NPFKG4",
@@ -431,8 +431,8 @@
       "status": "blocked",
       "price": 432,
       "fetchedAt": "2026-11-20T03:16:07.630Z",
-      "attemptedAt": "2026-11-23T02:58:05.923Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:11:50.790Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "leader-yamatoyo-5": {
       "asin": "B002NPHMKQ",
@@ -440,7 +440,7 @@
       "status": "blocked",
       "price": 440,
       "fetchedAt": "2026-11-20T03:16:14.696Z",
-      "attemptedAt": "2026-11-23T02:58:10.983Z",
+      "attemptedAt": "2026-11-24T06:11:55.879Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-jps-20": {
@@ -449,8 +449,8 @@
       "status": "blocked",
       "price": 825,
       "fetchedAt": "2026-11-20T03:16:21.580Z",
-      "attemptedAt": "2026-11-23T02:58:16.077Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:00.970Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-rapala-cd9": {
       "asin": "B001NXC95M",
@@ -458,8 +458,8 @@
       "status": "blocked",
       "price": 1398,
       "fetchedAt": "2026-11-20T03:16:28.488Z",
-      "attemptedAt": "2026-11-23T02:58:21.169Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:06.054Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-chinu-rise50": {
       "asin": "B08VMTLDPC",
@@ -467,7 +467,7 @@
       "status": "blocked",
       "price": 1155,
       "fetchedAt": "2026-11-20T03:16:35.429Z",
-      "attemptedAt": "2026-11-23T02:58:26.227Z",
+      "attemptedAt": "2026-11-24T06:12:11.180Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "snap-owner-00": {
@@ -476,8 +476,8 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:58:31.324Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:16.286Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "net-lsfc500": {
       "asin": "B0BDRL3VFK",
@@ -485,8 +485,8 @@
       "status": "blocked",
       "price": 8046,
       "fetchedAt": "2026-11-20T03:16:57.100Z",
-      "attemptedAt": "2026-11-23T02:58:36.412Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:21.381Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "cooler-minicool2-s650": {
       "asin": "B0GFL71WXV",
@@ -494,8 +494,8 @@
       "status": "blocked",
       "price": 5118,
       "fetchedAt": "2026-11-20T03:17:03.929Z",
-      "attemptedAt": "2026-11-23T02:58:41.504Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:26.473Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-crest-lt2000": {
       "asin": "B089NLF95Y",
@@ -503,8 +503,8 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:58:46.606Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:31.579Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "reel-crest-lt4000": {
       "asin": "B089N6JZJW",
@@ -512,8 +512,8 @@
       "status": "blocked",
       "price": null,
       "fetchedAt": null,
-      "attemptedAt": "2026-11-23T02:58:51.702Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:36.677Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "pliers-staincore190": {
       "asin": "B08ZSM87SF",
@@ -521,7 +521,7 @@
       "status": "blocked",
       "price": 4041,
       "fetchedAt": "2026-11-20T03:17:40.272Z",
-      "attemptedAt": "2026-11-23T02:58:56.759Z",
+      "attemptedAt": "2026-11-24T06:12:41.755Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "chum-amihime": {
@@ -530,8 +530,8 @@
       "status": "blocked",
       "price": 917,
       "fetchedAt": "2026-11-20T03:17:47.028Z",
-      "attemptedAt": "2026-11-23T02:59:01.851Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:46.827Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-choi-k017-6": {
       "asin": "B003UDR7AU",
@@ -539,17 +539,17 @@
       "status": "blocked",
       "price": 440,
       "fetchedAt": "2026-11-20T03:17:53.919Z",
-      "attemptedAt": "2026-11-23T02:59:06.943Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:12:51.903Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "lure-riseblade-10": {
       "asin": "B0FHH5VNDR",
       "currency": "JPY",
-      "status": "blocked",
+      "status": "ok",
       "price": 1265,
-      "fetchedAt": "2026-11-20T03:18:00.886Z",
-      "attemptedAt": "2026-11-23T02:59:12.054Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "fetchedAt": "2026-11-24T06:12:57.909Z",
+      "attemptedAt": "2026-11-24T06:12:57.909Z",
+      "error": null
     },
     "rig-choi-k017-10": {
       "asin": "B003B8G0D4",
@@ -557,8 +557,8 @@
       "status": "blocked",
       "price": 440,
       "fetchedAt": "2026-11-20T03:18:07.764Z",
-      "attemptedAt": "2026-11-23T02:59:17.138Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:03.018Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-kago-ha240-9": {
       "asin": "B00J3BEZ0S",
@@ -566,8 +566,8 @@
       "status": "blocked",
       "price": 1244,
       "fetchedAt": "2026-11-20T03:18:14.644Z",
-      "attemptedAt": "2026-11-23T02:59:22.233Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:08.096Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "shock-surf-caster-3-12": {
       "asin": "B001HYAZF8",
@@ -575,8 +575,8 @@
       "status": "blocked",
       "price": 970,
       "fetchedAt": "2026-11-20T03:18:21.386Z",
-      "attemptedAt": "2026-11-23T02:59:27.344Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:13.168Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-kisu-k001-7": {
       "asin": "B00I1AS2S8",
@@ -584,7 +584,7 @@
       "status": "blocked",
       "price": 265,
       "fetchedAt": "2026-11-20T03:18:28.363Z",
-      "attemptedAt": "2026-11-23T02:59:32.400Z",
+      "attemptedAt": "2026-11-24T06:13:18.246Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-karei-nt364-12": {
@@ -593,7 +593,7 @@
       "status": "blocked",
       "price": 861,
       "fetchedAt": "2026-11-20T03:18:35.081Z",
-      "attemptedAt": "2026-11-23T02:59:37.465Z",
+      "attemptedAt": "2026-11-24T06:13:23.324Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sinker-nasu-daiichi-5": {
@@ -602,8 +602,8 @@
       "status": "blocked",
       "price": 198,
       "fetchedAt": "2026-11-20T03:18:41.892Z",
-      "attemptedAt": "2026-11-23T02:59:42.574Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:28.404Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sinker-nasu-daiichi-6": {
       "asin": "B000AR6WJ6",
@@ -611,8 +611,8 @@
       "status": "blocked",
       "price": 453,
       "fetchedAt": "2026-11-11T02:03:59.740Z",
-      "attemptedAt": "2026-11-23T02:59:47.667Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:33.477Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "swivel-nt-8": {
       "asin": "B007JJS21O",
@@ -620,8 +620,8 @@
       "status": "blocked",
       "price": 193,
       "fetchedAt": "2026-11-20T03:19:03.313Z",
-      "attemptedAt": "2026-11-23T02:59:52.753Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:38.552Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-power-crab-black-m": {
       "asin": "B07FQ1SSGT",
@@ -629,8 +629,8 @@
       "status": "blocked",
       "price": 867,
       "fetchedAt": "2026-11-20T03:19:10.299Z",
-      "attemptedAt": "2026-11-23T02:59:57.850Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:43.632Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "bait-kibinago": {
       "asin": "B0F4D2TSNT",
@@ -638,7 +638,7 @@
       "status": "blocked",
       "price": 867,
       "fetchedAt": "2026-11-20T03:19:16.947Z",
-      "attemptedAt": "2026-11-23T03:00:02.908Z",
+      "attemptedAt": "2026-11-24T06:13:48.705Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "hook-owner-maruseigo-13-3": {
@@ -647,8 +647,8 @@
       "status": "blocked",
       "price": 169,
       "fetchedAt": "2026-11-20T03:19:23.898Z",
-      "attemptedAt": "2026-11-23T03:00:08.001Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:53.783Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "float-tachiuo-l3lg": {
       "asin": "B00V5M80ZY",
@@ -656,8 +656,8 @@
       "status": "blocked",
       "price": 2377,
       "fetchedAt": "2026-11-20T03:19:31.060Z",
-      "attemptedAt": "2026-11-23T03:00:13.088Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:13:58.855Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-hokke-nb602-12": {
       "asin": "B00GAUW39K",
@@ -665,8 +665,8 @@
       "status": "blocked",
       "price": 534,
       "fetchedAt": "2026-11-20T03:19:37.798Z",
-      "attemptedAt": "2026-11-23T03:00:18.183Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:14:03.938Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-hokkaido-hs556-6": {
       "asin": "B01M9FCUD7",
@@ -674,8 +674,8 @@
       "status": "blocked",
       "price": 501,
       "fetchedAt": "2026-11-20T03:19:44.717Z",
-      "attemptedAt": "2026-11-23T03:00:23.270Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:14:09.017Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "sinker-nasu25": {
       "asin": "B000AR6WMS",
@@ -683,7 +683,7 @@
       "status": "blocked",
       "price": 528,
       "fetchedAt": "2026-11-20T03:19:51.495Z",
-      "attemptedAt": "2026-11-23T03:00:28.328Z",
+      "attemptedAt": "2026-11-24T06:14:14.090Z",
       "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "cushion-toho-2200": {
@@ -692,8 +692,8 @@
       "status": "blocked",
       "price": 99,
       "fetchedAt": "2026-11-20T03:19:58.306Z",
-      "attemptedAt": "2026-11-23T03:00:33.426Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:14:19.168Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-kamasu-ha202-10": {
       "asin": "B0DTYDZ5KK",
@@ -701,8 +701,8 @@
       "status": "blocked",
       "price": 660,
       "fetchedAt": "2026-11-20T03:20:05.080Z",
-      "attemptedAt": "2026-11-23T03:00:38.516Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:14:24.239Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "rig-uki-sabiki-ha230-6": {
       "asin": "B00D3RLN62",
@@ -710,8 +710,8 @@
       "status": "blocked",
       "price": 881,
       "fetchedAt": "2026-11-20T03:20:12.051Z",
-      "attemptedAt": "2026-11-23T03:00:43.613Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:14:29.320Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     },
     "cooler-lighttrunk-s3200": {
       "asin": "B083WGRWJP",
@@ -719,8 +719,8 @@
       "status": "blocked",
       "price": 12584,
       "fetchedAt": "2026-11-20T03:20:18.900Z",
-      "attemptedAt": "2026-11-23T03:00:48.697Z",
-      "error": "Amazon access restricted (HTTP 503); no bypass attempted"
+      "attemptedAt": "2026-11-24T06:14:34.387Z",
+      "error": "Amazon access restricted (HTTP 200); no bypass attempted"
     }
   },
   "deliveryPostalCode": "100-0001"
